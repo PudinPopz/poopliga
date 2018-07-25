@@ -4,9 +4,8 @@ func _ready():
 	Engine.target_fps = 200
 	camera_previous_pos = position
 
-const drag_spd = 1
 const zoom_spd = 1.2
-const zoom_level_max = 2
+const zoom_level_max = 3
 var zoom_level = zoom_level_max
 var mouse_pos = Vector2(0,0)
 var mouse_previous_pos = Vector2(0,0)
@@ -64,7 +63,6 @@ func update_pan():
 
 var last_unix_time = 0
 func _process(delta):
-	
 	if int(OS.get_unix_time()) != int(last_unix_time):
 		OS.set_window_title("Dialogue Editor | FPS: " + str(int(1/delta)))
 		last_unix_time = OS.get_unix_time()
