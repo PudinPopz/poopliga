@@ -1,6 +1,2 @@
 *.psd
-push_all.bat
-push_sprites.bat
-push.bat
-push_dialogue.bat
-push_levels.bat
+*.bat
