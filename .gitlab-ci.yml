@@ -1,18 +1,47 @@
-image: mattiascibien/godot-docker:latest
-
+# Use only one stage for simplicity's sake
 stages:
   - build
 
-build:linux:
-  stage: build
-  script:
-    - godot -path <path to engine.cfg> -export_debug "Linux X11" game
-  only:
-    - master
+variables:
+  # The build name to use instead of "custom_build"
+  # This helps people identify where the build comes from
+  BUILD_NAME: poopliga
+  # The number of CPU threads to use for compiling Godot
+  BUILD_THREADS: 3
+  # SCons build flags to use for all platforms
+  SCONS_FLAGS: debug_symbols=no progress=no -j$BUILD_THREADS
+  # The Godot Git repository clone URL
+  GODOT_REPO_URL: https://github.com/godotengine/godot.git
 
-build:windows:
+before_script:
+  - "$CI_PROJECT_DIR/scripts/gitlab-ci/before_script.sh"
+  - cd "godot/"
+
+after_script:
+  - "$CI_PROJECT_DIR/scripts/gitlab-ci/after_script.sh"
+
+# Linux export templates
+# Built on Ubuntu 14.04 so that binaries run on old distributions as well
+build:linux_templates:
   stage: build
+  image: ubuntu:trusty
   script:
-    - godot -path <path to engine.cfg> -export_debug "Windows Desktop" game.exe
-  only:
-- master
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/linux_templates.sh"
+
+# HTML5 (WebAssembly)
+build:html5:
+  stage: build
+  image: fedora:28
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/html5.sh"
+
+# Windows export templates
+build:windows_templates:
+  stage: build
+  image: fedora:28
+  variables:
+    # Use only 1 thread for building
+    # (required to compile LTO-enabled builds successfully)
+    BUILD_THREADS: 1
+  script:
+    - "$CI_PROJECT_DIR/scripts/gitlab-ci/build/windows_templates.sh"
