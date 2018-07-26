@@ -8,6 +8,8 @@ onready var DraggableSegment = get_node("NinePatchRect/TitleBar/DraggableSegment
 onready var CharacterLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit")
 onready var DialogueRichTextLabel = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel")
 onready var DialogueLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel/LineEdit")
+onready var AnimPlayer = get_node("AnimationPlayer")
+
 #onready var SceneCamera = get_tree().get_node("Map/Camera2D")
 
 var just_created = false
@@ -20,6 +22,9 @@ var mouse_offset = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	DialogueLineEdit.connect("text_changed",self,"update_DialogueRichTextLabel")
+	
+	
+	AnimPlayer.play("spawn")
 	#previous_pos = position
 	#mouse_previous_pos = get_local_mouse_position()
 	#mouse_pos = get_local_mouse_position()
@@ -74,5 +79,14 @@ func _on_DraggableSegment_pressed():
 	
 
 func _on_DeleteButton_pressed():
-	self.queue_free()
+	AnimPlayer.play("kill")
+	pass # Replace with function body.
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"kill":
+			self.queue_free() # actually kill
+			#print("ded")
+	#AnimPlayer.queue_free()
 	pass # Replace with function body.

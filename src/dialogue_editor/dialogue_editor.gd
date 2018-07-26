@@ -103,7 +103,7 @@ func save_as(path):
 
 
 func _on_BackUIButton_pressed():
-	if double_click_timer > 0.001:
+	if double_click_timer > 0.001 or Input.is_action_pressed("ctrl"):
 		# Register double click
 		var mouse_pos = get_global_mouse_position()
 		var new_block = DialogueBlock.instance()
@@ -113,6 +113,10 @@ func _on_BackUIButton_pressed():
 		new_block.position = mouse_pos
 		new_block.previous_pos = mouse_pos
 		new_block.just_created = true
+		
+		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
+		
+		
 		pass
 	double_click_timer = double_click_timer_time
 	

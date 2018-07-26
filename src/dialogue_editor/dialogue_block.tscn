@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/dialogue_nine_patch.png" type="Texture" id=2]
@@ -10,19 +10,42 @@
 [ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=8]
 [ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="Animation" id=1]
 
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
+resource_name = "kill"
+length = 0.12
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("NinePatchRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0.00392157, 0 ) ]
+}
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="Animation" id=2]
 
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
+length = 1.0
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("NinePatchRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.0999999, 7.45058e-009, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1.6245, 1, 1.7411, 9.84916 ),
+"update": 0,
+"values": [ Color( 87.22, 79.89, 93.88, 1 ), Color( 4, 4, 4, 1 ), Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
@@ -30,7 +53,13 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-_sections_unfolded = [ "Content Margin" ]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
@@ -38,6 +67,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
+_sections_unfolded = [ "Content Margin" ]
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
@@ -46,15 +76,34 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="StyleBoxEmpty" id=7]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+
+[sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
 extents = Vector2( 269.015, 140.013 )
 
-[node name="DialogueBlock" type="Node2D"]
+[node name="DialogueBlock" type="Node2D" index="0"]
 script = ExtResource( 1 )
+_sections_unfolded = [ "Visibility" ]
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="0"]
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/kill = SubResource( 1 )
+anims/spawn = SubResource( 2 )
+blend_times = [  ]
+_sections_unfolded = [ "Pause", "Playback Options", "Script" ]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." index="1"]
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -75,7 +124,7 @@ patch_margin_left = 64
 patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
-_sections_unfolded = [ "Axis Stretch", "Focus", "Mouse", "Patch Margin", "Pause", "Rect", "Size Flags" ]
+_sections_unfolded = [ "Axis Stretch", "Focus", "Mouse", "Patch Margin", "Pause", "Rect", "Size Flags", "Visibility" ]
 
 [node name="TitleBar" type="Control" parent="NinePatchRect" index="0"]
 anchor_left = 0.0
@@ -103,7 +152,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/focus = SubResource( 1 )
+custom_styles/focus = SubResource( 3 )
 toggle_mode = false
 action_mode = 0
 enabled_focus_mode = 1
@@ -129,8 +178,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/focus = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
 text = "<ID_HERE>"
@@ -211,8 +260,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/focus = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
 custom_fonts/font = ExtResource( 3 )
 max_length = 20
 secret_character = "*"
@@ -296,8 +345,9 @@ _sections_unfolded = [ "Pickable" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NinePatchRect/BoundingBox" index="0"]
 position = Vector2( 3.39618, -9.05646 )
-shape = SubResource( 4 )
+shape = SubResource( 8 )
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_pressed"]
 [connection signal="toggled" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_toggled"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
