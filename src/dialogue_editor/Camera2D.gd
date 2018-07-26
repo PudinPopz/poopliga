@@ -17,7 +17,10 @@ var mouse_delta = Vector2(0,0)
 var pan_mode = false
 var scroll_mode : int = 0
 var camera_previous_pos = Vector2(0,0)
+var freeze = false
 func _input(event):
+	if freeze:
+		return
 	scroll_mode = 0
 
 	# Mouse movement stuff
@@ -88,5 +91,5 @@ func update_pan():
 var last_unix_time = 0
 func _process(delta):
 	if int(OS.get_unix_time()) != int(last_unix_time):
-		OS.set_window_title("Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
+		OS.set_window_title("McFakeFake Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
 		last_unix_time = OS.get_unix_time()

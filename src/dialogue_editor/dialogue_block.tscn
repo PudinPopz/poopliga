@@ -205,6 +205,7 @@ margin_right = -211.0
 margin_bottom = -42.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_next = NodePath("../DialogueRichTextLabel/LineEdit")
 focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 1
@@ -213,14 +214,16 @@ size_flags_vertical = 1
 custom_styles/focus = SubResource( 5 )
 custom_styles/normal = SubResource( 6 )
 custom_fonts/font = ExtResource( 3 )
+max_length = 20
 secret_character = "*"
+expand_to_text_length = true
 focus_mode = 2
-context_menu_enabled = true
+context_menu_enabled = false
 placeholder_alpha = 0.6
-caret_blink = false
+caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Custom Fonts", "Custom Styles", "Theme", "custom_fonts/font" ]
+_sections_unfolded = [ "Caret", "Custom Fonts", "Custom Styles", "Focus", "Hint", "Mouse", "Theme", "custom_fonts/font" ]
 
 [node name="DialogueRichTextLabel" type="RichTextLabel" parent="NinePatchRect/Dialogue/DialogueBoxSprite" index="1"]
 anchor_left = 0.0
@@ -262,20 +265,22 @@ margin_right = 719.0
 margin_bottom = 139.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
+focus_previous = NodePath("../../CharacterLineEdit")
+focus_mode = 1
 mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 9 )
+max_length = 256
 secret_character = "*"
-focus_mode = 2
-context_menu_enabled = true
+focus_mode = 1
+context_menu_enabled = false
 placeholder_alpha = 0.6
-caret_blink = false
+caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Custom Fonts", "Grow Direction", "Visibility" ]
+_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Placeholder", "Size Flags", "Theme", "Visibility" ]
 
 [node name="BoundingBox" type="Area2D" parent="NinePatchRect" index="3"]
 visible = false
@@ -293,6 +298,6 @@ _sections_unfolded = [ "Pickable" ]
 position = Vector2( 3.39618, -9.05646 )
 shape = SubResource( 4 )
 
-[connection signal="visibility_changed" from="NinePatchRect" to="." method="_on_NinePatchRect_visibility_changed"]
 [connection signal="pressed" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_pressed"]
 [connection signal="toggled" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_toggled"]
+[connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]

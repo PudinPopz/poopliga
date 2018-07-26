@@ -1,19 +1,19 @@
 var dictionary = {}	
 var test_content = ["CHARACTER","DIALOGUE","CODE"] # Ignore comments and code for now
 
-class DialogueBlock:
-	var dialogue = ""
-	var character = ""
-	var code = "" # Placeholder for when/if salsalang is implemented
-	var tail = "" # Can change at runtime for branching dialogue.
-	var choices = [] # Allows for player to select different options
-	# For editor use only:
-	var key = "" # Own key - READ ONLY JESUS FUCKING CHRIST
-	var number = NAN # Ignore for now
-	var position = Vector2(0,0) 
-	
-	# UNUSED
-	var uses_bbcode = false
+#class DialogueBlock:
+#	var dialogue = "" # In BBCode
+#	var character = ""
+#	var code = "" # Placeholder for when/if salsalang is implemented
+#	var tail = "" # Can change at runtime for branching dialogue.
+#	var choices = [] # Allows for player to select different options
+#	# For editor use only:
+#	var key = "" # Own key - READ ONLY JESUS FUCKING CHRIST
+#	var number = NAN # Ignore for now
+#	var position = Vector2(0,0) 
+#
+#	# UNUSED
+#	var uses_bbcode = true
 
 
 # @TODO: Figure out what updating does
@@ -22,23 +22,29 @@ func force_update():
 
 # Test
 func test():
-	var block1 = DialogueBlock.new()
-	block1.dialogue = "hey"
+	#var block1 = DialogueBlock.new()
+	#block1.dialogue = "hey"
 	
-	add(1,block1)
+	#add(1,block1)
 
-	print(dictionary)
+	#print(dictionary)
 	
 	pass
-	
+
+func clear_all():
+	dictionary.clear()
+	pass
+
 func add(key, block):
 	# EXCEPTIONS
 	# Check if new name already exists
 	if dictionary.has(key):
 		print("ERROR: ", key, " already exists")
-		return
+		return false
+		pass
 	dictionary[key] = block
 	force_update() # This should force an update
+	return true
 	pass
 
 func get_block(key):
@@ -54,7 +60,7 @@ func rename_key(key, new_name):
 	# Check if new name already exists
 	if dictionary.has(new_name):
 		print("ERROR: ", new_name, " already exists")
-		return
+		return false
 	
 	# Keep old value
 	var value = dictionary[key]
@@ -67,3 +73,4 @@ func rename_key(key, new_name):
 	var block = dictionary[new_name] 
 	block.key = new_name
 	force_update() # Definitely force an update
+	return true
