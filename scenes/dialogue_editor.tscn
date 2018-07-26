@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/dialogue_editor/TEST.gd" type="Script" id=1]
-[ext_resource path="res://src/dialogue_editor/Camera2D.gd" type="Script" id=2]
-[ext_resource path="res://src/dialogue_editor/dialogue_block.tscn" type="PackedScene" id=3]
-[ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=4]
-[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=5]
-[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=6]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=7]
+[ext_resource path="res://src/dialogue_editor/dialogue_block.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=3]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=5]
+[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=6]
+[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=7]
+[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=8]
 
 [sub_resource type="InputEventKey" id=1]
 
@@ -29,7 +30,7 @@ _sections_unfolded = [ "Resource", "shortcut" ]
 
 [sub_resource type="Theme" id=3]
 
-default_font = ExtResource( 4 )
+default_font = ExtResource( 5 )
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="InputEventKey" id=4]
@@ -69,48 +70,237 @@ echo = false
 shortcut = SubResource( 6 )
 _sections_unfolded = [ "shortcut" ]
 
-[node name="DialogueEditor" type="Node" index="0"]
+[node name="DialogueEditor" type="Node"]
 script = ExtResource( 1 )
 
 [node name="Map" type="Node" parent="." index="0"]
 
-[node name="Camera2D" type="Camera2D" parent="Map" index="0"]
-position = Vector2( 640, 360 )
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 2, 2 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = false
-drag_margin_v_enabled = false
-smoothing_enabled = false
-smoothing_speed = 10.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-script = ExtResource( 2 )
-_sections_unfolded = [ "Drag Margin", "Editor", "Offset", "Smoothing", "Transform" ]
-
-[node name="DialogueBlock" parent="Map" index="1" instance=ExtResource( 3 )]
+[node name="DialogueBlock" parent="Map" index="0" instance=ExtResource( 2 )]
 position = Vector2( 1005.04, 255.576 )
 
-[node name="DialogueBlock2" parent="Map" index="2" instance=ExtResource( 3 )]
+[node name="DialogueBlock2" parent="Map" index="1" instance=ExtResource( 2 )]
 position = Vector2( 399.776, 500.839 )
 
-[node name="DialogueBlock3" parent="Map" index="3" instance=ExtResource( 3 )]
+[node name="DialogueBlock3" parent="Map" index="2" instance=ExtResource( 2 )]
 position = Vector2( 861.881, 29.26 )
 
-[node name="FrontUILayer" type="CanvasLayer" parent="." index="1"]
+[node name="FrontWindows" type="CanvasLayer" parent="." index="1"]
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="OptionsWindow" type="Control" parent="FrontWindows" index="0"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 3 )
+
+[node name="BG" type="Control" parent="FrontWindows/OptionsWindow" index="0"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="ColorRect" type="ColorRect" parent="FrontWindows/OptionsWindow/BG" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -217.0
+margin_right = 251.0
+margin_bottom = 216.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0, 0, 0, 1 )
+_sections_unfolded = [ "Material", "Rect", "Theme" ]
+
+[node name="ColorRect3" type="ColorRect" parent="FrontWindows/OptionsWindow/BG" index="1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -245.0
+margin_top = -213.0
+margin_right = 244.0
+margin_bottom = 212.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.117647, 0.490196, 0.65098, 1 )
+_sections_unfolded = [ "Material", "Rect", "Theme" ]
+
+[node name="ColorRect2" type="ColorRect" parent="FrontWindows/OptionsWindow/BG" index="2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -209.0
+margin_right = 239.0
+margin_bottom = 208.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0, 0.027451, 0.0784314, 1 )
+_sections_unfolded = [ "Material", "Theme" ]
+
+[node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow" index="1"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -194.0
+margin_top = -172.0
+margin_right = 233.0
+margin_bottom = 213.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 2
+
+[node name="ScrollSpeedLabel" type="Label" parent="FrontWindows/OptionsWindow/GridContainer" index="0"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 223.0
+margin_bottom = 25.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "SCROLL SPEED: "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Size Flags" ]
+
+[node name="ScrollSpeedSlider" type="HSlider" parent="FrontWindows/OptionsWindow/GridContainer" index="1"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 227.0
+margin_right = 427.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 0.0
+max_value = 1000.0
+step = 10.0
+page = 0.0
+value = 100.0
+exp_edit = false
+rounded = true
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 0
+_sections_unfolded = [ "Anchor", "Hint", "Margin", "Mouse", "Rect", "Size Flags" ]
+
+[node name="ZoomSpeedLabel" type="Label" parent="FrontWindows/OptionsWindow/GridContainer" index="2"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 29.0
+margin_right = 223.0
+margin_bottom = 54.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "ZOOM SPEED: "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Size Flags" ]
+
+[node name="ZoomSpeedSlider" type="HSlider" parent="FrontWindows/OptionsWindow/GridContainer" index="3"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 227.0
+margin_top = 29.0
+margin_right = 427.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 2.0
+step = 0.1
+page = 0.0
+value = 1.2
+exp_edit = true
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 0
+_sections_unfolded = [ "Anchor", "Hint", "Margin", "Mouse", "Rect", "Size Flags" ]
+
+[node name="FrontUILayer" type="CanvasLayer" parent="." index="2"]
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -193,7 +383,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 2 )
@@ -227,7 +417,7 @@ group = null
 text = "Save"
 flat = true
 align = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 _sections_unfolded = [ "Custom Constants", "Custom Fonts", "Hint", "Size Flags", "Theme", "Visibility", "custom_styles/normal", "shortcut" ]
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/HBoxContainer" index="2"]
@@ -245,7 +435,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 7 )
@@ -254,6 +444,31 @@ text = "Save as"
 flat = true
 align = 1
 _sections_unfolded = [ "Custom Fonts", "Hint", "shortcut" ]
+
+[node name="Options" type="Button" parent="FrontUILayer/HBoxContainer" index="3"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 169.0
+margin_right = 238.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 5 )
+toggle_mode = true
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "Options"
+flat = true
+align = 1
+script = ExtResource( 7 )
+_sections_unfolded = [ "Anchor", "Custom Fonts", "Grow Direction", "Margin" ]
 
 [node name="VScrollBar" type="VScrollBar" parent="FrontUILayer" index="4"]
 anchor_left = 1.0
@@ -279,7 +494,7 @@ rounded = false
 allow_greater = false
 allow_lesser = false
 custom_step = -1.0
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Focus" ]
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar" index="0"]
@@ -287,24 +502,25 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -216.0
-margin_top = -49.0
-margin_right = -35.0
-margin_bottom = -20.0
+margin_left = -214.0
+margin_top = -43.0
+margin_right = -33.0
+margin_bottom = -14.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 7 )
+custom_fonts/font = ExtResource( 4 )
+text = "(0,0)"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Custom Fonts" ]
 
-[node name="BackUILayer" type="CanvasLayer" parent="." index="2"]
+[node name="BackUILayer" type="CanvasLayer" parent="." index="3"]
 layer = -99
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -316,10 +532,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -79.0
-margin_top = -53.0
-margin_right = 79.0
-margin_bottom = 52.0
+margin_left = -80.0
+margin_top = -47.0
+margin_right = 78.0
+margin_bottom = 58.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -337,3 +553,4 @@ align = 1
 _sections_unfolded = [ "Rect" ]
 
 [connection signal="pressed" from="FrontUILayer/HBoxContainer/Save" to="FrontUILayer/HBoxContainer/Save" method="_on_Save_pressed"]
+[connection signal="toggled" from="FrontUILayer/HBoxContainer/Options" to="FrontWindows/OptionsWindow" method="_on_Options_toggled"]

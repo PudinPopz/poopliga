@@ -12,14 +12,16 @@ _global_script_classes=[  ]
 
 [application]
 
-config/name="LevelEditor"
+config/name="Poopliga Dialogue Editor"
 run/main_scene="res://scenes/dialogue_editor.tscn"
 run/low_processor_mode=true
+boot_splash/image="res://sprites/icons/trash.png"
+boot_splash/fullsize=false
 config/icon="res://icon.png"
 
 [autoload]
 
-CAMERA2D="*res://src/dialogue_editor/Camera2D.gd"
+CAMERA2D="*res://src/dialogue_editor/Camera2D.tscn"
 
 [display]
 
