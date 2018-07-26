@@ -1,13 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_editor.gd" type="Script" id=1]
-[ext_resource path="res://src/dialogue_editor/dialogue_block.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=3]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=4]
-[ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=5]
-[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=6]
-[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=7]
-[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=8]
+[ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=2]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=5]
+[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=6]
+[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=7]
 
 [sub_resource type="InputEventKey" id=1]
 
@@ -30,7 +29,7 @@ _sections_unfolded = [ "Resource", "shortcut" ]
 
 [sub_resource type="Theme" id=3]
 
-default_font = ExtResource( 5 )
+default_font = ExtResource( 4 )
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="InputEventKey" id=4]
@@ -70,21 +69,12 @@ echo = false
 shortcut = SubResource( 6 )
 _sections_unfolded = [ "shortcut" ]
 
-[node name="DialogueEditor" type="Node2D"]
+[node name="DialogueEditor" type="Node2D" index="0"]
 script = ExtResource( 1 )
 
 [node name="Map" type="Node" parent="." index="0"]
 
 [node name="DialogueBlocks" type="Node" parent="Map" index="0"]
-
-[node name="DialogueBlock" parent="Map/DialogueBlocks" index="0" instance=ExtResource( 2 )]
-position = Vector2( 500.001, 196.842 )
-
-[node name="DialogueBlock2" parent="Map/DialogueBlocks" index="1" instance=ExtResource( 2 )]
-position = Vector2( 794.738, 418.948 )
-
-[node name="DialogueBlock3" parent="Map/DialogueBlocks" index="2" instance=ExtResource( 2 )]
-position = Vector2( 1083.16, 62.1054 )
 
 [node name="FrontWindows" type="CanvasLayer" parent="." index="1"]
 layer = 1
@@ -109,7 +99,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 
 [node name="BG" type="Control" parent="FrontWindows/OptionsWindow" index="0"]
 anchor_left = 0.0
@@ -209,7 +199,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "SCROLL SPEED: "
 percent_visible = 1.0
@@ -262,7 +252,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "ZOOM SPEED: "
 percent_visible = 1.0
@@ -385,7 +375,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 2 )
@@ -419,7 +409,7 @@ group = null
 text = "Save"
 flat = true
 align = 1
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 _sections_unfolded = [ "Custom Constants", "Custom Fonts", "Hint", "Size Flags", "Theme", "Visibility", "custom_styles/normal", "shortcut" ]
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/HBoxContainer" index="2"]
@@ -437,7 +427,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 7 )
@@ -462,7 +452,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = true
 enabled_focus_mode = 0
 shortcut = null
@@ -470,7 +460,7 @@ group = null
 text = "Options"
 flat = true
 align = 1
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 _sections_unfolded = [ "Anchor", "Custom Fonts", "Grow Direction", "Hint", "Margin" ]
 
 [node name="VScrollBar" type="VScrollBar" parent="FrontUILayer" index="4"]
@@ -497,7 +487,7 @@ rounded = false
 allow_greater = false
 allow_lesser = false
 custom_step = -1.0
-script = ExtResource( 8 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Focus" ]
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar" index="0"]
@@ -515,7 +505,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 3 )
 text = "(0,0)"
 align = 2
 percent_visible = 1.0
