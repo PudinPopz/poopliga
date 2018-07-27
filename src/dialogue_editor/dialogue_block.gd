@@ -25,13 +25,7 @@ func _ready():
 	if !just_created:
 		set_process_input(false)
 	DialogueLineEdit.connect("text_changed",self,"update_DialogueRichTextLabel")
-	
-	# Make clicking on things move to front
-	#DialogueLineEdit.connect("focus_entered",self,"move_to_front")
-	#id_Label.connect("focus_entered",self,"move_to_front")
-	#CharacterLineEdit.connect("focus_entered",self,"move_to_front")
-	#DialogueRichTextLabel.connect("focus_entered",self,"move_to_front")
-	
+
 	# Play spawn animation
 	AnimPlayer.play("spawn")
 
@@ -47,26 +41,30 @@ func fill_with_garbage():
 	DialogueLineEdit.text = str(randi()).sha256_text()
 
 func _input(event):
-	if CAMERA2D.scroll_mode != 0:
-		mouse_offset.y += CAMERA2D.scroll_mode*CAMERA2D.scroll_spd
+#	if CAMERA2D.scroll_mode != 0:
+#		mouse_offset.y += CAMERA2D.scroll_mode*CAMERA2D.scroll_spd
 	if CAMERA2D.pan_mode or !Input.is_action_pressed("click"):
 		dragging = false
-		mouse_offset = Vector2()
-	if event is InputEventMouseMotion:
-		mouse_pos = event.position
+		#mouse_offset = Vector2()
+	if event is InputEventMouseMotion or InputEventAction:
+		#mouse_pos = event.position
 		if dragging:
-			mouse_delta = (mouse_pos - mouse_previous_pos)
-			position = previous_pos + mouse_delta  * CAMERA2D.zoom_level  + mouse_offset
+#			mouse_delta = (mouse_pos - mouse_previous_pos)
+#			position = previous_pos + mouse_delta  * CAMERA2D.zoom_level  + mouse_offset
+#			if Input.is_action_pressed("ctrl"):
+			position = get_global_mouse_position()
 
 	if (DraggableSegment.pressed or just_created) and !dragging and !CAMERA2D.pan_mode:
-		mouse_offset = Vector2()
-		previous_pos = position
-		mouse_previous_pos = mouse_pos
+		#mouse_offset = Vector2()
+		#previous_pos = position
+		#mouse_previous_pos = mouse_pos
 		dragging = true
 	
 	if Input.is_action_just_released("click"):
 		just_created = false
 		pass	
+		
+	
 
 func move_to_front():
 	# Move to front of DialogueBlocks

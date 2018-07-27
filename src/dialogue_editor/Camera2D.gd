@@ -1,6 +1,9 @@
 extends Camera2D
 signal scrolled
 
+var LAST_MOUSE_POS = Vector2()
+
+
 func _ready():
 	Engine.target_fps = 200
 	camera_previous_pos = position
@@ -18,6 +21,9 @@ var pan_mode = false
 var scroll_mode : int = 0
 var camera_previous_pos = Vector2(0,0)
 var freeze = false
+
+
+
 func _input(event):
 	if freeze:
 		return

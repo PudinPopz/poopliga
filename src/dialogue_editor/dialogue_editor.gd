@@ -122,6 +122,12 @@ func _on_BackUIButton_pressed():
 		new_block.randomise_id()
 		new_block.position = mouse_pos
 		new_block.previous_pos = mouse_pos
+		# Do special workaround things for ctrl
+		if Input.is_action_pressed("ctrl"):
+			#new_block.mouse_offset = -get_global_mouse_position()
+			#print(new_block.mouse_pos)
+			#print("fe",)
+			pass
 
 		
 		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
@@ -129,12 +135,6 @@ func _on_BackUIButton_pressed():
 		
 		pass
 	double_click_timer = double_click_timer_time
-	
-	
-	
-
-
-	pass # Replace with function body.
 
 var confirm_create_new = null
 
@@ -151,5 +151,11 @@ func _on_New_pressed():
 
 
 func reset():
-	get_tree().change_scene("res://scenes/dialogue_editor.tscn")
+	# Clear everything on board
+	for child in DialogueBlocks.get_children():
+		child.queue_free()
+	
+	CAMERA2D.position = Vector2(640,360)
+	CAMERA2D.camera_previous_pos = CAMERA2D.position
+	
 	pass
