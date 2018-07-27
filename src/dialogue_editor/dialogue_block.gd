@@ -77,12 +77,15 @@ func _input(event):
 
 	
 func _on_DraggableSegment_pressed():
-
+	set_process_input(true)
 	mouse_delta = Vector2(0,0)
 	previous_pos = position
 	mouse_previous_pos = mouse_pos
 	dragging = true
-	#set_process_input(true)
+	# Move to top
+	var index = get_parent().get_child_count()
+	print(index)
+	get_parent().move_child(self, index)
 	
 
 func _on_DeleteButton_pressed():
@@ -94,7 +97,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"kill":
 			self.queue_free() # actually kill
-
+	
 
 func _on_BoundingBox_mouse_entered():
 	#print("hey")
