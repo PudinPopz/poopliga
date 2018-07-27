@@ -2,7 +2,7 @@ extends Node2D
 
 const DialogueDictionary = preload("res://src/dialogue_editor/dialogue_dictionary.gd")
 const DialogueBlock = preload("res://src/dialogue_editor/dialogue_block.tscn")
-#var theme0 = load("res://themes/0.tres")
+var theme = load("res://themes/default_theme.tres")
 const Lato16 = preload("res://fonts/lato_16.tres")
 
 onready var DialogueBlocks = get_node("Map/DialogueBlocks")
@@ -20,7 +20,7 @@ func _ready():
 	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
 	
-	fill_with_garbage_blocks(666)
+	#fill_with_garbage_blocks(666)
 	pass 
 
 var double_click_timer_time = 0.35
@@ -36,7 +36,7 @@ func create_saveas_file_dialog():
 	thing.access = FileDialog.ACCESS_FILESYSTEM
 	thing.current_dir = "C:\\Users\\jamie\\Documents"
 	thing.resizable = true
-	thing.theme = Theme.new()
+	thing.theme = theme
 	thing.theme.default_font = Lato16 
 	thing.add_filter("*.poopliga")
 	thing.mode = FileDialog.MODE_SAVE_FILE
@@ -70,7 +70,6 @@ func save_blocks_to_dictionary():
 			tail = "",
 			code = "",
 			position = visual_block.position.floor()
-
 		}
 		# Store actual block in dictionary
 		dialogue_dictionary.add(actual_block.key, actual_block)
@@ -136,3 +135,21 @@ func _on_BackUIButton_pressed():
 
 
 	pass # Replace with function body.
+
+var confirm_create_new = null
+
+func _on_New_pressed():
+	# Create popup if doesn't exist
+	if confirm_create_new == null:
+		confirm_create_new = ConfirmationDialog.new()
+		confirm_create_new.theme = theme
+		confirm_create_new.theme.default_font = Lato16 
+		confirm_create_new.dialog_text = "Create a new empty file? \nAny unsaved progress will be lost :("	
+		get_node("FrontWindows").add_child(confirm_create_new)
+		confirm_create_new.connect("confirmed",self,"reset")
+	confirm_create_new.popup_centered()
+
+
+func reset():
+	get_tree().change_scene("res://scenes/dialogue_editor.tscn")
+	pass

@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var NinePatch = get_node("NinePatchRect")
 onready var id_Label = get_node("NinePatchRect/TitleBar/Id_Label")
 onready var DraggableSegment = get_node("NinePatchRect/TitleBar/DraggableSegment")
 onready var CharacterLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit")
@@ -7,21 +8,22 @@ onready var DialogueRichTextLabel = get_node("NinePatchRect/Dialogue/DialogueBox
 onready var DialogueLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel/LineEdit")
 onready var AnimPlayer = get_node("AnimationPlayer")
 
-var just_created = false
-var dragging = false
-var previous_pos = Vector2(0,0)
-var mouse_delta = Vector2(0,0)
-var mouse_pos = Vector2(0,0)
-var mouse_previous_pos = Vector2(0,0)
-var mouse_offset = Vector2(0,0)
+var just_created : bool = false
+var dragging : bool = false
+var tail_valid : bool = false
+var previous_pos := Vector2(0,0)
+var mouse_delta := Vector2(0,0)
+var mouse_pos := Vector2(0,0)
+var mouse_previous_pos := Vector2(0,0)
+var mouse_offset := Vector2(0,0)
 
+onready var nine_patch_size = NinePatch.rect_size
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(false)
 	set_physics_process(false)
 	if !just_created:
 		set_process_input(false)
-
 	DialogueLineEdit.connect("text_changed",self,"update_DialogueRichTextLabel")
 	
 	# Make clicking on things move to front
@@ -113,4 +115,18 @@ func _on_DraggableSegment_mouse_entered():
 func _on_DraggableSegment_mouse_exited():
 	if !just_created:
 		set_process_input(false)
+	pass
+
+onready var line_start_pos := Vector2(0,nine_patch_size.y-4)
+onready var tail_location := Vector2(90,900)
+onready var line_curve = Curve2D.new()
+func _draw():
+	#line_curve.clear_points()
+	#line_curve.add_point(line_start_pos, Vector2(1,1),Vector2(1,1))
+	#line_curve.add_point((line_start_pos + tail_location)/2)
+	#line_curve.add_point(tail_location, Vector2(1,0),Vector2(1,1))
+	if tail_valid:
+		draw_line(line_start_pos,tail_location,Color("1e7da6"),4,true)
+	
+	#draw_polyline(line_curve.get_baked_points(),Color("1e7da6"),4,true)
 	pass
