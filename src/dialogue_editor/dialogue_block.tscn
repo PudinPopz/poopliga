@@ -86,7 +86,7 @@ content_margin_bottom = -1.0
 [sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
-extents = Vector2( 269.015, 140.013 )
+extents = Vector2( 425.37, 206.597 )
 
 [node name="DialogueBlock" type="Node2D" index="0"]
 script = ExtResource( 1 )
@@ -333,7 +333,7 @@ _sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Plac
 
 [node name="BoundingBox" type="Area2D" parent="NinePatchRect" index="3"]
 visible = false
-position = Vector2( 253.545, 132.577 )
+position = Vector2( 377.704, 153.375 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -344,10 +344,14 @@ audio_bus_name = "Master"
 _sections_unfolded = [ "Pickable" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NinePatchRect/BoundingBox" index="0"]
-position = Vector2( 3.39618, -9.05646 )
+position = Vector2( 2.13568, 11.7417 )
 shape = SubResource( 8 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
+[connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]
 [connection signal="pressed" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_pressed"]
 [connection signal="toggled" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_toggled"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/BoundingBox" to="." method="_on_BoundingBox_mouse_entered"]
+[connection signal="mouse_exited" from="NinePatchRect/BoundingBox" to="." method="_on_BoundingBox_mouse_exited"]

@@ -19,6 +19,8 @@ func _ready():
 	dialogue_dictionary.test()
 	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
+	
+	fill_with_garbage_blocks(900)
 	pass 
 
 var double_click_timer_time = 0.35
@@ -89,16 +91,27 @@ func _on_Save_pressed():
 func save_as(path):
 	var start_time = OS.get_ticks_msec()
 	save_blocks_to_dictionary()
+
 	var file = File.new()
 	var json = to_json(dialogue_dictionary.dictionary)
 	file.open(path, File.WRITE)
 	file.store_string(json)
 	file.close()
 	
-
-	var end_time_str = "Saved in " + str(OS.get_ticks_msec()-start_time) + "ms."
-	
+	var end_time_str = "Saved " + str(dialogue_dictionary.dictionary.size()) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
 	print(end_time_str)
+	pass
+
+func fill_with_garbage_blocks(amount):
+	for i in range(amount):
+		var new_block = DialogueBlock.instance()
+		DialogueBlocks.add_child(new_block)
+		new_block.id_Label.text = str(OS.get_ticks_usec()).sha256_text().substr(0,10)
+		new_block.position = Vector2(0,rand_range(0,9990))
+		new_block.fill_with_garbage()
+		
+		#new_block.visible = false
+	
 	pass
 
 
@@ -107,12 +120,12 @@ func _on_BackUIButton_pressed():
 		# Register double click
 		var mouse_pos = get_global_mouse_position()
 		var new_block = DialogueBlock.instance()
-
+		new_block.just_created = true
 		DialogueBlocks.add_child(new_block)
-		new_block.id_Label.text = str(randi())
+		new_block.id_Label.text = str(OS.get_ticks_usec()).sha256_text().substr(0,10)
 		new_block.position = mouse_pos
 		new_block.previous_pos = mouse_pos
-		new_block.just_created = true
+
 		
 		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
 		

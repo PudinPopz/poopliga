@@ -21,6 +21,11 @@ var mouse_previous_pos = Vector2(0,0)
 var mouse_offset = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_process(false)
+	set_physics_process(false)
+	if !just_created:
+		set_process_input(false)
+
 	DialogueLineEdit.connect("text_changed",self,"update_DialogueRichTextLabel")
 	
 	
@@ -38,10 +43,10 @@ func update_DialogueRichTextLabel(new_text):
 	pass
 
 func fill_with_garbage():
-	id_Label.text = str(randi())
+	#id_Label.text = str(randi())
 	CharacterLineEdit.text = str(randi())
-	DialogueRichTextLabel.bbcode_text = str(randi())
-	DialogueLineEdit.text = str(randi())
+	DialogueRichTextLabel.bbcode_text = str(randi()).sha256_text()
+	DialogueLineEdit.text = str(randi()).sha256_text()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -72,10 +77,12 @@ func _input(event):
 
 	
 func _on_DraggableSegment_pressed():
+
 	mouse_delta = Vector2(0,0)
 	previous_pos = position
 	mouse_previous_pos = mouse_pos
 	dragging = true
+	#set_process_input(true)
 	
 
 func _on_DeleteButton_pressed():
@@ -87,6 +94,26 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"kill":
 			self.queue_free() # actually kill
-			#print("ded")
-	#AnimPlayer.queue_free()
+
+
+func _on_BoundingBox_mouse_entered():
+	#print("hey")
+	#set_process_input(true)
+	pass
+
+
+func _on_BoundingBox_mouse_exited():
+	#set_process_input(false)
+	pass # Replace with function body.
+
+
+func _on_DraggableSegment_mouse_entered():
+	print("lol")
+	set_process_input(true)
+	pass # Replace with function body.
+
+
+func _on_DraggableSegment_mouse_exited():
+	if !just_created:
+		set_process_input(false)
 	pass # Replace with function body.
