@@ -20,7 +20,7 @@ func _ready():
 	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
 	
-	fill_with_garbage_blocks(900)
+	fill_with_garbage_blocks(666)
 	pass 
 
 var double_click_timer_time = 0.35
@@ -33,8 +33,6 @@ func _process(delta):
 func create_saveas_file_dialog():
 	var thing = FileDialog.new()
 	get_node("FrontWindows").add_child(thing)
-	#thing.popup(Rect2(0,100,1200,600))
-	#thing.popup_exclusive = true
 	thing.access = FileDialog.ACCESS_FILESYSTEM
 	thing.current_dir = "C:\\Users\\jamie\\Documents"
 	thing.resizable = true
@@ -71,7 +69,7 @@ func save_blocks_to_dictionary():
 			choices = [],
 			tail = "",
 			code = "",
-			position = visual_block.position,
+			position = visual_block.position.floor()
 
 		}
 		# Store actual block in dictionary
@@ -106,7 +104,7 @@ func fill_with_garbage_blocks(amount):
 	for i in range(amount):
 		var new_block = DialogueBlock.instance()
 		DialogueBlocks.add_child(new_block)
-		new_block.id_Label.text = str(OS.get_ticks_usec()).sha256_text().substr(0,10)
+		new_block.randomise_id()
 		new_block.position = Vector2(0,rand_range(0,9990))
 		new_block.fill_with_garbage()
 		
@@ -122,7 +120,7 @@ func _on_BackUIButton_pressed():
 		var new_block = DialogueBlock.instance()
 		new_block.just_created = true
 		DialogueBlocks.add_child(new_block)
-		new_block.id_Label.text = str(OS.get_ticks_usec()).sha256_text().substr(0,10)
+		new_block.randomise_id()
 		new_block.position = mouse_pos
 		new_block.previous_pos = mouse_pos
 

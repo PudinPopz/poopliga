@@ -1,16 +1,11 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 onready var id_Label = get_node("NinePatchRect/TitleBar/Id_Label")
 onready var DraggableSegment = get_node("NinePatchRect/TitleBar/DraggableSegment")
 onready var CharacterLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit")
 onready var DialogueRichTextLabel = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel")
 onready var DialogueLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel/LineEdit")
 onready var AnimPlayer = get_node("AnimationPlayer")
-
-#onready var SceneCamera = get_tree().get_node("Map/Camera2D")
 
 var just_created = false
 var dragging = false
@@ -19,6 +14,7 @@ var mouse_delta = Vector2(0,0)
 var mouse_pos = Vector2(0,0)
 var mouse_previous_pos = Vector2(0,0)
 var mouse_offset = Vector2(0,0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process(false)
@@ -28,14 +24,15 @@ func _ready():
 
 	DialogueLineEdit.connect("text_changed",self,"update_DialogueRichTextLabel")
 	
+	# Make clicking on things move to front
+	#DialogueLineEdit.connect("focus_entered",self,"move_to_front")
+	#id_Label.connect("focus_entered",self,"move_to_front")
+	#CharacterLineEdit.connect("focus_entered",self,"move_to_front")
+	#DialogueRichTextLabel.connect("focus_entered",self,"move_to_front")
 	
+	# Play spawn animation
 	AnimPlayer.play("spawn")
-	#previous_pos = position
-	#mouse_previous_pos = get_local_mouse_position()
-	#mouse_pos = get_local_mouse_position()
-	
-	
-	pass # Replace with function body.
+
 
 func update_DialogueRichTextLabel(new_text):
 	var new_text_formatted = new_text.replace("\\n","\n")
@@ -43,15 +40,9 @@ func update_DialogueRichTextLabel(new_text):
 	pass
 
 func fill_with_garbage():
-	#id_Label.text = str(randi())
 	CharacterLineEdit.text = str(randi())
 	DialogueRichTextLabel.bbcode_text = str(randi()).sha256_text()
 	DialogueLineEdit.text = str(randi()).sha256_text()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 
 func _input(event):
 	if CAMERA2D.scroll_mode != 0:
@@ -75,6 +66,16 @@ func _input(event):
 		just_created = false
 		pass	
 
+func move_to_front():
+	# Move to front of DialogueBlocks
+	var index = get_parent().get_child_count()
+	get_parent().move_child(self, index)
+	pass
+
+func randomise_id():
+	id_Label.text = str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,10)
+	return id_Label.text
+	pass
 	
 func _on_DraggableSegment_pressed():
 	set_process_input(true)
@@ -82,15 +83,14 @@ func _on_DraggableSegment_pressed():
 	previous_pos = position
 	mouse_previous_pos = mouse_pos
 	dragging = true
-	# Move to top
-	var index = get_parent().get_child_count()
-	print(index)
-	get_parent().move_child(self, index)
+	move_to_front()
 	
-
+func _on_DeleteButton_button_down():
+	move_to_front()
+	pass
 func _on_DeleteButton_pressed():
 	AnimPlayer.play("kill")
-	pass # Replace with function body.
+	pass 
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -100,23 +100,17 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	
 
 func _on_BoundingBox_mouse_entered():
-	#print("hey")
-	#set_process_input(true)
 	pass
 
 
 func _on_BoundingBox_mouse_exited():
-	#set_process_input(false)
-	pass # Replace with function body.
-
+	pass
 
 func _on_DraggableSegment_mouse_entered():
-	print("lol")
 	set_process_input(true)
-	pass # Replace with function body.
-
+	pass
 
 func _on_DraggableSegment_mouse_exited():
 	if !just_created:
 		set_process_input(false)
-	pass # Replace with function body.
+	pass

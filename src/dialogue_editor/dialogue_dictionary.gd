@@ -15,7 +15,6 @@ var test_content = ["CHARACTER","DIALOGUE","CODE"] # Ignore comments and code fo
 #	# UNUSED
 #	var uses_bbcode = true
 
-
 # @TODO: Figure out what updating does
 func force_update():
 	pass	
