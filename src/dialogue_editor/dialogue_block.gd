@@ -41,23 +41,23 @@ func fill_with_garbage():
 	DialogueLineEdit.text = str(randi()).sha256_text()
 
 func _input(event):
-#	if CAMERA2D.scroll_mode != 0:
-#		mouse_offset.y += CAMERA2D.scroll_mode*CAMERA2D.scroll_spd
+	if CAMERA2D.scroll_mode != 0:
+		mouse_offset.y += CAMERA2D.scroll_mode*CAMERA2D.scroll_spd
 	if CAMERA2D.pan_mode or !Input.is_action_pressed("click"):
 		dragging = false
-		#mouse_offset = Vector2()
-	if event is InputEventMouseMotion or InputEventAction:
-		#mouse_pos = event.position
+		mouse_offset = Vector2()
+	if event is InputEventMouseMotion:
+		mouse_pos = event.position
 		if dragging:
-#			mouse_delta = (mouse_pos - mouse_previous_pos)
-#			position = previous_pos + mouse_delta  * CAMERA2D.zoom_level  + mouse_offset
-#			if Input.is_action_pressed("ctrl"):
-			position = get_global_mouse_position()
-
+			mouse_delta = (mouse_pos - mouse_previous_pos)
+			position = previous_pos + mouse_delta  * CAMERA2D.zoom_level  + mouse_offset
+			if just_created:
+				position = get_global_mouse_position()
+			
 	if (DraggableSegment.pressed or just_created) and !dragging and !CAMERA2D.pan_mode:
-		#mouse_offset = Vector2()
-		#previous_pos = position
-		#mouse_previous_pos = mouse_pos
+		mouse_offset = Vector2()
+		previous_pos = position
+		mouse_previous_pos = mouse_pos
 		dragging = true
 	
 	if Input.is_action_just_released("click"):
