@@ -53,6 +53,11 @@ func _input(event):
 			position = previous_pos + mouse_delta  * CAMERA2D.zoom_level  + mouse_offset
 			if just_created:
 				position = get_global_mouse_position()
+			# Teleport block to cursor if too far away
+			if abs(get_global_mouse_position().y - position.y) > 80 or \
+			abs(get_global_mouse_position().x - position.x) > 400:
+				just_created = true # Act like just created
+				pass
 			
 	if (DraggableSegment.pressed or just_created) and !dragging and !CAMERA2D.pan_mode:
 		mouse_offset = Vector2()

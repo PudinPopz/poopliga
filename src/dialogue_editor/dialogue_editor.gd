@@ -122,12 +122,6 @@ func _on_BackUIButton_pressed():
 		new_block.randomise_id()
 		new_block.position = mouse_pos
 		new_block.previous_pos = mouse_pos
-		# Do special workaround things for ctrl
-		if Input.is_action_pressed("ctrl"):
-			#new_block.mouse_offset = -get_global_mouse_position()
-			#print(new_block.mouse_pos)
-			#print("fe",)
-			pass
 
 		
 		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
