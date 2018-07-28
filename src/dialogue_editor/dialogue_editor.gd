@@ -70,7 +70,8 @@ func save_blocks_to_dictionary():
 			choices = [],
 			tail = "",
 			code = "",
-			position = visual_block.position.floor()
+			pos_x = visual_block.position.floor().x, # JSON does not support Vector2
+			pos_y = visual_block.position.floor().y
 		}
 		# Store actual block in dictionary
 		dialogue_dictionary.add(actual_block.key, actual_block)
