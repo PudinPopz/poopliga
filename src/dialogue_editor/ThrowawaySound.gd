@@ -17,6 +17,5 @@ func _ready():
 
 
 func _on_ThrowawaySound_finished():
-	print("bye")
 	self.queue_free()
 	pass # Replace with function body.
