@@ -1,12 +1,13 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=2]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=3]
-[ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=4]
 [ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=5]
 [ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=6]
 [ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=7]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
 
 [sub_resource type="InputEventKey" id=8]
 
@@ -102,7 +103,6 @@ scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="OptionsWindow" type="Control" parent="FrontWindows" index="0"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -210,7 +210,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 223.0
-margin_bottom = 25.0
+margin_bottom = 23.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -232,7 +232,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 227.0
 margin_right = 427.0
-margin_bottom = 25.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 200, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -261,9 +261,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 29.0
+margin_top = 27.0
 margin_right = 223.0
-margin_bottom = 54.0
+margin_bottom = 50.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -284,9 +284,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 227.0
-margin_top = 29.0
+margin_top = 27.0
 margin_right = 427.0
-margin_bottom = 54.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 200, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -322,7 +322,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_bottom = 35.0
+margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -337,7 +337,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_bottom = 34.0
+margin_bottom = 35.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -352,7 +352,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_bottom = 32.0
+margin_bottom = 33.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -363,13 +363,15 @@ color = Color( 0.00335693, 0.029139, 0.078125, 1 )
 _sections_unfolded = [ "Material", "Rect", "Theme", "Visibility", "material" ]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FrontUILayer" index="3"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.63
 anchor_bottom = 0.0
-margin_left = 6.0
-margin_right = 279.0
-margin_bottom = 32.0
+margin_left = 7.0
+margin_top = 1.0
+margin_right = 278.0
+margin_bottom = 33.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -426,7 +428,7 @@ group = null
 text = "Open"
 flat = true
 align = 1
-_sections_unfolded = [ "Custom Fonts", "Custom Styles", "Focus", "Grow Direction", "Hint", "Mouse", "Rect", "Theme", "shortcut" ]
+_sections_unfolded = [ "Custom Fonts", "Custom Styles" ]
 
 [node name="Save" type="Button" parent="FrontUILayer/HBoxContainer" index="2"]
 anchor_left = 0.0
@@ -453,7 +455,7 @@ text = "Save"
 flat = true
 align = 1
 script = ExtResource( 5 )
-_sections_unfolded = [ "Custom Constants", "Custom Fonts", "Hint", "Size Flags", "Theme", "Visibility", "custom_styles/normal", "shortcut" ]
+_sections_unfolded = [ "Custom Constants", "Custom Fonts", "Theme", "Visibility", "custom_styles/normal", "theme" ]
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/HBoxContainer" index="3"]
 anchor_left = 0.0
@@ -461,7 +463,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 154.0
-margin_right = 216.0
+margin_right = 222.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -485,8 +487,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 220.0
-margin_right = 289.0
+margin_left = 226.0
+margin_right = 295.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -512,7 +514,7 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -12.0
-margin_top = 35.0
+margin_top = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -548,7 +550,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 8 )
 text = "(0,0)"
 align = 2
 percent_visible = 1.0
