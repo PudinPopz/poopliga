@@ -34,7 +34,7 @@ window/tooltip_delay_sec=0.5
 
 [gui]
 
-theme/custom_font="res://fonts/lato_16.tres"
+theme/custom_font="res://fonts/NotoSans_16.tres"
 timers/tooltip_delay_sec=0.5
 
 [input]

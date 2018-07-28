@@ -2,8 +2,9 @@ extends Node2D
 
 const DialogueDictionary = preload("res://src/dialogue_editor/dialogue_dictionary.gd")
 const DialogueBlock = preload("res://src/dialogue_editor/dialogue_block.tscn")
-var theme = load("res://themes/default_theme.tres")
-const Lato16 = preload("res://fonts/lato_16.tres")
+const theme = preload("res://themes/default_theme.tres")
+const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
+#const Lato16 = preload("res://fonts/lato_16.tres")
 
 onready var DialogueBlocks = get_node("Map/DialogueBlocks")
 var saveas_dialog
@@ -37,7 +38,7 @@ func create_saveas_file_dialog():
 	thing.current_dir = "C:\\Users\\jamie\\Documents"
 	thing.resizable = true
 	thing.theme = theme
-	thing.theme.default_font = Lato16 
+	thing.theme.default_font = fnt_noto_sans_16
 	thing.add_filter("*.poopliga")
 	thing.mode = FileDialog.MODE_SAVE_FILE
 	thing.connect("file_selected",self,"save_as")
@@ -137,7 +138,7 @@ func _on_New_pressed():
 	if confirm_create_new == null:
 		confirm_create_new = ConfirmationDialog.new()
 		confirm_create_new.theme = theme
-		confirm_create_new.theme.default_font = Lato16 
+		confirm_create_new.theme.default_font = fnt_noto_sans_16 
 		confirm_create_new.dialog_text = "Create a new empty file? \nAny unsaved progress will be lost :("	
 		get_node("FrontWindows").add_child(confirm_create_new)
 		confirm_create_new.connect("confirmed",self,"reset")
