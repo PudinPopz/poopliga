@@ -9,7 +9,7 @@
 [ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=7]
 [ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=8]
 [ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=9]
-[ext_resource path="res://sprites/backgrounds/bg.png" type="Texture" id=10]
+[ext_resource path="res://sprites/backgrounds/bg.jpg" type="Texture" id=10]
 
 [sub_resource type="InputEventKey" id=1]
 
