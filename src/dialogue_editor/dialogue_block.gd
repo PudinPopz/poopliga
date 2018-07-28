@@ -99,7 +99,7 @@ func _on_DeleteButton_button_down():
 func _on_DeleteButton_pressed():
 	AnimPlayer.play("kill")
 	var death_sound = throwaway_sound.instance()
-	death_sound.random_pitch = false
+	death_sound.pitch_scale = rand_range(0.7,1.3)
 	death_sound.stream = snd_delet
 	death_sound.volume_db = -6.118
 	#get_node("AudioStreamPlayer2D").play(0)
