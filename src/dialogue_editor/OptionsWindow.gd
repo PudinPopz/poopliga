@@ -1,4 +1,4 @@
-extends Control
+extends Popup
 
 onready var scroll_speed_slider = get_node("GridContainer/ScrollSpeedSlider")
 onready var zoom_speed_slider = get_node("GridContainer/ZoomSpeedSlider")
@@ -19,4 +19,9 @@ func _on_zoom_speed_changed(value):
 
 func _on_Options_toggled(button_pressed):
 	visible = button_pressed
+	pass # Replace with function body.
+
+
+func _on_Options_pressed():
+	popup_centered()
 	pass # Replace with function body.

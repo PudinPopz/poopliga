@@ -155,3 +155,6 @@ func reset():
 	CAMERA2D.camera_previous_pos = CAMERA2D.position
 	
 	pass
+
+func _on_Options2_focus_exited():
+	pass # Replace with function body.
