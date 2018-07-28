@@ -154,6 +154,7 @@ func reset():
 	
 	CAMERA2D.position = Vector2(640,360)
 	CAMERA2D.camera_previous_pos = CAMERA2D.position
+	get_node("Map/GridBG").update_grid()
 	
 	pass
 
