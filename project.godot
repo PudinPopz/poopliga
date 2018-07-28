@@ -156,5 +156,5 @@ ctrl={
 
 threads/thread_model=2
 quality/voxel_cone_tracing/high_quality=false
-environment/default_clear_color=Color( 0.0509804, 0.0901961, 0.164706, 1 )
+environment/default_clear_color=Color( 0, 0.0117647, 0.0313726, 1 )
 environment/default_environment="res://default_env.tres"
