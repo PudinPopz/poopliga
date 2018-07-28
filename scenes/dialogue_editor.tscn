@@ -9,7 +9,7 @@
 [ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=7]
 [ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
 
-[sub_resource type="InputEventKey" id=8]
+[sub_resource type="InputEventKey" id=1]
 
 device = 0
 alt = false
@@ -22,12 +22,12 @@ scancode = 78
 unicode = 0
 echo = false
 
-[sub_resource type="ShortCut" id=9]
+[sub_resource type="ShortCut" id=2]
 
-shortcut = SubResource( 8 )
+shortcut = SubResource( 1 )
 _sections_unfolded = [ "shortcut" ]
 
-[sub_resource type="InputEventKey" id=1]
+[sub_resource type="InputEventKey" id=3]
 
 device = 0
 alt = false
@@ -41,17 +41,17 @@ unicode = 0
 echo = false
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ShortCut" id=2]
+[sub_resource type="ShortCut" id=4]
 
-shortcut = SubResource( 1 )
+shortcut = SubResource( 3 )
 _sections_unfolded = [ "Resource", "shortcut" ]
 
-[sub_resource type="Theme" id=3]
+[sub_resource type="Theme" id=5]
 
 default_font = ExtResource( 4 )
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="InputEventKey" id=4]
+[sub_resource type="InputEventKey" id=6]
 
 device = 0
 alt = false
@@ -65,12 +65,12 @@ unicode = 0
 echo = false
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ShortCut" id=5]
+[sub_resource type="ShortCut" id=7]
 
-shortcut = SubResource( 4 )
+shortcut = SubResource( 6 )
 _sections_unfolded = [ "Resource", "shortcut" ]
 
-[sub_resource type="InputEventKey" id=6]
+[sub_resource type="InputEventKey" id=8]
 
 device = 0
 alt = false
@@ -83,9 +83,9 @@ scancode = 83
 unicode = 0
 echo = false
 
-[sub_resource type="ShortCut" id=7]
+[sub_resource type="ShortCut" id=9]
 
-shortcut = SubResource( 6 )
+shortcut = SubResource( 8 )
 _sections_unfolded = [ "shortcut" ]
 
 [node name="DialogueEditor" type="Node2D" index="0"]
@@ -103,6 +103,7 @@ scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="OptionsWindow" type="Control" parent="FrontWindows" index="0"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -386,7 +387,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 44.0
+margin_right = 46.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -398,7 +399,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 9 )
+shortcut = SubResource( 2 )
 group = null
 text = "New"
 flat = true
@@ -410,8 +411,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 48.0
-margin_right = 99.0
+margin_left = 50.0
+margin_right = 104.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -423,7 +424,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 2 )
+shortcut = SubResource( 4 )
 group = null
 text = "Open"
 flat = true
@@ -435,8 +436,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 103.0
-margin_right = 150.0
+margin_left = 108.0
+margin_right = 155.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -446,10 +447,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = SubResource( 3 )
+theme = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 5 )
+shortcut = SubResource( 7 )
 group = null
 text = "Save"
 flat = true
@@ -462,8 +463,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 154.0
-margin_right = 222.0
+margin_left = 159.0
+margin_right = 227.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -475,7 +476,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 7 )
+shortcut = SubResource( 9 )
 group = null
 text = "Save as"
 flat = true
@@ -487,8 +488,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 226.0
-margin_right = 295.0
+margin_left = 231.0
+margin_right = 304.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
