@@ -13,7 +13,7 @@ func _ready():
 		stream = CAMERA2D.secret1
 		pitch_scale = rand_range(.95,1.4)
 		play(0)
-		CAMERA2D.LAST_CHAR_NAME = "Jerry "
+		#CAMERA2D.LAST_CHAR_NAME = "Jerry "
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
