@@ -75,6 +75,7 @@ func _draw():
 	var length = Vector2(0,0)
 	#print(length)
 	var zoom = CAMERA2D.zoom.x
+	#zoom = 1
 	var tile_amount = 25*zoom*(Vector2(1,1))
 
 	var offset = Vector2(0,0)

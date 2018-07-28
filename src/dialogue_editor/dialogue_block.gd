@@ -8,6 +8,9 @@ onready var DialogueRichTextLabel = get_node("NinePatchRect/Dialogue/DialogueBox
 onready var DialogueLineEdit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel/LineEdit")
 onready var AnimPlayer = get_node("AnimationPlayer")
 
+const snd_delet = preload("res://snd/delet_sound.ogg")
+const throwaway_sound = preload("res://src/dialogue_editor/ThrowawaySound.tscn")
+
 var just_created : bool = false
 var dragging : bool = false
 var tail_valid : bool = false
@@ -95,6 +98,12 @@ func _on_DeleteButton_button_down():
 	pass
 func _on_DeleteButton_pressed():
 	AnimPlayer.play("kill")
+	var death_sound = throwaway_sound.instance()
+	death_sound.random_pitch = false
+	death_sound.stream = snd_delet
+	death_sound.volume_db = -6.118
+	#get_node("AudioStreamPlayer2D").play(0)
+	CAMERA2D.add_child(death_sound)
 	pass 
 
 

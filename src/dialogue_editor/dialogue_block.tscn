@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/dialogue_nine_patch.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
 [ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=9]
 [ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=10]
+[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=11]
+[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=12]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -83,11 +85,12 @@ tracks/0/keys = {
 "values": [ Color( 87.22, 79.89, 93.88, 1 ), Color( 4, 4, 4, 1 ), Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="DialogueBlock" type="Node2D"]
+[node name="DialogueBlock" type="Node2D" index="0"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." index="0"]
+modulate = Color( 1, 0, 0.00392157, 0 )
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -325,6 +328,16 @@ anims/kill = SubResource( 6 )
 anims/spawn = SubResource( 7 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options", "Script" ]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource( 11 )
+volume_db = -6.118
+pitch_scale = 1.0
+autoplay = true
+stream_paused = false
+mix_target = 0
+bus = "Master"
+script = ExtResource( 12 )
 
 [connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
 [connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]
