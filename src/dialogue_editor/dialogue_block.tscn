@@ -1,14 +1,15 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/dialogue_nine_patch.png" type="Texture" id=2]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=3]
 [ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=4]
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=5]
 [ext_resource path="res://src/dialogue_editor/TitleBarButtonHover.gd" type="Script" id=6]
 [ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=7]
-[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=8]
-[ext_resource path="res://fonts/lato_16.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
+[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=10]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -82,7 +83,7 @@ tracks/0/keys = {
 "values": [ Color( 87.22, 79.89, 93.88, 1 ), Color( 4, 4, 4, 1 ), Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="DialogueBlock" type="Node2D"]
+[node name="DialogueBlock" type="Node2D" index="0"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
@@ -151,9 +152,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 7.0
-margin_top = 3.0
+margin_top = 1.0
 margin_right = 129.0
-margin_bottom = 23.0
+margin_bottom = 26.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 1
@@ -245,7 +246,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 8 )
 max_length = 20
 secret_character = "*"
 expand_to_text_length = true
@@ -272,7 +273,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 9 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -303,7 +304,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 max_length = 256
 secret_character = "*"
 focus_mode = 1
@@ -312,7 +313,7 @@ placeholder_alpha = 0.6
 caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Placeholder", "Size Flags", "Theme", "Visibility" ]
+_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Placeholder", "Size Flags", "Theme", "Visibility", "custom_fonts/font" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 root_node = NodePath("..")
