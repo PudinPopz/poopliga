@@ -142,3 +142,14 @@ func _draw():
 	
 	#draw_polyline(line_curve.get_baked_points(),Color("1e7da6"),4,true)
 	pass
+
+func _on_Id_Label_text_changed(new_text):
+
+	
+	pass # Replace with function body.
+
+
+func _on_CharacterLineEdit_text_changed(new_text):
+	#print("lol")
+	CAMERA2D.LAST_CHAR_NAME = CharacterLineEdit.text
+	pass # Replace with function body.

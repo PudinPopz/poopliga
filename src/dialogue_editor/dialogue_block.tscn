@@ -85,12 +85,11 @@ tracks/0/keys = {
 "values": [ Color( 87.22, 79.89, 93.88, 1 ), Color( 4, 4, 4, 1 ), Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="DialogueBlock" type="Node2D" index="0"]
+[node name="DialogueBlock" type="Node2D"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." index="0"]
-modulate = Color( 1, 0, 0.00392157, 0 )
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -343,6 +342,8 @@ script = ExtResource( 12 )
 [connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]
 [connection signal="pressed" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_pressed"]
 [connection signal="toggled" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_toggled"]
+[connection signal="text_changed" from="NinePatchRect/TitleBar/Id_Label" to="." method="_on_Id_Label_text_changed"]
 [connection signal="button_down" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_button_down"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="text_changed" from="NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

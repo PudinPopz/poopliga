@@ -2,7 +2,8 @@ extends Camera2D
 signal scrolled
 
 var LAST_MOUSE_POS = Vector2()
-
+var LAST_CHAR_NAME = ""
+const secret1 = preload("res://snd/secret1.ogg")
 
 func _ready():
 	Engine.target_fps = 200
@@ -21,6 +22,7 @@ var pan_mode = false
 var scroll_mode : int = 0
 var camera_previous_pos = Vector2(0,0)
 var freeze = false
+
 
 
 

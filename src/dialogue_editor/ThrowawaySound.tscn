@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/dialogue_editor/ThrowawaySound.gd" type="Script" id=1]
 
-[node name="ThrowawaySound" type="AudioStreamPlayer"]
+[node name="ThrowawaySound" type="AudioStreamPlayer" index="0"]
 stream = null
 volume_db = 0.0
 pitch_scale = 1.0
