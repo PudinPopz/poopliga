@@ -125,6 +125,8 @@ size_flags_vertical = 1
 script = ExtResource( 3 )
 
 [node name="Panel" type="PopupPanel" parent="FrontWindows/ProjectWindow" index="0"]
+visible = false
+self_modulate = Color( 0.564706, 0.564706, 0.564706, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -141,10 +143,11 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 theme = ExtResource( 4 )
 popup_exclusive = false
-_sections_unfolded = [ "Custom Constants", "Popup", "Theme", "Visibility" ]
+_sections_unfolded = [ "Custom Constants", "Custom Styles", "Popup", "Theme", "Visibility", "theme" ]
 
 [node name="OptionsWindow" type="PopupPanel" parent="FrontWindows" index="1"]
 visible = false
+self_modulate = Color( 0.564706, 0.564706, 0.564706, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -162,7 +165,7 @@ size_flags_vertical = 1
 theme = ExtResource( 4 )
 popup_exclusive = false
 script = ExtResource( 5 )
-_sections_unfolded = [ "Popup", "Theme" ]
+_sections_unfolded = [ "Material", "Popup", "Theme", "Visibility" ]
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow" index="0"]
 anchor_left = 0.5

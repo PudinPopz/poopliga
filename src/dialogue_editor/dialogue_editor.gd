@@ -84,6 +84,7 @@ func _on_popup_hide():
 func _on_Save_pressed():
 	# if not already open (@TODO)
 	saveas_dialog.popup_centered(Vector2(1200,600))
+	saveas_dialog.rect_position += Vector2(0,10)
 	CAMERA2D.freeze = true
 	pass # Replace with function body.
 
