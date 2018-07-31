@@ -1,17 +1,10 @@
 extends Node2D
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-# Called when the node enters the scene tree for the first time.
 
 func _ready():
 	update_grid()
 	get_tree().get_root().connect("size_changed", self, "update_grid")
 	set_process(true)
 	set_process_input(true)
-
-
 
 func redraw():
 	update()
@@ -31,7 +24,6 @@ var special_offset = Vector2(0,0)
 var enabled = true
 
 func update_grid():
-	
 	if enabled:
 		visible = true
 	else:
@@ -67,7 +59,6 @@ func update_grid():
 
 
 var screen = Vector2()
-#var vp = Vector2(1280,720)
 var def_vp = Vector2(1280,720)
 var line_color = Color("0fffffff")
 var tile_size = 128

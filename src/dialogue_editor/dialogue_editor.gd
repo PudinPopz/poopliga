@@ -21,7 +21,7 @@ func _ready():
 	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
 	
-	#fill_with_garbage_blocks(666)
+	fill_with_garbage_blocks(666)
 	pass 
 
 var double_click_timer_time = 0.35
@@ -29,7 +29,52 @@ var double_click_timer = 0
 func _process(delta):
 	double_click_timer -= delta
 	double_click_timer = clamp(double_click_timer, 0, double_click_timer_time)
-	pass
+	if Input.is_action_just_pressed("refresh"):
+		fix_rendering_bug()
+	
+#	if _pending_render_bug_fix and _pending_render_bug_fix_timer <= 0:
+#		#fix_rendering_bug() # Do thing
+#		_pending_render_bug_fix = false
+#
+#	if _pending_render_bug_fix:
+#		if _pending_render_bug_fix_timer == -1:
+#			_pending_render_bug_fix_timer = 2
+#		_pending_render_bug_fix_timer -= 1*delta
+#	else:
+#		_pending_render_bug_fix_timer = -1
+#
+
+
+var _thread = null
+var _thread2 = null
+var _pending_render_bug_fix = false
+var _pending_render_bug_fix_timer = 0
+
+
+func _notification(what):
+	
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT \
+	or what == MainLoop.NOTIFICATION_WM_UNFOCUS_REQUEST:
+		_pending_render_bug_fix = true
+		pass
+		#fix_rendering_bug()
+	
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN and _pending_render_bug_fix:
+		#fix_rendering_bug()
+		#_pending_render_bug_fix = false
+		pass
+		
+
+
+# Fix for weird rendering bug after tab out	(CAN BE SLOW)
+func fix_rendering_bug():
+	
+	var start_time = OS.get_ticks_msec()
+	DialogueBlocks.visible = false
+	DialogueBlocks.visible = true
+	print("Fixing rendering bug in ", OS.get_ticks_msec() - start_time, "ms")
+	
+	return
 
 func create_saveas_file_dialog():
 	var thing = FileDialog.new()
@@ -121,6 +166,7 @@ func _on_BackUIButton_pressed():
 		var mouse_pos = get_global_mouse_position()
 		var new_block = DialogueBlock.instance()
 		new_block.just_created = true
+		new_block.hand_placed = true
 		DialogueBlocks.add_child(new_block)
 		new_block.randomise_id()
 		new_block.position = mouse_pos
@@ -145,6 +191,10 @@ func _on_New_pressed():
 		get_node("FrontWindows").add_child(confirm_create_new)
 		confirm_create_new.connect("confirmed",self,"reset")
 	confirm_create_new.popup_centered()
+	
+func _on_Find_pressed():
+	get_node("FrontWindows/FindWindow").popup_centered()
+	pass # Replace with function body.
 
 
 func reset():
@@ -152,11 +202,12 @@ func reset():
 	for child in DialogueBlocks.get_children():
 		child.queue_free()
 	
-	CAMERA2D.position = Vector2(640,360)
-	CAMERA2D.camera_previous_pos = CAMERA2D.position
+	CAMERA2D.reset()
 	get_node("Map/GridBG").update_grid()
 	
 	pass
 
 func _on_Options2_focus_exited():
 	pass # Replace with function body.
+
+

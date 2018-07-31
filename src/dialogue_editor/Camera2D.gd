@@ -1,5 +1,10 @@
 extends Camera2D
 signal scrolled
+signal moved
+
+onready var area_2d = get_node("Area2D")
+onready var collision_shape = area_2d.get_node("CollisionShape2D")
+
 
 var LAST_MOUSE_POS = Vector2()
 var LAST_CHAR_NAME = ""
@@ -9,6 +14,11 @@ func _ready():
 	Engine.target_fps = 200
 	camera_previous_pos = position
 	zoom = Vector2(zoom_level_max,zoom_level_max)
+	connect("moved", self, "_on_moved")
+	get_tree().get_root().connect("size_changed", self, "_on_moved")
+	update_rendered(true, -1)
+	set_physics_process(true)
+	
 
 var scroll_spd = 100
 var zoom_spd = 1.2
@@ -23,8 +33,17 @@ var scroll_mode : int = 0
 var camera_previous_pos = Vector2(0,0)
 var freeze = false
 
+var blocks_on_screen = []
+var last_blocks_on_screen = []
+func _on_moved():
+	update_rendered()
 
-
+	pass
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		update_rendered(true)
+		pass
+		
 
 func _input(event):
 	if freeze:
@@ -76,11 +95,15 @@ func _input(event):
 			position.y += scroll_spd
 			#print(scroll_spd)
 			emit_signal("scrolled")
+			emit_signal("moved")
 		if Input.is_action_pressed("scroll_up"):
 			scroll_mode = -1
 			position.y -= scroll_spd
 			emit_signal("scrolled")
+			emit_signal("moved")
 	
+	if Input.is_action_just_pressed("refresh"):
+		update_rendered(true, -1)
 	
 
 
@@ -89,15 +112,51 @@ func update_zoom():
 	zoom_level = clamp(zoom_level, 1,zoom_level_max)
 	zoom.x = zoom_level
 	zoom.y = zoom_level
+	update_rendered(true)
 	pass
 	
 func update_pan():
 	if pan_mode:
 		position = camera_previous_pos - mouse_delta*zoom_level
+		emit_signal("moved")
 	pass
+	
+# Updates the 
+func update_rendered(force=false, max_blocks=50):
+	# Update Area2D collision shape
+	var mult = zoom_level_max* 0.011# 0.01
+	# To prevent weird bugs, this will not adapt to zoom.
+	collision_shape.scale = mult*get_viewport_rect().size
+	
+	blocks_on_screen = area_2d.get_overlapping_areas ( )
+	
+	# Don't bother if there's over 50 blocks on screen
+	if max_blocks != -1 and blocks_on_screen.size() >= max_blocks and last_blocks_on_screen != []:
+		return
+	
+	if force or (blocks_on_screen.size() != last_blocks_on_screen.size()):
+	
+		for area2D in last_blocks_on_screen:
+			if area2D != null:
+				area2D.get_parent().set_visibility(false)
+		for area2D in blocks_on_screen:
+			area2D.get_parent().set_visibility(true)
+		
+	last_blocks_on_screen = blocks_on_screen.duplicate()
+	pass	
+	
+func reset():
+	position = Vector2(640,360)
+	zoom_level = zoom_level_max
+	zoom = Vector2(zoom_level,zoom_level)
+	camera_previous_pos = position
 
 var last_unix_time = 0
 func _process(delta):
 	if int(OS.get_unix_time()) != int(last_unix_time):
 		OS.set_window_title("McFakeFake Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
 		last_unix_time = OS.get_unix_time()
+
+func _physics_process(delta):
+	
+	pass

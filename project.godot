@@ -28,12 +28,14 @@ CAMERA2D="*res://src/dialogue_editor/Camera2D.tscn"
 window/size/width=1280
 window/size/height=720
 window/vsync/use_vsync=false
+window/energy_saving/keep_screen_on=false
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 window/tooltip_delay_sec=0.5
 
 [gui]
 
+timers/text_edit_idle_detect_sec=20
 theme/custom_font="res://fonts/NotoSans_16.tres"
 timers/tooltip_delay_sec=0.5
 
@@ -151,10 +153,21 @@ ctrl={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"unicode":0,"echo":false,"script":null)
  ]
 }
+refresh={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777248,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation.mobile=2
 threads/thread_model=2
+quality/shadows/filter_mode=0
+quality/reflections/texture_array_reflections=false
+quality/reflections/high_quality_ggx=false
+quality/shading/force_vertex_shading=true
+quality/subsurface_scattering/weight_samples=false
 quality/voxel_cone_tracing/high_quality=false
 environment/default_clear_color=Color( 0, 0.0117647, 0.0313726, 1 )
 environment/default_environment="res://default_env.tres"

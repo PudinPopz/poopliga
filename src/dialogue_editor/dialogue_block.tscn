@@ -1,17 +1,18 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/dialogue_nine_patch.png" type="Texture" id=2]
-[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=3]
-[ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=4]
-[ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=5]
-[ext_resource path="res://src/dialogue_editor/TitleBarButtonHover.gd" type="Script" id=6]
-[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=7]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
-[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=9]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=10]
-[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=11]
-[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=12]
+[ext_resource path="res://themes/default_theme.tres" type="Theme" id=3]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=4]
+[ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=5]
+[ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=6]
+[ext_resource path="res://src/dialogue_editor/TitleBarButtonHover.gd" type="Script" id=7]
+[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=8]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=10]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=11]
+[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=12]
+[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=13]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -85,11 +86,18 @@ tracks/0/keys = {
 "values": [ Color( 87.22, 79.89, 93.88, 1 ), Color( 4, 4, 4, 1 ), Color( 2, 2, 2, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=8]
+
+custom_solver_bias = 0.0
+extents = Vector2( 381.219, 162.988 )
+
 [node name="DialogueBlock" type="Node2D"]
+use_parent_material = true
 script = ExtResource( 1 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Material", "Visibility" ]
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." index="0"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -128,16 +136,16 @@ size_flags_vertical = 1
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
-margin_top = -2.0
-margin_bottom = 37.0
+anchor_bottom = 1.0
+margin_bottom = 35.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 1
-mouse_filter = 0
+mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+theme = ExtResource( 3 )
 custom_styles/focus = SubResource( 1 )
 toggle_mode = false
 action_mode = 0
@@ -146,7 +154,7 @@ shortcut = null
 group = null
 flat = true
 align = 1
-_sections_unfolded = [ "Custom Styles", "Focus", "Mouse" ]
+_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Mouse", "Size Flags", "Theme" ]
 
 [node name="Id_Label" type="LineEdit" parent="NinePatchRect/TitleBar" index="1"]
 anchor_left = 0.0
@@ -164,9 +172,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
+theme = ExtResource( 3 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
 text = "<ID_HERE>"
 max_length = 10
@@ -201,11 +210,11 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-texture_hover = ExtResource( 4 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 5 )
 expand = true
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Hint", "Rect", "Size Flags", "Textures", "Visibility", "icon", "texture_normal" ]
 
 [node name="Dialogue" type="Control" parent="NinePatchRect" index="2"]
@@ -226,8 +235,8 @@ size_flags_vertical = 1
 
 [node name="DialogueBoxSprite" type="Sprite" parent="NinePatchRect/Dialogue" index="0"]
 position = Vector2( 156, 84.4253 )
-texture = ExtResource( 7 )
-_sections_unfolded = [ "Offset", "Transform" ]
+texture = ExtResource( 8 )
+_sections_unfolded = [ "Material", "Offset", "Pause", "Script", "Transform", "Visibility" ]
 
 [node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite" index="0"]
 anchor_left = 0.0
@@ -248,7 +257,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 9 )
 max_length = 20
 secret_character = "*"
 expand_to_text_length = true
@@ -271,11 +280,11 @@ margin_right = 347.0
 margin_bottom = 48.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 9 )
+custom_fonts/normal_font = ExtResource( 10 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -287,7 +296,7 @@ scroll_active = false
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
-_sections_unfolded = [ "Anchor", "Bb Code", "Custom Fonts", "Custom Styles", "Grow Direction", "Margin", "Rect", "Visibility", "custom_fonts/normal_font" ]
+_sections_unfolded = [ "Anchor", "Bb Code", "Custom Fonts", "Focus", "Grow Direction", "Margin", "Mouse", "Rect", "Visibility", "custom_fonts/normal_font" ]
 
 [node name="LineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel" index="1"]
 anchor_left = 0.0
@@ -304,9 +313,10 @@ focus_previous = NodePath("../../CharacterLineEdit")
 focus_mode = 1
 mouse_filter = 0
 mouse_default_cursor_shape = 1
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 11 )
 max_length = 256
 secret_character = "*"
 focus_mode = 1
@@ -315,7 +325,7 @@ placeholder_alpha = 0.6
 caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Placeholder", "Size Flags", "Theme", "Visibility", "custom_fonts/font" ]
+_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Mouse", "Placeholder", "Rect", "Size Flags", "Theme", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 root_node = NodePath("..")
@@ -329,14 +339,28 @@ blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options", "Script" ]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." index="2"]
-stream = ExtResource( 11 )
-volume_db = -6.118
+stream = ExtResource( 12 )
+volume_db = -3.0
 pitch_scale = 1.0
 autoplay = true
 stream_paused = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 12 )
+script = ExtResource( 13 )
+
+[node name="Area2D" type="Area2D" parent="." index="3"]
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+monitoring = false
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2( 0, 159.919 )
+shape = SubResource( 8 )
 
 [connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
 [connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]
@@ -347,3 +371,4 @@ script = ExtResource( 12 )
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="text_changed" from="NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

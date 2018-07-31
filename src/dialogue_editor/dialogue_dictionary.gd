@@ -1,20 +1,6 @@
 var dictionary = {}	
 var test_content = ["CHARACTER","DIALOGUE","CODE"] # Ignore comments and code for now
 
-#class DialogueBlock:
-#	var dialogue = "" # In BBCode
-#	var character = ""
-#	var code = "" # Placeholder for when/if salsalang is implemented
-#	var tail = "" # Can change at runtime for branching dialogue.
-#	var choices = [] # Allows for player to select different options
-#	# For editor use only:
-#	var key = "" # Own key - READ ONLY JESUS FUCKING CHRIST
-#	var number = NAN # Ignore for now
-#	var position = Vector2(0,0) 
-#
-#	# UNUSED
-#	var uses_bbcode = true
-
 # @TODO: Figure out what updating does
 func force_update():
 	pass	
