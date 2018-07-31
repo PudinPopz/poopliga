@@ -1,6 +1,6 @@
 extends Camera2D
 signal scrolled
-signal moved
+#signal moved
 
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")
@@ -14,7 +14,6 @@ func _ready():
 	Engine.target_fps = 200
 	camera_previous_pos = position
 	zoom = Vector2(zoom_level_max,zoom_level_max)
-	connect("moved", self, "_on_moved")
 	get_tree().get_root().connect("size_changed", self, "_on_moved")
 	update_rendered(true, -1)
 	set_physics_process(true)
@@ -95,12 +94,12 @@ func _input(event):
 			position.y += scroll_spd
 			#print(scroll_spd)
 			emit_signal("scrolled")
-			emit_signal("moved")
+			_on_moved()
 		if Input.is_action_pressed("scroll_up"):
 			scroll_mode = -1
 			position.y -= scroll_spd
 			emit_signal("scrolled")
-			emit_signal("moved")
+			_on_moved()
 	
 	if Input.is_action_just_pressed("refresh"):
 		update_rendered(true, -1)
@@ -114,22 +113,32 @@ func update_zoom():
 	zoom.y = zoom_level
 	update_rendered(true)
 	pass
-	
+
+var _update_move_timer = 0
 func update_pan():
 	if pan_mode:
+		var prev_pos = position
 		position = camera_previous_pos - mouse_delta*zoom_level
-		emit_signal("moved")
+		#if position.floor() != prev_pos.floor():
+		_on_moved()
+#		var prev_pos = position
+#		
+#		_update_move_timer -= 1
+#		if _update_move_timer <= 0:
+#			_on_moved()
+#			_update_move_timer = 10
 	pass
 	
 # Updates the 
 func update_rendered(force=false, max_blocks=50):
+	var start_time = OS.get_ticks_msec()
 	# Update Area2D collision shape
-	var mult = zoom_level_max* 0.011# 0.01
+	var mult = zoom_level_max* 0.005# 0.01
 	# To prevent weird bugs, this will not adapt to zoom.
 	collision_shape.scale = mult*get_viewport_rect().size
 	
-	blocks_on_screen = area_2d.get_overlapping_areas ( )
-	
+	blocks_on_screen = area_2d.get_overlapping_areas()
+	print(blocks_on_screen.size(), "blocks")
 	# Don't bother if there's over 50 blocks on screen
 	if max_blocks != -1 and blocks_on_screen.size() >= max_blocks and last_blocks_on_screen != []:
 		return
@@ -137,12 +146,12 @@ func update_rendered(force=false, max_blocks=50):
 	if force or (blocks_on_screen.size() != last_blocks_on_screen.size()):
 	
 		for area2D in last_blocks_on_screen:
-			if area2D != null:
-				area2D.get_parent().set_visibility(false)
+			area2D.get_parent().set_visibility(false)
 		for area2D in blocks_on_screen:
 			area2D.get_parent().set_visibility(true)
 		
 	last_blocks_on_screen = blocks_on_screen.duplicate()
+	print(OS.get_ticks_msec() - start_time)
 	pass	
 	
 func reset():

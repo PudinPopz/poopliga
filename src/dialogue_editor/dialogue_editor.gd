@@ -197,6 +197,11 @@ func _on_Find_pressed():
 	pass # Replace with function body.
 
 
+func _on_Open_pressed():
+	get_node("FrontWindows/OpenFileWindow").popup_centered()
+	pass # Replace with function body.
+
+
 func reset():
 	# Clear everything on board
 	for child in DialogueBlocks.get_children():
