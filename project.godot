@@ -14,7 +14,6 @@ _global_script_classes=[  ]
 
 config/name="McFakeFake Poopliga Dialogue Editor"
 run/main_scene="res://scenes/dialogue_editor.tscn"
-run/low_processor_mode=true
 boot_splash/image="res://sprites/icons/trash.png"
 boot_splash/fullsize=false
 config/icon="res://sprites/icons/trash_shadowed.png"

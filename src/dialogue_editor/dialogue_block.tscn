@@ -89,7 +89,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
-extents = Vector2( 381.219, 162.988 )
+extents = Vector2( 386.351, 162.988 )
 
 [node name="DialogueBlock" type="Node2D"]
 use_parent_material = true
@@ -338,7 +338,7 @@ _sections_unfolded = [ "Pause", "Playback Options", "Script" ]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." index="2"]
 stream = ExtResource( 12 )
-volume_db = -3.0
+volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 stream_paused = false
@@ -359,6 +359,7 @@ audio_bus_name = "Master"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2( 0, 159.919 )
 shape = SubResource( 8 )
+_sections_unfolded = [ "Transform", "shape" ]
 
 [connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
 [connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]

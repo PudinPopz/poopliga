@@ -23,6 +23,7 @@ func _ready():
 	saveas_dialog = create_saveas_file_dialog()
 	
 	fill_with_garbage_blocks(666)
+	fix_render_bug(10)
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -31,18 +32,8 @@ func _process(delta):
 	double_click_timer = clamp(double_click_timer, 0, double_click_timer_time)
 	if Input.is_action_just_pressed("refresh"):
 		fix_rendering_bug()
-	
-#	if _pending_render_bug_fix and _pending_render_bug_fix_timer <= 0:
-#		#fix_rendering_bug() # Do thing
-#		_pending_render_bug_fix = false
-#
-#	if _pending_render_bug_fix:
-#		if _pending_render_bug_fix_timer == -1:
-#			_pending_render_bug_fix_timer = 2
-#		_pending_render_bug_fix_timer -= 1*delta
-#	else:
-#		_pending_render_bug_fix_timer = -1
-#
+		fix_render_bug()
+
 
 
 var _thread = null
@@ -217,25 +208,41 @@ func _on_Options2_focus_exited():
 
 
 
-
+var prev_window_size = Vector2(100,100)
 func _on_FindWindow_confirmed():
 	var given_id = get_node("FrontWindows/FindWindow/HBoxContainer2/LineEdit").text
 	if DialogueBlocks.has_node(given_id):
 		var dialogue_node = DialogueBlocks.get_node(given_id)
-		CAMERA2D.pan_mode = false
+		#CAMERA2D.pan_mode = true
 		CAMERA2D.reset(dialogue_node.position)
 		dialogue_node.set_visibility(true)
 		CAMERA2D.update_rendered(true , -1)
-		visible = false
-		visible = true
 		CAMERA2D.update()
-		jump_pending = true
+
+		#OS.set_window_size(Vector2(100,100))
+		fix_render_bug()
 		
 	pass # Replace with function body.
-var jump_pending = false
+var _render_fix_pending = false
+var _render_fix_pending_timer = -1
+
+
+
 func _physics_process(delta):
-	if jump_pending:
-		CAMERA2D.update_rendered(true , -1)
-		visible = false
-		visible = true
-		jump_pending = false
+	#print(CAMERA2D.area_2d.get_overlapping_areas())
+	
+	_render_fix_pending_timer -=1
+	if _render_fix_pending and _render_fix_pending_timer <= 0:
+		OS.set_window_size(prev_window_size)
+		_render_fix_pending = false
+		
+
+func fix_render_bug(timer = 2): # TODO: Rename as to not confuse things
+	prev_window_size = OS.get_window_safe_area().size
+	OS.set_window_size(Vector2(prev_window_size.x+1,prev_window_size.y+1))
+	_render_fix_pending = true
+	_render_fix_pending_timer = timer
+	pass
+
+func force_redraw():
+	pass
