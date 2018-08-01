@@ -124,6 +124,7 @@ func update_pan():
 	
 
 func update_rendered(force=false, max_blocks=50):
+	
 	var start_time = OS.get_ticks_msec()
 	# Update Area2D collision shape
 	var mult = zoom_level_max* 0.0056# 0.01
@@ -150,9 +151,9 @@ func update_rendered(force=false, max_blocks=50):
 	#print(OS.get_ticks_msec() - start_time)
 	pass	
 	
-func reset():
+func reset(pos = Vector2(640,360)):
 	last_blocks_on_screen = []
-	position = Vector2(640,360)
+	position = pos
 	zoom_level = zoom_level_max
 	zoom = Vector2(zoom_level,zoom_level)
 	camera_previous_pos = position

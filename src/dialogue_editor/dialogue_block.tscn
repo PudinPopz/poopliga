@@ -213,7 +213,7 @@ texture_pressed = ExtResource( 6 )
 texture_hover = ExtResource( 5 )
 expand = true
 script = ExtResource( 7 )
-_sections_unfolded = [ "Hint", "Rect", "Size Flags", "Textures", "Visibility", "icon", "texture_normal" ]
+_sections_unfolded = [ "Hint", "Rect", "Size Flags", "Textures", "Visibility", "icon" ]
 
 [node name="Dialogue" type="Control" parent="NinePatchRect" index="2"]
 anchor_left = 0.5

@@ -216,3 +216,26 @@ func _on_Options2_focus_exited():
 	pass # Replace with function body.
 
 
+
+
+func _on_FindWindow_confirmed():
+	var given_id = get_node("FrontWindows/FindWindow/HBoxContainer2/LineEdit").text
+	if DialogueBlocks.has_node(given_id):
+		var dialogue_node = DialogueBlocks.get_node(given_id)
+		CAMERA2D.pan_mode = false
+		CAMERA2D.reset(dialogue_node.position)
+		dialogue_node.set_visibility(true)
+		CAMERA2D.update_rendered(true , -1)
+		visible = false
+		visible = true
+		CAMERA2D.update()
+		jump_pending = true
+		
+	pass # Replace with function body.
+var jump_pending = false
+func _physics_process(delta):
+	if jump_pending:
+		CAMERA2D.update_rendered(true , -1)
+		visible = false
+		visible = true
+		jump_pending = false
