@@ -137,6 +137,12 @@ func save_as(path):
 	var end_time_str = "Saved " + str(dialogue_dictionary.dictionary.size()) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
 	print(end_time_str)
 	pass
+	
+func convert_to_multiline_json(json):
+	var output
+	
+	return output
+	pass
 
 func fill_with_garbage_blocks(amount):
 	for i in range(amount):
@@ -146,8 +152,6 @@ func fill_with_garbage_blocks(amount):
 		new_block.position = Vector2(0,rand_range(0,9990))
 		new_block.fill_with_garbage()
 		
-		#new_block.visible = false
-	
 	pass
 
 
@@ -229,8 +233,8 @@ var _render_fix_pending_timer = -1
 
 
 func _physics_process(delta):
-	#print(CAMERA2D.area_2d.get_overlapping_areas())
 	
+	# Fix render bug
 	_render_fix_pending_timer -=1
 	if _render_fix_pending and _render_fix_pending_timer <= 0:
 		OS.set_window_size(prev_window_size)
