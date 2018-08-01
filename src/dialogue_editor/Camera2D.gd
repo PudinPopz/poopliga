@@ -4,7 +4,7 @@ signal scrolled
 
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")
-
+var DIALOGUE_EDITOR
 
 var LAST_MOUSE_POS = Vector2()
 var LAST_CHAR_NAME = ""
@@ -119,31 +119,27 @@ func update_pan():
 	if pan_mode:
 		var prev_pos = position
 		position = camera_previous_pos - mouse_delta*zoom_level
-		#if position.floor() != prev_pos.floor():
-		_on_moved()
-#		var prev_pos = position
-#		
-#		_update_move_timer -= 1
-#		if _update_move_timer <= 0:
-#			_on_moved()
-#			_update_move_timer = 10
-	pass
+		if position.floor() != prev_pos.floor():
+			_on_moved()
 	
-# Updates the 
+
 func update_rendered(force=false, max_blocks=50):
 	var start_time = OS.get_ticks_msec()
 	# Update Area2D collision shape
-	var mult = zoom_level_max* 0.005# 0.01
+	var mult = zoom_level_max* 0.0056# 0.01
 	# To prevent weird bugs, this will not adapt to zoom.
 	collision_shape.scale = mult*get_viewport_rect().size
 	
 	blocks_on_screen = area_2d.get_overlapping_areas()
-	print(blocks_on_screen.size(), "blocks")
+	#print(blocks_on_screen.size(), "blocks")
 	# Don't bother if there's over 50 blocks on screen
 	if max_blocks != -1 and blocks_on_screen.size() >= max_blocks and last_blocks_on_screen != []:
 		return
 	
-	if force or (blocks_on_screen.size() != last_blocks_on_screen.size()):
+	if force\
+	or blocks_on_screen.empty() or last_blocks_on_screen.empty()\
+	or blocks_on_screen.front() != last_blocks_on_screen.front()\
+	or blocks_on_screen.back() != last_blocks_on_screen.back():
 	
 		for area2D in last_blocks_on_screen:
 			area2D.get_parent().set_visibility(false)
@@ -151,10 +147,11 @@ func update_rendered(force=false, max_blocks=50):
 			area2D.get_parent().set_visibility(true)
 		
 	last_blocks_on_screen = blocks_on_screen.duplicate()
-	print(OS.get_ticks_msec() - start_time)
+	#print(OS.get_ticks_msec() - start_time)
 	pass	
 	
 func reset():
+	last_blocks_on_screen = []
 	position = Vector2(640,360)
 	zoom_level = zoom_level_max
 	zoom = Vector2(zoom_level,zoom_level)

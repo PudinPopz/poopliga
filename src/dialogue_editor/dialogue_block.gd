@@ -125,8 +125,8 @@ func move_to_front():
 	get_parent().move_child(self, index)
 
 func randomise_id():
-	id_label.text = str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,10)
-	return id_label.text
+	set_id(str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,10))
+	return id
 
 func _on_DraggableSegment_pressed():
 	set_process_input(true)
@@ -186,27 +186,45 @@ func _draw():
 	pass
 
 func _on_Id_Label_text_changed(new_text):
-
+	#set_id(new_text)
 	
 	pass # Replace with function body.
 
 
 func _on_CharacterLineEdit_text_changed(new_text):
+	set_character_name(new_text)
 	CAMERA2D.LAST_CHAR_NAME = character_line_edit.text
+	
 	pass # Replace with function body.
 
 
 # SETTERS AND GETTERS
 func set_id(new_id):
-	if new_id == "__META__*****":
-		print("ID CHANGED DUE TO INVALID INPUT")
-		new_id = ">:("
-		return
+	var old_id = id
+	if !is_id_valid(new_id):
+		if is_id_valid(old_id):
+			new_id = old_id
+		else:
+			new_id = randomise_id()
+		print("INVALID INPUT - ID CHANGED TO: ", new_id)
+
 	id = new_id
 	id_label.text = id # Update textfield
+	name = id # Update name in tree
 	pass
+	
+func is_id_valid(test_id):
+	if test_id == "__META__*****" or test_id == "":
+		return false
+	if name != test_id and CAMERA2D.DIALOGUE_EDITOR.DialogueBlocks.has_node(test_id):
+		return false
+	if test_id.length() > 10:
+		return false
+	return true
+	
+	pass	
+	
 func get_id():
-	set_id(id_label.text) # Update id to be same as text input
 	return id
 	pass
 
@@ -247,3 +265,21 @@ func get_tail():
 	pass
 
 
+
+
+func _on_Id_Label_text_entered(new_text):
+	set_id(new_text)
+	#anim_player.play("spawn")
+	id_label.release_focus()
+	print(get_id())
+	pass # Replace with function body.
+
+
+func _on_Id_Label_focus_exited():
+	set_id(id_label.text)
+	anim_player.play("spawn")
+	print(get_id())
+	
+		
+	
+	pass # Replace with function body.

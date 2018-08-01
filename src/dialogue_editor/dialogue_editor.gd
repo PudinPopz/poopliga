@@ -15,6 +15,7 @@ var lowest_position = -99999999
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	CAMERA2D.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
 	dialogue_dictionary = DialogueDictionary.new()
 	dialogue_dictionary.test()
@@ -22,7 +23,6 @@ func _ready():
 	saveas_dialog = create_saveas_file_dialog()
 	
 	fill_with_garbage_blocks(666)
-	pass 
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0

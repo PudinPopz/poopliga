@@ -63,6 +63,7 @@ var def_vp = Vector2(1280,720)
 var line_color = Color("0fffffff")
 var tile_size = 128
 func _draw():
+	#tile_size = 12
 	var length = Vector2(0,0)
 	#print(length)
 	var zoom = CAMERA2D.zoom.x
@@ -71,7 +72,7 @@ func _draw():
 
 	var offset = Vector2(0,0)
 	
-	draw_set_transform(-(def_vp + Vector2(800,500)), 0, Vector2(tile_size,tile_size))
+	draw_set_transform(-(def_vp + Vector2(800 -(300/zoom),500) ), 0, Vector2(tile_size,tile_size))
 	for y in range(0, tile_amount.y):
 		draw_line(Vector2(0, y ) + offset, Vector2(tile_amount.y, y + length.y ) + offset, line_color)
 	for x in range(0,tile_amount.x):
