@@ -23,7 +23,7 @@ func _ready():
 	saveas_dialog = create_saveas_file_dialog()
 	
 	fill_with_garbage_blocks(666)
-	fix_render_bug(10)
+	fix_popin_bug(10)
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -32,12 +32,10 @@ func _process(delta):
 	double_click_timer = clamp(double_click_timer, 0, double_click_timer_time)
 	if Input.is_action_just_pressed("refresh"):
 		fix_rendering_bug()
-		fix_render_bug()
+		fix_popin_bug()
 
 
 
-var _thread = null
-var _thread2 = null
 var _pending_render_bug_fix = false
 var _pending_render_bug_fix_timer = 0
 
@@ -47,8 +45,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT \
 	or what == MainLoop.NOTIFICATION_WM_UNFOCUS_REQUEST:
 		_pending_render_bug_fix = true
-		pass
-		#fix_rendering_bug()
+		
 	
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN and _pending_render_bug_fix:
 		#fix_rendering_bug()
@@ -224,29 +221,27 @@ func _on_FindWindow_confirmed():
 		CAMERA2D.update()
 
 		#OS.set_window_size(Vector2(100,100))
-		fix_render_bug()
+		fix_popin_bug()
 		
-	pass # Replace with function body.
-var _render_fix_pending = false
-var _render_fix_pending_timer = -1
+var _popin_fix_pending = false
+var _popin_fix_pending_timer = -1
 
 
 
 func _physics_process(delta):
-	
 	# Fix render bug
-	_render_fix_pending_timer -=1
-	if _render_fix_pending and _render_fix_pending_timer <= 0:
+	_popin_fix_pending_timer -=1
+	if _popin_fix_pending and _popin_fix_pending_timer <= 0:
 		OS.set_window_size(prev_window_size)
-		_render_fix_pending = false
+		_popin_fix_pending = false
 		
 
-func fix_render_bug(timer = 2): # TODO: Rename as to not confuse things
+func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
 	prev_window_size = OS.get_window_safe_area().size
 	OS.set_window_size(Vector2(prev_window_size.x+1,prev_window_size.y+1))
-	_render_fix_pending = true
-	_render_fix_pending_timer = timer
-	pass
+	_popin_fix_pending = true
+	_popin_fix_pending_timer = timer
+	
 
 func force_redraw():
 	pass
