@@ -213,6 +213,8 @@ var prev_window_size = Vector2(100,100)
 func _on_FindWindow_confirmed():
 	var given_id = get_node("FrontWindows/FindWindow/HBoxContainer2/LineEdit").text
 	if DialogueBlocks.has_node(given_id):
+		if given_id == "" :
+			return
 		var dialogue_node = DialogueBlocks.get_node(given_id)
 		#CAMERA2D.pan_mode = true
 		CAMERA2D.reset(dialogue_node.position)
