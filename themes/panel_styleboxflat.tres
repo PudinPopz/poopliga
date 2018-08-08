@@ -27,5 +27,5 @@ shadow_color = Color( 0, 0, 0, 0.286275 )
 shadow_size = 4
 anti_aliasing = true
 anti_aliasing_size = 1
-_sections_unfolded = [ "Anti Aliasing", "Border", "Border Width", "Corner Radius", "Expand Margin", "Resource" ]
+_sections_unfolded = [ "Border", "Border Width", "Corner Radius", "Expand Margin", "Resource", "Shadow" ]
 

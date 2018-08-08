@@ -40,10 +40,12 @@ var mouse_delta := Vector2(0,0)
 var mouse_pos := Vector2(0,0)
 var mouse_previous_pos := Vector2(0,0)
 var mouse_offset := Vector2(0,0)
+var on_screen = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	nine_patch_rect.visible = false
+	#nine_patch_rect.visible = false # Disabled for now
 	set_process(false)
 	set_physics_process(false)
 	if !just_created:
@@ -56,7 +58,9 @@ func _ready():
 		nine_patch_rect.visible = true
 
 func set_visibility(boolean):
-	nine_patch_rect.visible = boolean
+	#nine_patch_rect.visible = boolean
+	# Disabled for now
+	on_screen = boolean
 	pass
 	
 	
@@ -89,7 +93,6 @@ func fill_with_garbage():
 	dialogue_line_edit.text = str(randi()).sha256_text()
 
 func _input(event):
-
 	if CAMERA2D.scroll_mode != 0:
 		mouse_offset.y += CAMERA2D.scroll_mode*CAMERA2D.scroll_spd
 	if CAMERA2D.pan_mode or !Input.is_action_pressed("click"):
@@ -118,7 +121,6 @@ func _input(event):
 		pass	
 		
 	
-
 func move_to_front():
 	# Move to front of DialogueBlocks
 	var index = get_parent().get_child_count()
@@ -240,7 +242,7 @@ func get_dialogue_string():
 	
 func set_character_name(new_character_name):
 	character_name = new_character_name
-	character_line_edit.text = character_name # Update textfield
+	#character_line_edit.text = character_name # Update textfield
 	pass
 	
 func get_character_name():
