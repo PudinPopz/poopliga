@@ -12,8 +12,12 @@ var saveas_dialog
 var dialogue_dictionary
 var lowest_position = -99999999
 
+var path
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	
 	randomize()
 	CAMERA2D.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
@@ -68,7 +72,7 @@ func create_saveas_file_dialog():
 	var thing = FileDialog.new()
 	get_node("FrontWindows").add_child(thing)
 	thing.access = FileDialog.ACCESS_FILESYSTEM
-	thing.current_dir = "C:\\Users\\jamie\\Documents"
+	thing.current_dir = path
 	thing.resizable = true
 	thing.theme = theme
 	thing.theme.default_font = fnt_noto_sans_16
@@ -174,6 +178,7 @@ func _on_BackUIButton_pressed():
 var confirm_create_new = null
 
 func _on_New_pressed():
+	
 	# Create popup if doesn't exist
 	if confirm_create_new == null:
 		confirm_create_new = ConfirmationDialog.new()
@@ -185,13 +190,17 @@ func _on_New_pressed():
 	confirm_create_new.popup_centered()
 	
 func _on_Find_pressed():
+	
 	get_node("FrontWindows/FindWindow").popup_centered()
 	pass # Replace with function body.
 
 
 func _on_Open_pressed():
-	get_node("FrontWindows/OpenFileWindow").popup_centered()
-	get_node("FrontWindows/OpenFileWindow").rect_position.y += 10
+	
+	var window = get_node("FrontWindows/OpenFileWindow")
+	window.popup_centered()
+	window.rect_position.y += 10
+	window.current_dir = path
 	pass # Replace with function body.
 
 

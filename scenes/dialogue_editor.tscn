@@ -464,12 +464,12 @@ resizable = true
 dialog_hide_on_ok = false
 mode_overrides_title = true
 mode = 0
-access = 0
+access = 2
 filters = PoolStringArray( "" )
 show_hidden_files = true
-current_dir = "res://"
+current_dir = "C:/Users/jamie/Documents/DialogueEditor"
 current_file = ""
-current_path = "res://"
+current_path = "C:/Users/jamie/Documents/DialogueEditor/"
 _sections_unfolded = [ "Dialog", "Theme", "filters" ]
 
 [node name="FrontUILayer" type="CanvasLayer" parent="."]
