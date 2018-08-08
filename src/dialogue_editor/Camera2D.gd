@@ -160,6 +160,7 @@ func reset(pos = Vector2(640,360)):
 
 var last_unix_time = 0
 func _process(delta):
+	if delta == 0: return
 	if int(OS.get_unix_time()) != int(last_unix_time):
 		OS.set_window_title("McFakeFake Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
 		last_unix_time = OS.get_unix_time()

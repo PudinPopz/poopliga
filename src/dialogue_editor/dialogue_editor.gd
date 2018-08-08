@@ -191,6 +191,7 @@ func _on_Find_pressed():
 
 func _on_Open_pressed():
 	get_node("FrontWindows/OpenFileWindow").popup_centered()
+	get_node("FrontWindows/OpenFileWindow").rect_position.y += 10
 	pass # Replace with function body.
 
 
