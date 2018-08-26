@@ -14,11 +14,11 @@ var saveas_dialog
 var dialogue_dictionary
 var lowest_position = -99999999
 
-var path
+var current_path
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	current_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	randomize()
 	CAMERA2D.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
@@ -73,7 +73,7 @@ func create_saveas_file_dialog():
 	var thing = FileDialog.new()
 	get_node("FrontWindows").add_child(thing)
 	thing.access = FileDialog.ACCESS_FILESYSTEM
-	thing.current_dir = path
+	thing.current_dir = current_path
 	thing.resizable = true
 	thing.theme = theme
 	thing.theme.default_font = fnt_noto_sans_16
@@ -95,12 +95,17 @@ func update_lowest_position():
 	return lowest
 
 # Saves blocks to dictionary - NOT file!
-func save_blocks_to_dictionary():
+func save_blocks_to_dict():
+	var dict = {}
 	# Clear dictionary
-	dialogue_dictionary.clear_all()
+	#dialogue_dictionary.clear_all()
 	# Add data of all children of DialogueBlocks to dictionary
 	for visual_block in DialogueBlocks.get_children():
+		dict[visual_block.id] = visual_block.serialize()
+		
 		pass
+		
+	return dict
 		# Create actual block
 #		var actual_block = { DEPRECATED - USE SERIALIZE INSTEAD
 #			key = visual_block.id_Label.text,
@@ -123,27 +128,47 @@ func _on_popup_hide():
 func _on_Save_pressed():
 	# if not already open (@TODO)
 	saveas_dialog.popup_centered(Vector2(1200,600))
+	saveas_dialog.current_dir = current_path
 	saveas_dialog.rect_position += Vector2(0,10)
 	CAMERA2D.freeze = true
 	pass # Replace with function body.
 
 func save_as(path):
 	var start_time = OS.get_ticks_msec()
-	save_blocks_to_dictionary()
+	var dict = save_blocks_to_dict()
 
 	var file = File.new()
-	var json = to_json(dialogue_dictionary.dictionary)
+	var json = to_json(dict)
+	var pretty_json = convert_to_multiline_json(json)
+	
 	file.open(path, File.WRITE)
-	file.store_string(json)
+	file.store_string(pretty_json)
 	file.close()
 	
-	var end_time_str = "Saved " + str(dialogue_dictionary.dictionary.size()) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
+	var end_time_str = "Saved " + str(dict.size()) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
 	print(end_time_str)
+	current_path = path
 	pass
+
 	
-func convert_to_multiline_json(json):
-	var output
 	
+# @TODO: Make actually pretty print
+func convert_to_multiline_json(json : String):
+	var output = json
+	output = output.replace("{", "{\n")
+	output = output.replace("}", "}\n")
+	output = output.replace(",", ",\n")
+	output = output.replace("[", "[\n")
+	output = output.replace("]", "]\n")
+	return output
+	pass
+func convert_from_multiline_json(json : String):
+	var output = json
+	output = output.replace("{\n", "{")
+	output = output.replace("}\n", "}")
+	output = output.replace(",\n", ",")
+	output = output.replace("[\n", "[")
+	output = output.replace("]\n", "]")
 	return output
 	pass
 
@@ -157,27 +182,28 @@ func fill_with_garbage_blocks(amount):
 		
 	pass
 
-func spawn_block(block_type = DialogueBlock):
+func spawn_block(block_type = DialogueBlock, hand_placed = false):
 	var mouse_pos = get_global_mouse_position()
 	var new_block = block_type.instance()
 	new_block.just_created = true
-	new_block.hand_placed = true
+	new_block.hand_placed = hand_placed
 	DialogueBlocks.add_child(new_block)
 	new_block.randomise_id()
 	new_block.position = mouse_pos
 	new_block.previous_pos = mouse_pos
+	return new_block
 	
 func _on_BackUIButton_pressed():
 	
 	if Input.is_action_pressed("title_block_button"):
-		spawn_block(TitleBlock)
+		spawn_block(TitleBlock, true)
 	elif Input.is_action_pressed("comment_block_button"):
-		spawn_block(CommentBlock)
+		spawn_block(CommentBlock, true)
 	# Spawn regular block if no modifiers
 	elif double_click_timer > 0.001 or Input.is_action_pressed("ctrl"):
 		# Register double click
 		
-		spawn_block(DialogueBlock)
+		spawn_block(DialogueBlock, true)
 		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
 		
 	
@@ -208,10 +234,75 @@ func _on_Find_pressed():
 func _on_Open_pressed():
 	
 	var window = get_node("FrontWindows/OpenFileWindow")
+	window.current_dir = current_path
+	window.add_filter("*.poopliga")
 	window.popup_centered()
 	window.rect_position.y += 10
-	window.current_dir = path
+
 	pass # Replace with function body.
+
+
+func _on_OpenFileWindow_file_selected(path):
+	current_path = path
+	var window = get_node("FrontWindows/OpenFileWindow")
+	var file = File.new()
+	file.open(path, File.READ)
+	var json = file.get_as_text()
+	json = convert_from_multiline_json(json)
+	
+	reset() # Kill all existing blocks to make room for new file
+	
+	load_blocks_from_json(json)
+	
+	
+	
+	pass # Replace with function body.
+
+func load_blocks_from_json(json):
+	var dict := {}
+	dict = parse_json((json))
+	
+	var DB = DialogueBlock.instance()
+	# Loop through individual blocks
+	for key in dict.keys():
+		var values_dict = dict[key]
+		var id = key
+		var node_type = int(values_dict["node_type"])
+		var pos = Vector2(values_dict["pos_x"], values_dict["pos_y"])
+		var node_to_spawn = DialogueBlock
+		match node_type:
+			DB.dialogue_block:
+				node_to_spawn = DialogueBlock
+			DB.title_block:
+				node_to_spawn = TitleBlock
+			DB.comment_block:
+				node_to_spawn = CommentBlock
+				
+		var block = spawn_block(node_to_spawn)
+		block.set_id(id)
+		block.position = pos
+		block.node_type = node_type
+		block.set_tail(values_dict["tail"])
+		block.character_line_edit.text = values_dict["character"]
+		block.dialogue_line_edit.text = values_dict["dialogue"]
+		block.set_character_name(values_dict["character"])
+		block.set_dialogue_string(values_dict["dialogue"])
+		block.set_choices(values_dict["choices"])
+		block.salsa_code = values_dict["salsa_code"]
+		block.extra_data = values_dict["extra_data"]
+		block.update_dialogue_rich_text_label()
+		
+#		node_type = node_type,
+#		dialogue = dialogue_string,
+#		character = character_name,
+#		choices = choices,
+#		tail = tail,
+#		salsa_code = salsa_code,
+#		pos_x = floor(position.x), # JSON does not support Vector2
+#		pos_y = floor(position.y),
+#		extra_data = extra_data
+	DB.free()
+		
 
 
 func reset():
@@ -269,3 +360,6 @@ func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
 
 func force_redraw():
 	pass
+
+
+

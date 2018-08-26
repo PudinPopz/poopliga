@@ -894,6 +894,7 @@ texture = ExtResource( 17 )
 _sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture" ]
 
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
+[connection signal="file_selected" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_file_selected"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]

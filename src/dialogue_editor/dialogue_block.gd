@@ -24,6 +24,7 @@ var character_name := "" setget set_character_name, get_character_name
 var choices := [] setget set_choices, get_choices
 var tail := "" setget set_tail, get_tail
 var salsa_code := ""
+var extra_data := {}
 
 
 
@@ -84,16 +85,19 @@ func set_visibility(boolean):
 
 func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're using US spelling. Deal with it. 
 	var dict = {
-		key = id_label.text,
-		dialogue = dialogue_rich_text_label.text,
-		character = character_line_edit.text,
-		choices = [],
-		tail = "",
-		salsa_code = "",
+		key = id,
+		node_type = node_type,
+		dialogue = get_dialogue_string(),
+		character = get_character_name(),
+		choices = choices,
+		tail = tail,
+		salsa_code = salsa_code,
 		pos_x = floor(position.x), # JSON does not support Vector2
-		pos_y = floor(position.y)
+		pos_y = floor(position.y),
+		extra_data = extra_data
+		
 	}
-
+	
 	return dict
 	pass
 
@@ -102,8 +106,10 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 	
 func update_dialogue_rich_text_label():
 	var new_text = dialogue_line_edit.text
-	var new_text_formatted = new_text.replace("\\n","\n")
+	var new_text_formatted = new_text #.replace("\\n","\n")
 	dialogue_rich_text_label.set_bbcode(new_text_formatted)
+	dialogue_string = dialogue_line_edit.text
+	
 
 func fill_with_garbage():
 	character_line_edit.text = str(randi())
@@ -136,6 +142,8 @@ func _input(event):
 	
 	if Input.is_action_just_released("click"):
 		just_created = false
+		dialogue_string = dialogue_line_edit.text
+		character_name = character_line_edit.text
 		pass	
 	
 	if Input.is_action_just_pressed("x") and (draggable_segment.pressed or just_created):
@@ -160,6 +168,7 @@ func randomise_id():
 	return id
 
 func _on_DraggableSegment_pressed():
+	print("hi", character_line_edit.text)
 	set_process_input(true)
 	mouse_delta = Vector2(0,0)
 	previous_pos = position
@@ -235,6 +244,7 @@ func _on_Id_Label_text_changed(new_text):
 
 
 func _on_CharacterLineEdit_text_changed(new_text):
+	
 	set_character_name(new_text)
 	CAMERA2D.LAST_CHAR_NAME = character_line_edit.text
 	
@@ -274,11 +284,12 @@ func get_id():
 func set_dialogue_string(new_dialogue_string):
 	dialogue_string = new_dialogue_string
 	dialogue_line_edit.text = dialogue_string # Update textfield
+	
 	pass
 	
 func get_dialogue_string():
-	set_dialogue_string(dialogue_line_edit.text)
-	return dialogue_string
+	#set_dialogue_string(dialogue_line_edit.text)
+	return dialogue_line_edit.text
 	pass
 	
 func set_character_name(new_character_name):
@@ -287,8 +298,8 @@ func set_character_name(new_character_name):
 	pass
 	
 func get_character_name():
-	set_character_name(character_line_edit.text)
-	return character_name
+	#set_character_name(character_line_edit.text)
+	return character_line_edit.text
 	pass
 	
 func set_choices(new_choices):
