@@ -428,6 +428,7 @@ focus_mode = 0
 _sections_unfolded = [ "Anchor", "Hint", "Margin", "Mouse", "Rect", "Size Flags" ]
 
 [node name="FindWindow" type="AcceptDialog" parent="FrontWindows"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -839,12 +840,13 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 15 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "(0,0)"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Custom Fonts", "custom_fonts/font" ]
+_sections_unfolded = [ "Custom Fonts", "custom_colors", "custom_constants", "custom_fonts", "custom_fonts/font", "custom_styles" ]
 
 [node name="BackUILayer" type="CanvasLayer" parent="."]
 layer = -99

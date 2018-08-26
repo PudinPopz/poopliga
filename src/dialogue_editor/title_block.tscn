@@ -308,7 +308,7 @@ placeholder_alpha = 0.6
 caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Anchor", "Caret", "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Placeholder", "Rect", "Size Flags", "Theme", "custom_colors", "custom_fonts", "custom_styles/normal" ]
+_sections_unfolded = [ "Anchor", "Caret", "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Grow Direction", "Hint", "Margin", "Material", "Mouse", "Placeholder", "Rect", "Size Flags", "Theme", "custom_colors", "custom_constants", "custom_fonts", "custom_styles/normal" ]
 
 [node name="DeleteButton" type="TextureButton" parent="NinePatchRect"]
 modulate = Color( 0.639216, 0.639216, 0.639216, 1 )

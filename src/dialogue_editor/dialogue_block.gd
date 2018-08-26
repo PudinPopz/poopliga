@@ -139,6 +139,7 @@ func _input(event):
 		pass	
 	
 	if Input.is_action_just_pressed("x") and (draggable_segment.pressed or just_created):
+	#or Input.is_action_pressed("x") and draggable_segment.pressed:
 		_on_DeleteButton_pressed()
 		
 	
