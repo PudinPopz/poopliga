@@ -167,6 +167,10 @@ func _on_DraggableSegment_pressed():
 	dragging = true
 	move_to_front()
 	
+	if Input.is_action_pressed("x"):
+		_on_DeleteButton_pressed()
+	
+	
 func _on_DeleteButton_button_down():
 	move_to_front()
 	pass
@@ -207,7 +211,7 @@ func _on_DraggableSegment_mouse_exited():
 
 
 func _on_HeadArea2D_mouse_entered():
-	print("hii")
+	#print("hii")
 	CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = self
 	#print(CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)
 	title_bar_hovered = true
