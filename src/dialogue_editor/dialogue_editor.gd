@@ -2,6 +2,8 @@ extends Node2D
 
 const DialogueDictionary = preload("res://src/dialogue_editor/dialogue_dictionary.gd")
 const DialogueBlock = preload("res://src/dialogue_editor/dialogue_block.tscn")
+const TitleBlock = preload("res://src/dialogue_editor/title_block.tscn")
+const CommentBlock = preload("res://src/dialogue_editor/comment_block.tscn")
 const theme = preload("res://themes/default_theme.tres")
 const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
 #const Lato16 = preload("res://fonts/lato_16.tres")
@@ -155,24 +157,30 @@ func fill_with_garbage_blocks(amount):
 		
 	pass
 
-
+func spawn_block(block_type = DialogueBlock):
+	var mouse_pos = get_global_mouse_position()
+	var new_block = block_type.instance()
+	new_block.just_created = true
+	new_block.hand_placed = true
+	DialogueBlocks.add_child(new_block)
+	new_block.randomise_id()
+	new_block.position = mouse_pos
+	new_block.previous_pos = mouse_pos
+	
 func _on_BackUIButton_pressed():
-	if double_click_timer > 0.001 or Input.is_action_pressed("ctrl"):
+	
+	if Input.is_action_pressed("title_block_button"):
+		spawn_block(TitleBlock)
+	elif Input.is_action_pressed("comment_block_button"):
+		spawn_block(CommentBlock)
+	# Spawn regular block if no modifiers
+	elif double_click_timer > 0.001 or Input.is_action_pressed("ctrl"):
 		# Register double click
-		var mouse_pos = get_global_mouse_position()
-		var new_block = DialogueBlock.instance()
-		new_block.just_created = true
-		new_block.hand_placed = true
-		DialogueBlocks.add_child(new_block)
-		new_block.randomise_id()
-		new_block.position = mouse_pos
-		new_block.previous_pos = mouse_pos
-
 		
+		spawn_block(DialogueBlock)
 		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
 		
-		
-		pass
+	
 	double_click_timer = double_click_timer_time
 
 var confirm_create_new = null
@@ -191,7 +199,9 @@ func _on_New_pressed():
 	
 func _on_Find_pressed():
 	
-	get_node("FrontWindows/FindWindow").popup_centered()
+	$FrontWindows/FindWindow.popup_centered()
+	$FrontWindows/FindWindow/HBoxContainer2/LineEdit.grab_focus()
+	
 	pass # Replace with function body.
 
 
@@ -234,7 +244,8 @@ func _on_FindWindow_confirmed():
 		#OS.set_window_size(Vector2(100,100))
 		fix_popin_bug()
 	else:
-		get_node("FrontWindows/FindWindow").popup_centered()
+		$FrontWindows/FindWindow.popup_centered()
+		$FrontWindows/FindWindow/HBoxContainer2/LineEdit.grab_focus()
 		
 var _popin_fix_pending = false
 var _popin_fix_pending_timer = -1

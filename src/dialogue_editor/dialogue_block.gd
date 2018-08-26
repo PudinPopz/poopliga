@@ -1,4 +1,10 @@
 extends Node2D
+enum NODE_TYPE {
+	dialogue_block,
+	title_block,
+	comment_block
+	}
+export (NODE_TYPE) var node_type := dialogue_block
 
 # IMPORTS
 
@@ -119,7 +125,7 @@ func _input(event):
 				position = get_global_mouse_position()
 			# Teleport block to cursor if too far away
 			if abs(get_global_mouse_position().y - position.y) > 80 or \
-			abs(get_global_mouse_position().x - position.x) > 400:
+			abs(get_global_mouse_position().x - position.x) > 2000:
 				just_created = true # Act like just created
 			
 	if (draggable_segment.pressed or just_created) and !dragging and !CAMERA2D.pan_mode:
@@ -131,6 +137,9 @@ func _input(event):
 	if Input.is_action_just_released("click"):
 		just_created = false
 		pass	
+	
+	if Input.is_action_just_pressed("x") and (draggable_segment.pressed or just_created):
+		_on_DeleteButton_pressed()
 		
 	
 func move_to_front():
@@ -139,7 +148,14 @@ func move_to_front():
 	get_parent().move_child(self, index)
 
 func randomise_id():
-	set_id(str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,10))
+	var new_id = str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,10)
+	if node_type == title_block:
+		set_id("Title_" + new_id)
+	elif node_type == comment_block:
+		new_id = str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,8)
+		set_id("c_" + new_id)
+	else:
+		set_id(new_id)
 	return id
 
 func _on_DraggableSegment_pressed():
@@ -240,7 +256,7 @@ func is_id_valid(test_id):
 		return false
 	if name != test_id and CAMERA2D.DIALOGUE_EDITOR.DialogueBlocks.has_node(test_id):
 		return false
-	if test_id.length() > 10:
+	if test_id.length() > 100:
 		return false
 	return true
 	
