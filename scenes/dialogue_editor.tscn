@@ -1,22 +1,29 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/dialogue_editor/map.gd" type="Script" id=2]
 [ext_resource path="res://src/dialogue_editor/GridBG.gd" type="Script" id=3]
-[ext_resource path="res://src/Dialogue_editor/SelectionRect.gd" type="Script" id=4]
+[ext_resource path="res://src/dialogue_editor/SelectionRect.gd" type="Script" id=4]
 [ext_resource path="res://themes/default_theme.tres" type="Theme" id=5]
 [ext_resource path="res://src/dialogue_editor/SampleNinePatchRect.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/dialogue_editor/ProjectWindow.gd" type="Script" id=7]
 [ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=8]
 [ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=9]
 [ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=10]
-[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=11]
-[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=12]
-[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=13]
-[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=14]
-[ext_resource path="res://sprites/backgrounds/bg2.jpg" type="Texture" id=15]
+[ext_resource path="res://src/dialogue_editor/accent_hue_controller.gd" type="Script" id=11]
+[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=12]
+[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=13]
+[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=14]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=15]
+[ext_resource path="res://scenes/Background.tscn" type="PackedScene" id=16]
+[ext_resource path="res://sprites/backgrounds/bg2.jpg" type="Texture" id=17]
 
-[sub_resource type="InputEventKey" id=1]
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 1.76088
+
+[sub_resource type="InputEventKey" id=2]
 
 device = 0
 alt = false
@@ -29,12 +36,12 @@ scancode = 78
 unicode = 0
 echo = false
 
-[sub_resource type="ShortCut" id=2]
+[sub_resource type="ShortCut" id=3]
 
-shortcut = SubResource( 1 )
+shortcut = SubResource( 2 )
 _sections_unfolded = [ "shortcut" ]
 
-[sub_resource type="InputEventKey" id=3]
+[sub_resource type="InputEventKey" id=4]
 
 device = 0
 alt = false
@@ -48,17 +55,17 @@ unicode = 0
 echo = false
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ShortCut" id=4]
+[sub_resource type="ShortCut" id=5]
 
-shortcut = SubResource( 3 )
+shortcut = SubResource( 4 )
 _sections_unfolded = [ "Resource", "shortcut" ]
 
-[sub_resource type="Theme" id=5]
+[sub_resource type="Theme" id=6]
 
 default_font = ExtResource( 10 )
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="InputEventKey" id=6]
+[sub_resource type="InputEventKey" id=7]
 
 device = 0
 alt = false
@@ -72,12 +79,12 @@ unicode = 0
 echo = false
 _sections_unfolded = [ "Resource" ]
 
-[sub_resource type="ShortCut" id=7]
+[sub_resource type="ShortCut" id=8]
 
-shortcut = SubResource( 6 )
+shortcut = SubResource( 7 )
 _sections_unfolded = [ "Resource", "shortcut" ]
 
-[sub_resource type="InputEventKey" id=8]
+[sub_resource type="InputEventKey" id=9]
 
 device = 0
 alt = false
@@ -90,12 +97,12 @@ scancode = 83
 unicode = 0
 echo = false
 
-[sub_resource type="ShortCut" id=9]
+[sub_resource type="ShortCut" id=10]
 
-shortcut = SubResource( 8 )
+shortcut = SubResource( 9 )
 _sections_unfolded = [ "shortcut" ]
 
-[sub_resource type="InputEventKey" id=10]
+[sub_resource type="InputEventKey" id=11]
 
 device = 0
 alt = false
@@ -108,9 +115,9 @@ scancode = 70
 unicode = 0
 echo = false
 
-[sub_resource type="ShortCut" id=11]
+[sub_resource type="ShortCut" id=12]
 
-shortcut = SubResource( 10 )
+shortcut = SubResource( 11 )
 _sections_unfolded = [ "shortcut" ]
 
 [node name="DialogueEditor" type="Node2D"]
@@ -129,6 +136,20 @@ _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="SelectionRect" type="Node2D" parent="Map"]
 script = ExtResource( 4 )
+
+[node name="Cursor" type="Node2D" parent="Map"]
+
+[node name="Area2D" type="Area2D" parent="Map/Cursor"]
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Cursor/Area2D"]
+shape = SubResource( 1 )
 
 [node name="FrontWindows" type="CanvasLayer" parent="."]
 layer = 1
@@ -157,7 +178,6 @@ popup_exclusive = false
 _sections_unfolded = [ "Rect", "Theme", "Visibility" ]
 
 [node name="NinePatchRect" parent="FrontWindows/Inspector" instance=ExtResource( 6 )]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 0.0
@@ -166,6 +186,7 @@ margin_right = 868.0
 margin_bottom = 2071.0
 
 [node name="ProjectWindow" type="Control" parent="FrontWindows"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -227,7 +248,7 @@ popup_exclusive = false
 window_title = "Options"
 resizable = false
 script = ExtResource( 8 )
-_sections_unfolded = [ "Custom Styles", "Material", "Popup", "Theme", "Visibility" ]
+_sections_unfolded = [ "Custom Styles", "Margin", "Material", "Popup", "Theme", "Visibility" ]
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow"]
 anchor_left = 0.5
@@ -352,6 +373,60 @@ ticks_on_borders = true
 focus_mode = 0
 _sections_unfolded = [ "Anchor", "Hint", "Margin", "Mouse", "Rect", "Size Flags" ]
 
+[node name="EditorHue" type="Label" parent="FrontWindows/OptionsWindow/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 54.0
+margin_right = 223.0
+margin_bottom = 77.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "EDITOR HUE: "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Size Flags" ]
+
+[node name="EditorHueSlider" type="HSlider" parent="FrontWindows/OptionsWindow/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 227.0
+margin_top = 54.0
+margin_right = 427.0
+margin_bottom = 77.0
+rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 2.0
+step = 0.1
+page = 0.0
+value = 1.2
+exp_edit = true
+rounded = false
+allow_greater = false
+allow_lesser = false
+editable = true
+scrollable = true
+tick_count = 0
+ticks_on_borders = true
+focus_mode = 0
+_sections_unfolded = [ "Anchor", "Hint", "Margin", "Mouse", "Rect", "Size Flags" ]
+
 [node name="FindWindow" type="AcceptDialog" parent="FrontWindows"]
 visible = false
 anchor_left = 0.5
@@ -434,6 +509,7 @@ theme = ExtResource( 5 )
 secret_character = "*"
 focus_mode = 2
 context_menu_enabled = true
+clear_button_enabled = false
 placeholder_alpha = 0.6
 caret_blink = false
 caret_blink_speed = 0.65
@@ -494,7 +570,7 @@ size_flags_vertical = 1
 color = Color( 0, 0, 0, 1 )
 _sections_unfolded = [ "Material", "Rect", "Theme", "Visibility", "material" ]
 
-[node name="ColorRectBG" type="ColorRect" parent="FrontUILayer"]
+[node name="AccentLine" type="ColorRect" parent="FrontUILayer"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -507,6 +583,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 0.117647, 0.490196, 0.65098, 1 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Material", "Rect", "Theme", "Visibility", "material" ]
 
 [node name="ColorRect" type="ColorRect" parent="FrontUILayer"]
@@ -540,7 +617,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 0
-_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "Size Flags" ]
+_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Rect", "Size Flags", "Theme", "Visibility", "custom_constants" ]
 
 [node name="New" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 anchor_left = 0.0
@@ -559,7 +636,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 10 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 2 )
+shortcut = SubResource( 3 )
 group = null
 text = "New"
 flat = true
@@ -584,7 +661,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 10 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 4 )
+shortcut = SubResource( 5 )
 group = null
 text = "Open"
 flat = true
@@ -607,15 +684,15 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = SubResource( 5 )
+theme = SubResource( 6 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 7 )
+shortcut = SubResource( 8 )
 group = null
 text = "Save"
 flat = true
 align = 1
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Custom Constants", "Custom Fonts", "Theme", "Visibility", "custom_styles/normal", "theme" ]
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
@@ -636,7 +713,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 10 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 9 )
+shortcut = SubResource( 10 )
 group = null
 text = "Save as"
 flat = true
@@ -661,7 +738,7 @@ size_flags_vertical = 1
 custom_fonts/font = ExtResource( 10 )
 toggle_mode = false
 enabled_focus_mode = 0
-shortcut = SubResource( 11 )
+shortcut = SubResource( 12 )
 group = null
 text = "Find"
 flat = true
@@ -716,7 +793,7 @@ group = null
 text = "Options"
 flat = true
 align = 1
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 _sections_unfolded = [ "Anchor", "Custom Fonts", "Grow Direction", "Hint", "Margin" ]
 
 [node name="VScrollBar" type="VScrollBar" parent="FrontUILayer"]
@@ -744,7 +821,7 @@ rounded = false
 allow_greater = false
 allow_lesser = false
 custom_step = -1.0
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 _sections_unfolded = [ "Custom Icons", "Focus", "Hint", "Rect", "Theme" ]
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar"]
@@ -762,7 +839,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 14 )
+custom_fonts/font = ExtResource( 15 )
 text = "(0,0)"
 align = 2
 percent_visible = 1.0
@@ -810,21 +887,10 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="TextureRect" type="TextureRect" parent="BGLayer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 0
-_sections_unfolded = [ "Size Flags", "texture" ]
+[node name="Background" parent="BGLayer" instance=ExtResource( 16 )]
+modulate = Color( 0.835294, 0.905882, 1, 1 )
+texture = ExtResource( 17 )
+_sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture" ]
 
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]

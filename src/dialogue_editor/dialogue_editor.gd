@@ -17,7 +17,6 @@ var path
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-	
 	randomize()
 	CAMERA2D.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
@@ -26,7 +25,7 @@ func _ready():
 	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
 	
-	fill_with_garbage_blocks(666)
+	#fill_with_garbage_blocks(666)
 	fix_popin_bug(10)
 
 var double_click_timer_time = 0.35
@@ -99,21 +98,22 @@ func save_blocks_to_dictionary():
 	dialogue_dictionary.clear_all()
 	# Add data of all children of DialogueBlocks to dictionary
 	for visual_block in DialogueBlocks.get_children():
-		# Create actual block
-		var actual_block = {
-			key = visual_block.id_Label.text,
-			dialogue = visual_block.DialogueRichTextLabel.text,
-			character = visual_block.CharacterLineEdit.text,
-			choices = [],
-			tail = "",
-			code = "",
-			pos_x = visual_block.position.floor().x, # JSON does not support Vector2
-			pos_y = visual_block.position.floor().y
-		}
-		# Store actual block in dictionary
-		dialogue_dictionary.add(actual_block.key, actual_block)
 		pass
-	pass
+		# Create actual block
+#		var actual_block = { DEPRECATED - USE SERIALIZE INSTEAD
+#			key = visual_block.id_Label.text,
+#			dialogue = visual_block.DialogueRichTextLabel.text,
+#			character = visual_block.CharacterLineEdit.text,
+#			choices = [],
+#			tail = "",
+#			code = "",
+#			pos_x = visual_block.position.floor().x, # JSON does not support Vector2
+#			pos_y = visual_block.position.floor().y
+#		}
+#		# Store actual block in dictionary
+#		dialogue_dictionary.add(actual_block.key, actual_block)
+#		pass
+	
 
 func _on_popup_hide():
 	CAMERA2D.freeze = false
@@ -222,18 +222,19 @@ func _on_Options2_focus_exited():
 var prev_window_size = Vector2(100,100)
 func _on_FindWindow_confirmed():
 	var given_id = get_node("FrontWindows/FindWindow/HBoxContainer2/LineEdit").text
-	if DialogueBlocks.has_node(given_id):
-		if given_id == "" :
-			return
+	if DialogueBlocks.has_node(given_id) and given_id != "" :
+
 		var dialogue_node = DialogueBlocks.get_node(given_id)
 		#CAMERA2D.pan_mode = true
-		CAMERA2D.reset(dialogue_node.position)
+		CAMERA2D.lerp_camera_pos(dialogue_node.position + Vector2(0, 200))
 		dialogue_node.set_visibility(true)
 		CAMERA2D.update_rendered(true , -1)
 		CAMERA2D.update()
-
+		
 		#OS.set_window_size(Vector2(100,100))
 		fix_popin_bug()
+	else:
+		get_node("FrontWindows/FindWindow").popup_centered()
 		
 var _popin_fix_pending = false
 var _popin_fix_pending_timer = -1

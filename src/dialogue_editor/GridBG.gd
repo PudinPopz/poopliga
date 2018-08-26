@@ -10,8 +10,14 @@ func redraw():
 	update()
 	
 var window_ratio = Vector2(1,1)
+
+var _last_camera_pos = Vector2(0,0)
 func _process(delta):
+	
 	if CAMERA2D.pan_mode:
+		update_grid()
+	elif CAMERA2D.position != _last_camera_pos:
+		_last_camera_pos = CAMERA2D.position
 		update_grid()
 		
 func _input(event):

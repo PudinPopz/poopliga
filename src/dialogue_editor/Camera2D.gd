@@ -2,12 +2,19 @@ extends Camera2D
 signal scrolled
 #signal moved
 
+# IMPORTS
+var DialogueBlock = preload("res://src/dialogue_editor/dialogue_block.gd")
+
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")
 var DIALOGUE_EDITOR
 
 var LAST_MOUSE_POS = Vector2()
 var LAST_CHAR_NAME = ""
+
+var CURRENT_CONNECTION_HEAD_NODE
+var CURRENT_CONNECTION_TAIL_NODE
+
 const secret1 = preload("res://snd/secret1.ogg")
 
 func _ready():
@@ -19,9 +26,10 @@ func _ready():
 	set_physics_process(true)
 	
 
-var scroll_spd = 100
+var scroll_spd = 160 #100
 var zoom_spd = 1.2
 var zoom_level_max = 3
+var loop_mouse_cursor = true
 
 var zoom_level = zoom_level_max
 var mouse_pos = Vector2(0,0)
@@ -31,9 +39,15 @@ var pan_mode = false
 var scroll_mode : int = 0
 var camera_previous_pos = Vector2(0,0)
 var freeze = false
+var target_pos = Vector2(0,0)
+var in_lerp = false
+var lerp_time = 0
+var lerp_finish_time = 1.0
 
 var blocks_on_screen = []
 var last_blocks_on_screen = []
+
+
 func _on_moved():
 	update_rendered()
 
@@ -44,7 +58,11 @@ func _notification(what):
 		pass
 		
 
+
 func _input(event):
+	
+	
+	
 	if freeze:
 		return
 	scroll_mode = 0
@@ -73,15 +91,15 @@ func _input(event):
 
 	# Zoom
 	# Mouse wheel with ctrl or alt to zoom	
-	if Input.is_action_pressed("alt") or Input.is_action_pressed("ctrl"):
+	if Input.is_action_pressed("alt") or Input.is_action_pressed("ctrl") or Input.is_action_pressed("middle_click"):
 		if Input.is_action_just_pressed("scroll_down"):
-			zoom_level *= zoom_spd
+			zoom_level *= zoom_spd + 3*zoom_spd*int(Input.is_action_pressed("shift"))
 			camera_previous_pos = position
 			mouse_previous_pos = mouse_pos
 			mouse_delta = Vector2(0,0)
 			update_zoom()
 		elif Input.is_action_just_pressed("scroll_up"):
-			zoom_level *= 1/zoom_spd
+			zoom_level /= zoom_spd + 3*zoom_spd*int(Input.is_action_pressed("shift"))
 			camera_previous_pos = position
 			mouse_previous_pos = mouse_pos
 			mouse_delta = Vector2(0,0)
@@ -91,13 +109,13 @@ func _input(event):
 	elif (event is InputEventKey or event is InputEventMouseButton) and !pan_mode:
 		if Input.is_action_pressed("scroll_down"):
 			scroll_mode = 1
-			position.y += scroll_spd
+			position.y += scroll_spd + 3*scroll_spd*int(Input.is_action_pressed("shift"))
 			#print(scroll_spd)
 			emit_signal("scrolled")
 			_on_moved()
 		if Input.is_action_pressed("scroll_up"):
 			scroll_mode = -1
-			position.y -= scroll_spd
+			position.y -= scroll_spd + 3*scroll_spd*int(Input.is_action_pressed("shift"))
 			emit_signal("scrolled")
 			_on_moved()
 	
@@ -116,12 +134,28 @@ func update_zoom():
 
 var _update_move_timer = 0
 func update_pan():
-	if pan_mode:
-		var prev_pos = position
-		position = camera_previous_pos - mouse_delta*zoom_level
-		if position.floor() != prev_pos.floor():
-			_on_moved()
+	if !pan_mode:
+		return
+	var prev_pos = position
+	var new_position = camera_previous_pos - mouse_delta*zoom_level
+	position = new_position
+#	if new_position.y > 0:
+#		position = new_position
+#	else:
+#		position.x = new_position.x
+#		position.y = 0
+	if position.floor() != prev_pos.floor():
+		_on_moved()
 	
+	# Loop mouse cursor
+	if loop_mouse_cursor:
+		#OS.mouse
+		var screen_mouse_pos = get_viewport().get_mouse_position() + OS.window_position
+		if (screen_mouse_pos).y >= OS.get_screen_size(OS.current_screen).y:
+			#mouse_pos.y = 0
+			#get_viewport().warp_mouse(mouse_pos - OS.window_position)
+			pass
+		#print(screen_mouse_pos)
 
 func update_rendered(force=false, max_blocks=50):
 	
@@ -143,9 +177,11 @@ func update_rendered(force=false, max_blocks=50):
 	or blocks_on_screen.back() != last_blocks_on_screen.back():
 	
 		for area2D in last_blocks_on_screen:
-			area2D.get_parent().set_visibility(false)
+			if area2D is DialogueBlock:
+				area2D.get_parent().set_visibility(false)
 		for area2D in blocks_on_screen:
-			area2D.get_parent().set_visibility(true)
+			if area2D is DialogueBlock:
+				area2D.get_parent().set_visibility(true)
 		
 	last_blocks_on_screen = blocks_on_screen.duplicate()
 	#print(OS.get_ticks_msec() - start_time)
@@ -164,6 +200,31 @@ func _process(delta):
 	if int(OS.get_unix_time()) != int(last_unix_time):
 		OS.set_window_title("McFakeFake Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
 		last_unix_time = OS.get_unix_time()
+	
+
+	
+	# Lerping
+	if in_lerp:
+		position = position.linear_interpolate(target_pos, pow(lerp_time, 2))
+		lerp_time += 1*delta
+		
+		
+	
+	if lerp_time >= lerp_finish_time:
+		#print(lerp_time)
+		position = target_pos
+		in_lerp = false
+		lerp_time = 0
+		
+		#emit_signal("scrolled")
+		#_on_moved()
+
+func lerp_camera_pos(target, seconds = 1.0, reset_time = false):
+	in_lerp = true
+	target_pos = target
+	lerp_finish_time = seconds
+	if reset_time:
+		lerp_time = 0
 
 func _physics_process(delta):
 	

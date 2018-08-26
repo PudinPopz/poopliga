@@ -4,6 +4,13 @@ extends Node2D
 
 const ThrowawaySound = preload("res://src/dialogue_editor/ThrowawaySound.tscn")
 
+# RESOURCES
+const spr_unfilled_circle = preload("res://sprites/icons/unfilled_circle_thick.png")
+const spr_filled_circle = preload("res://sprites/icons/filled_circle.png")
+const spr_unfilled_triangle = preload("res://sprites/icons/connector_small_unfilled.png")
+const spr_filled_triangle = preload("res://sprites/icons/connector_small.png")
+
+const snd_delet = preload("res://snd/delet_sound.ogg")
 # FIELDS
 var id := "" setget set_id, get_id
 var dialogue_string := "" setget set_dialogue_string, get_dialogue_string
@@ -21,15 +28,12 @@ onready var id_label = get_node("NinePatchRect/TitleBar/Id_Label")
 onready var draggable_segment = get_node("NinePatchRect/TitleBar/DraggableSegment")
 onready var character_line_edit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit")
 onready var dialogue_rich_text_label = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel")
-onready var dialogue_line_edit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel/LineEdit")
+onready var dialogue_line_edit = get_node("NinePatchRect/DialogueTextEdit")
 onready var anim_player = get_node("AnimationPlayer")
 onready var area_2d = get_node("Area2D")
 
 onready var nine_patch_size = nine_patch_rect.rect_size
 
-# RESOURCES
-
-const snd_delet = preload("res://snd/delet_sound.ogg")
 
 var hand_placed = false
 var just_created : bool = false
@@ -41,6 +45,12 @@ var mouse_pos := Vector2(0,0)
 var mouse_previous_pos := Vector2(0,0)
 var mouse_offset := Vector2(0,0)
 var on_screen = false
+var title_bar_hovered = false
+var in_connecting_mode = false
+
+
+onready var _head_connector_modulate_default = $NinePatchRect/TitleBar/HeadConnector.modulate
+onready var _tail_connector_modulate_default = $NinePatchRect/TailConnector.modulate
 
 
 # Called when the node enters the scene tree for the first time.
@@ -50,6 +60,7 @@ func _ready():
 	set_physics_process(false)
 	if !just_created:
 		set_process_input(false)
+	
 	dialogue_line_edit.connect("text_changed",self,"update_dialogue_rich_text_label")
 
 	# Play spawn animation
@@ -62,7 +73,7 @@ func set_visibility(boolean):
 	# Disabled for now
 	on_screen = boolean
 	pass
-	
+
 	
 
 func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're using US spelling. Deal with it. 
@@ -83,7 +94,8 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 
 
 	
-func update_dialogue_rich_text_label(new_text):
+func update_dialogue_rich_text_label():
+	var new_text = dialogue_line_edit.text
 	var new_text_formatted = new_text.replace("\\n","\n")
 	dialogue_rich_text_label.set_bbcode(new_text_formatted)
 
@@ -161,31 +173,39 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	
 
 func _on_DraggableSegment_mouse_entered():
+	
+	
+	_on_HeadArea2D_mouse_entered()
+	
 	set_process_input(true)
+	update()
 	pass
 
 func _on_DraggableSegment_mouse_exited():
+	_on_HeadArea2D_mouse_exited()
 	if !just_created:
 		set_process_input(false)
+	update()
 	pass
 
 
-# DRAWING CODE
+func _on_HeadArea2D_mouse_entered():
+	print("hii")
+	CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = self
+	#print(CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)
+	title_bar_hovered = true
+	update()
+	pass # Replace with function body.
 
-onready var _line_start_pos := Vector2(0,nine_patch_size.y-4)
-onready var _tail_location := Vector2(90,900)
-onready var _line_curve = Curve2D.new()
 
-func _draw():
-	#line_curve.clear_points()
-	#line_curve.add_point(line_start_pos, Vector2(1,1),Vector2(1,1))
-	#line_curve.add_point((line_start_pos + tail_location)/2)
-	#line_curve.add_point(tail_location, Vector2(1,0),Vector2(1,1))
-	if tail_valid:
-		draw_line(_line_start_pos,_tail_location,Color("1e7da6"),4,true)
-	
-	#draw_polyline(line_curve.get_baked_points(),Color("1e7da6"),4,true)
-	pass
+func _on_HeadArea2D_mouse_exited():
+	if CAMERA2D.CURRENT_CONNECTION_TAIL_NODE == self:
+		CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = null
+	title_bar_hovered = false
+	update()
+	pass # Replace with function body.
+
+
 
 func _on_Id_Label_text_changed(new_text):
 	#set_id(new_text)
@@ -264,24 +284,71 @@ func set_tail(new_tail):
 	
 func get_tail():
 	return tail
-	pass
-
-
-
 
 func _on_Id_Label_text_entered(new_text):
 	set_id(new_text)
 	#anim_player.play("spawn")
 	id_label.release_focus()
 	print(get_id())
-	pass # Replace with function body.
-
 
 func _on_Id_Label_focus_exited():
+	if id == id_label.text:
+		return
 	set_id(id_label.text)
 	anim_player.play("spawn")
 	print(get_id())
 	
-		
+func _on_TailConnector_button_down():
 	
+	in_connecting_mode = true
+	CAMERA2D.CURRENT_CONNECTION_HEAD_NODE = self
+	update()
+	set_process(true)
+	$NinePatchRect/TailConnector.pressed = false
+	$NinePatchRect.grab_focus()
 	pass # Replace with function body.
+	
+func _on_TailConnector_button_up():
+#	in_connecting_mode = false
+#	CAMERA2D.CURRENT_CONNECTION_HEAD_NODE = null
+#	update()
+#	set_process(false)
+	pass # Replace with function body.
+
+func release_connection():
+	in_connecting_mode = false
+	CAMERA2D.CURRENT_CONNECTION_HEAD_NODE = null
+	update()
+	set_process(false)
+
+# DRAWING CODE
+
+
+
+func _draw():
+	
+	if CAMERA2D.CURRENT_CONNECTION_HEAD_NODE == self:
+		$NinePatchRect/TailConnector.modulate = Color(1,1,1)
+		$NinePatchRect/TailConnector.texture_normal = spr_filled_triangle
+	else:
+		$NinePatchRect/TailConnector.modulate = _tail_connector_modulate_default
+		$NinePatchRect/TailConnector.texture_normal = spr_unfilled_triangle
+	
+	if CAMERA2D.CURRENT_CONNECTION_HEAD_NODE != null and title_bar_hovered:
+		#$NinePatchRect.modulate = Color(1.3,1.3,1.3)
+		$NinePatchRect/TitleBar/HeadConnector.modulate = Color(1,1,1)
+	else:
+		#$NinePatchRect.modulate = Color(1,1,1)
+		$NinePatchRect/TitleBar/HeadConnector.modulate = _head_connector_modulate_default
+		
+	$LineDrawNode.update()
+	pass
+
+func _process(delta):
+	if Input.is_action_just_released("click"):
+		release_connection()
+	update()
+
+
+
+

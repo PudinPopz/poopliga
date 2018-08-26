@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/trash_small.png-ef5e1cccc0b672c24baebe413b7d36c3.stex"
+path="res://.import/unfilled_circle_thick.png-0b19923abd4a2e593f1f0de5d40b0381.stex"
 
 [deps]
 
-source_file="res://sprites/icons/trash_small.png"
-dest_files=[ "res://.import/trash_small.png-ef5e1cccc0b672c24baebe413b7d36c3.stex" ]
+source_file="res://sprites/icons/unfilled_circle_thick.png"
+dest_files=[ "res://.import/unfilled_circle_thick.png-0b19923abd4a2e593f1f0de5d40b0381.stex" ]
 
 [params]
 

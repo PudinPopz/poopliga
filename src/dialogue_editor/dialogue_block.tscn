@@ -1,19 +1,22 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_block.gd" type="Script" id=1]
-[ext_resource path="res://sprites/dialogue/dialogue_nine_patch.png" type="Texture" id=2]
-[ext_resource path="res://themes/default_theme.tres" type="Theme" id=3]
-[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=4]
-[ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=5]
-[ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=6]
-[ext_resource path="res://src/dialogue_editor/TitleBarButtonHover.gd" type="Script" id=7]
-[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=8]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=9]
-[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=10]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=11]
-[ext_resource path="res://sprites/icons/connector.png" type="Texture" id=12]
-[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=13]
-[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=14]
+[ext_resource path="res://sprites/dialogue/dialogue_nine_patch_with_chin.png" type="Texture" id=2]
+[ext_resource path="res://sprites/icons/unfilled_circle_thick.png" type="Texture" id=3]
+[ext_resource path="res://themes/default_theme.tres" type="Theme" id=4]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=5]
+[ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=6]
+[ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=7]
+[ext_resource path="res://src/dialogue_editor/TitleBarButtonHover.gd" type="Script" id=8]
+[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=9]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=10]
+[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=11]
+[ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=12]
+[ext_resource path="res://src/dialogue_editor/text_edit_fixer.gd" type="Script" id=13]
+[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=14]
+[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=15]
+[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=16]
+[ext_resource path="res://src/dialogue_editor/dialogue_block_line_draw.gd" type="Script" id=17]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -90,7 +93,12 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=8]
 
 custom_solver_bias = 0.0
-extents = Vector2( 386.351, 162.988 )
+extents = Vector2( 385.447, 193.37 )
+
+[sub_resource type="RectangleShape2D" id=9]
+
+custom_solver_bias = 0.0
+extents = Vector2( 379.341, 39.333 )
 
 [node name="DialogueBlock" type="Node2D"]
 use_parent_material = true
@@ -104,7 +112,7 @@ anchor_right = 0.5
 anchor_bottom = 0.0
 margin_left = -379.0
 margin_right = 382.0
-margin_bottom = 318.0
+margin_bottom = 384.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 1
@@ -132,6 +140,32 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
+[node name="HeadConnector" type="TextureButton" parent="NinePatchRect/TitleBar"]
+modulate = Color( 0.333333, 0.333333, 0.333333, 1 )
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -12.0
+margin_top = 5.0
+margin_right = 8.0
+margin_bottom = 25.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 3 )
+expand = true
+_sections_unfolded = [ "Grow Direction", "Margin", "Mouse", "Rect", "Visibility", "texture_normal" ]
+
 [node name="DraggableSegment" type="Button" parent="NinePatchRect/TitleBar"]
 anchor_left = 0.0
 anchor_top = 0.0
@@ -141,11 +175,11 @@ margin_bottom = 35.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 1
-mouse_filter = 1
+mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 custom_styles/focus = SubResource( 1 )
 toggle_mode = false
 action_mode = 0
@@ -154,7 +188,7 @@ shortcut = null
 group = null
 flat = true
 align = 1
-_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Mouse", "Size Flags", "Theme" ]
+_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Margin", "Mouse", "Theme" ]
 
 [node name="Id_Label" type="LineEdit" parent="NinePatchRect/TitleBar"]
 anchor_left = 0.0
@@ -172,22 +206,23 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 3 )
+theme = ExtResource( 4 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
 max_length = 10
 secret_character = "*"
 expand_to_text_length = true
 focus_mode = 1
 context_menu_enabled = false
+clear_button_enabled = false
 placeholder_text = "ID"
 placeholder_alpha = 0.6
 caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Anchor", "Caret", "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Placeholder", "Rect", "Size Flags", "Theme", "custom_fonts/font", "custom_styles/normal" ]
+_sections_unfolded = [ "Anchor", "Caret", "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Grow Direction", "Hint", "Margin", "Mouse", "Placeholder", "Rect", "Size Flags", "Theme", "custom_colors", "custom_fonts/font", "custom_styles/normal" ]
 
 [node name="DeleteButton" type="TextureButton" parent="NinePatchRect"]
 modulate = Color( 0.639216, 0.639216, 0.639216, 1 )
@@ -209,11 +244,11 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 6 )
-texture_hover = ExtResource( 5 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 6 )
 expand = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Hint", "Rect", "Size Flags", "Textures", "Visibility", "icon" ]
 
 [node name="Dialogue" type="Control" parent="NinePatchRect"]
@@ -234,7 +269,7 @@ size_flags_vertical = 1
 
 [node name="DialogueBoxSprite" type="Sprite" parent="NinePatchRect/Dialogue"]
 position = Vector2( 156, 84.4253 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 _sections_unfolded = [ "Material", "Offset", "Pause", "Script", "Transform", "Visibility" ]
 
 [node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite"]
@@ -256,12 +291,13 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 max_length = 20
 secret_character = "*"
 expand_to_text_length = true
 focus_mode = 2
 context_menu_enabled = false
+clear_button_enabled = false
 placeholder_alpha = 0.6
 caret_blink = true
 caret_blink_speed = 0.65
@@ -283,7 +319,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 10 )
+custom_fonts/normal_font = ExtResource( 11 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -297,59 +333,72 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "Anchor", "Bb Code", "Custom Fonts", "Focus", "Grow Direction", "Margin", "Mouse", "Rect", "Visibility", "custom_fonts/normal_font" ]
 
-[node name="LineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel"]
+[node name="DialogueTextEdit" type="TextEdit" parent="NinePatchRect"]
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -24.0
-margin_top = 109.0
-margin_right = 719.0
-margin_bottom = 139.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 206.0
+margin_right = -13.0
+margin_bottom = -40.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_previous = NodePath("../../CharacterLineEdit")
 focus_mode = 1
 mouse_filter = 0
-mouse_default_cursor_shape = 1
+mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = ExtResource( 3 )
-custom_fonts/font = ExtResource( 11 )
-max_length = 256
-secret_character = "*"
-focus_mode = 1
+theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 12 )
+custom_constants/line_spacing = 0
+text = ""
+readonly = false
+highlight_current_line = false
+syntax_highlighting = false
+show_line_numbers = false
+breakpoint_gutter = false
+highlight_all_occurrences = false
+override_selected_font_color = false
 context_menu_enabled = false
-placeholder_alpha = 0.6
+smooth_scrolling = false
+v_scroll_speed = 80.0
+hiding_enabled = 0
+wrap_enabled = true
+caret_block_mode = false
 caret_blink = true
 caret_blink_speed = 0.65
-caret_position = 0
-_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Grow Direction", "Mouse", "Placeholder", "Rect", "Size Flags", "Theme", "Visibility", "custom_fonts/font" ]
+caret_moving_by_right_click = true
+script = ExtResource( 13 )
+_sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Hint", "Mouse", "Placeholder", "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_fonts/font", "custom_styles", "theme" ]
+counter_camera_scroll = true
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect"]
+[node name="TailConnector" type="TextureButton" parent="NinePatchRect"]
 modulate = Color( 1, 1, 1, 0.321569 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -16.0
-margin_top = -37.0
-margin_right = 12.0
-margin_bottom = -9.0
+margin_left = -14.0
+margin_top = -28.0
+margin_right = 10.0
+margin_bottom = -4.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
-mouse_filter = 0
+mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 toggle_mode = false
+action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 12 )
+texture_normal = ExtResource( 14 )
 expand = true
-_sections_unfolded = [ "Textures", "Visibility", "texture_normal" ]
+_sections_unfolded = [ "Mouse", "Size Flags", "Textures", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("..")
@@ -363,14 +412,14 @@ blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options", "Script" ]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 15 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 stream_paused = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 14 )
+script = ExtResource( 16 )
 
 [node name="Area2D" type="Area2D" parent="."]
 input_pickable = true
@@ -383,10 +432,33 @@ audio_bus_override = false
 audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
-position = Vector2( 0, 159.919 )
+position = Vector2( 0, 190.666 )
 shape = SubResource( 8 )
-_sections_unfolded = [ "Transform", "shape" ]
+_sections_unfolded = [ "Transform", "Visibility", "shape" ]
+
+[node name="LineDrawNode" type="Node2D" parent="."]
+position = Vector2( 0, 310 )
+z_index = 4
+script = ExtResource( 17 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="HeadArea2D" type="Area2D" parent="."]
+position = Vector2( -10, 7.626 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 13.0
+monitoring = false
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Pickable", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadArea2D"]
+position = Vector2( 10.0826, 32.2122 )
+shape = SubResource( 9 )
+_sections_unfolded = [ "shape" ]
 
 [connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
 [connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]
@@ -398,5 +470,9 @@ _sections_unfolded = [ "Transform", "shape" ]
 [connection signal="button_down" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_button_down"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="text_changed" from="NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
+[connection signal="button_down" from="NinePatchRect/TailConnector" to="." method="_on_TailConnector_button_down"]
+[connection signal="button_up" from="NinePatchRect/TailConnector" to="." method="_on_TailConnector_button_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="mouse_entered" from="HeadArea2D" to="." method="_on_HeadArea2D_mouse_entered"]
+[connection signal="mouse_exited" from="HeadArea2D" to="." method="_on_HeadArea2D_mouse_exited"]

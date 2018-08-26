@@ -34,7 +34,7 @@ editor_draw_drag_margin = false
 script = ExtResource( 1 )
 _sections_unfolded = [ "Drag Margin", "Editor", "Limit", "Offset", "Smoothing", "Transform" ]
 
-[node name="Area2D" type="Area2D" parent="." index="0"]
+[node name="Area2D" type="Area2D" parent="."]
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -45,7 +45,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z Index" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 self_modulate = Color( 0.545098, 1, 0, 1 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Visibility", "shape" ]

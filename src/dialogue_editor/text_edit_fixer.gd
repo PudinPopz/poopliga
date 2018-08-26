@@ -1,21 +1,17 @@
 extends TextEdit
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+export var counter_camera_scroll := true
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	visible = !visible 
-	visible = !visible
-	set_process(true)
-	set_process_input(true)
+	set_size(get_size()+Vector2(1,0))
+	set_size(get_size()-Vector2(1,0))
+	set_process(false)
+	set_process_input(false)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("alt"):
+	
+	pass
 		
-		visible = !visible 
-		OS.request_attention()
 #	pass
