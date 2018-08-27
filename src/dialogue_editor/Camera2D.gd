@@ -48,16 +48,24 @@ var blocks_on_screen = []
 var last_blocks_on_screen = []
 
 
+
+
 func _on_moved():
 	update_rendered()
 
 	pass
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		ignore_mouse = true
 		update_rendered(true)
+		pass
+	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		ignore_mouse = true
 		pass
 		
 
+
+var ignore_mouse := true
 var is_ctrl_down := false
 var is_alt_down := false
 var is_alt_just_released := false
@@ -82,12 +90,18 @@ func _input(event):
 	# Mouse movement stuff
 	if event is InputEventMouseMotion:
 		mouse_pos = event.position
-		if pan_mode:
+		
+		if pan_mode and !ignore_mouse:
 			mouse_delta = mouse_pos - mouse_previous_pos
 			update_pan()
+			
 	#yep these are some long ass conditionals	
 	if Input.is_action_just_pressed("middle_click") or \
-	(is_modifier_down(alt) and Input.is_action_pressed("click")):
+	(is_modifier_down(alt) and Input.is_action_pressed("click")) or \
+	Input.is_action_pressed("middle_click") and ignore_mouse:
+		if event is InputEventMouseMotion:
+			ignore_mouse = false
+			
 		camera_previous_pos = position 
 		mouse_previous_pos = mouse_pos
 		mouse_delta = Vector2(0,0)
