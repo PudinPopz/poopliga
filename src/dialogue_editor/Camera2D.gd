@@ -12,6 +12,8 @@ var DIALOGUE_EDITOR
 var LAST_MOUSE_POS = Vector2()
 var LAST_CHAR_NAME = ""
 
+var LAST_MODIFIED_BLOCK = null
+
 var CURRENT_CONNECTION_HEAD_NODE
 var CURRENT_CONNECTION_TAIL_NODE
 
@@ -65,7 +67,7 @@ func _notification(what):
 		
 
 
-var ignore_mouse := true
+var ignore_mouse := true # Workaround for broken panning when out of focus
 var is_ctrl_down := false
 var is_alt_down := false
 var is_alt_just_released := false
@@ -98,7 +100,7 @@ func _input(event):
 	#yep these are some long ass conditionals	
 	if Input.is_action_just_pressed("middle_click") or \
 	(is_modifier_down(alt) and Input.is_action_pressed("click")) or \
-	Input.is_action_pressed("middle_click") and ignore_mouse:
+	ignore_mouse and Input.is_action_pressed("middle_click"):
 		if event is InputEventMouseMotion:
 			ignore_mouse = false
 			

@@ -131,7 +131,7 @@ _sections_unfolded = [ "Transform" ]
 script = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="DialogueBlocks" type="Node2D" parent="Map"]
+[node name="Blocks" type="Node2D" parent="Map"]
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="SelectionRect" type="Node2D" parent="Map"]
