@@ -228,7 +228,9 @@ func _process(delta):
 		position = target_pos
 		in_lerp = false
 		lerp_time = 0
-		
+	
+	position.x = clamp(position.x, limit_left, limit_right)
+	position.y = clamp(position.y, limit_top, limit_bottom)
 		#emit_signal("scrolled")
 		#_on_moved()
 
