@@ -541,7 +541,7 @@ dialog_hide_on_ok = false
 mode_overrides_title = true
 mode = 0
 access = 2
-filters = PoolStringArray( "" )
+filters = PoolStringArray( "*.poopliga" )
 show_hidden_files = true
 current_dir = "C:/Users/jamie/Documents/DialogueEditor"
 current_file = ""
@@ -895,6 +895,7 @@ _sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture
 
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
 [connection signal="file_selected" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_file_selected"]
+[connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]

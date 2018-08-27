@@ -27,7 +27,7 @@ func _ready():
 	
 
 var scroll_spd = 160 #100
-var zoom_spd = 1.2
+var zoom_spd = 1.5
 var zoom_level_max = 3
 var loop_mouse_cursor = true
 
@@ -58,9 +58,21 @@ func _notification(what):
 		pass
 		
 
+var is_ctrl_down := false
+var is_alt_down := false
+var is_alt_just_released := false
+var is_shift_down := false
 
 func _input(event):
-	
+	is_alt_just_released = false
+		
+	if event is InputEventWithModifiers and !event.is_echo():
+		if is_alt_down and !event.alt:
+			is_alt_just_released = true
+		
+		is_ctrl_down = event.control or event.command
+		is_alt_down = event.alt
+		is_shift_down = event.shift
 	
 	
 	if freeze:
@@ -75,23 +87,24 @@ func _input(event):
 			update_pan()
 	#yep these are some long ass conditionals	
 	if Input.is_action_just_pressed("middle_click") or \
-	(Input.is_action_pressed("alt") and Input.is_action_pressed("click")):
+	(is_modifier_down(alt) and Input.is_action_pressed("click")):
 		camera_previous_pos = position 
 		mouse_previous_pos = mouse_pos
 		mouse_delta = Vector2(0,0)
 		pan_mode = true
-		Input.set_default_cursor_shape(Input.CURSOR_DRAG)
+		
 	elif Input.is_action_just_released("middle_click") or \
-	(Input.is_action_just_released("alt") or (Input.is_action_pressed("alt") and Input.is_action_just_released("click"))):
+	((Input.is_action_just_released("alt") and !Input.is_action_pressed("middle_click")) or \
+	(is_alt_just_released and !Input.is_action_pressed("middle_click")) or \
+	(is_modifier_down(alt) and Input.is_action_just_released("click"))):
 		mouse_delta = Vector2(0,0)
 		pan_mode = false
-		Input.set_default_cursor_shape()
 	
 	
 
 	# Zoom
 	# Mouse wheel with ctrl or alt to zoom	
-	if Input.is_action_pressed("alt") or Input.is_action_pressed("ctrl") or Input.is_action_pressed("middle_click"):
+	if Input.is_action_pressed("middle_click") or is_modifier_down(alt) or is_modifier_down(ctrl):
 		if Input.is_action_just_pressed("scroll_down"):
 			zoom_level *= zoom_spd + 3*zoom_spd*int(Input.is_action_pressed("shift"))
 			camera_previous_pos = position
@@ -229,3 +242,19 @@ func lerp_camera_pos(target, seconds = 1.0, reset_time = false):
 func _physics_process(delta):
 	
 	pass
+
+
+enum MODIFIER {
+	ctrl,
+	alt,
+	shift
+	}
+	
+func is_modifier_down(modifier):
+	match modifier:
+		ctrl:
+			return is_ctrl_down or Input.is_action_pressed("ctrl")
+		alt:
+			return is_alt_down or Input.is_action_pressed("alt")
+		shift:
+			return is_shift_down or Input.is_action_pressed("shift")

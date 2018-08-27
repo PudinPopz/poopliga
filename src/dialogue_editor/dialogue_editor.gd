@@ -16,6 +16,23 @@ var lowest_position = -99999999
 
 var current_path
 
+
+var is_ctrl_down := false
+var is_alt_down := false
+var is_shift_down := false
+
+func _input(event):
+	if event is InputEventWithModifiers and !event.is_echo():
+		is_ctrl_down = event.control or event.command
+		is_alt_down = event.alt
+		is_shift_down = event.shift
+		
+		#print(is_ctrl_down)
+		
+	pass
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
@@ -164,11 +181,8 @@ func convert_to_multiline_json(json : String):
 	pass
 func convert_from_multiline_json(json : String):
 	var output = json
-	output = output.replace("{\n", "{")
-	output = output.replace("}\n", "}")
-	output = output.replace(",\n", ",")
-	output = output.replace("[\n", "[")
-	output = output.replace("]\n", "]")
+	output = output.replace("\n", "")
+	
 	return output
 	pass
 
@@ -200,7 +214,7 @@ func _on_BackUIButton_pressed():
 	elif Input.is_action_pressed("comment_block_button"):
 		spawn_block(CommentBlock, true)
 	# Spawn regular block if no modifiers
-	elif double_click_timer > 0.001 or Input.is_action_pressed("ctrl"):
+	elif double_click_timer > 0.001 or Input.is_action_pressed("ctrl") or is_ctrl_down:
 		# Register double click
 		
 		spawn_block(DialogueBlock, true)
@@ -235,14 +249,17 @@ func _on_Open_pressed():
 	
 	var window = get_node("FrontWindows/OpenFileWindow")
 	window.current_dir = current_path
-	window.add_filter("*.poopliga")
+	
 	window.popup_centered()
 	window.rect_position.y += 10
-
+	CAMERA2D.freeze = true
+	
 	pass # Replace with function body.
 
 
+	
 func _on_OpenFileWindow_file_selected(path):
+	
 	current_path = path
 	var window = get_node("FrontWindows/OpenFileWindow")
 	var file = File.new()
@@ -256,6 +273,9 @@ func _on_OpenFileWindow_file_selected(path):
 	
 	
 	
+	pass # Replace with function body.
+func _on_OpenFileWindow_popup_hide():
+	CAMERA2D.freeze = false
 	pass # Replace with function body.
 
 func load_blocks_from_json(json):
@@ -343,12 +363,15 @@ var _popin_fix_pending_timer = -1
 
 
 
+
+
 func _physics_process(delta):
 	# Fix render bug
-	_popin_fix_pending_timer -=1
-	if _popin_fix_pending and _popin_fix_pending_timer <= 0:
-		OS.set_window_size(prev_window_size)
-		_popin_fix_pending = false
+	pass
+#	_popin_fix_pending_timer -=1
+#	if _popin_fix_pending and _popin_fix_pending_timer <= 0:
+#		OS.set_window_size(prev_window_size)
+#		_popin_fix_pending = false
 		
 
 func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
@@ -360,6 +383,23 @@ func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
 
 func force_redraw():
 	pass
+
+
+enum MODIFIER {
+	ctrl,
+	alt,
+	shift
+	}
+	
+func is_modifier_down(modifier):
+	match modifier:
+		ctrl:
+			return is_ctrl_down or Input.is_action_pressed("ctrl")
+		alt:
+			return is_alt_down or Input.is_action_pressed("alt")
+		shift:
+			return is_shift_down or Input.is_action_pressed("shift")
+
 
 
 
