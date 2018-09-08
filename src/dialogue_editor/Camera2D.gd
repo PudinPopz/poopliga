@@ -230,15 +230,14 @@ func _process(delta):
 		OS.set_window_title("McFakeFake Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
 		last_unix_time = OS.get_unix_time()
 
-
-
 	# Lerping
 	if in_lerp:
 		if !pan_mode:
-			position = position.linear_interpolate(target_pos, pow(lerp_time, 2))
+			if lerp_time >= 1.0:
+				position = position.linear_interpolate(target_pos, pow(lerp_time, 2))
+			else:
+				position = position.linear_interpolate(target_pos, lerp_time)
 		lerp_time += 1*delta
-
-
 
 	if lerp_time >= lerp_finish_time or (pan_mode and lerp_time >= 0.1):
 		#print(lerp_time)
