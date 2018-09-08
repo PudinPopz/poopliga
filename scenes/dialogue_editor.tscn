@@ -901,6 +901,20 @@ modulate = Color( 0.835294, 0.905882, 1, 1 )
 texture = ExtResource( 18 )
 _sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture" ]
 
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
 [connection signal="file_selected" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_file_selected"]
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]

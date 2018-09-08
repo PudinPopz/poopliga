@@ -10,6 +10,7 @@ const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
 
 onready var Blocks = get_node("Map/Blocks")
 onready var cursor = get_node("Map/Cursor")
+onready var control = get_node("Control")
 
 var saveas_dialog
 
@@ -26,17 +27,29 @@ var is_shift_down := false
 var current_meta_block = null
 
 func _input(event):
+	cursor.position = get_global_mouse_position()
+
 	if event is InputEventWithModifiers and !event.is_echo():
 		is_ctrl_down = event.control or event.command
 		is_alt_down = event.alt
 		is_shift_down = event.shift
 
-		#print(is_ctrl_down)
-	cursor.position = get_global_mouse_position()
-	pass
-
-
-
+	var focus = control.get_focus_owner()
+	
+	# @TODO: Add system for remembering previous and jumping back to it
+	if is_ctrl_down and Input.is_action_just_pressed("enter"):
+		if focus is TextEdit and focus.name == "DialogueTextEdit":
+			var block = focus.get_parent().get_parent()
+			var tail_block
+			if block.tail == "":
+				tail_block = block.spawn_block_below()
+			else:
+				tail_block = Blocks.get_node(block.tail)
+			tail_block.dialogue_line_edit.readonly = true
+			tail_block.dialogue_line_edit.grab_focus()
+			yield(get_tree().create_timer(0), "timeout")
+			tail_block.dialogue_line_edit.readonly = false
+		
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
@@ -325,6 +338,8 @@ func load_blocks_from_json(json):
 		block.position = pos
 		block.node_type = node_type
 		block.set_tail(values_dict["tail"])
+		if block.tail != "":
+			block.set_process(true)
 		block.character_line_edit.text = values_dict["character"]
 		block.dialogue_line_edit.text = values_dict["dialogue"]
 		block.set_character_name(values_dict["character"])

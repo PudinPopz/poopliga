@@ -70,6 +70,7 @@ var force_process_input = false
 onready var _head_connector_modulate_default = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default = $NinePatchRect/TailConnector.modulate
 
+#@TODO: Use observer pattern instead of just making all nodes with connections run every frame
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -87,6 +88,7 @@ func _ready():
 		name = "__META__*****"
 		set_process(true)
 
+	update()
 
 	dialogue_line_edit.connect("text_changed",self,"update_dialogue_rich_text_label")
 
@@ -189,6 +191,7 @@ func _input(event):
 	if Input.is_action_just_pressed("x") and (draggable_segment.pressed or just_created):
 	#or Input.is_action_pressed("x") and draggable_segment.pressed:
 		_on_DeleteButton_pressed()
+	
 
 
 
@@ -401,27 +404,13 @@ func _on_TailConnector_button_down():
 	var de = CAMERA2D.DIALOGUE_EDITOR
 	if de.double_click_timer > 0.001:
 		# Register double click
-		release_connection_mode()
-		var tail_block = de.spawn_block(de.DB.dialogue_block, false, position + Vector2(0,600))
-		tail_block.randomise_id()
-		tail = tail_block.id
-		CAMERA2D.lerp_camera_pos(Vector2(CAMERA2D.position.x, tail_block.position.y) + Vector2(0, 200))
-		tail_block.dialogue_line_edit.grab_focus()
-		CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = tail_block
-		in_connecting_mode = false
-		set_process(true)
-		update()
+		spawn_block_below()
 		
 	de.double_click_timer = de.double_click_timer_time
 
 
 func _on_TailConnector_button_up():
-	print("hi")
-#	in_connecting_mode = false
-#	CAMERA2D.CURRENT_CONNECTION_HEAD_NODE = null
-#	update()
-#	set_process(false)
-	pass # Replace with function body.
+	pass
 
 func release_connection_mode():
 	tail = ""
@@ -436,7 +425,20 @@ func release_connection_mode():
 		set_process(false)
 
 
-
+func spawn_block_below():
+	var de = CAMERA2D.DIALOGUE_EDITOR
+	release_connection_mode()
+	var tail_block = de.spawn_block(de.DB.dialogue_block, false, position + Vector2(0,600))
+	tail_block.randomise_id()
+	tail = tail_block.id
+	CAMERA2D.lerp_camera_pos(Vector2(CAMERA2D.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)
+	tail_block.dialogue_line_edit.grab_focus()
+	CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = tail_block
+	in_connecting_mode = false
+	set_process(true)
+	update()
+	
+	return tail_block
 
 
 

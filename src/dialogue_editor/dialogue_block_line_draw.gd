@@ -49,4 +49,4 @@ func _draw():
 		draw_line(_line_start_pos, _tail_location, Color("eaeaea"), 4, true)
 		draw_circle(_tail_location, 6, Color.white)
 
-	print(CAMERA2D.CURRENT_CONNECTION_HEAD_NODE," to ", CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)
+	#print(CAMERA2D.CURRENT_CONNECTION_HEAD_NODE," to ", CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)
