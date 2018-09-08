@@ -18,16 +18,8 @@ func _ready():
 
 onready var _line_start_pos := Vector2(0,0)
 onready var _tail_location := Vector2(0,0)
-#onready var _line_curve = Curve2D.new()
-#onready var _line_points : PoolVector2Array
-#onready var _curve_points = 48
 
-func _draw():
-	#line_curve.clear_points()
-	#line_curve.add_point(line_start_pos, Vector2(1,1),Vector2(1,1))
-	#line_curve.add_point((line_start_pos + tail_location)/2)
-	#line_curve.add_point(tail_location, Vector2(1,0),Vector2(1,1))
-	
+func _draw():	
 	position.x = 0
 	position.y = -8 + get_parent().get_node("NinePatchRect").margin_bottom
 	
@@ -38,31 +30,23 @@ func _draw():
 	
 	_line_start_pos = get_global_transform().origin
 	_tail_location =  get_global_mouse_position()
-	
-	
-
-#	_line_curve.clear_points()
-#	_line_curve.add_point(_line_start_pos)
-#	_line_curve.add_point((_line_start_pos + _tail_location)/2, Vector2(800,800))
-#	_line_curve.add_point(_tail_location)
-#
-#	var line_points : PoolVector2Array
-#	for i in range(_curve_points+1):
-#		line_points.push_back(_line_start_pos + Vector2(i, cos(i)))
-#
-	
 
 	
 	# If in process of connecting to another potential node
 	if CAMERA2D.CURRENT_CONNECTION_HEAD_NODE == get_parent():
 		draw_circle(_line_start_pos, 2, Color.white)
 		draw_line(_line_start_pos, _tail_location, Color.white, 4, true)
-		
-		#draw_polyline(line_points, Color("ffffff"),4,true)
-		pass
-	
-	
-	print(CAMERA2D.CURRENT_CONNECTION_HEAD_NODE," to ",CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)
-	
-	
-	pass
+
+	# If node has a defined tail node
+	if get_parent().tail != "":
+		var tail_node = CAMERA2D.DIALOGUE_EDITOR.Blocks.get_node(get_parent().tail)
+		if tail_node == null:
+			get_parent().tail = ""
+			return
+		_tail_location = tail_node.position
+		_tail_location.y += 14
+		draw_circle(_line_start_pos, 2, Color.white)
+		draw_line(_line_start_pos, _tail_location, Color("eaeaea"), 4, true)
+		draw_circle(_tail_location, 6, Color.white)
+
+	print(CAMERA2D.CURRENT_CONNECTION_HEAD_NODE," to ", CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)

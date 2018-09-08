@@ -98,7 +98,7 @@ extents = Vector2( 385.447, 193.37 )
 [sub_resource type="RectangleShape2D" id=9]
 
 custom_solver_bias = 0.0
-extents = Vector2( 379.341, 39.333 )
+extents = Vector2( 21.0916, 17.0142 )
 
 [node name="DialogueBlock" type="Node2D" groups=[
 "dialogue_block",
@@ -382,10 +382,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -14.0
+margin_left = -32.0
 margin_top = -28.0
-margin_right = 10.0
-margin_bottom = -4.0
+margin_right = 27.0
+margin_bottom = -3.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -400,6 +400,7 @@ shortcut = null
 group = null
 texture_normal = ExtResource( 14 )
 expand = true
+stretch_mode = 5
 _sections_unfolded = [ "Mouse", "Size Flags", "Textures", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -452,13 +453,12 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 priority = 13.0
-monitoring = false
 audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Collision", "Pickable", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadArea2D"]
-position = Vector2( 10.0826, 32.2122 )
+position = Vector2( 10.0826, 6.46904 )
 shape = SubResource( 9 )
 _sections_unfolded = [ "shape" ]
 
@@ -476,5 +476,6 @@ _sections_unfolded = [ "shape" ]
 [connection signal="button_up" from="NinePatchRect/TailConnector" to="." method="_on_TailConnector_button_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="mouse_entered" from="HeadArea2D" to="." method="_on_HeadArea2D_mouse_entered"]
-[connection signal="mouse_exited" from="HeadArea2D" to="." method="_on_HeadArea2D_mouse_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="area_entered" from="HeadArea2D" to="." method="_on_HeadArea2D_area_entered"]
+[connection signal="area_exited" from="HeadArea2D" to="." method="_on_HeadArea2D_area_exited"]

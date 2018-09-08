@@ -1,27 +1,28 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://src/dialogue_editor/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/dialogue_editor/map.gd" type="Script" id=2]
 [ext_resource path="res://src/dialogue_editor/GridBG.gd" type="Script" id=3]
 [ext_resource path="res://src/dialogue_editor/SelectionRect.gd" type="Script" id=4]
-[ext_resource path="res://themes/default_theme.tres" type="Theme" id=5]
-[ext_resource path="res://src/dialogue_editor/SampleNinePatchRect.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/dialogue_editor/ProjectWindow.gd" type="Script" id=7]
-[ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=8]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=9]
-[ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=10]
-[ext_resource path="res://src/dialogue_editor/accent_hue_controller.gd" type="Script" id=11]
-[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=12]
-[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=13]
-[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=14]
-[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=15]
-[ext_resource path="res://scenes/Background.tscn" type="PackedScene" id=16]
-[ext_resource path="res://sprites/backgrounds/bg2.jpg" type="Texture" id=17]
+[ext_resource path="res://sprites/icons/filled_circle.png" type="Texture" id=5]
+[ext_resource path="res://themes/default_theme.tres" type="Theme" id=6]
+[ext_resource path="res://src/dialogue_editor/SampleNinePatchRect.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/dialogue_editor/ProjectWindow.gd" type="Script" id=8]
+[ext_resource path="res://src/dialogue_editor/OptionsWindow.gd" type="Script" id=9]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=10]
+[ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=11]
+[ext_resource path="res://src/dialogue_editor/accent_hue_controller.gd" type="Script" id=12]
+[ext_resource path="res://src/dialogue_editor/save.gd" type="Script" id=13]
+[ext_resource path="res://src/dialogue_editor/OptionsButton.gd" type="Script" id=14]
+[ext_resource path="res://src/dialogue_editor/VScrollBar.gd" type="Script" id=15]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=16]
+[ext_resource path="res://scenes/Background.tscn" type="PackedScene" id=17]
+[ext_resource path="res://sprites/backgrounds/bg2.jpg" type="Texture" id=18]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 1.76088
+radius = 2.0
 
 [sub_resource type="InputEventKey" id=2]
 
@@ -62,7 +63,7 @@ _sections_unfolded = [ "Resource", "shortcut" ]
 
 [sub_resource type="Theme" id=6]
 
-default_font = ExtResource( 10 )
+default_font = ExtResource( 11 )
 _sections_unfolded = [ "Resource" ]
 
 [sub_resource type="InputEventKey" id=7]
@@ -139,7 +140,12 @@ script = ExtResource( 4 )
 
 [node name="Cursor" type="Node2D" parent="Map"]
 
-[node name="Area2D" type="Area2D" parent="Map/Cursor"]
+[node name="Sprite" type="Sprite" parent="Map/Cursor"]
+visible = false
+scale = Vector2( 0.0415137, 0.0415137 )
+texture = ExtResource( 5 )
+
+[node name="CursorArea" type="Area2D" parent="Map/Cursor"]
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -147,9 +153,11 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Cursor/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Cursor/CursorArea"]
 shape = SubResource( 1 )
+_sections_unfolded = [ "shape" ]
 
 [node name="FrontWindows" type="CanvasLayer" parent="."]
 layer = 1
@@ -173,11 +181,11 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 popup_exclusive = false
 _sections_unfolded = [ "Rect", "Theme", "Visibility" ]
 
-[node name="NinePatchRect" parent="FrontWindows/Inspector" instance=ExtResource( 6 )]
+[node name="NinePatchRect" parent="FrontWindows/Inspector" instance=ExtResource( 7 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 0.0
@@ -201,8 +209,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
-script = ExtResource( 7 )
+theme = ExtResource( 6 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Hint", "theme" ]
 
 [node name="Panel" type="WindowDialog" parent="FrontWindows/ProjectWindow"]
@@ -221,7 +229,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 popup_exclusive = false
 window_title = "Project Settings"
 resizable = false
@@ -243,11 +251,11 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 popup_exclusive = false
 window_title = "Options"
 resizable = false
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Custom Styles", "Margin", "Material", "Popup", "Theme", "Visibility" ]
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow"]
@@ -280,7 +288,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "SCROLL SPEED: "
 percent_visible = 1.0
@@ -333,7 +341,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "ZOOM SPEED: "
 percent_visible = 1.0
@@ -387,7 +395,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 10 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "EDITOR HUE: "
 percent_visible = 1.0
@@ -443,7 +451,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 popup_exclusive = false
 window_title = "Find"
 resizable = false
@@ -482,7 +490,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 text = "ID: "
 percent_visible = 1.0
 lines_skipped = 0
@@ -505,7 +513,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 4
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 secret_character = "*"
 focus_mode = 2
 context_menu_enabled = true
@@ -533,7 +541,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 popup_exclusive = false
 window_title = "Open a File"
 resizable = true
@@ -583,7 +591,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 0.117647, 0.490196, 0.65098, 1 )
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Material", "Rect", "Theme", "Visibility", "material" ]
 
 [node name="ColorRect" type="ColorRect" parent="FrontUILayer"]
@@ -633,7 +641,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 3 )
@@ -658,7 +666,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 5 )
@@ -692,7 +700,7 @@ group = null
 text = "Save"
 flat = true
 align = 1
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 _sections_unfolded = [ "Custom Constants", "Custom Fonts", "Theme", "Visibility", "custom_styles/normal", "theme" ]
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
@@ -710,7 +718,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 10 )
@@ -735,7 +743,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = SubResource( 12 )
@@ -760,7 +768,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
@@ -785,7 +793,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
@@ -793,7 +801,7 @@ group = null
 text = "Options"
 flat = true
 align = 1
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 _sections_unfolded = [ "Anchor", "Custom Fonts", "Grow Direction", "Hint", "Margin" ]
 
 [node name="VScrollBar" type="VScrollBar" parent="FrontUILayer"]
@@ -810,7 +818,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 min_value = 0.0
 max_value = 100.0
 step = 0.0
@@ -821,7 +829,7 @@ rounded = false
 allow_greater = false
 allow_lesser = false
 custom_step = -1.0
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 _sections_unfolded = [ "Custom Icons", "Focus", "Hint", "Rect", "Theme" ]
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar"]
@@ -839,7 +847,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "(0,0)"
 align = 2
@@ -871,7 +879,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 toggle_mode = false
 action_mode = 0
 enabled_focus_mode = 2
@@ -888,9 +896,9 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Background" parent="BGLayer" instance=ExtResource( 16 )]
+[node name="Background" parent="BGLayer" instance=ExtResource( 17 )]
 modulate = Color( 0.835294, 0.905882, 1, 1 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 _sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture" ]
 
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
@@ -898,8 +906,8 @@ _sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
-[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Find" to="." method="_on_Find_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_pressed"]
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_toggled"]

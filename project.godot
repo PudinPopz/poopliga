@@ -189,7 +189,8 @@ x={
 
 [rendering]
 
-quality/intended_usage/framebuffer_allocation.mobile=2
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
 threads/thread_model=2
 quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false
