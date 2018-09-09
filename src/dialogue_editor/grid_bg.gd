@@ -8,18 +8,18 @@ func _ready():
 
 func redraw():
 	update()
-	
+
 var window_ratio = Vector2(1,1)
 
 var _last_camera_pos = Vector2(0,0)
 
 func _process(delta):
-	if CAMERA2D.pan_mode:
+	if MainCamera.pan_mode:
 		update_grid()
-	elif CAMERA2D.position != _last_camera_pos:
-		_last_camera_pos = CAMERA2D.position
+	elif MainCamera.position != _last_camera_pos:
+		_last_camera_pos = MainCamera.position
 		update_grid()
-		
+
 func _input(event):
 	if event is InputEventMouseButton:
 		update_grid()
@@ -35,32 +35,32 @@ func update_grid():
 	else:
 		visible = false
 		return
-		
+
 	window_ratio = OS.get_real_window_size().normalized()
 	special_offset = Vector2(0,0)
-	
+
 	if window_ratio.x > 0.998 or window_ratio.y > 0.920:
 		visible = false
 		return
 	if window_ratio.y > 0.6:
 		if window_ratio.y > 0.90:
-			special_offset = Vector2(0, floor(-10*CAMERA2D.zoom_level)*tile_size)
+			special_offset = Vector2(0, floor(-10*MainCamera.zoom_level)*tile_size)
 		elif window_ratio.y > 0.86:
-			special_offset = Vector2(0, floor(-8*CAMERA2D.zoom_level)*tile_size)
+			special_offset = Vector2(0, floor(-8*MainCamera.zoom_level)*tile_size)
 		else:
-			special_offset = Vector2(0, floor(-4*CAMERA2D.zoom_level)*tile_size)
+			special_offset = Vector2(0, floor(-4*MainCamera.zoom_level)*tile_size)
 	if window_ratio.x > .86:
 		if window_ratio.x > 0.96:
-			special_offset = Vector2(floor(-100*CAMERA2D.zoom_level)*tile_size, 0)
+			special_offset = Vector2(floor(-100*MainCamera.zoom_level)*tile_size, 0)
 		elif window_ratio.x > 0.94:
-			special_offset = Vector2(floor(-6*CAMERA2D.zoom_level)*tile_size, 0)
+			special_offset = Vector2(floor(-6*MainCamera.zoom_level)*tile_size, 0)
 		else :
-			special_offset = Vector2(floor(-4*CAMERA2D.zoom_level)*tile_size, 0)
-		
-	var camera_pos = CAMERA2D.position 
+			special_offset = Vector2(floor(-4*MainCamera.zoom_level)*tile_size, 0)
+
+	var camera_pos = MainCamera.position
 	position.x =  special_offset.x + (-0*1 + camera_pos.x) - normalise_value(camera_pos.x,-tile_size,tile_size)
 	position.y =  special_offset.y + (0 + camera_pos.y) - normalise_value(camera_pos.y,-tile_size,tile_size)
-	
+
 	update()
 
 
@@ -72,18 +72,18 @@ func _draw():
 	#tile_size = 12
 	var length = Vector2(0,0)
 	#print(length)
-	var zoom = CAMERA2D.zoom.x
+	var zoom = MainCamera.zoom.x
 	#zoom = 1
 	var tile_amount = 25*zoom*(Vector2(1,1))
 
 	var offset = Vector2(0,0)
-	
+
 	draw_set_transform(-(def_vp + Vector2(600,500) ), 0, Vector2(tile_size,tile_size))
 	for y in range(0, tile_amount.y):
 		draw_line(Vector2(0, y ) + offset, Vector2(tile_amount.y, y + length.y ) + offset, line_color)
 	for x in range(0,tile_amount.x):
 		draw_line(Vector2(x , 0) , Vector2(x +length.x, tile_amount.x) + offset, line_color)
-	
+
 
 func normalise_value(value, start, end):
 	var width = end - start

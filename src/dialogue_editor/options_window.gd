@@ -10,11 +10,11 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_scroll_speed_changed(value):
-	CAMERA2D.scroll_spd = value
+	MainCamera.scroll_spd = value
 	pass
 
 func _on_zoom_speed_changed(value):
-	CAMERA2D.zoom_spd = value
+	MainCamera.zoom_spd = value
 	pass
 
 func _on_Options_toggled(button_pressed):

@@ -33,13 +33,13 @@ func _draw():
 
 	
 	# If in process of connecting to another potential node
-	if CAMERA2D.CURRENT_CONNECTION_HEAD_NODE == get_parent():
+	if MainCamera.CURRENT_CONNECTION_HEAD_NODE == get_parent():
 		draw_circle(_line_start_pos, 2, Color.white)
 		draw_line(_line_start_pos, _tail_location, Color.white, 4, true)
 
 	# If node has a defined tail node
 	if get_parent().tail != "":
-		var tail_node = CAMERA2D.DIALOGUE_EDITOR.Blocks.get_node(get_parent().tail)
+		var tail_node = MainCamera.DIALOGUE_EDITOR.Blocks.get_node(get_parent().tail)
 		if tail_node == null:
 			get_parent().tail = ""
 			return
@@ -49,4 +49,4 @@ func _draw():
 		draw_line(_line_start_pos, _tail_location, Color("eaeaea"), 4, true)
 		draw_circle(_tail_location, 6, Color.white)
 
-	#print(CAMERA2D.CURRENT_CONNECTION_HEAD_NODE," to ", CAMERA2D.CURRENT_CONNECTION_TAIL_NODE)
+	#print(MainCamera.CURRENT_CONNECTION_HEAD_NODE," to ", MainCamera.CURRENT_CONNECTION_TAIL_NODE)

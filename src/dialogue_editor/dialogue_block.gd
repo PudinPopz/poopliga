@@ -17,7 +17,7 @@ export (NODE_TYPE) var node_type := meta_block
 
 # IMPORTS
 
-const ThrowawaySound = preload("res://src/dialogue_editor/ThrowawaySound.tscn")
+const ThrowawaySound = preload("res://src/dialogue_editor/throwaway_sound.tscn")
 
 # RESOURCES
 const spr_unfilled_circle = preload("res://sprites/icons/unfilled_circle_thick.png")
@@ -50,7 +50,6 @@ onready var area_2d = get_node("Area2D")
 
 onready var nine_patch_size = nine_patch_rect.rect_size
 
-
 var hand_placed = false
 var just_created : bool = false
 var dragging : bool = false
@@ -66,11 +65,10 @@ var in_connecting_mode = false
 
 var force_process_input = false
 
-
 onready var _head_connector_modulate_default = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default = $NinePatchRect/TailConnector.modulate
 
-#@TODO: Use observer pattern instead of just making all nodes with connections run every frame
+# @TODO: Use observer pattern instead of just making all nodes with connections run every frame
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -97,15 +95,10 @@ func _ready():
 		anim_player.play("spawn")
 		nine_patch_rect.visible = true
 
-
-
 func set_visibility(boolean):
 	#nine_patch_rect.visible = boolean
 	# Disabled for now
 	on_screen = boolean
-	pass
-
-
 
 func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're using US spelling. Deal with it.
 	var dict = {
@@ -119,14 +112,10 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 		pos_x = floor(position.x), # JSON does not support Vector2
 		pos_y = floor(position.y),
 		extra_data = extra_data
-
 	}
 
 	return dict
 	pass
-
-
-
 
 func update_dialogue_rich_text_label():
 	var new_text = dialogue_line_edit.text
@@ -142,16 +131,16 @@ func fill_with_garbage():
 	dialogue_line_edit.text = str(randi()).sha256_text()
 
 func _input(event):
-	if CAMERA2D.scroll_mode != 0:
-		mouse_offset.y += CAMERA2D.scroll_mode*CAMERA2D.scroll_spd
-	if CAMERA2D.pan_mode or !Input.is_action_pressed("click"):
+	if MainCamera.scroll_mode != 0:
+		mouse_offset.y += MainCamera.scroll_mode*MainCamera.scroll_spd
+	if MainCamera.pan_mode or !Input.is_action_pressed("click"):
 		dragging = false
 		mouse_offset = Vector2()
 	if event is InputEventMouseMotion:
 		mouse_pos = event.position
 		if dragging:
 			mouse_delta = (mouse_pos - mouse_previous_pos)
-			position = previous_pos + mouse_delta  * CAMERA2D.zoom_level  + mouse_offset
+			position = previous_pos + mouse_delta  * MainCamera.zoom_level  + mouse_offset
 			if just_created:
 				position = get_global_mouse_position()
 			# Teleport block to cursor if too far away
@@ -160,7 +149,7 @@ func _input(event):
 				just_created = true # Act like just created
 			update()
 
-	if (draggable_segment.pressed or just_created) and !dragging and !CAMERA2D.pan_mode:
+	if (draggable_segment.pressed or just_created) and !dragging and !MainCamera.pan_mode:
 		mouse_offset = Vector2()
 		previous_pos = position
 		mouse_previous_pos = mouse_pos
@@ -171,30 +160,12 @@ func _input(event):
 		just_created = false
 		dialogue_string = dialogue_line_edit.text
 		character_name = character_line_edit.text
-		CAMERA2D.LAST_MODIFIED_BLOCK = self
+		MainCamera.LAST_MODIFIED_BLOCK = self
 		pass
-
-	if event is InputEventKey:
-		if event.alt and event.scancode == KEY_C:
-			character_line_edit.grab_focus()
-		if event.alt and event.scancode == KEY_D:
-			dialogue_line_edit.grab_focus()
-		if event.alt and event.scancode == KEY_I:
-			id_label.grab_focus()
-			pass
-			#character_line_edit.grab_focus()
-
-
-
-
 
 	if Input.is_action_just_pressed("x") and (draggable_segment.pressed or just_created):
 	#or Input.is_action_pressed("x") and draggable_segment.pressed:
 		_on_DeleteButton_pressed()
-	
-
-
-
 
 func move_to_front():
 	# Move to front of Blocks
@@ -221,65 +192,56 @@ func _on_DraggableSegment_pressed():
 	dragging = true
 	move_to_front()
 	nine_patch_rect.grab_focus()
-	CAMERA2D.LAST_MODIFIED_BLOCK = self
+	MainCamera.LAST_MODIFIED_BLOCK = self
 	if Input.is_action_pressed("x"):
 		_on_DeleteButton_pressed()
 
-
 func _on_DeleteButton_button_down():
 	move_to_front()
-	pass
+
 func _on_DeleteButton_pressed():
 	anim_player.play("kill")
 	var death_sound = ThrowawaySound.instance()
 	death_sound.pitch_scale = rand_range(0.7,1.3)
 	death_sound.stream = snd_delet
 	death_sound.volume_db = -6.118
-	CAMERA2D.add_child(death_sound)
-	pass
-
+	MainCamera.add_child(death_sound)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"kill":
 			# Tell Camera2D to reset array of last rendered stuff
 			# (workaround for null pointer)
-			CAMERA2D.last_blocks_on_screen = []
+			MainCamera.last_blocks_on_screen = []
 			self.queue_free() # actually kill
 
 
 func _on_DraggableSegment_mouse_entered():
 	set_process_input(true)
 	update()
-	pass
 
 func _on_DraggableSegment_mouse_exited():
 	if !just_created and !dialogue_line_edit.has_focus():
 		set_process_input(false)
 	update()
-	pass
-
-
 
 func _on_DialogueTextEdit_focus_entered():
 	set_process_input(true)
-	CAMERA2D.LAST_MODIFIED_BLOCK = self
-	pass # Replace with function body.
-
+	MainCamera.LAST_MODIFIED_BLOCK = self
 
 func _on_DialogueTextEdit_focus_exited():
 	set_process_input(false)
 
 func _on_HeadArea2D_area_entered(area : Area2D):
-	if area.name == "CursorArea" and CAMERA2D.CURRENT_CONNECTION_HEAD_NODE != self:
+	if area.name == "CursorArea" and MainCamera.CURRENT_CONNECTION_HEAD_NODE != self:
 		title_bar_hovered = true
-		CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = self
+		MainCamera.CURRENT_CONNECTION_TAIL_NODE = self
 		update()
 
 func _on_HeadArea2D_area_exited(area : Area2D):
 	if area.name == "CursorArea":
 		title_bar_hovered = false
-		CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = null
+		MainCamera.CURRENT_CONNECTION_TAIL_NODE = null
 		update()
 
 func _on_Id_Label_text_changed(new_text):
@@ -291,8 +253,8 @@ func _on_Id_Label_text_changed(new_text):
 func _on_CharacterLineEdit_text_changed(new_text):
 
 	set_character_name(new_text)
-	CAMERA2D.LAST_CHAR_NAME = character_line_edit.text
-	CAMERA2D.LAST_MODIFIED_BLOCK = self
+	MainCamera.LAST_CHAR_NAME = character_line_edit.text
+	MainCamera.LAST_MODIFIED_BLOCK = self
 
 	pass # Replace with function body.
 
@@ -317,20 +279,17 @@ func set_id(new_id):
 	id = new_id
 	id_label.text = id # Update textfield
 	name = id # Update name in tree
-	pass
 
 func is_id_valid(test_id):
 	if test_id == "__META__*****" and node_type != null and node_type != meta_block:
 		return false
 	if test_id == "":
 		return false
-	if name != test_id and CAMERA2D.DIALOGUE_EDITOR.Blocks.has_node(test_id):
+	if name != test_id and MainCamera.DIALOGUE_EDITOR.blocks.has_node(test_id):
 		return false
 	if test_id.length() > 100:
 		return false
 	return true
-
-	pass
 
 func get_id():
 	if node_type == meta_block:
@@ -381,7 +340,7 @@ func _on_Id_Label_text_entered(new_text):
 	set_id(new_text)
 	#anim_player.play("spawn")
 	id_label.release_focus()
-	CAMERA2D.LAST_MODIFIED_BLOCK = self
+	MainCamera.LAST_MODIFIED_BLOCK = self
 	print(get_id())
 
 func _on_Id_Label_focus_exited():
@@ -395,17 +354,17 @@ func _on_Id_Label_focus_exited():
 func _on_TailConnector_button_down():
 	in_connecting_mode = true
 	tail = ""
-	CAMERA2D.CURRENT_CONNECTION_HEAD_NODE = self
+	MainCamera.CURRENT_CONNECTION_HEAD_NODE = self
 	update()
 	set_process(true)
 	$NinePatchRect/TailConnector.pressed = false
 	$NinePatchRect.grab_focus()
-	CAMERA2D.LAST_MODIFIED_BLOCK = self
-	var de = CAMERA2D.DIALOGUE_EDITOR
+	MainCamera.LAST_MODIFIED_BLOCK = self
+	var de = MainCamera.DIALOGUE_EDITOR
 	if de.double_click_timer > 0.001:
 		# Register double click
 		spawn_block_below()
-		
+
 	de.double_click_timer = de.double_click_timer_time
 
 
@@ -414,30 +373,30 @@ func _on_TailConnector_button_up():
 
 func release_connection_mode():
 	tail = ""
-	if CAMERA2D.CURRENT_CONNECTION_HEAD_NODE != self:
+	if MainCamera.CURRENT_CONNECTION_HEAD_NODE != self:
 		return
-	if CAMERA2D.CURRENT_CONNECTION_TAIL_NODE != null and CAMERA2D.CURRENT_CONNECTION_TAIL_NODE != self:
-		tail = CAMERA2D.CURRENT_CONNECTION_TAIL_NODE.id
+	if MainCamera.CURRENT_CONNECTION_TAIL_NODE != null and MainCamera.CURRENT_CONNECTION_TAIL_NODE != self:
+		tail = MainCamera.CURRENT_CONNECTION_TAIL_NODE.id
 	in_connecting_mode = false
-	CAMERA2D.CURRENT_CONNECTION_HEAD_NODE = null
+	MainCamera.CURRENT_CONNECTION_HEAD_NODE = null
 	update()
 	if tail == "":
 		set_process(false)
 
 
 func spawn_block_below():
-	var de = CAMERA2D.DIALOGUE_EDITOR
+	var de = MainCamera.DIALOGUE_EDITOR
 	release_connection_mode()
 	var tail_block = de.spawn_block(de.DB.dialogue_block, false, position + Vector2(0,600))
 	tail_block.randomise_id()
 	tail = tail_block.id
-	CAMERA2D.lerp_camera_pos(Vector2(CAMERA2D.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)
+	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)
 	tail_block.dialogue_line_edit.grab_focus()
-	CAMERA2D.CURRENT_CONNECTION_TAIL_NODE = tail_block
+	MainCamera.CURRENT_CONNECTION_TAIL_NODE = tail_block
 	in_connecting_mode = false
 	set_process(true)
 	update()
-	
+
 	return tail_block
 
 
@@ -448,14 +407,14 @@ func spawn_block_below():
 
 
 func _draw():
-	if tail != "" or CAMERA2D.CURRENT_CONNECTION_HEAD_NODE == self:
+	if tail != "" or MainCamera.CURRENT_CONNECTION_HEAD_NODE == self:
 		$NinePatchRect/TailConnector.modulate = Color(1,1,1)
 		$NinePatchRect/TailConnector.texture_normal = spr_filled_triangle
 	else:
 		$NinePatchRect/TailConnector.modulate = _tail_connector_modulate_default
 		$NinePatchRect/TailConnector.texture_normal = spr_unfilled_triangle
 
-	if CAMERA2D.CURRENT_CONNECTION_HEAD_NODE != null and title_bar_hovered:
+	if MainCamera.CURRENT_CONNECTION_HEAD_NODE != null and title_bar_hovered:
 		#$NinePatchRect.modulate = Color(1.3,1.3,1.3)
 		$NinePatchRect/TitleBar/HeadConnector.modulate = Color(1,1,1)
 	else:

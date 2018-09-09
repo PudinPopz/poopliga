@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/dialogue_editor/ThrowawaySound.gd" type="Script" id=1]
+[ext_resource path="res://src/dialogue_editor/throwaway_sound.gd" type="Script" id=1]
 
 [node name="ThrowawaySound" type="AudioStreamPlayer"]
 stream = null

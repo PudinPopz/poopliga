@@ -16,14 +16,15 @@ _global_script_class_icons={
 [application]
 
 config/name="McFakeFake Poopliga Dialogue Editor"
-run/main_scene="res://scenes/dialogue_editor.tscn"
+run/main_scene="res://scenes/0.tscn"
 boot_splash/image="res://sprites/icons/trash.png"
 boot_splash/fullsize=false
 config/icon="res://sprites/icons/trash_shadowed.png"
 
 [autoload]
 
-CAMERA2D="*res://src/dialogue_editor/Camera2D.tscn"
+MainCamera="*res://src/dialogue_editor/camera.tscn"
+Editor="*res://src/dialogue_editor/dialogue_editor.tscn"
 
 [display]
 

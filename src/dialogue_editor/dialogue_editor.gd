@@ -8,7 +8,7 @@ const theme = preload("res://themes/default_theme.tres")
 const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
 #const Lato16 = preload("res://fonts/lato_16.tres")
 
-onready var Blocks = get_node("Map/Blocks")
+onready var blocks = get_node("Map/Blocks")
 onready var cursor = get_node("Map/Cursor")
 onready var control = get_node("Control")
 
@@ -26,6 +26,8 @@ var is_shift_down := false
 
 var current_meta_block = null
 
+var focus = null
+
 func _input(event):
 	cursor.position = get_global_mouse_position()
 
@@ -34,7 +36,7 @@ func _input(event):
 		is_alt_down = event.alt
 		is_shift_down = event.shift
 
-	var focus = control.get_focus_owner()
+	focus = control.get_focus_owner()
 	
 	# @TODO: Add system for remembering previous and jumping back to it
 	if is_ctrl_down and Input.is_action_just_pressed("enter"):
@@ -44,17 +46,34 @@ func _input(event):
 			if block.tail == "":
 				tail_block = block.spawn_block_below()
 			else:
-				tail_block = Blocks.get_node(block.tail)
+				tail_block = blocks.get_node(block.tail)
 			tail_block.dialogue_line_edit.readonly = true
 			tail_block.dialogue_line_edit.grab_focus()
 			yield(get_tree().create_timer(0), "timeout")
 			tail_block.dialogue_line_edit.readonly = false
+
+	if event is InputEventKey:
+		handle_focus_shortcuts(event)
+
+func handle_focus_shortcuts(event):
+	if focus == null:
+		return
+	var block = focus.owner
+	if block == null:
+		return
+	if event.alt and event.scancode == KEY_C:
+		block.character_line_edit.grab_focus()
+	if event.alt and event.scancode == KEY_D:
+		block.dialogue_line_edit.grab_focus()
+	if event.alt and event.scancode == KEY_I:
+		block.id_label.grab_focus()
+
 		
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	randomize()
-	CAMERA2D.DIALOGUE_EDITOR = self # give reference to self to camera2d
+	MainCamera.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
 	reset()
 
@@ -92,8 +111,8 @@ func _notification(what):
 func fix_rendering_bug():
 
 	var start_time = OS.get_ticks_msec()
-	Blocks.visible = false
-	Blocks.visible = true
+	blocks.visible = false
+	blocks.visible = true
 	print("Fixing rendering bug in ", OS.get_ticks_msec() - start_time, "ms")
 
 	return
@@ -116,51 +135,30 @@ func create_saveas_file_dialog():
 func update_lowest_position():
 	#var start_time = OS.get_ticks_msec()
 	var lowest = -99999999
-	for block in Blocks.get_children():
+	for block in blocks.get_children():
 		if block.position.y > lowest:
 			lowest = block.position.y
 	lowest_position = lowest # Update lowest_position - wouldn't want to waste this precious call
 	#print("Calculated lowest position in " + str(OS.get_ticks_msec()-start_time) + "ms.")
 	return lowest
 
-# Saves Blocks to dictionary - NOT file!
+# SavesbBlocks to dictionary - NOT file!
 func save_blocks_to_dict():
 	var dict = {}
-	# Clear dictionary
-	#dialogue_dictionary.clear_all()
 	# Add data of all children of DialogueBlocks to dictionary
-	for block in Blocks.get_children():
+	for block in blocks.get_children():
 		dict[block.id] = block.serialize()
-
-		pass
-
 	return dict
-		# Create actual block
-#		var actual_block = { DEPRECATED - USE SERIALIZE INSTEAD
-#			key = visual_block.id_Label.text,
-#			dialogue = visual_block.DialogueRichTextLabel.text,
-#			character = visual_block.CharacterLineEdit.text,
-#			choices = [],
-#			tail = "",
-#			code = "",
-#			pos_x = visual_block.position.floor().x, # JSON does not support Vector2
-#			pos_y = visual_block.position.floor().y
-#		}
-#		# Store actual block in dictionary
-#		dialogue_dictionary.add(actual_block.key, actual_block)
-#		pass
-
 
 func _on_popup_hide():
-	CAMERA2D.freeze = false
-	pass
+	MainCamera.freeze = false
+
 func _on_Save_pressed():
 	# if not already open (@TODO)
 	saveas_dialog.popup_centered(Vector2(1200,600))
 	saveas_dialog.current_dir = current_path
 	saveas_dialog.rect_position += Vector2(0,10)
-	CAMERA2D.freeze = true
-	pass # Replace with function body.
+	MainCamera.freeze = true
 
 func save_as(path):
 	var start_time = OS.get_ticks_msec()
@@ -174,7 +172,7 @@ func save_as(path):
 	file.store_string(pretty_json)
 	file.close()
 
-	var end_time_str = "Saved " + str(dict.size()) + " Blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
+	var end_time_str = "Saved " + str(dict.size()) + "Blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
 	print(end_time_str)
 	current_path = path
 	pass
@@ -201,7 +199,7 @@ func convert_from_multiline_json(json : String):
 func fill_with_garbage_blocks(amount):
 	for i in range(amount):
 		var new_block = DialogueBlock.instance()
-		Blocks.add_child(new_block)
+		blocks.add_child(new_block)
 		new_block.randomise_id()
 		new_block.position = Vector2(0,rand_range(0,9990))
 		new_block.fill_with_garbage()
@@ -229,7 +227,7 @@ func spawn_block(node_type := DB.dialogue_block, hand_placed = false, pos := Vec
 	new_block.just_created = true
 	new_block.hand_placed = hand_placed
 	if add_child:
-		Blocks.add_child(new_block)
+		blocks.add_child(new_block)
 	if hand_placed:
 		block_pos = get_global_mouse_position()
 		new_block.randomise_id()
@@ -293,7 +291,7 @@ func _on_Open_pressed():
 
 	window.popup_centered()
 	window.rect_position.y += 10
-	CAMERA2D.freeze = true
+	MainCamera.freeze = true
 
 	pass # Replace with function body.
 
@@ -308,14 +306,14 @@ func _on_OpenFileWindow_file_selected(path):
 	var json = file.get_as_text()
 	json = convert_from_multiline_json(json)
 
-	 # Kill all existing Blocks to make room for new file
+	 # Kill all existingbBlocks to make room for new file
 	reset(false) # DO NOT CREATE A NEW META BLOCK - Let it happen when loaded
 
 	yield(get_tree().create_timer(0.000),"timeout")
 	load_blocks_from_json(json)
 
 func _on_OpenFileWindow_popup_hide():
-	CAMERA2D.freeze = false
+	MainCamera.freeze = false
 	pass # Replace with function body.
 
 var DB = DialogueBlock.instance()
@@ -325,7 +323,7 @@ func load_blocks_from_json(json):
 	dict = parse_json((json))
 
 
-	# Loop through individual Blocks
+	# Loop through individual blocks
 	for key in dict.keys():
 		var values_dict = dict[key]
 		var id = key
@@ -366,10 +364,10 @@ func load_blocks_from_json(json):
 
 func reset(create_new_meta_block := true):
 	# Clear everything on board (Kill all children in dialogueblocks)
-	for child in Blocks.get_children():
+	for child in blocks.get_children():
 		child.queue_free()
 
-	CAMERA2D.reset()
+	MainCamera.reset()
 	get_node("Map/GridBG").update_grid()
 
 
@@ -391,13 +389,13 @@ func _on_FindWindow_confirmed():
 	if given_id == "":
 		given_id = $FrontWindows/FindWindow/HBoxContainer2/LineEdit.placeholder_text
 		$FrontWindows/FindWindow/HBoxContainer2/LineEdit.text = given_id
-	if Blocks.has_node(given_id) and given_id != "" :
-		var node = Blocks.get_node(given_id)
-		#CAMERA2D.pan_mode = true
-		CAMERA2D.lerp_camera_pos(node.position + Vector2(0, 200))
+	if blocks.has_node(given_id) and given_id != "" :
+		var node =blocks.get_node(given_id)
+		#MainCamera.pan_mode = true
+		MainCamera.lerp_camera_pos(node.position + Vector2(0, 200))
 		node.set_visibility(true)
-		CAMERA2D.update_rendered(true , -1)
-		CAMERA2D.update()
+		MainCamera.update_rendered(true , -1)
+		MainCamera.update()
 
 		#OS.set_window_size(Vector2(100,100))
 		fix_popin_bug()

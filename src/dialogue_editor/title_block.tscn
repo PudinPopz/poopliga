@@ -6,7 +6,7 @@
 [ext_resource path="res://fonts/poppins_bold_megasize.tres" type="DynamicFont" id=4]
 [ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=5]
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=6]
-[ext_resource path="res://src/dialogue_editor/TitleBarButtonHover.gd" type="Script" id=7]
+[ext_resource path="res://src/dialogue_editor/title_bar_button_hover.gd" type="Script" id=7]
 [ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=8]
 [ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=9]
 [ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=10]
@@ -16,6 +16,7 @@
 [ext_resource path="res://snd/boop2.ogg" type="AudioStream" id=14]
 [ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=15]
 [ext_resource path="res://src/dialogue_editor/dialogue_block_line_draw.gd" type="Script" id=16]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 
