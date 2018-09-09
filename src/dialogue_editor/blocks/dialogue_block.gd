@@ -25,7 +25,12 @@ const spr_filled_circle = preload("res://sprites/icons/filled_circle.png")
 const spr_unfilled_triangle = preload("res://sprites/icons/connector_small_unfilled.png")
 const spr_filled_triangle = preload("res://sprites/icons/connector_small.png")
 
+
+const snd_head = preload("res://snd/head.ogg")
+const snd_tail = preload("res://snd/tail.ogg")
 const snd_delet = preload("res://snd/delet_sound.ogg")
+
+
 # FIELDS
 var id := "" setget set_id, get_id
 var dialogue_string := "" setget set_dialogue_string, get_dialogue_string
@@ -230,6 +235,7 @@ func _on_HeadArea2D_area_entered(area : Area2D):
 	if area.name == "CursorArea" and MainCamera.CURRENT_CONNECTION_HEAD_NODE != self:
 		title_bar_hovered = true
 		MainCamera.CURRENT_CONNECTION_TAIL_NODE = self
+
 		update()
 
 func _on_HeadArea2D_area_exited(area : Area2D):
@@ -274,7 +280,7 @@ func is_id_valid(test_id):
 		return false
 	if test_id == "":
 		return false
-	if name != test_id and MainCamera.DIALOGUE_EDITOR.blocks.has_node(test_id):
+	if name != test_id and Editor.blocks.has_node(test_id):
 		return false
 	if test_id.length() > 100:
 		return false
@@ -334,12 +340,12 @@ func _on_TailConnector_button_down():
 	$NinePatchRect/TailConnector.pressed = false
 	$NinePatchRect.grab_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
-	var de = MainCamera.DIALOGUE_EDITOR
-	if de.double_click_timer > 0.001:
+	
+	if Editor.double_click_timer > 0.001:
 		# Register double click
 		spawn_block_below()
 
-	de.double_click_timer = de.double_click_timer_time
+	Editor.double_click_timer = Editor.double_click_timer_time
 
 func _on_TailConnector_button_up():
 	pass
@@ -350,6 +356,10 @@ func release_connection_mode():
 		return
 	if MainCamera.CURRENT_CONNECTION_TAIL_NODE != null and MainCamera.CURRENT_CONNECTION_TAIL_NODE != self:
 		tail = MainCamera.CURRENT_CONNECTION_TAIL_NODE.id
+		#var sound = ThrowawaySound.instance()
+		#sound.stream = snd_tail
+		#sound.volume_db = -6.118
+		#MainCamera.add_child(sound)
 	in_connecting_mode = false
 	MainCamera.CURRENT_CONNECTION_HEAD_NODE = null
 	update()
@@ -357,9 +367,8 @@ func release_connection_mode():
 		set_process(false)
 
 func spawn_block_below():
-	var de = MainCamera.DIALOGUE_EDITOR
 	release_connection_mode()
-	var tail_block = de.spawn_block(de.DB.dialogue_block, false, position + Vector2(0,600))
+	var tail_block = Editor.spawn_block(Editor.DB.dialogue_block, false, position + Vector2(0,600))
 	tail_block.randomise_id()
 	tail = tail_block.id
 	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)

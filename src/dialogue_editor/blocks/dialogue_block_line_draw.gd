@@ -27,7 +27,7 @@ func _draw():
 
 	# If node has a defined tail node
 	if get_parent().tail != "":
-		var tail_node = MainCamera.DIALOGUE_EDITOR.blocks.get_node(get_parent().tail)
+		var tail_node = Editor.blocks.get_node(get_parent().tail)
 		if tail_node == null:
 			get_parent().tail = ""
 			return

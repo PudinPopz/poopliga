@@ -7,7 +7,6 @@ var DialogueBlock = preload("res://src/dialogue_editor/blocks/dialogue_block.gd"
 
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")
-var DIALOGUE_EDITOR
 
 var LAST_MOUSE_POS = Vector2()
 var LAST_CHAR_NAME = ""
@@ -266,7 +265,7 @@ enum MODIFIER {
 	ctrl,
 	alt,
 	shift
-	}
+}
 
 func is_modifier_down(modifier):
 	match modifier:

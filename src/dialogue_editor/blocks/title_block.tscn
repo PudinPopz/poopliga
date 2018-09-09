@@ -290,7 +290,7 @@ shortcut = null
 group = null
 flat = false
 align = 1
-_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Margin", "Mouse", "Theme", "Visibility", "custom_colors", "custom_styles", "custom_styles/hover", "custom_styles/pressed" ]
+_sections_unfolded = [ "Custom Colors", "Custom Fonts", "Custom Styles", "Focus", "Margin", "Mouse", "Theme", "Visibility", "custom_colors", "custom_styles" ]
 
 [node name="Id_Label" type="LineEdit" parent="NinePatchRect/TitleBar"]
 anchor_left = 0.0

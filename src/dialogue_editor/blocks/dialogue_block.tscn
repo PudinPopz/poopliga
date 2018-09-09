@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/dialogue_editor/blocks/dialogue_block.gd" type="Script" id=1]
-[ext_resource path="res://sprites/dialogue/dialogue_nine_patch_with_chin.png" type="Texture" id=2]
+[ext_resource path="res://sprites/dialogue/ninepatch2.png" type="Texture" id=2]
 [ext_resource path="res://sprites/icons/unfilled_circle_thick.png" type="Texture" id=3]
 [ext_resource path="res://themes/default_theme.tres" type="Theme" id=4]
 [ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=5]
@@ -113,9 +113,9 @@ anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = -379.0
-margin_right = 382.0
-margin_bottom = 384.0
+margin_left = -386.0
+margin_right = 389.0
+margin_bottom = 395.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 1

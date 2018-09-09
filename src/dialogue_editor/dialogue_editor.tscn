@@ -17,7 +17,7 @@
 [ext_resource path="res://src/dialogue_editor/scroll_bar.gd" type="Script" id=15]
 [ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=16]
 [ext_resource path="res://src/dialogue_editor/background.tscn" type="PackedScene" id=17]
-[ext_resource path="res://sprites/backgrounds/bg2.jpg" type="Texture" id=18]
+[ext_resource path="res://sprites/backgrounds/bg.jpg" type="Texture" id=18]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -897,7 +897,7 @@ scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="Background" parent="BGLayer" instance=ExtResource( 17 )]
-modulate = Color( 0.835294, 0.905882, 1, 1 )
+modulate = Color( 1, 1, 1, 1 )
 texture = ExtResource( 18 )
 _sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "texture" ]
 

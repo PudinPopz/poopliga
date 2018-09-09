@@ -72,7 +72,6 @@ func handle_focus_shortcuts(event):
 func _ready():
 	current_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	randomize()
-	MainCamera.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
 	reset()
 	update_lowest_position()

@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dialogue_nine_patch_with_chin.png-9b3fa6799cfe734b6cfb58e6ac22fe2e.stex"
+path="res://.import/ninepatch2.png-6f13e176af3954c3676dd9db2b821b64.stex"
 
 [deps]
 
-source_file="res://sprites/dialogue/dialogue_nine_patch_with_chin.png"
-dest_files=[ "res://.import/dialogue_nine_patch_with_chin.png-9b3fa6799cfe734b6cfb58e6ac22fe2e.stex" ]
+source_file="res://sprites/dialogue/ninepatch2.png"
+dest_files=[ "res://.import/ninepatch2.png-6f13e176af3954c3676dd9db2b821b64.stex" ]
 
 [params]
 
