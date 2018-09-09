@@ -1,9 +1,10 @@
 extends Node2D
 
-const MetaBlock = preload("res://src/dialogue_editor/meta_block.tscn")
-const DialogueBlock = preload("res://src/dialogue_editor/dialogue_block.tscn")
-const TitleBlock = preload("res://src/dialogue_editor/title_block.tscn")
-const CommentBlock = preload("res://src/dialogue_editor/comment_block.tscn")
+const MetaBlock = preload("res://src/dialogue_editor/blocks/meta_block.tscn")
+const DBScript = preload("res://src/dialogue_editor/blocks/dialogue_block.gd")
+const DialogueBlock = preload("res://src/dialogue_editor/blocks/dialogue_block.tscn")
+const TitleBlock = preload("res://src/dialogue_editor/blocks/title_block.tscn")
+const CommentBlock = preload("res://src/dialogue_editor/blocks/comment_block.tscn")
 const theme = preload("res://themes/default_theme.tres")
 const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
 
@@ -44,6 +45,7 @@ func _input(event):
 				tail_block = block.spawn_block_below()
 			else:
 				tail_block = blocks.get_node(block.tail)
+				MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)
 			tail_block.dialogue_line_edit.readonly = true
 			tail_block.dialogue_line_edit.grab_focus()
 			yield(get_tree().create_timer(0), "timeout")
@@ -56,7 +58,7 @@ func handle_focus_shortcuts(event):
 	if focus == null:
 		return
 	var block = focus.owner
-	if block == null:
+	if block == null or !(block is DBScript):
 		return
 	if event.alt and event.scancode == KEY_C:
 		block.character_line_edit.grab_focus()
@@ -73,36 +75,28 @@ func _ready():
 	MainCamera.DIALOGUE_EDITOR = self # give reference to self to camera2d
 	set_process(true)
 	reset()
-
 	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
-
-	#fill_with_garbage_blocks(666)
 	fix_popin_bug(10)
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
+var already_refreshed = false
 func _process(delta):
 	double_click_timer -= delta
 	double_click_timer = clamp(double_click_timer, 0, double_click_timer_time)
-	if Input.is_action_just_pressed("refresh"):
+	if Input.is_action_just_pressed("refresh") or !already_refreshed:
 		fix_rendering_bug()
 		fix_popin_bug()
-
-
+		already_refreshed = true
 
 var _pending_render_bug_fix = false
 var _pending_render_bug_fix_timer = 0
 
-
 func _notification(what):
-
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT \
 	or what == MainLoop.NOTIFICATION_WM_UNFOCUS_REQUEST:
 		_pending_render_bug_fix = true
-
-
-
 
 # Fix for weird rendering bug after tab out	(CAN BE SLOW)
 func fix_rendering_bug():
@@ -346,18 +340,6 @@ func load_blocks_from_json(json):
 
 		if node_type == 0: # If meta block:
 			current_meta_block = block # Get reference to it
-#		node_type = node_type,
-#		dialogue = dialogue_string,
-#		character = character_name,
-#		choices = choices,
-#		tail = tail,
-#		salsa_code = salsa_code,
-#		pos_x = floor(position.x), # JSON does not support Vector2
-#		pos_y = floor(position.y),
-#		extra_data = extra_data
-
-
-
 
 func reset(create_new_meta_block := true):
 	# Clear everything on board (Kill all children in dialogueblocks)

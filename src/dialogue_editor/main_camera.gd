@@ -3,7 +3,7 @@ signal scrolled
 #signal moved
 
 # IMPORTS
-var DialogueBlock = preload("res://src/dialogue_editor/dialogue_block.gd")
+var DialogueBlock = preload("res://src/dialogue_editor/blocks/dialogue_block.gd")
 
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")

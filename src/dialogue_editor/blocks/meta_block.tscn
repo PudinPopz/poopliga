@@ -1,22 +1,20 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://src/dialogue_editor/dialogue_block.gd" type="Script" id=1]
+[ext_resource path="res://src/dialogue_editor/blocks/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/icons/unfilled_circle_thick.png" type="Texture" id=2]
 [ext_resource path="res://themes/default_theme.tres" type="Theme" id=3]
 [ext_resource path="res://fonts/poppins_bold_megasize.tres" type="DynamicFont" id=4]
 [ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=5]
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=6]
-[ext_resource path="res://src/dialogue_editor/title_bar_button_hover.gd" type="Script" id=7]
-[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=8]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=9]
-[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=10]
-[ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=11]
-[ext_resource path="res://src/dialogue_editor/text_edit_fixer.gd" type="Script" id=12]
-[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=13]
-[ext_resource path="res://snd/boop2.ogg" type="AudioStream" id=14]
-[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=15]
-[ext_resource path="res://src/dialogue_editor/dialogue_block_line_draw.gd" type="Script" id=16]
-
+[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=7]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
+[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=10]
+[ext_resource path="res://src/dialogue_editor/text_edit_fixer.gd" type="Script" id=11]
+[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=12]
+[ext_resource path="res://snd/boop2.ogg" type="AudioStream" id=13]
+[ext_resource path="res://src/dialogue_editor/random_pitch_sound.gd" type="Script" id=14]
+[ext_resource path="res://src/dialogue_editor/blocks/dialogue_block_line_draw.gd" type="Script" id=15]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -196,15 +194,17 @@ extents = Vector2( 688.238, 120.374 )
 custom_solver_bias = 0.0
 extents = Vector2( 379.341, 39.333 )
 
-[node name="TitleBlock" type="Node2D" groups=[
+[node name="MetaBlock" type="Node2D" groups=[
 "title_block",
 ]]
+visible = false
 use_parent_material = true
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Visibility" ]
-node_type = 2
+node_type = 0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
@@ -348,8 +348,7 @@ texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 6 )
 texture_hover = ExtResource( 5 )
 expand = true
-script = ExtResource( 7 )
-_sections_unfolded = [ "Hint", "Rect", "Size Flags", "Textures", "Visibility", "icon" ]
+_sections_unfolded = [ "Hint", "Rect", "Script", "Size Flags", "Textures", "Visibility", "icon" ]
 
 [node name="Dialogue" type="Control" parent="NinePatchRect"]
 visible = false
@@ -370,7 +369,7 @@ size_flags_vertical = 1
 
 [node name="DialogueBoxSprite" type="Sprite" parent="NinePatchRect/Dialogue"]
 position = Vector2( 156, 84.4253 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 _sections_unfolded = [ "Material", "Offset", "Pause", "Script", "Transform", "Visibility" ]
 
 [node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite"]
@@ -392,7 +391,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/focus = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 8 )
 max_length = 20
 editable = false
 secret_character = "*"
@@ -421,7 +420,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 10 )
+custom_fonts/normal_font = ExtResource( 9 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -448,13 +447,13 @@ margin_bottom = -40.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_previous = NodePath("../../CharacterLineEdit")
-focus_mode = 1
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 3 )
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 10 )
 custom_constants/line_spacing = 0
 text = ""
 readonly = true
@@ -473,7 +472,7 @@ caret_block_mode = false
 caret_blink = true
 caret_blink_speed = 0.65
 caret_moving_by_right_click = true
-script = ExtResource( 12 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Caret", "Custom Fonts", "Focus", "Hint", "Mouse", "Placeholder", "Rect", "Size Flags", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_fonts/font", "custom_styles", "theme" ]
 counter_camera_scroll = true
 
@@ -501,7 +500,7 @@ action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 13 )
+texture_normal = ExtResource( 12 )
 expand = true
 _sections_unfolded = [ "Mouse", "Size Flags", "Textures", "Visibility" ]
 
@@ -510,23 +509,24 @@ root_node = NodePath("..")
 autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-playback_speed = 1.0
+playback_speed = 0.0
 anims/kill = SubResource( 9 )
 anims/spawn = SubResource( 10 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options", "Script" ]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
-volume_db = -8.0
+stream = ExtResource( 13 )
+volume_db = -80.0
 pitch_scale = 1.0
-autoplay = true
+autoplay = false
 stream_paused = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 15 )
+script = ExtResource( 14 )
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 position = Vector2( -0.00610352, -13.4355 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -541,13 +541,14 @@ _sections_unfolded = [ "Pickable", "Transform" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, -89.2594 )
 shape = SubResource( 11 )
+disabled = true
 _sections_unfolded = [ "Transform", "Visibility", "shape" ]
 
 [node name="LineDrawNode" type="Node2D" parent="."]
 visible = false
 position = Vector2( 0, 310 )
 z_index = 4
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="HeadArea2D" type="Area2D" parent="."]
@@ -580,6 +581,8 @@ _sections_unfolded = [ "shape" ]
 [connection signal="button_down" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_button_down"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="text_changed" from="NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
+[connection signal="focus_entered" from="NinePatchRect/DialogueTextEdit" to="." method="_on_DialogueTextEdit_focus_entered"]
+[connection signal="focus_exited" from="NinePatchRect/DialogueTextEdit" to="." method="_on_DialogueTextEdit_focus_exited"]
 [connection signal="button_down" from="NinePatchRect/TailConnector" to="." method="_on_TailConnector_button_down"]
 [connection signal="button_up" from="NinePatchRect/TailConnector" to="." method="_on_TailConnector_button_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

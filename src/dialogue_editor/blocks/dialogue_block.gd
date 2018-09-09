@@ -4,7 +4,7 @@ enum NODE_TYPE {
 	dialogue_block, # 1
 	title_block, # 2
 	comment_block, # 3
-	choice_block, # 4 <RESERVED>
+	branch_block, # 4 <RESERVED>
 	script_block, # 5 <RESERVED>
 	audio_block, # 6 <RESERVED>
 	animation_block, # 7 <RESERVED>

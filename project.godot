@@ -23,7 +23,7 @@ config/icon="res://sprites/icons/trash_shadowed.png"
 
 [autoload]
 
-MainCamera="*res://src/dialogue_editor/camera.tscn"
+MainCamera="*res://src/dialogue_editor/main_camera.tscn"
 Editor="*res://src/dialogue_editor/dialogue_editor.tscn"
 
 [display]
