@@ -6,7 +6,6 @@ const TitleBlock = preload("res://src/dialogue_editor/title_block.tscn")
 const CommentBlock = preload("res://src/dialogue_editor/comment_block.tscn")
 const theme = preload("res://themes/default_theme.tres")
 const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
-#const Lato16 = preload("res://fonts/lato_16.tres")
 
 onready var blocks = get_node("Map/Blocks")
 onready var cursor = get_node("Map/Cursor")
@@ -17,8 +16,6 @@ var saveas_dialog
 var lowest_position = -99999999
 
 var current_path
-
-
 
 var is_ctrl_down := false
 var is_alt_down := false

@@ -9,7 +9,7 @@ enum NODE_TYPE {
 	audio_block, # 6 <RESERVED>
 	animation_block, # 7 <RESERVED>
 	math_block # 8 <RESERVED>
-	}
+}
 
 # NOTE: Most non-dialogue blocks will use the extra_data dictionary for everything.
 
@@ -34,8 +34,6 @@ var choices := [] setget set_choices, get_choices
 var tail := "" setget set_tail, get_tail
 var salsa_code := ""
 var extra_data := {}
-
-
 
 # CHILD NODES
 
@@ -115,7 +113,6 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 	}
 
 	return dict
-	pass
 
 func update_dialogue_rich_text_label():
 	var new_text = dialogue_line_edit.text
@@ -155,16 +152,13 @@ func _input(event):
 		mouse_previous_pos = mouse_pos
 		dragging = true
 
-
 	if Input.is_action_just_released("click"):
 		just_created = false
 		dialogue_string = dialogue_line_edit.text
 		character_name = character_line_edit.text
 		MainCamera.LAST_MODIFIED_BLOCK = self
-		pass
 
 	if Input.is_action_just_pressed("x") and (draggable_segment.pressed or just_created):
-	#or Input.is_action_pressed("x") and draggable_segment.pressed:
 		_on_DeleteButton_pressed()
 
 func move_to_front():
@@ -245,8 +239,6 @@ func _on_HeadArea2D_area_exited(area : Area2D):
 		update()
 
 func _on_Id_Label_text_changed(new_text):
-	#set_id(new_text)
-
 	pass # Replace with function body.
 
 
@@ -255,9 +247,6 @@ func _on_CharacterLineEdit_text_changed(new_text):
 	set_character_name(new_text)
 	MainCamera.LAST_CHAR_NAME = character_line_edit.text
 	MainCamera.LAST_MODIFIED_BLOCK = self
-
-	pass # Replace with function body.
-
 
 # SETTERS AND GETTERS
 func set_id(new_id):
@@ -293,45 +282,31 @@ func is_id_valid(test_id):
 
 func get_id():
 	if node_type == meta_block:
-		return "__META__*****"
+		return "__META__*****" # Will have meta id NO MATTER WHAT
 	return id
-
-	pass
 
 func set_dialogue_string(new_dialogue_string):
 	dialogue_string = new_dialogue_string
 	dialogue_line_edit.text = dialogue_string # Update textfield
 
-	pass
-
 func get_dialogue_string():
-	#set_dialogue_string(dialogue_line_edit.text)
 	return dialogue_line_edit.text
-	pass
 
 func set_character_name(new_character_name):
 	character_name = new_character_name
 
-	#character_line_edit.text = character_name # Update textfield
-
-	pass
-
 func get_character_name():
-	#set_character_name(character_line_edit.text)
 	return character_line_edit.text
-	pass
 
 func set_choices(new_choices):
 	choices = new_choices
-	pass
 
 func get_choices():
 	return choices
-	pass
 
 func set_tail(new_tail):
 	tail = new_tail
-	pass
+	update()
 
 func get_tail():
 	return tail
@@ -350,7 +325,6 @@ func _on_Id_Label_focus_exited():
 	anim_player.play("spawn")
 	print(get_id())
 
-
 func _on_TailConnector_button_down():
 	in_connecting_mode = true
 	tail = ""
@@ -367,7 +341,6 @@ func _on_TailConnector_button_down():
 
 	de.double_click_timer = de.double_click_timer_time
 
-
 func _on_TailConnector_button_up():
 	pass
 
@@ -382,7 +355,6 @@ func release_connection_mode():
 	update()
 	if tail == "":
 		set_process(false)
-
 
 func spawn_block_below():
 	var de = MainCamera.DIALOGUE_EDITOR
@@ -399,12 +371,7 @@ func spawn_block_below():
 
 	return tail_block
 
-
-
-
 # DRAWING CODE
-
-
 
 func _draw():
 	if tail != "" or MainCamera.CURRENT_CONNECTION_HEAD_NODE == self:
@@ -429,21 +396,13 @@ func _process(delta):
 			id = "__META__*****"
 			name = "__META__*****"
 		else:
-			if tail != "":
-				set_process(false)
 			set_process_input(false)
 			set_physics_process(false)
+			if tail != "":
+				set_process(false)
 		return
 
 	if in_connecting_mode and Input.is_action_just_released("click"):
 		release_connection_mode()
 
-
-
 	update()
-
-
-
-
-
-
