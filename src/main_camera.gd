@@ -3,7 +3,7 @@ signal scrolled
 #signal moved
 
 # IMPORTS
-var DialogueBlock = preload("res://src/dialogue_editor/blocks/dialogue_block.gd")
+var DialogueBlock = preload("res://src/blocks/dialogue_block.gd")
 
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")
@@ -222,13 +222,8 @@ func reset(pos = Vector2(640,360)):
 	zoom = Vector2(zoom_level,zoom_level)
 	camera_previous_pos = position
 
-var last_unix_time = 0
-func _process(delta):
-	if delta == 0: return
-	if int(OS.get_unix_time()) != int(last_unix_time):
-		OS.set_window_title("McFakeFake Poopliga Dialogue Editor Professional 2019 | FPS: " + str(int(1/delta)))
-		last_unix_time = OS.get_unix_time()
 
+func _process(delta):
 	# Lerping
 	if in_lerp:
 		if !pan_mode:

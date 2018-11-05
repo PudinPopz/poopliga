@@ -1,4 +1,4 @@
-extends TextureButton
+extends Control
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -22,7 +22,7 @@ func _on_mouse_exited():
 func _on_button_down():
 	#modulate = Color("1e7da6")
 	pass
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

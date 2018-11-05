@@ -35,4 +35,4 @@ func _draw():
 		_tail_location.y += 14
 		draw_circle(_line_start_pos, 2, Color.white)
 		draw_line(_line_start_pos, _tail_location, Color("eaeaea"), 4, true)
-		draw_circle(_tail_location, 6, Color.white)
+		draw_circle(_tail_location, 10, Color.white)

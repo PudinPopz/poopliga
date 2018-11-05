@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "BranchBlock",
+"language": "GDScript",
+"path": "res://src/blocks/branch_block.gd"
+}, {
+"base": "Control",
+"class": "DialogueBlock",
+"language": "GDScript",
+"path": "res://src/blocks/dialogue_block.gd"
+} ]
 _global_script_class_icons={
-
+"BranchBlock": "",
+"DialogueBlock": ""
 }
 
 [application]
@@ -23,13 +34,14 @@ config/icon="res://sprites/icons/trash_shadowed.png"
 
 [autoload]
 
-MainCamera="*res://src/dialogue_editor/main_camera.tscn"
-Editor="*res://src/dialogue_editor/dialogue_editor.tscn"
+MainCamera="*res://src/main_camera.tscn"
+Editor="*res://src/dialogue_editor.tscn"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
+window/dpi/allow_hidpi=true
 window/vsync/use_vsync=false
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="2d"
@@ -190,6 +202,17 @@ x={
 enter={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+ ]
+}
+t={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+ ]
+}
+branch_block_button={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":66,"unicode":0,"echo":false,"script":null)
  ]
 }
 

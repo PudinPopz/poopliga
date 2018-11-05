@@ -1,16 +1,17 @@
 [gd_resource type="DynamicFont" load_steps=3 format=2]
 
-[ext_resource path="res://fonts/NotoSans-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://fonts/Hack-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/PT_Serif-Web-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/NotoSans-Regular.ttf" type="DynamicFontData" id=2]
 
 [resource]
 
-size = 20
+size = 64
 outline_size = 0
 outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 1 )
 fallback/0 = ExtResource( 1 )
+fallback/1 = ExtResource( 2 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Font/fallback", "Settings", "font_data" ]
 

@@ -1,10 +1,11 @@
-extends Node2D
+extends Control
+class_name DialogueBlock
 enum NODE_TYPE {
 	meta_block # 0 - Stored at "__META__*****" and contains only metadata in extra_data
 	dialogue_block, # 1
 	title_block, # 2
 	comment_block, # 3
-	branch_block, # 4 <RESERVED>
+	branch_block, # 4
 	script_block, # 5 <RESERVED>
 	audio_block, # 6 <RESERVED>
 	animation_block, # 7 <RESERVED>
@@ -17,7 +18,7 @@ export (NODE_TYPE) var node_type := meta_block
 
 # IMPORTS
 
-const ThrowawaySound = preload("res://src/dialogue_editor/throwaway_sound.tscn")
+const ThrowawaySound = preload("res://src/throwaway_sound.tscn")
 
 # RESOURCES
 const spr_unfilled_circle = preload("res://sprites/icons/unfilled_circle_thick.png")
@@ -35,7 +36,6 @@ const snd_delet = preload("res://snd/delet_sound.ogg")
 var id := "" setget set_id, get_id
 var dialogue_string := "" setget set_dialogue_string, get_dialogue_string
 var character_name := "" setget set_character_name, get_character_name
-var choices := [] setget set_choices, get_choices
 var tail := "" setget set_tail, get_tail
 var salsa_code := ""
 var extra_data := {}
@@ -56,7 +56,6 @@ onready var nine_patch_size = nine_patch_rect.rect_size
 var hand_placed = false
 var just_created : bool = false
 var dragging : bool = false
-var tail_valid : bool = false
 var previous_pos := Vector2(0,0)
 var mouse_delta := Vector2(0,0)
 var mouse_pos := Vector2(0,0)
@@ -91,7 +90,8 @@ func _ready():
 
 	update()
 
-	dialogue_line_edit.connect("text_changed",self,"update_dialogue_rich_text_label")
+	if node_type == dialogue_block:
+		dialogue_line_edit.connect("text_changed",self,"update_dialogue_rich_text_label")
 
 	# Play spawn animation
 	if hand_placed:
@@ -109,11 +109,10 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 		node_type = node_type,
 		dialogue = get_dialogue_string(),
 		character = get_character_name(),
-		choices = choices,
 		tail = tail,
 		salsa_code = salsa_code,
-		pos_x = floor(position.x), # JSON does not support Vector2
-		pos_y = floor(position.y),
+		pos_x = floor(rect_position.x), # JSON does not support Vector2
+		pos_y = floor(rect_position.y),
 		extra_data = extra_data
 	}
 
@@ -142,18 +141,18 @@ func _input(event):
 		mouse_pos = event.position
 		if dragging:
 			mouse_delta = (mouse_pos - mouse_previous_pos)
-			position = previous_pos + mouse_delta  * MainCamera.zoom_level  + mouse_offset
+			rect_position = previous_pos + mouse_delta  * MainCamera.zoom_level  + mouse_offset
 			if just_created:
-				position = get_global_mouse_position()
+				rect_position = get_global_mouse_position()
 			# Teleport block to cursor if too far away
-			if abs(get_global_mouse_position().y - position.y) > 80 or \
-			abs(get_global_mouse_position().x - position.x) > 2000:
+			if abs(get_global_mouse_position().y - rect_position.y) > 80 or \
+			abs(get_global_mouse_position().x - rect_position.x) > 2000:
 				just_created = true # Act like just created
 			update()
 
 	if (draggable_segment.pressed or just_created) and !dragging and !MainCamera.pan_mode:
 		mouse_offset = Vector2()
-		previous_pos = position
+		previous_pos = rect_position
 		mouse_previous_pos = mouse_pos
 		dragging = true
 
@@ -186,7 +185,7 @@ func _on_DraggableSegment_pressed():
 	#print("hi", character_line_edit.text)
 	set_process_input(true)
 	mouse_delta = Vector2(0,0)
-	previous_pos = position
+	previous_pos = rect_position
 	mouse_previous_pos = mouse_pos
 	dragging = true
 	move_to_front()
@@ -304,12 +303,6 @@ func set_character_name(new_character_name):
 func get_character_name():
 	return character_line_edit.text
 
-func set_choices(new_choices):
-	choices = new_choices
-
-func get_choices():
-	return choices
-
 func set_tail(new_tail):
 	tail = new_tail
 	update()
@@ -340,7 +333,7 @@ func _on_TailConnector_button_down():
 	$NinePatchRect/TailConnector.pressed = false
 	$NinePatchRect.grab_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
-	
+
 	if Editor.double_click_timer > 0.001:
 		# Register double click
 		spawn_block_below()
@@ -352,23 +345,23 @@ func _on_TailConnector_button_up():
 
 func release_connection_mode():
 	tail = ""
+
 	if MainCamera.CURRENT_CONNECTION_HEAD_NODE != self:
 		return
-	if MainCamera.CURRENT_CONNECTION_TAIL_NODE != null and MainCamera.CURRENT_CONNECTION_TAIL_NODE != self:
+
+	if Editor.is_node_alive(MainCamera.CURRENT_CONNECTION_TAIL_NODE) and MainCamera.CURRENT_CONNECTION_TAIL_NODE != self:
 		tail = MainCamera.CURRENT_CONNECTION_TAIL_NODE.id
-		#var sound = ThrowawaySound.instance()
-		#sound.stream = snd_tail
-		#sound.volume_db = -6.118
-		#MainCamera.add_child(sound)
+
 	in_connecting_mode = false
 	MainCamera.CURRENT_CONNECTION_HEAD_NODE = null
 	update()
+
 	if tail == "":
 		set_process(false)
 
 func spawn_block_below():
 	release_connection_mode()
-	var tail_block = Editor.spawn_block(Editor.DB.dialogue_block, false, position + Vector2(0,600))
+	var tail_block = Editor.spawn_block(Editor.DB.dialogue_block, false, rect_position + Vector2(0,600))
 	tail_block.randomise_id()
 	tail = tail_block.id
 	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)
