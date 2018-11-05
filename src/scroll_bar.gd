@@ -16,7 +16,8 @@ func _process(delta):
 			max_value = MainCamera.position.y
 		elif MainCamera.position.y < min_value:
 			min_value = MainCamera.position.y
-		value = MainCamera.position.y
+		if last_camera_pos.floor() != MainCamera.position.floor():
+			value = MainCamera.position.y
 		update_position_label()
 
 	last_camera_pos = MainCamera.position
