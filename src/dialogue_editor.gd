@@ -374,12 +374,12 @@ func reset(create_new_meta_block := true):
 
 	MainCamera.reset()
 	get_node("Map/GridBG").update_grid()
-	
+
 	lowest_position = DEFAULT_LOWEST_POSITION
 	highest_position = DEFAULT_HIGHEST_POSITION
 
 	current_meta_block = null
-	
+
 	# Create new meta block
 	if create_new_meta_block:
 		current_file = ""
@@ -402,7 +402,7 @@ func _on_FindWindow_confirmed():
 		var node =blocks.get_node(given_id)
 		#MainCamera.pan_mode = true
 		MainCamera.lerp_camera_pos(node.rect_position + Vector2(0, 200))
-		node.set_visibility(true)
+
 		MainCamera.update_rendered(true , -1)
 		MainCamera.update()
 

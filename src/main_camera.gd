@@ -199,17 +199,17 @@ func update_rendered(force=false, max_blocks=50):
 	if max_blocks != -1 and blocks_on_screen.size() >= max_blocks and last_blocks_on_screen != []:
 		return
 
-	if force\
-	or blocks_on_screen.empty() or last_blocks_on_screen.empty()\
-	or blocks_on_screen.front() != last_blocks_on_screen.front()\
-	or blocks_on_screen.back() != last_blocks_on_screen.back():
-
-		for area2D in last_blocks_on_screen:
-			if area2D is DialogueBlock:
-				area2D.get_parent().set_visibility(false)
-		for area2D in blocks_on_screen:
-			if area2D is DialogueBlock:
-				area2D.get_parent().set_visibility(true)
+	#if force\
+	#or blocks_on_screen.empty() or last_blocks_on_screen.empty()\
+	#or blocks_on_screen.front() != last_blocks_on_screen.front()\
+	#or blocks_on_screen.back() != last_blocks_on_screen.back():
+	#	pass
+		# for area2D in last_blocks_on_screen:
+		# 	if area2D is DialogueBlock:
+		# 		pass
+		# for area2D in blocks_on_screen:
+		# 	if area2D is DialogueBlock:
+		# 		pass
 
 	last_blocks_on_screen = blocks_on_screen.duplicate()
 	#print(OS.get_ticks_msec() - start_time)
