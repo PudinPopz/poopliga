@@ -10,5 +10,4 @@ outline_color = Color( 0, 0, 0, 0.670588 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Resource", "Settings", "fallback" ]
 

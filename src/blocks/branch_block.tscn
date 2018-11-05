@@ -9,11 +9,11 @@
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=7]
 [ext_resource path="res://scenes/title_bar_button_hover.gd" type="Script" id=8]
 [ext_resource path="res://sprites/dialogue/advdialoguebox.png" type="Texture" id=9]
-[ext_resource path="res://fonts/serif_char_bold.tres" type="DynamicFont" id=10]
-[ext_resource path="res://fonts/serif_dialogue_bolditalic.tres" type="DynamicFont" id=11]
-[ext_resource path="res://fonts/serif_dialogue_italic.tres" type="DynamicFont" id=12]
-[ext_resource path="res://fonts/serif_dialogue_bold.tres" type="DynamicFont" id=13]
-[ext_resource path="res://fonts/serif_dialogue.tres" type="DynamicFont" id=14]
+[ext_resource path="res://fonts/serif_dialogue_bolditalic.tres" type="DynamicFont" id=10]
+[ext_resource path="res://fonts/serif_dialogue_italic.tres" type="DynamicFont" id=11]
+[ext_resource path="res://fonts/serif_dialogue_bold.tres" type="DynamicFont" id=12]
+[ext_resource path="res://fonts/serif_dialogue.tres" type="DynamicFont" id=13]
+[ext_resource path="res://fonts/serif_char_bold.tres" type="DynamicFont" id=14]
 [ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=15]
 [ext_resource path="res://src/text_edit_fixer.gd" type="Script" id=16]
 [ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=17]
@@ -84,7 +84,7 @@ SpinBox/icons/updown = null
 
 [sub_resource type="Animation" id=8]
 
-length = 0.12
+length = 0.3
 loop = false
 step = 0.01
 tracks/0/type = "value"
@@ -121,7 +121,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=10]
 
 custom_solver_bias = 0.0
-extents = Vector2( 348.737, 81.796 )
+extents = Vector2( 20, 20 )
 
 [sub_resource type="RectangleShape2D" id=11]
 
@@ -152,23 +152,22 @@ anchor_right = 0.5
 anchor_bottom = 0.0
 margin_left = -343.0
 margin_right = 345.0
-margin_bottom = 300.0
+margin_bottom = 128.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 focus_mode = 1
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 256, 256 )
+region_rect = Rect2( 0, -1, 256, 257 )
 patch_margin_left = 64
 patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="TitleBar" type="Control" parent="NinePatchRect"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -305,61 +304,31 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 
 [node name="DialogueBoxSprite" type="Sprite" parent="NinePatchRect/Dialogue"]
+visible = false
 position = Vector2( 156, 110.818 )
 scale = Vector2( 0.476024, 0.476024 )
 texture = ExtResource( 9 )
 
-[node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite"]
+[node name="DialogueRichTextLabel" type="RichTextLabel" parent="NinePatchRect/Dialogue"]
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -748.0
-margin_top = -212.0
-margin_right = -470.0
-margin_bottom = -148.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_next = NodePath("../../../DialogueTextEdit")
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 1
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-custom_fonts/font = ExtResource( 10 )
-align = 1
-max_length = 20
-secret_character = "*"
-expand_to_text_length = true
-focus_mode = 2
-context_menu_enabled = false
-clear_button_enabled = false
-placeholder_alpha = 0.6
-caret_blink = true
-caret_blink_speed = 0.65
-caret_position = 0
-
-[node name="DialogueRichTextLabel" type="RichTextLabel" parent="NinePatchRect/Dialogue/DialogueBoxSprite"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -711.0
-margin_top = -105.0
-margin_right = 693.0
-margin_bottom = 194.0
+margin_left = -183.0
+margin_top = 60.0
+margin_right = 1221.0
+margin_bottom = 359.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/bold_italics_font = ExtResource( 11 )
-custom_fonts/italics_font = ExtResource( 12 )
-custom_fonts/bold_font = ExtResource( 13 )
-custom_fonts/normal_font = ExtResource( 14 )
+custom_fonts/bold_italics_font = ExtResource( 10 )
+custom_fonts/italics_font = ExtResource( 11 )
+custom_fonts/bold_font = ExtResource( 12 )
+custom_fonts/normal_font = ExtResource( 13 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -371,6 +340,39 @@ scroll_active = false
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
+
+[node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue"]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -201.0
+margin_top = 9.0
+margin_right = 77.0
+margin_bottom = 73.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_next = NodePath("../../../DialogueTextEdit")
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = ExtResource( 14 )
+align = 1
+max_length = 20
+secret_character = "*"
+expand_to_text_length = true
+focus_mode = 2
+context_menu_enabled = false
+clear_button_enabled = false
+placeholder_alpha = 0.6
+caret_blink = true
+caret_blink_speed = 0.65
+caret_position = 0
 
 [node name="DialogueTextEdit" type="TextEdit" parent="NinePatchRect"]
 visible = false
@@ -514,7 +516,7 @@ margin_right = 110.0
 margin_bottom = 26.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -557,7 +559,7 @@ margin_right = 230.0
 margin_bottom = 26.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -600,7 +602,7 @@ margin_right = 350.0
 margin_bottom = 26.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -643,7 +645,7 @@ margin_right = 470.0
 margin_bottom = 26.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -686,7 +688,7 @@ margin_right = 590.0
 margin_bottom = 26.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -729,7 +731,7 @@ margin_right = 710.0
 margin_bottom = 26.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -1070,18 +1072,24 @@ bus = "Master"
 script = ExtResource( 21 )
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
+position = Vector2( 0, 41.4524 )
 input_pickable = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 monitoring = false
+collision_layer = 32
+collision_mask = 32
 audio_bus_override = false
 audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 position = Vector2( 0, 78.5281 )
 shape = SubResource( 10 )
+disabled = true
 
 [node name="LineDrawNode" type="Node2D" parent="."]
 position = Vector2( 0, 310 )
@@ -1090,13 +1098,12 @@ script = ExtResource( 22 )
 
 [node name="HeadArea2D" type="Area2D" parent="."]
 position = Vector2( -10, 7.626 )
-input_pickable = false
+input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 priority = 13.0
-monitoring = false
 audio_bus_override = false
 audio_bus_name = "Master"
 
@@ -1104,4 +1111,13 @@ audio_bus_name = "Master"
 position = Vector2( 10.0826, 6.46904 )
 shape = SubResource( 11 )
 
+[connection signal="mouse_entered" from="NinePatchRect" to="." method="_on_NinePatchRect_mouse_entered"]
+[connection signal="mouse_entered" from="NinePatchRect/TitleBar/HeadConnector" to="." method="_on_HeadConnector_mouse_entered"]
+[connection signal="mouse_exited" from="NinePatchRect/TitleBar/HeadConnector" to="." method="_on_HeadConnector_mouse_exited"]
+[connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_pressed"]
+[connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="value_changed" from="NinePatchRect/TailCountHSlider" to="." method="_on_TailCountHSlider_value_changed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="HeadArea2D" to="." method="_on_HeadArea2D_area_entered"]
+[connection signal="area_exited" from="HeadArea2D" to="." method="_on_HeadArea2D_area_exited"]

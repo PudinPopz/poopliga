@@ -1,5 +1,4 @@
 extends "res://src/blocks/dialogue_block.gd"
-class_name BranchBlock
 
 var tail_count := 2
 var tails := ["","","","","",""]

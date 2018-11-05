@@ -9,14 +9,14 @@ func _ready():
 onready var _line_start_pos := Vector2(0,0)
 onready var _tail_location := Vector2(0,0)
 
-func _draw():	
+func _draw():
 	position.x = 0
 	position.y = -8 + get_parent().get_node("NinePatchRect").margin_bottom
-	
+
 	# Set draw transform to global coordinates
 	var inv = get_global_transform().inverse()
 	draw_set_transform(inv.get_origin(), inv.get_rotation(), inv.get_scale())
-	
+
 	_line_start_pos = get_global_transform().origin
 	_tail_location =  get_global_mouse_position()
 
@@ -31,7 +31,7 @@ func _draw():
 		if tail_node == null:
 			get_parent().tail = ""
 			return
-		_tail_location = tail_node.position
+		_tail_location = tail_node.rect_position
 		_tail_location.y += 14
 		draw_circle(_line_start_pos, 2, Color.white)
 		draw_line(_line_start_pos, _tail_location, Color("eaeaea"), 4, true)

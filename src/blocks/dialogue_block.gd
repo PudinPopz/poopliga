@@ -45,8 +45,8 @@ var extra_data := {}
 onready var nine_patch_rect = get_node("NinePatchRect")
 onready var id_label = get_node("NinePatchRect/TitleBar/Id_Label")
 onready var draggable_segment = get_node("NinePatchRect/TitleBar/DraggableSegment")
-onready var character_line_edit = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit")
-onready var dialogue_rich_text_label = get_node("NinePatchRect/Dialogue/DialogueBoxSprite/DialogueRichTextLabel")
+onready var dialogue_rich_text_label = get_node("NinePatchRect/Dialogue").get_node("DialogueRichTextLabel")
+onready var character_line_edit = get_node("NinePatchRect/Dialogue").get_node("CharacterLineEdit")
 onready var dialogue_line_edit = get_node("NinePatchRect/DialogueTextEdit")
 onready var anim_player = get_node("AnimationPlayer")
 onready var area_2d = get_node("Area2D")
@@ -98,10 +98,25 @@ func _ready():
 		anim_player.play("spawn")
 		nine_patch_rect.visible = true
 
-func set_visibility(boolean):
-	#nine_patch_rect.visible = boolean
-	# Disabled for now
-	on_screen = boolean
+	# Do rest of stuff on frame after ready
+	yield(get_tree().create_timer(0), "timeout")
+
+	if node_type != meta_block and node_type != branch_block:
+		$VisibilityNotifier2D.connect("screen_entered", self, "on_screen_entered")
+		$VisibilityNotifier2D.connect("screen_exited", self, "on_screen_exited")
+		if !$VisibilityNotifier2D.is_on_screen():
+			on_screen_exited()
+
+func on_screen_entered():
+	visible = true
+func on_screen_exited():
+	if tail != "":
+		return
+	if !dragging:
+		set_process_input(false)
+	set_process(false)
+	visible = false
+
 
 func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're using US spelling. Deal with it.
 	var dict = {
@@ -148,6 +163,11 @@ func _input(event):
 			if abs(get_global_mouse_position().y - rect_position.y) > 80 or \
 			abs(get_global_mouse_position().x - rect_position.x) > 2000:
 				just_created = true # Act like just created
+			# Check if new highest or new lowest and apply if necessary
+			if rect_position.y > Editor.lowest_position:
+				Editor.lowest_position = rect_position.y
+			if rect_position.y < Editor.highest_position:
+				Editor.highest_position = rect_position.y
 			update()
 
 	if (draggable_segment.pressed or just_created) and !dragging and !MainCamera.pan_mode:
@@ -364,7 +384,7 @@ func spawn_block_below():
 	var tail_block = Editor.spawn_block(Editor.DB.dialogue_block, false, rect_position + Vector2(0,600))
 	tail_block.randomise_id()
 	tail = tail_block.id
-	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.position.y) + Vector2(0, 200), 0.5)
+	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.rect_position.y) + Vector2(0, 200), 0.5)
 	tail_block.dialogue_line_edit.grab_focus()
 	MainCamera.CURRENT_CONNECTION_TAIL_NODE = tail_block
 	in_connecting_mode = false
@@ -393,6 +413,7 @@ func _draw():
 	$LineDrawNode.update()
 
 func _process(delta):
+
 	if node_type == meta_block:
 		if name != "__META__*****": # Do not rest until id is changed
 			id = "__META__*****"

@@ -6,9 +6,9 @@
 [ext_resource path="res://fonts/poppins_bold_megasize.tres" type="DynamicFont" id=4]
 [ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=5]
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=6]
-[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=7]
-[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=8]
-[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=9]
+[ext_resource path="res://fonts/lato_20.tres" type="DynamicFont" id=7]
+[ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=8]
+[ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=9]
 [ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=10]
 [ext_resource path="res://src/text_edit_fixer.gd" type="Script" id=11]
 [ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=12]
@@ -370,19 +370,15 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="DialogueBoxSprite" type="Sprite" parent="NinePatchRect/Dialogue"]
-position = Vector2( 156, 84.4253 )
-texture = ExtResource( 7 )
-
-[node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue/DialogueBoxSprite"]
+[node name="CharacterLineEdit" type="LineEdit" parent="NinePatchRect/Dialogue"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -356.0
-margin_top = -67.0
-margin_right = -211.0
-margin_bottom = -42.0
+margin_left = -200.0
+margin_top = 17.0
+margin_right = -55.0
+margin_bottom = 42.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_next = NodePath("../DialogueRichTextLabel/LineEdit")
@@ -393,7 +389,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/focus = SubResource( 7 )
 custom_styles/normal = SubResource( 8 )
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 7 )
 max_length = 20
 editable = false
 secret_character = "*"
@@ -406,22 +402,22 @@ caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
 
-[node name="DialogueRichTextLabel" type="RichTextLabel" parent="NinePatchRect/Dialogue/DialogueBoxSprite"]
+[node name="DialogueRichTextLabel" type="RichTextLabel" parent="NinePatchRect/Dialogue"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -347.0
-margin_top = -24.0
-margin_right = 347.0
-margin_bottom = 48.0
+margin_left = -191.0
+margin_top = 60.0
+margin_right = 503.0
+margin_bottom = 132.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = ExtResource( 9 )
+custom_fonts/normal_font = ExtResource( 8 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
@@ -433,6 +429,10 @@ scroll_active = false
 scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
+
+[node name="DialogueBoxSprite" type="Sprite" parent="NinePatchRect/Dialogue"]
+position = Vector2( 156, 84.4253 )
+texture = ExtResource( 9 )
 
 [node name="DialogueTextEdit" type="TextEdit" parent="NinePatchRect"]
 visible = false
@@ -571,7 +571,7 @@ disabled = true
 [connection signal="text_entered" from="NinePatchRect/TitleBar/Id_Label" to="." method="_on_Id_Label_text_entered"]
 [connection signal="button_down" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_button_down"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
-[connection signal="text_changed" from="NinePatchRect/Dialogue/DialogueBoxSprite/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
+[connection signal="text_changed" from="NinePatchRect/Dialogue/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
 [connection signal="focus_entered" from="NinePatchRect/DialogueTextEdit" to="." method="_on_DialogueTextEdit_focus_entered"]
 [connection signal="focus_exited" from="NinePatchRect/DialogueTextEdit" to="." method="_on_DialogueTextEdit_focus_exited"]
 [connection signal="button_down" from="NinePatchRect/TailConnector" to="." method="_on_TailConnector_button_down"]

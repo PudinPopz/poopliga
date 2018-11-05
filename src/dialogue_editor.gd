@@ -9,6 +9,9 @@ const BranchBlock = preload("res://src/blocks/branch_block.tscn")
 
 const fnt_noto_sans_16 = preload("res://fonts/NotoSans_16.tres")
 
+const DEFAULT_LOWEST_POSITION = 400
+const DEFAULT_HIGHEST_POSITION = -400
+
 onready var blocks = get_node("Map/Blocks")
 onready var cursor = get_node("Map/Cursor")
 onready var control = get_node("Control")
@@ -17,7 +20,8 @@ onready var script_mode = get_node("ScriptModeLayer/ScriptMode")
 
 var saveas_dialog
 
-var lowest_position = -99999999
+var lowest_position = DEFAULT_LOWEST_POSITION
+var highest_position = DEFAULT_HIGHEST_POSITION
 
 var current_folder
 var current_file = ""
@@ -90,7 +94,6 @@ func _ready():
 	randomize()
 	set_process(true)
 	reset()
-	update_lowest_position()
 	saveas_dialog = create_saveas_file_dialog()
 	fix_popin_bug(10)
 
@@ -152,17 +155,6 @@ func create_saveas_file_dialog():
 	thing.connect("popup_hide",self,"_on_popup_hide")
 	return thing
 
-# Calculates and updates lowest position of a dialogue block. SOMEWHAT RESOURCE INTENSIVE.
-func update_lowest_position():
-	#var start_time = OS.get_ticks_msec()
-	var lowest = -99999999
-	for block in blocks.get_children():
-		if block.rect_position.y > lowest:
-			lowest = block.rect_position.y
-	lowest_position = lowest # Update lowest_position - wouldn't want to waste this precious call
-	#print("Calculated lowest position in " + str(OS.get_ticks_msec()-start_time) + "ms.")
-	return lowest
-
 # SavesbBlocks to dictionary - NOT file!
 func save_blocks_to_dict():
 	var dict = {}
@@ -222,11 +214,8 @@ func fill_with_garbage_blocks(amount):
 		new_block.rect_position = Vector2(0,rand_range(0,9990))
 		new_block.fill_with_garbage()
 
-	pass
-
 func spawn_block(node_type := DB.dialogue_block, hand_placed = false, pos := Vector2(0,0), add_child := true):
-	var block_pos
-	block_pos = pos
+	var block_pos = pos
 
 	var node_to_spawn = DialogueBlock
 
@@ -257,7 +246,11 @@ func spawn_block(node_type := DB.dialogue_block, hand_placed = false, pos := Vec
 	new_block.rect_position = block_pos
 	new_block.previous_pos = block_pos
 
-
+	# Check if new highest or new lowest and apply if necessary
+	if block_pos.y > lowest_position:
+		lowest_position = block_pos.y
+	if block_pos.y < highest_position:
+		highest_position = block_pos.y
 
 
 	return new_block
@@ -375,14 +368,18 @@ func load_blocks_from_json(json):
 
 func reset(create_new_meta_block := true):
 	# Clear everything on board (Kill all children in dialogueblocks)
+
 	for child in blocks.get_children():
 		child.queue_free()
 
 	MainCamera.reset()
 	get_node("Map/GridBG").update_grid()
-
+	
+	lowest_position = DEFAULT_LOWEST_POSITION
+	highest_position = DEFAULT_HIGHEST_POSITION
 
 	current_meta_block = null
+	
 	# Create new meta block
 	if create_new_meta_block:
 		current_file = ""
