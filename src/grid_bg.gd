@@ -29,7 +29,10 @@ func _input(event):
 var special_offset = Vector2(0,0)
 var enabled = true
 
-func update_grid():
+func update_grid(after_frames = -1):
+	if after_frames != -1:
+		# Do rest of stuff on frame after ready
+		yield(get_tree().create_timer(after_frames), "timeout")
 	if enabled:
 		visible = true
 	else:

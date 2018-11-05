@@ -48,6 +48,8 @@ var lerp_finish_time = 1.0
 var blocks_on_screen = []
 var last_blocks_on_screen = []
 
+var no_zoom_limit = false
+
 func _on_moved():
 	update_rendered()
 
@@ -141,14 +143,19 @@ func _input(event):
 			emit_signal("scrolled")
 			_on_moved()
 
+
+
+
 	if Input.is_action_just_pressed("refresh"):
 		update_rendered(true, -1)
 
 
 
 
+
 func update_zoom():
-	zoom_level = clamp(zoom_level, 1,zoom_level_max)
+	if !no_zoom_limit:
+		zoom_level = clamp(zoom_level, 1,zoom_level_max)
 	zoom.x = zoom_level
 	zoom.y = zoom_level
 	update_rendered(true)
@@ -201,6 +208,8 @@ func reset(pos = Vector2(640,360)):
 
 
 func _process(delta):
+	no_zoom_limit = false
+	Editor.get_node("Map/GridBG").visible = true
 	# Lerping
 	if in_lerp:
 		if !pan_mode:
@@ -218,8 +227,19 @@ func _process(delta):
 
 	position.x = clamp(position.x, limit_left, limit_right)
 	position.y = clamp(position.y, limit_top, limit_bottom)
-		#emit_signal("scrolled")
-		#_on_moved()
+
+	# Zoom out
+	if is_modifier_down(alt) and (Input.is_key_pressed(KEY_F) or Input.is_key_pressed(KEY_Z)):
+		zoom_level = lerp(zoom_level, 15, 6*delta)
+		no_zoom_limit = true
+		update_zoom()
+		Editor.get_node("Map/GridBG").modulate.a -= 7 * delta
+	else:
+		if Editor.get_node("Map/GridBG").modulate.a != 1:
+			Editor.get_node("Map/GridBG").modulate.a = 1
+			Editor.get_node("Map/GridBG").update_grid(2)
+		no_zoom_limit = false
+		update_zoom()
 
 func lerp_camera_pos(target, seconds = 1.0, reset_time = false):
 	in_lerp = true
