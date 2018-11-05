@@ -385,6 +385,9 @@ func reset(create_new_meta_block := true):
 		current_file = ""
 		current_meta_block = spawn_block(DB.meta_block)
 
+	# Do rest of stuff 2 frames after
+	yield(get_tree().create_timer(2), "timeout")
+	$FrontUILayer/VScrollBar.update_scroll_bar()
 
 func _on_Options2_focus_exited():
 	pass # Replace with function body.

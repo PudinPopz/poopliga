@@ -107,6 +107,12 @@ func _ready():
 		if !$VisibilityNotifier2D.is_on_screen():
 			on_screen_exited()
 
+	# Check if new highest or new lowest and apply if necessary
+	if rect_position.y > Editor.lowest_position:
+		Editor.lowest_position = rect_position.y
+	if rect_position.y < Editor.highest_position:
+		Editor.highest_position = rect_position.y
+
 func on_screen_entered():
 	visible = true
 func on_screen_exited():

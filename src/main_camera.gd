@@ -27,7 +27,7 @@ func _ready():
 	set_physics_process(true)
 
 
-var scroll_spd = 160 #100
+var scroll_spd = 180
 var zoom_spd = 1.5
 var zoom_level_max = 3
 var loop_mouse_cursor = true
@@ -48,9 +48,6 @@ var lerp_finish_time = 1.0
 var blocks_on_screen = []
 var last_blocks_on_screen = []
 
-
-
-
 func _on_moved():
 	update_rendered()
 
@@ -59,12 +56,9 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
 		ignore_mouse = true
 		update_rendered(true)
-		pass
+
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
 		ignore_mouse = true
-		pass
-
-
 
 var ignore_mouse := true # Workaround for broken panning when out of focus
 var is_ctrl_down := false
@@ -167,15 +161,11 @@ func update_pan():
 	var prev_pos = position
 	var new_position = camera_previous_pos - mouse_delta*zoom_level
 	position = new_position
-#	if new_position.y > 0:
-#		position = new_position
-#	else:
-#		position.x = new_position.x
-#		position.y = 0
+
 	if position.floor() != prev_pos.floor():
 		_on_moved()
 
-	# Loop mouse cursor
+	#  @TODO: Implement looping mouse cursor
 	if loop_mouse_cursor:
 		#OS.mouse
 		var screen_mouse_pos = get_viewport().get_mouse_position() + OS.window_position
@@ -194,26 +184,13 @@ func update_rendered(force=false, max_blocks=50):
 	collision_shape.scale = mult*get_viewport_rect().size
 
 	blocks_on_screen = area_2d.get_overlapping_areas()
-	#print(blocks_on_screen.size(), "blocks")
+
 	# Don't bother if there's over 50 blocks on screen
 	if max_blocks != -1 and blocks_on_screen.size() >= max_blocks and last_blocks_on_screen != []:
 		return
 
-	#if force\
-	#or blocks_on_screen.empty() or last_blocks_on_screen.empty()\
-	#or blocks_on_screen.front() != last_blocks_on_screen.front()\
-	#or blocks_on_screen.back() != last_blocks_on_screen.back():
-	#	pass
-		# for area2D in last_blocks_on_screen:
-		# 	if area2D is DialogueBlock:
-		# 		pass
-		# for area2D in blocks_on_screen:
-		# 	if area2D is DialogueBlock:
-		# 		pass
-
 	last_blocks_on_screen = blocks_on_screen.duplicate()
-	#print(OS.get_ticks_msec() - start_time)
-	pass
+
 
 func reset(pos = Vector2(640,360)):
 	last_blocks_on_screen = []
@@ -250,11 +227,6 @@ func lerp_camera_pos(target, seconds = 1.0, reset_time = false):
 	lerp_finish_time = seconds
 	if reset_time:
 		lerp_time = 0
-
-func _physics_process(delta):
-
-	pass
-
 
 enum MODIFIER {
 	ctrl,
