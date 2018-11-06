@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/grid_bg.gd" type="Script" id=2]
@@ -8,17 +8,18 @@
 [ext_resource path="res://src/sample_nine_patch_rect.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/project_window.gd" type="Script" id=7]
 [ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=8]
-[ext_resource path="res://src/options_window.gd" type="Script" id=9]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=10]
-[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=11]
-[ext_resource path="res://src/save.gd" type="Script" id=12]
-[ext_resource path="res://src/options_button.gd" type="Script" id=13]
-[ext_resource path="res://src/scroll_bar.gd" type="Script" id=14]
-[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=15]
-[ext_resource path="res://src/script_mode.gd" type="Script" id=16]
-[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=17]
-[ext_resource path="res://src/background.tscn" type="PackedScene" id=18]
-[ext_resource path="res://sprites/backgrounds/bg.jpg" type="Texture" id=19]
+[ext_resource path="res://themes/textedit_darkblue_no_top_margin.tres" type="StyleBox" id=9]
+[ext_resource path="res://src/options_window.gd" type="Script" id=10]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=11]
+[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=12]
+[ext_resource path="res://src/save.gd" type="Script" id=13]
+[ext_resource path="res://src/options_button.gd" type="Script" id=14]
+[ext_resource path="res://src/scroll_bar.gd" type="Script" id=15]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=16]
+[ext_resource path="res://src/script_mode.gd" type="Script" id=17]
+[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=18]
+[ext_resource path="res://src/background.tscn" type="PackedScene" id=19]
+[ext_resource path="res://sprites/backgrounds/bg.jpg" type="Texture" id=20]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -266,9 +267,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
+margin_left = 19.0
 margin_top = 18.0
-margin_right = -18.0
+margin_right = -19.0
 margin_bottom = -11.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -284,10 +285,11 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 3.0
-margin_right = 279.0
+margin_right = 239.0
 margin_bottom = 26.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+hint_tooltip = "The style of dialogue box the project will use (effective for all new dialogue blocks or on file reload)"
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
@@ -302,10 +304,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 283.0
+margin_left = 243.0
 margin_right = 433.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 150, 0 )
+margin_bottom = 30.0
+rect_min_size = Vector2( 150, 30 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -324,6 +326,100 @@ flat = false
 align = 1
 items = [ "Custom", null, true, -1, null, "Black Serif", null, false, -1, null, "Jangnanmon", null, false, -1, null ]
 selected = 1
+
+[node name="AuthorLabel" type="Label" parent="FrontWindows/ProjectWindow/Panel/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 37.0
+margin_right = 239.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Author"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AuthorField" type="LineEdit" parent="FrontWindows/ProjectWindow/Panel/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 243.0
+margin_top = 34.0
+margin_right = 433.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 190, 30 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/normal = ExtResource( 9 )
+max_length = 50
+secret_character = "*"
+focus_mode = 2
+context_menu_enabled = true
+clear_button_enabled = false
+placeholder_alpha = 0.6
+caret_blink = true
+caret_blink_speed = 0.65
+caret_position = 0
+
+[node name="DescriptionLabel" type="Label" parent="FrontWindows/ProjectWindow/Panel/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 71.0
+margin_right = 239.0
+margin_bottom = 94.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Description"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="DescriptionField" type="LineEdit" parent="FrontWindows/ProjectWindow/Panel/GridContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 243.0
+margin_top = 68.0
+margin_right = 433.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 190, 30 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/normal = ExtResource( 9 )
+max_length = 50
+secret_character = "*"
+focus_mode = 2
+context_menu_enabled = true
+clear_button_enabled = false
+placeholder_alpha = 0.6
+caret_blink = true
+caret_blink_speed = 0.65
+caret_position = 0
 
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
 visible = false
@@ -345,7 +441,7 @@ theme = ExtResource( 5 )
 popup_exclusive = false
 window_title = "Options"
 resizable = false
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow"]
 anchor_left = 0.5
@@ -377,7 +473,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "SCROLL SPEED: "
 percent_visible = 1.0
@@ -428,7 +524,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "ZOOM SPEED: "
 percent_visible = 1.0
@@ -480,7 +576,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "EDITOR HUE: "
 percent_visible = 1.0
@@ -669,7 +765,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 0.117647, 0.490196, 0.65098, 1 )
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="ColorRect" type="ColorRect" parent="FrontUILayer"]
 anchor_left = 0.0
@@ -773,7 +869,7 @@ group = null
 text = "Save"
 flat = true
 align = 1
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 visible = false
@@ -871,7 +967,7 @@ group = null
 text = "Options"
 flat = true
 align = 1
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 
 [node name="VScrollBar" type="VScrollBar" parent="FrontUILayer"]
 anchor_left = 1.0
@@ -898,7 +994,7 @@ rounded = true
 allow_greater = false
 allow_lesser = false
 custom_step = -1.0
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar"]
 anchor_left = 1.0
@@ -915,7 +1011,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "(0,0)"
 align = 2
@@ -942,7 +1038,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 16 )
+script = ExtResource( 17 )
 
 [node name="ColorRect" type="ColorRect" parent="ScriptModeLayer/ScriptMode"]
 anchor_left = 0.0
@@ -975,7 +1071,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/focus = SubResource( 13 )
 custom_styles/normal = SubResource( 14 )
-custom_fonts/font = ExtResource( 17 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/caret_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/current_line_color = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -1037,9 +1133,9 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Background" parent="BGLayer" instance=ExtResource( 18 )]
+[node name="Background" parent="BGLayer" instance=ExtResource( 19 )]
 modulate = Color( 1, 1, 1, 1 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 
 [node name="Control" type="Control" parent="."]
 anchor_left = 0.0

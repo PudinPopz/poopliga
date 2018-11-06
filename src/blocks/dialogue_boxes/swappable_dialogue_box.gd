@@ -9,7 +9,6 @@ func _ready():
 	# Do stuff on next frame to avoid bugs
 	yield(get_tree().create_timer(0), "timeout")
 	var dbox_style_index : int = Editor.current_meta_block.project_settings["dialogue_box_style"]
-	print(dbox_style_index)
 	match dbox_style_index:
 		1:
 			swap_dialogue_box_tscn("res://src/blocks/dialogue_boxes/black_serif.tscn")

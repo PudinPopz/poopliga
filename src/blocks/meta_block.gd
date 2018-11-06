@@ -7,7 +7,9 @@ enum {
 }
 
 const DEFAULT_PROJECT_SETTINGS := {
-	dialogue_box_style = DBOX_BLACK_SERIF
+	dialogue_box_style = DBOX_BLACK_SERIF,
+	author = "",
+	description = ""
 }
 
 var project_settings := DEFAULT_PROJECT_SETTINGS
@@ -22,6 +24,10 @@ func _ready() -> void:
 	# Load extra_data
 	if !extra_data.empty():
 		project_settings = extra_data.project_settings
+		# Loop through each setting in default and add to project_settings if doesn't exist
+		for key in DEFAULT_PROJECT_SETTINGS.keys():
+			if !project_settings.has(key):
+				project_settings[key] = DEFAULT_PROJECT_SETTINGS[key]
 
 func serialize():
 	extra_data = {
