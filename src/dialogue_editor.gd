@@ -344,7 +344,7 @@ func load_blocks_from_json(json):
 	for key in dict.keys():
 		var values_dict = dict[key]
 		var id = key
-		var node_type = int(values_dict["node_type"])
+		var node_type = int(values_dict["type"])
 		var pos = Vector2(values_dict["pos_x"], values_dict["pos_y"])
 
 
@@ -355,12 +355,12 @@ func load_blocks_from_json(json):
 		block.set_tail(values_dict["tail"])
 		if block.tail != "":
 			block.set_process(true)
-		block.character_line_edit.text = values_dict["character"]
-		block.dialogue_line_edit.text = values_dict["dialogue"]
-		block.set_character_name(values_dict["character"])
-		block.set_dialogue_string(values_dict["dialogue"])
-		block.salsa_code = values_dict["salsa_code"]
-		block.extra_data = values_dict["extra_data"]
+		block.character_line_edit.text = values_dict["char"]
+		block.dialogue_line_edit.text = values_dict["text"]
+		block.set_character_name(values_dict["char"])
+		block.set_dialogue_string(values_dict["text"])
+		block.salsa_code = values_dict["code"]
+		block.extra_data = values_dict["data"]
 		block.update_dialogue_rich_text_label()
 
 		if node_type == 0: # If meta block:

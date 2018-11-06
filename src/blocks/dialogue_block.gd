@@ -127,14 +127,14 @@ func on_screen_exited():
 func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're using US spelling. Deal with it.
 	var dict = {
 		key = id,
-		node_type = node_type,
-		dialogue = get_dialogue_string(),
-		character = get_character_name(),
+		type = node_type,
+		text = get_dialogue_string(),
+		char = get_character_name(),
 		tail = tail,
-		salsa_code = salsa_code,
+		code = salsa_code,
 		pos_x = floor(rect_position.x), # JSON does not support Vector2
 		pos_y = floor(rect_position.y),
-		extra_data = extra_data
+		data = extra_data
 	}
 
 	return dict
