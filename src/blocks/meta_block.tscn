@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://src/blocks/dialogue_block.gd" type="Script" id=1]
+[ext_resource path="res://src/blocks/meta_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/icons/unfilled_circle_thick.png" type="Texture" id=2]
 [ext_resource path="res://themes/default_theme.tres" type="Theme" id=3]
 [ext_resource path="res://fonts/poppins_bold_megasize.tres" type="DynamicFont" id=4]
@@ -209,7 +209,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
-node_type = 0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 visible = false

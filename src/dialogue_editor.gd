@@ -339,32 +339,37 @@ func load_blocks_from_json(json):
 	var dict := {}
 	dict = parse_json((json))
 
-
+	# Add meta block (must be first block to avoid bugs)
+	var meta_key = "__META__*****"
+	add_block_from_key(dict, meta_key)
 	# Loop through individual blocks
 	for key in dict.keys():
-		var values_dict = dict[key]
-		var id = key
-		var node_type = int(values_dict["type"])
-		var pos = Vector2(values_dict["pos_x"], values_dict["pos_y"])
+		if key != meta_key: # Ignore if meta block (has already been added)
+			add_block_from_key(dict, key)
 
+func add_block_from_key(dict, key):
+	var values_dict = dict[key]
+	var id = key
+	var node_type = int(values_dict["type"])
+	var pos = Vector2(values_dict["pos_x"], values_dict["pos_y"])
 
-		var block = spawn_block(node_type)
-		block.set_id(id)
-		block.rect_position = pos
-		block.node_type = node_type
-		block.set_tail(values_dict["tail"])
-		if block.tail != "":
-			block.set_process(true)
-		block.character_line_edit.text = values_dict["char"]
-		block.dialogue_line_edit.text = values_dict["text"]
-		block.set_character_name(values_dict["char"])
-		block.set_dialogue_string(values_dict["text"])
-		block.salsa_code = values_dict["code"]
-		block.extra_data = values_dict["data"]
-		block.update_dialogue_rich_text_label()
+	var block = spawn_block(node_type)
+	block.set_id(id)
+	block.rect_position = pos
+	block.node_type = node_type
+	block.set_tail(values_dict["tail"])
+	if block.tail != "":
+		block.set_process(true)
+	block.character_line_edit.text = values_dict["char"]
+	block.dialogue_line_edit.text = values_dict["text"]
+	block.set_character_name(values_dict["char"])
+	block.set_dialogue_string(values_dict["text"])
+	block.salsa_code = values_dict["code"]
+	block.extra_data = values_dict["data"]
+	block.update_dialogue_rich_text_label()
 
-		if node_type == 0: # If meta block:
-			current_meta_block = block # Get reference to it
+	if node_type == 0: # If meta block:
+		current_meta_block = block # Get reference to it
 
 func reset(create_new_meta_block := true):
 	# Clear everything on board (Kill all children in dialogueblocks)
@@ -383,6 +388,8 @@ func reset(create_new_meta_block := true):
 	# Create new meta block
 	if create_new_meta_block:
 		current_file = ""
+		if is_instance_valid(current_meta_block):
+			current_meta_block.name = "___INVALID_META_BLOCK_______@@@"
 		current_meta_block = spawn_block(DB.meta_block)
 
 	# Do rest of stuff 2 frames after

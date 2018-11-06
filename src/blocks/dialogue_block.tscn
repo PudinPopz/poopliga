@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/blocks/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/ninepatch2.png" type="Texture" id=2]
@@ -9,12 +9,13 @@
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=7]
 [ext_resource path="res://scenes/title_bar_button_hover.gd" type="Script" id=8]
 [ext_resource path="res://src/blocks/dialogue_boxes/black_serif.tscn" type="PackedScene" id=9]
-[ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=10]
-[ext_resource path="res://src/text_edit_fixer.gd" type="Script" id=11]
-[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=12]
-[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=13]
-[ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=14]
-[ext_resource path="res://src/blocks/dialogue_block_line_draw.gd" type="Script" id=15]
+[ext_resource path="res://src/blocks/dialogue_boxes/swappable_dialogue_box.gd" type="Script" id=10]
+[ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=11]
+[ext_resource path="res://src/text_edit_fixer.gd" type="Script" id=12]
+[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=13]
+[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=14]
+[ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=15]
+[ext_resource path="res://src/blocks/dialogue_block_line_draw.gd" type="Script" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -260,6 +261,7 @@ expand = true
 script = ExtResource( 8 )
 
 [node name="Dialogue" parent="NinePatchRect" instance=ExtResource( 9 )]
+script = ExtResource( 10 )
 
 [node name="DialogueTextEdit" type="TextEdit" parent="NinePatchRect"]
 anchor_left = 0.0
@@ -278,7 +280,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 custom_constants/line_spacing = 0
 text = ""
 readonly = false
@@ -297,7 +299,7 @@ caret_block_mode = false
 caret_blink = true
 caret_blink_speed = 0.65
 caret_moving_by_right_click = true
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 counter_camera_scroll = true
 
 [node name="TailConnector" type="TextureButton" parent="NinePatchRect"]
@@ -322,7 +324,7 @@ action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 12 )
+texture_normal = ExtResource( 13 )
 expand = true
 stretch_mode = 5
 
@@ -337,14 +339,14 @@ anims/spawn = SubResource( 5 )
 blend_times = [  ]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 14 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 stream_paused = false
 mix_target = 0
 bus = "Master"
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 
 [node name="Area2D" type="Area2D" parent="."]
 input_pickable = true
@@ -363,7 +365,7 @@ shape = SubResource( 6 )
 [node name="LineDrawNode" type="Node2D" parent="."]
 position = Vector2( 0, 310 )
 z_index = 4
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 
 [node name="HeadArea2D" type="Area2D" parent="."]
 position = Vector2( -10, 7.626 )
