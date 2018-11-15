@@ -35,6 +35,9 @@ var current_meta_block = null
 var focus = null
 var last_focus = null
 
+var selected_block = null setget set_selected_block
+var hovered_block = null
+
 func _input(event):
 	cursor.position = get_global_mouse_position()
 
@@ -70,8 +73,31 @@ func _input(event):
 				last_focus.grab_focus()
 
 
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and hovered_block != null and is_instance_valid(hovered_block):
+		print("HI")
+		selected_block = hovered_block
+
+
+
+	# Allow for script mode to actually be escaped
+	if script_mode.visible and Input.is_key_pressed(KEY_ESCAPE):
+		script_mode.visible = false
+
+	# Escape inspector
+	if $InspectorLayer/Inspector.visible and Input.is_key_pressed(KEY_ESCAPE):
+		$InspectorLayer/Inspector.visible = false
+
+
+
 	if event is InputEventKey:
-		handle_focus_shortcuts(event)
+		# Check if focus shortcut
+		if is_alt_down:
+			handle_focus_shortcuts(event)
+		else:
+			# I for Inspector
+			if focus == null or !(focus is LineEdit or focus is TextEdit):
+				if Input.is_key_pressed(KEY_I):
+					$InspectorLayer/Inspector.visible = !$InspectorLayer/Inspector.visible
 
 func handle_focus_shortcuts(event):
 	if focus == null:
@@ -214,21 +240,21 @@ func fill_with_garbage_blocks(amount):
 		new_block.rect_position = Vector2(0,rand_range(0,9990))
 		new_block.fill_with_garbage()
 
-func spawn_block(node_type := DB.dialogue_block, hand_placed = false, pos := Vector2(0,0), add_child := true):
+func spawn_block(node_type := DB.NODE_TYPE.dialogue_block, hand_placed = false, pos := Vector2(0,0), add_child := true):
 	var block_pos = pos
 
 	var node_to_spawn = DialogueBlock
 
 	match node_type:
-		DB.meta_block:
+		DB.NODE_TYPE.meta_block:
 			node_to_spawn = MetaBlock
-		DB.dialogue_block:
+		DB.NODE_TYPE.dialogue_block:
 			node_to_spawn = DialogueBlock
-		DB.title_block:
+		DB.NODE_TYPE.title_block:
 			node_to_spawn = TitleBlock
-		DB.comment_block:
+		DB.NODE_TYPE.comment_block:
 			node_to_spawn = CommentBlock
-		DB.branch_block:
+		DB.NODE_TYPE.branch_block:
 			node_to_spawn = BranchBlock
 
 	var new_block = node_to_spawn.instance()
@@ -258,16 +284,16 @@ func spawn_block(node_type := DB.dialogue_block, hand_placed = false, pos := Vec
 func _on_BackUIButton_pressed():
 
 	if Input.is_action_pressed("title_block_button"):
-		spawn_block(DB.title_block, true)
+		spawn_block(DB.NODE_TYPE.title_block, true)
 	elif Input.is_action_pressed("comment_block_button"):
-		spawn_block(DB.comment_block, true)
+		spawn_block(DB.NODE_TYPE.comment_block, true)
 	elif Input.is_action_pressed("branch_block_button"):
-		spawn_block(DB.branch_block, true)
+		spawn_block(DB.NODE_TYPE.branch_block, true)
 	# Spawn regular block if no modifiers
 	elif double_click_timer > 0.001 or Input.is_action_pressed("ctrl") or is_ctrl_down:
 		# Register double click
 
-		spawn_block(DB.dialogue_block, true)
+		spawn_block(DB.NODE_TYPE.dialogue_block, true)
 		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
 
 
@@ -384,13 +410,15 @@ func reset(create_new_meta_block := true):
 	highest_position = DEFAULT_HIGHEST_POSITION
 
 	current_meta_block = null
+	selected_block = null
+	hovered_block = null
 
 	# Create new meta block
 	if create_new_meta_block:
 		current_file = ""
 		if is_instance_valid(current_meta_block):
 			current_meta_block.name = "___INVALID_META_BLOCK_______@@@"
-		current_meta_block = spawn_block(DB.meta_block)
+		current_meta_block = spawn_block(DB.NODE_TYPE.meta_block)
 
 	# Do rest of stuff 2 frames after
 	yield(get_tree().create_timer(2), "timeout")
@@ -422,20 +450,21 @@ func _on_FindWindow_confirmed():
 		$FrontWindows/FindWindow.popup_centered()
 		$FrontWindows/FindWindow/HBoxContainer2/LineEdit.grab_focus()
 
+func _on_CursorArea_area_entered(area):
+	if area.get_parent() is DBScript:
+		hovered_block = area.get_parent()
+
+func _on_CursorArea_area_exited(area: Area2D) -> void:
+	if area.get_parent() is DBScript:
+		hovered_block = null
+
+
+
+
+
+
 var _popin_fix_pending = false
 var _popin_fix_pending_timer = -1
-
-
-
-
-
-func _physics_process(delta):
-	# Fix render bug
-	pass
-#	_popin_fix_pending_timer -=1
-#	if _popin_fix_pending and _popin_fix_pending_timer <= 0:
-#		OS.set_window_size(prev_window_size)
-#		_popin_fix_pending = false
 
 
 func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
@@ -448,8 +477,12 @@ func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
 func force_redraw():
 	pass
 
+func set_selected_block(value):
+	selected_block = value
+	$InspectorLayer/Inspector.update_inspector()
 
-enum MODIFIER {
+
+enum {
 	ctrl,
 	alt,
 	shift

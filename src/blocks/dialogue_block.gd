@@ -6,15 +6,16 @@ enum NODE_TYPE {
 	title_block, # 2
 	comment_block, # 3
 	branch_block, # 4
-	script_block, # 5 <RESERVED>
+	wait_block, # 5 <RESERVED>
 	audio_block, # 6 <RESERVED>
 	animation_block, # 7 <RESERVED>
 	math_block # 8 <RESERVED>
+	script_block # 9 <RESERVED>
 }
 
 # NOTE: Most non-dialogue blocks will use the extra_data dictionary for everything.
 
-export (NODE_TYPE) var node_type := meta_block
+export (NODE_TYPE) var node_type := NODE_TYPE.meta_block
 
 # IMPORTS
 
@@ -38,7 +39,7 @@ var dialogue_string := "" setget set_dialogue_string, get_dialogue_string
 var character_name := "" setget set_character_name, get_character_name
 var tail := "" setget set_tail, get_tail
 var salsa_code := ""
-var extra_data := {}
+var extra_data := {} # Treated as "properties" if just a normal dialogue block
 
 # CHILD NODES
 
@@ -80,7 +81,7 @@ func _ready():
 	if !just_created:
 		set_process_input(false)
 
-	if node_type == meta_block: # Kill other block if another meta block exists
+	if node_type == NODE_TYPE.meta_block: # Kill other block if another meta block exists
 		if get_parent().has_node("__META__*****"):
 			if name != "__META__*****":
 				get_parent().get_node("__META__*****").queue_free()
@@ -90,7 +91,7 @@ func _ready():
 
 	update()
 
-	if node_type == dialogue_block:
+	if node_type == NODE_TYPE.dialogue_block:
 		dialogue_line_edit.connect("text_changed",self,"update_dialogue_rich_text_label")
 
 	# Play spawn animation
@@ -101,7 +102,10 @@ func _ready():
 	# Do rest of stuff on frame after ready
 	yield(get_tree().create_timer(0), "timeout")
 
-	if node_type != meta_block and node_type != branch_block:
+	if hand_placed:
+		Editor.selected_block = self
+
+	if node_type != NODE_TYPE.meta_block and node_type != NODE_TYPE.branch_block:
 		$VisibilityNotifier2D.connect("screen_entered", self, "on_screen_entered")
 		$VisibilityNotifier2D.connect("screen_exited", self, "on_screen_exited")
 		if !$VisibilityNotifier2D.is_on_screen():
@@ -132,8 +136,8 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 		char = get_character_name(),
 		tail = tail,
 		code = salsa_code,
-		pos_x = floor(rect_position.x), # JSON does not support Vector2
-		pos_y = floor(rect_position.y),
+		posx = floor(rect_position.x), # JSON does not support Vector2
+		posy = floor(rect_position.y),
 		data = extra_data
 	}
 
@@ -198,9 +202,9 @@ func move_to_front():
 
 func randomise_id():
 	var new_id = str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,10)
-	if node_type == title_block:
+	if node_type == NODE_TYPE.title_block:
 		set_id("Title_" + new_id)
-	elif node_type == comment_block:
+	elif node_type == NODE_TYPE.comment_block:
 		new_id = str(float(OS.get_ticks_usec()) + randf()).sha256_text().substr(0,8)
 		set_id("c_" + new_id)
 	else:
@@ -208,7 +212,6 @@ func randomise_id():
 	return id
 
 func _on_DraggableSegment_pressed():
-	#print("hi", character_line_edit.text)
 	set_process_input(true)
 	mouse_delta = Vector2(0,0)
 	previous_pos = rect_position
@@ -242,6 +245,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_DraggableSegment_mouse_entered():
 	set_process_input(true)
+	Editor.selected_block = self
 	update()
 
 func _on_DraggableSegment_mouse_exited():
@@ -252,6 +256,7 @@ func _on_DraggableSegment_mouse_exited():
 func _on_DialogueTextEdit_focus_entered():
 	set_process_input(true)
 	MainCamera.LAST_MODIFIED_BLOCK = self
+	Editor.selected_block = self
 
 func _on_DialogueTextEdit_focus_exited():
 	set_process_input(false)
@@ -270,11 +275,9 @@ func _on_HeadArea2D_area_exited(area : Area2D):
 		update()
 
 func _on_Id_Label_text_changed(new_text):
-	pass # Replace with function body.
-
+	MainCamera.LAST_MODIFIED_BLOCK = self
 
 func _on_CharacterLineEdit_text_changed(new_text):
-
 	set_character_name(new_text)
 	MainCamera.LAST_CHAR_NAME = character_line_edit.text
 	MainCamera.LAST_MODIFIED_BLOCK = self
@@ -282,7 +285,7 @@ func _on_CharacterLineEdit_text_changed(new_text):
 # SETTERS AND GETTERS
 func set_id(new_id):
 	var new_id_original = new_id
-	if node_type == meta_block:
+	if node_type == NODE_TYPE.meta_block:
 		id = "__META__*****"
 		name = "__META__*****"
 		id_label.text = "__META__*****"
@@ -299,9 +302,13 @@ func set_id(new_id):
 	id = new_id
 	id_label.text = id # Update textfield
 	name = id # Update name in tree
+	MainCamera.LAST_MODIFIED_BLOCK = self
+	Editor.selected_block = self
+
+
 
 func is_id_valid(test_id):
-	if test_id == "__META__*****" and node_type != null and node_type != meta_block:
+	if test_id == "__META__*****" and node_type != null and node_type != NODE_TYPE.meta_block:
 		return false
 	if test_id == "":
 		return false
@@ -312,7 +319,7 @@ func is_id_valid(test_id):
 	return true
 
 func get_id():
-	if node_type == meta_block:
+	if node_type == NODE_TYPE.meta_block:
 		return "__META__*****" # Will have meta id NO MATTER WHAT
 	return id
 
@@ -342,6 +349,7 @@ func _on_Id_Label_text_entered(new_text):
 	id_label.release_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
 	print(get_id())
+	Editor.selected_block = self
 
 func _on_Id_Label_focus_exited():
 	if id == id_label.text:
@@ -365,9 +373,17 @@ func _on_TailConnector_button_down():
 		spawn_block_below()
 
 	Editor.double_click_timer = Editor.double_click_timer_time
+	Editor.selected_block = self
 
 func _on_TailConnector_button_up():
+	Editor.selected_block = self
 	pass
+
+# Selecting block	
+func _on_NinePatchRect_focus_entered():
+	Editor.selected_block = self
+
+	
 
 func release_connection_mode():
 	tail = ""
@@ -387,7 +403,7 @@ func release_connection_mode():
 
 func spawn_block_below():
 	release_connection_mode()
-	var tail_block = Editor.spawn_block(Editor.DB.dialogue_block, false, rect_position + Vector2(0,600))
+	var tail_block = Editor.spawn_block(NODE_TYPE.dialogue_block, false, rect_position + Vector2(0,600))
 	tail_block.randomise_id()
 	tail = tail_block.id
 	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.rect_position.y) + Vector2(0, 200), 0.5)
@@ -420,7 +436,7 @@ func _draw():
 
 func _process(delta):
 
-	if node_type == meta_block:
+	if node_type == NODE_TYPE.meta_block:
 		if name != "__META__*****": # Do not rest until id is changed
 			id = "__META__*****"
 			name = "__META__*****"

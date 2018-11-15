@@ -7,21 +7,28 @@ func _ready():
 	visible = false
 	scroll_speed_slider.connect("value_changed",self,"_on_scroll_speed_changed")
 	zoom_speed_slider.connect("value_changed",self,"_on_zoom_speed_changed")
-	pass # Replace with function body.
+	$GridContainer/LowProcessorMode.connect("toggled", self, "_on_LowProcessorMode_toggled")
+	$GridContainer/DisableAnimations.connect("toggled", self, "_on_DisableAnimations_toggled")
 
 func _on_scroll_speed_changed(value):
 	MainCamera.scroll_spd = value
-	pass
 
 func _on_zoom_speed_changed(value):
 	MainCamera.zoom_spd = value
-	pass
 
 func _on_Options_toggled(button_pressed):
 	visible = button_pressed
-	pass # Replace with function body.
 
 
 func _on_Options_pressed():
 	popup_centered()
-	pass # Replace with function body.
+
+func _on_LowProcessorMode_toggled(button_pressed: bool) -> void:
+	OS.low_processor_usage_mode = button_pressed
+
+
+func _on_DisableAnimations_toggled(button_pressed: bool) -> void:
+	if button_pressed:
+		Editor.get_node("InspectorLayer/Inspector/AnimationPlayer").stop()
+	else:
+		Editor.get_node("InspectorLayer/Inspector/AnimationPlayer").play("MovingDots")

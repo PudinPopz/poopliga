@@ -50,10 +50,18 @@ var last_blocks_on_screen = []
 
 var no_zoom_limit = false
 
+var ignore_mouse := true # Workaround for broken panning when out of focus
+var is_ctrl_down := false
+var is_alt_down := false
+var is_alt_just_released := false
+var is_shift_down := false
+
+var raw_velocity := Vector2()
+var previous_pos := Vector2()
+
 func _on_moved():
 	update_rendered()
 
-	pass
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
 		ignore_mouse = true
@@ -62,11 +70,7 @@ func _notification(what):
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
 		ignore_mouse = true
 
-var ignore_mouse := true # Workaround for broken panning when out of focus
-var is_ctrl_down := false
-var is_alt_down := false
-var is_alt_just_released := false
-var is_shift_down := false
+
 
 func _input(event):
 	is_alt_just_released = false
@@ -94,7 +98,7 @@ func _input(event):
 
 	#yep these are some long ass conditionals
 	if Input.is_action_just_pressed("middle_click") or \
-	(is_modifier_down(alt) and Input.is_action_pressed("click")) or \
+	(is_modifier_down(MODIFIER.alt) and Input.is_action_pressed("click")) or \
 	ignore_mouse and Input.is_action_pressed("middle_click"):
 		if event is InputEventMouseMotion:
 			ignore_mouse = false
@@ -107,7 +111,7 @@ func _input(event):
 	elif Input.is_action_just_released("middle_click") or \
 	((Input.is_action_just_released("alt") and !Input.is_action_pressed("middle_click")) or \
 	(is_alt_just_released and !Input.is_action_pressed("middle_click")) or \
-	(is_modifier_down(alt) and Input.is_action_just_released("click"))):
+	(is_modifier_down(MODIFIER.alt) and Input.is_action_just_released("click"))):
 		mouse_delta = Vector2(0,0)
 		pan_mode = false
 
@@ -115,7 +119,7 @@ func _input(event):
 
 	# Zoom
 	# Mouse wheel with ctrl or alt to zoom
-	if Input.is_action_pressed("middle_click") or is_modifier_down(alt) or is_modifier_down(ctrl):
+	if Input.is_action_pressed("middle_click") or is_modifier_down(MODIFIER.alt) or is_modifier_down(MODIFIER.ctrl):
 		if Input.is_action_just_pressed("scroll_down"):
 			zoom_level *= zoom_spd + 3*zoom_spd*int(Input.is_action_pressed("shift"))
 			camera_previous_pos = position
@@ -159,7 +163,7 @@ func update_zoom():
 	zoom.x = zoom_level
 	zoom.y = zoom_level
 	update_rendered(true)
-	pass
+
 
 var _update_move_timer = 0
 func update_pan():
@@ -180,7 +184,6 @@ func update_pan():
 			#mouse_pos.y = 0
 			#get_viewport().warp_mouse(mouse_pos - OS.window_position)
 			pass
-		#print(screen_mouse_pos)
 
 func update_rendered(force=false, max_blocks=50):
 
@@ -199,11 +202,11 @@ func update_rendered(force=false, max_blocks=50):
 	last_blocks_on_screen = blocks_on_screen.duplicate()
 
 
-func reset(pos = Vector2(640,360)):
+func reset(pos = Vector2(640, 360)):
 	last_blocks_on_screen = []
 	position = pos
 	zoom_level = zoom_level_max
-	zoom = Vector2(zoom_level,zoom_level)
+	zoom = Vector2(zoom_level, zoom_level)
 	camera_previous_pos = position
 
 
@@ -228,8 +231,30 @@ func _process(delta):
 	position.x = clamp(position.x, limit_left, limit_right)
 	position.y = clamp(position.y, limit_top, limit_bottom)
 
+
+	# Apply end smoothing @TODO: Implement this
+
+
+
+	# if !pan_mode:
+	# 	var new_magnitude = raw_velocity.length()
+	# 	new_magnitude -= ((1.0/(0.5*(new_magnitude + 1))) * 100 * (1.0/60.0))
+
+	# 	new_magnitude = clamp(new_magnitude, 0, 30)
+
+	# 	raw_velocity = new_magnitude * raw_velocity.normalized()
+	# 	print(new_magnitude)
+
+	# 	position += raw_velocity #* (200*delta)
+
+	# raw_velocity = (position - previous_pos)
+	# previous_pos = position
+
+
+
+
 	# Zoom out
-	if is_modifier_down(alt) and (Input.is_key_pressed(KEY_F) or Input.is_key_pressed(KEY_Z)):
+	if is_modifier_down(MODIFIER.alt) and (Input.is_key_pressed(KEY_F) or Input.is_key_pressed(KEY_Z)):
 		zoom_level = lerp(zoom_level, 15, 6*delta)
 		no_zoom_limit = true
 		update_zoom()
@@ -256,9 +281,9 @@ enum MODIFIER {
 
 func is_modifier_down(modifier):
 	match modifier:
-		ctrl:
+		MODIFIER.ctrl:
 			return is_ctrl_down or Input.is_action_pressed("ctrl")
-		alt:
+		MODIFIER.alt:
 			return is_alt_down or Input.is_action_pressed("alt")
-		shift:
+		MODIFIER.shift:
 			return is_shift_down or Input.is_action_pressed("shift")
