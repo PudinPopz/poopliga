@@ -14,6 +14,7 @@ dest_files=[ "res://.import/bg3.jpg-4d59eeec5a38f9566da3d6302e6a9183.stex" ]
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
