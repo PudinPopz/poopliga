@@ -35,7 +35,7 @@ var current_meta_block = null
 var focus = null
 var last_focus = null
 
-var selected_block = null setget set_selected_block
+var selected_block = null setget set_selected_block, get_selected_block
 var hovered_block = null
 
 func _input(event):
@@ -73,9 +73,8 @@ func _input(event):
 				last_focus.grab_focus()
 
 
-	if Input.is_mouse_button_pressed(BUTTON_LEFT) and hovered_block != null and is_instance_valid(hovered_block):
-		print("HI")
-		selected_block = hovered_block
+	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
+		set_selected_block(hovered_block)
 
 
 
@@ -96,7 +95,7 @@ func _input(event):
 		else:
 			# I for Inspector
 			if focus == null or !(focus is LineEdit or focus is TextEdit):
-				if Input.is_key_pressed(KEY_I):
+				if Input.is_key_pressed(KEY_I) or Input.is_key_pressed(KEY_E):
 					$InspectorLayer/Inspector.visible = !$InspectorLayer/Inspector.visible
 
 func handle_focus_shortcuts(event):
@@ -377,7 +376,7 @@ func add_block_from_key(dict, key):
 	var values_dict = dict[key]
 	var id = key
 	var node_type = int(values_dict["type"])
-	var pos = Vector2(values_dict["pos_x"], values_dict["pos_y"])
+	var pos = Vector2(values_dict["posx"], values_dict["posy"])
 
 	var block = spawn_block(node_type)
 	block.set_id(id)
@@ -420,6 +419,8 @@ func reset(create_new_meta_block := true):
 			current_meta_block.name = "___INVALID_META_BLOCK_______@@@"
 		current_meta_block = spawn_block(DB.NODE_TYPE.meta_block)
 
+	$InspectorLayer/Inspector.update_inspector()
+
 	# Do rest of stuff 2 frames after
 	yield(get_tree().create_timer(2), "timeout")
 	$FrontUILayer/VScrollBar.update_scroll_bar()
@@ -453,15 +454,12 @@ func _on_FindWindow_confirmed():
 func _on_CursorArea_area_entered(area):
 	if area.get_parent() is DBScript:
 		hovered_block = area.get_parent()
+		print(hovered_block)
 
 func _on_CursorArea_area_exited(area: Area2D) -> void:
 	if area.get_parent() is DBScript:
 		hovered_block = null
-
-
-
-
-
+		print(hovered_block)
 
 var _popin_fix_pending = false
 var _popin_fix_pending_timer = -1
@@ -478,8 +476,28 @@ func force_redraw():
 	pass
 
 func set_selected_block(value):
+	var previous_block = selected_block
 	selected_block = value
+
+	if selected_block == null:
+		$InspectorLayer/Inspector.update_inspector()
+		return
+
+	# Highlight selected block
+	selected_block.nine_patch_rect.modulate =  Color("ffffff") * 1.4
+	if is_node_alive(previous_block) and previous_block != selected_block:
+		previous_block.nine_patch_rect.modulate = Color(1,1,1)
+
+	# Simulate dragging
+	#selected_block.get_node("NinePatchRect/TitleBar/DraggableSegment").pressed = true
+	#selected_block._on_DraggableSegment_pressed()
+	#selected_block.dragging = true
+
 	$InspectorLayer/Inspector.update_inspector()
+
+func get_selected_block():
+	return selected_block
+
 
 
 enum {

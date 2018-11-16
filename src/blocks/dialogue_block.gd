@@ -158,8 +158,9 @@ func fill_with_garbage():
 
 func _input(event):
 	if MainCamera.scroll_mode != 0:
-		mouse_offset.y += MainCamera.scroll_mode*MainCamera.scroll_spd
-	if MainCamera.pan_mode or !Input.is_action_pressed("click"):
+		mouse_offset.y += MainCamera.scroll_mode * MainCamera.scroll_spd
+	# Stop dragging
+	if !Input.is_action_pressed("click"):
 		dragging = false
 		mouse_offset = Vector2()
 	if event is InputEventMouseMotion:
@@ -170,7 +171,7 @@ func _input(event):
 			if just_created:
 				rect_position = get_global_mouse_position()
 			# Teleport block to cursor if too far away
-			if abs(get_global_mouse_position().y - rect_position.y) > 80 or \
+			if abs(get_global_mouse_position().y - rect_position.y) > 200 or \
 			abs(get_global_mouse_position().x - rect_position.x) > 2000:
 				just_created = true # Act like just created
 			# Check if new highest or new lowest and apply if necessary
@@ -227,6 +228,8 @@ func _on_DeleteButton_button_down():
 	move_to_front()
 
 func _on_DeleteButton_pressed():
+	if Editor.selected_block == self:
+		Editor.selected_block = null
 	anim_player.play("kill")
 	var death_sound = ThrowawaySound.instance()
 	death_sound.pitch_scale = rand_range(0.7,1.3)
@@ -240,12 +243,14 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			# Tell Camera2D to reset array of last rendered stuff
 			# (workaround for null pointer)
 			MainCamera.last_blocks_on_screen = []
+			if Editor.selected_block == self:
+				Editor.selected_block = null
 			self.queue_free() # actually kill
 
 
 func _on_DraggableSegment_mouse_entered():
 	set_process_input(true)
-	Editor.selected_block = self
+	Editor.hovered_block = self
 	update()
 
 func _on_DraggableSegment_mouse_exited():
@@ -256,7 +261,7 @@ func _on_DraggableSegment_mouse_exited():
 func _on_DialogueTextEdit_focus_entered():
 	set_process_input(true)
 	MainCamera.LAST_MODIFIED_BLOCK = self
-	Editor.selected_block = self
+	Editor.hovered_block = self
 
 func _on_DialogueTextEdit_focus_exited():
 	set_process_input(false)
@@ -379,11 +384,11 @@ func _on_TailConnector_button_up():
 	Editor.selected_block = self
 	pass
 
-# Selecting block	
+# Selecting block
 func _on_NinePatchRect_focus_entered():
-	Editor.selected_block = self
+	Editor.hovered_block = self
 
-	
+
 
 func release_connection_mode():
 	tail = ""

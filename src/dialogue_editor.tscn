@@ -10,16 +10,16 @@
 [ext_resource path="res://sprites/backgrounds/dottile.png" type="Texture" id=8]
 [ext_resource path="res://fonts/NotoSans-SemiBold.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://fonts/UI_18.tres" type="DynamicFont" id=10]
-[ext_resource path="res://src/project_window.gd" type="Script" id=11]
-[ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=12]
-[ext_resource path="res://themes/textedit_darkblue_no_top_margin.tres" type="StyleBox" id=13]
-[ext_resource path="res://src/options_window.gd" type="Script" id=14]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=15]
-[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=16]
-[ext_resource path="res://src/save.gd" type="Script" id=17]
-[ext_resource path="res://src/options_button.gd" type="Script" id=18]
-[ext_resource path="res://src/scroll_bar.gd" type="Script" id=19]
-[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=20]
+[ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=11]
+[ext_resource path="res://src/project_window.gd" type="Script" id=12]
+[ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=13]
+[ext_resource path="res://themes/textedit_darkblue_no_top_margin.tres" type="StyleBox" id=14]
+[ext_resource path="res://src/options_window.gd" type="Script" id=15]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=16]
+[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=17]
+[ext_resource path="res://src/save.gd" type="Script" id=18]
+[ext_resource path="res://src/options_button.gd" type="Script" id=19]
+[ext_resource path="res://src/scroll_bar.gd" type="Script" id=20]
 [ext_resource path="res://src/script_mode.gd" type="Script" id=21]
 [ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=22]
 [ext_resource path="res://src/background.tscn" type="PackedScene" id=23]
@@ -69,70 +69,35 @@ font_data = ExtResource( 9 )
 content_margin_right = 10.0
 content_margin_top = 6.0
 
-[sub_resource type="StyleBoxEmpty" id=25]
+[sub_resource type="StyleBoxEmpty" id=8]
 
 
-[sub_resource type="StyleBoxEmpty" id=26]
+[sub_resource type="StyleBoxEmpty" id=9]
 
 
-[sub_resource type="StyleBoxEmpty" id=27]
+[sub_resource type="StyleBoxEmpty" id=10]
 
 
-[sub_resource type="StyleBoxEmpty" id=28]
+[sub_resource type="StyleBoxEmpty" id=11]
 
 
-[sub_resource type="StyleBoxEmpty" id=29]
+[sub_resource type="StyleBoxEmpty" id=12]
 
 
-[sub_resource type="StyleBoxEmpty" id=30]
+[sub_resource type="StyleBoxEmpty" id=13]
 
 content_margin_top = 0.0
 content_margin_bottom = 0.0
 
-[sub_resource type="StyleBoxFlat" id=24]
+[sub_resource type="StyleBoxFlat" id=14]
 
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="InputEventKey" id=8]
+[sub_resource type="InputEventKey" id=15]
 
 control = true
 command = true
 scancode = 78
-
-[sub_resource type="ShortCut" id=9]
-
-shortcut = SubResource( 8 )
-
-[sub_resource type="InputEventKey" id=10]
-
-control = true
-command = true
-scancode = 79
-
-[sub_resource type="ShortCut" id=11]
-
-shortcut = SubResource( 10 )
-
-[sub_resource type="Theme" id=12]
-
-default_font = ExtResource( 12 )
-
-[sub_resource type="InputEventKey" id=13]
-
-control = true
-command = true
-scancode = 83
-
-[sub_resource type="ShortCut" id=14]
-
-shortcut = SubResource( 13 )
-
-[sub_resource type="InputEventKey" id=15]
-
-shift = true
-control = true
-command = true
-scancode = 83
 
 [sub_resource type="ShortCut" id=16]
 
@@ -142,19 +107,54 @@ shortcut = SubResource( 15 )
 
 control = true
 command = true
-scancode = 70
+scancode = 79
 
 [sub_resource type="ShortCut" id=18]
 
 shortcut = SubResource( 17 )
 
-[sub_resource type="StyleBoxEmpty" id=19]
+[sub_resource type="Theme" id=19]
+
+default_font = ExtResource( 13 )
+
+[sub_resource type="InputEventKey" id=20]
+
+control = true
+command = true
+scancode = 83
+
+[sub_resource type="ShortCut" id=21]
+
+shortcut = SubResource( 20 )
+
+[sub_resource type="InputEventKey" id=22]
+
+shift = true
+control = true
+command = true
+scancode = 83
+
+[sub_resource type="ShortCut" id=23]
+
+shortcut = SubResource( 22 )
+
+[sub_resource type="InputEventKey" id=24]
+
+control = true
+command = true
+scancode = 70
+
+[sub_resource type="ShortCut" id=25]
+
+shortcut = SubResource( 24 )
+
+[sub_resource type="StyleBoxEmpty" id=26]
 
 
-[sub_resource type="StyleBoxEmpty" id=20]
+[sub_resource type="StyleBoxEmpty" id=27]
 
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=28]
 
 step = 0.0
 tracks/0/type = "value"
@@ -182,7 +182,7 @@ tracks/1/keys = {
 "values": [ false, false ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=29]
 
 length = 0.2
 tracks/0/type = "value"
@@ -198,7 +198,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.0470588 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=30]
 
 step = 0.0
 tracks/0/type = "value"
@@ -255,6 +255,7 @@ shape = SubResource( 1 )
 layer = 3
 
 [node name="Inspector" type="Panel" parent="InspectorLayer"]
+visible = false
 self_modulate = Color( 0, 0, 0, 0 )
 anchor_left = 1.0
 anchor_right = 1.0
@@ -270,6 +271,7 @@ autoplay = "MovingDots"
 anims/MovingDots = SubResource( 2 )
 
 [node name="BG" type="Control" parent="InspectorLayer/Inspector"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 1.0
@@ -321,6 +323,7 @@ custom_styles/focus = SubResource( 5 )
 flat = true
 
 [node name="Name" type="Control" parent="InspectorLayer/Inspector"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -20.0
@@ -335,7 +338,6 @@ margin_left = -200.0
 margin_right = 200.0
 margin_bottom = 36.0
 custom_fonts/font = SubResource( 6 )
-text = "2521"
 align = 1
 valign = 1
 
@@ -348,7 +350,9 @@ margin_right = 59.0
 margin_bottom = 39.0
 color = Color( 1, 1, 1, 0.545098 )
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InspectorLayer/Inspector"]
+[node name="DialogueBoxContainer" type="ScrollContainer" parent="InspectorLayer/Inspector"]
+editor/display_folded = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -359,7 +363,7 @@ mouse_filter = 2
 custom_styles/bg = SubResource( 7 )
 scroll_horizontal_enabled = false
 
-[node name="PropertiesVBox" type="VBoxContainer" parent="InspectorLayer/Inspector/ScrollContainer"]
+[node name="PropertiesVBox" type="VBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer"]
 margin_top = 6.0
 margin_right = 405.0
 margin_bottom = 194.0
@@ -367,11 +371,11 @@ mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="CharacterPortrait" type="HBoxContainer" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox"]
+[node name="CharacterPortrait" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox"]
 margin_right = 405.0
 margin_bottom = 27.0
 
-[node name="Label" type="Label" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/CharacterPortrait"]
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/CharacterPortrait"]
 margin_right = 221.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
@@ -379,7 +383,7 @@ custom_fonts/font = ExtResource( 10 )
 text = "Character Portrait"
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/CharacterPortrait"]
+[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/CharacterPortrait"]
 margin_left = 225.0
 margin_right = 405.0
 margin_bottom = 27.0
@@ -388,12 +392,12 @@ context_menu_enabled = false
 clear_button_enabled = true
 caret_blink = true
 
-[node name="SoundFile" type="HBoxContainer" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox"]
+[node name="SoundFile" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox"]
 margin_top = 37.0
 margin_right = 405.0
 margin_bottom = 64.0
 
-[node name="Label" type="Label" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/SoundFile"]
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/SoundFile"]
 margin_right = 221.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
@@ -401,7 +405,7 @@ custom_fonts/font = ExtResource( 10 )
 text = "Sound File"
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/SoundFile"]
+[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/SoundFile"]
 margin_left = 225.0
 margin_right = 405.0
 margin_bottom = 27.0
@@ -410,12 +414,12 @@ context_menu_enabled = false
 clear_button_enabled = true
 caret_blink = true
 
-[node name="MusicSwap" type="HBoxContainer" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox"]
+[node name="MusicSwap" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox"]
 margin_top = 74.0
 margin_right = 405.0
 margin_bottom = 101.0
 
-[node name="Label" type="Label" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/MusicSwap"]
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/MusicSwap"]
 margin_right = 221.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
@@ -423,7 +427,7 @@ custom_fonts/font = ExtResource( 10 )
 text = "Music Swap"
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/MusicSwap"]
+[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/MusicSwap"]
 margin_left = 225.0
 margin_right = 405.0
 margin_bottom = 27.0
@@ -432,13 +436,13 @@ context_menu_enabled = false
 clear_button_enabled = true
 caret_blink = true
 
-[node name="Append" type="HBoxContainer" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox"]
+[node name="Append" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox"]
 margin_top = 111.0
 margin_right = 405.0
 margin_bottom = 138.0
 rect_min_size = Vector2( 0, 27 )
 
-[node name="Label" type="Label" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/Append"]
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/Append"]
 margin_right = 401.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
@@ -446,12 +450,12 @@ custom_fonts/font = ExtResource( 10 )
 text = "Append (do not clear)"
 valign = 1
 
-[node name="Control" type="Control" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/Append"]
+[node name="ToggleContainer" type="Control" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/Append"]
 margin_left = 405.0
 margin_right = 405.0
 margin_bottom = 27.0
 
-[node name="Toggle" type="CheckButton" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/Append/Control"]
+[node name="Toggle" type="CheckButton" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/Append/ToggleContainer"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -463,26 +467,26 @@ grow_vertical = 0
 rect_min_size = Vector2( 180, 0 )
 rect_clip_content = true
 size_flags_vertical = 0
-custom_styles/hover = SubResource( 25 )
-custom_styles/pressed = SubResource( 26 )
-custom_styles/focus = SubResource( 27 )
-custom_styles/disabled = SubResource( 28 )
-custom_styles/hover_pressed = SubResource( 29 )
-custom_styles/normal = SubResource( 30 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/disabled = SubResource( 11 )
+custom_styles/hover_pressed = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
 align = 1
 
-[node name="VSeparator" type="VSeparator" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox"]
+[node name="VSeparator" type="VSeparator" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox"]
 margin_top = 148.0
 margin_right = 405.0
 margin_bottom = 151.0
-custom_styles/separator = SubResource( 24 )
+custom_styles/separator = SubResource( 14 )
 
-[node name="SpecialFlag" type="HBoxContainer" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox"]
+[node name="SpecialFlag" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox"]
 margin_top = 161.0
 margin_right = 405.0
 margin_bottom = 188.0
 
-[node name="Label" type="Label" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/SpecialFlag"]
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/SpecialFlag"]
 margin_right = 221.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
@@ -490,7 +494,7 @@ custom_fonts/font = ExtResource( 10 )
 text = "Special Flag"
 valign = 1
 
-[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/ScrollContainer/PropertiesVBox/SpecialFlag"]
+[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/PropertiesVBox/SpecialFlag"]
 margin_left = 225.0
 margin_right = 405.0
 margin_bottom = 27.0
@@ -498,6 +502,26 @@ rect_min_size = Vector2( 180, 0 )
 context_menu_enabled = false
 clear_button_enabled = true
 caret_blink = true
+
+[node name="EmptyContainer" type="ScrollContainer" parent="InspectorLayer/Inspector"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 47.0
+margin_right = -2.0
+margin_bottom = -9.0
+mouse_filter = 2
+custom_styles/bg = SubResource( 7 )
+scroll_horizontal_enabled = false
+
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/EmptyContainer"]
+margin_top = 6.0
+margin_right = 232.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "No properties to display. "
+align = 1
 
 [node name="FrontWindows" type="CanvasLayer" parent="."]
 layer = 3
@@ -529,7 +553,7 @@ margin_top = -20.0
 margin_right = 20.0
 margin_bottom = 20.0
 theme = ExtResource( 5 )
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="Panel" type="WindowDialog" parent="FrontWindows/ProjectWindow"]
 margin_left = -188.0
@@ -561,7 +585,7 @@ margin_left = 243.0
 margin_right = 433.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 150, 30 )
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 text = "Black Serif"
 align = 1
 items = [ "Custom", null, true, -1, null, "Black Serif", null, false, -1, null, "Jangnanmon", null, false, -1, null ]
@@ -580,7 +604,7 @@ margin_top = 34.0
 margin_right = 433.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 190, 30 )
-custom_styles/normal = ExtResource( 13 )
+custom_styles/normal = ExtResource( 14 )
 max_length = 50
 caret_blink = true
 
@@ -597,12 +621,11 @@ margin_top = 68.0
 margin_right = 433.0
 margin_bottom = 98.0
 rect_min_size = Vector2( 190, 30 )
-custom_styles/normal = ExtResource( 13 )
+custom_styles/normal = ExtResource( 14 )
 max_length = 50
 caret_blink = true
 
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -613,7 +636,7 @@ margin_right = 230.0
 margin_bottom = 203.0
 theme = ExtResource( 5 )
 window_title = "Options"
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow"]
 anchor_left = 0.5
@@ -631,7 +654,7 @@ columns = 2
 margin_right = 223.0
 margin_bottom = 23.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Scroll Speed:"
 
@@ -654,7 +677,7 @@ margin_top = 33.0
 margin_right = 223.0
 margin_bottom = 56.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Zoom Speed:"
 
@@ -680,7 +703,7 @@ margin_right = 223.0
 margin_bottom = 97.0
 rect_min_size = Vector2( 200, 0 )
 focus_mode = 0
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 pressed = true
 text = "Low Processor Mode"
@@ -692,7 +715,7 @@ margin_top = 66.0
 margin_right = 427.0
 margin_bottom = 97.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Disable Animations"
 align = 1
@@ -723,7 +746,7 @@ margin_left = 10.0
 margin_top = 2.0
 margin_right = 35.0
 margin_bottom = 25.0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 text = "ID: "
 
 [node name="LineEdit" type="LineEdit" parent="FrontWindows/FindWindow/HBoxContainer2"]
@@ -766,7 +789,7 @@ color = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 margin_bottom = 35.0
 color = Color( 0.117647, 0.490196, 0.65098, 1 )
-script = ExtResource( 16 )
+script = ExtResource( 17 )
 
 [node name="ColorRect" type="ColorRect" parent="FrontUILayer"]
 anchor_right = 1.0
@@ -785,9 +808,9 @@ margin_right = 46.0
 margin_bottom = 32.0
 hint_tooltip = "Creates a new empty file."
 focus_mode = 0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 enabled_focus_mode = 0
-shortcut = SubResource( 9 )
+shortcut = SubResource( 16 )
 text = "New"
 flat = true
 
@@ -797,9 +820,9 @@ margin_right = 104.0
 margin_bottom = 32.0
 hint_tooltip = "Opens a previously saved file."
 focus_mode = 0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 enabled_focus_mode = 0
-shortcut = SubResource( 11 )
+shortcut = SubResource( 18 )
 text = "Open"
 flat = true
 
@@ -810,12 +833,12 @@ margin_bottom = 32.0
 hint_tooltip = "Saves the current file to disk, overwriting the previously opened file.
 "
 focus_mode = 0
-theme = SubResource( 12 )
+theme = SubResource( 19 )
 enabled_focus_mode = 0
-shortcut = SubResource( 14 )
+shortcut = SubResource( 21 )
 text = "Save"
 flat = true
-script = ExtResource( 17 )
+script = ExtResource( 18 )
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 visible = false
@@ -824,9 +847,9 @@ margin_right = 227.0
 margin_bottom = 32.0
 hint_tooltip = "Saves the current file to a specified location."
 focus_mode = 0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 enabled_focus_mode = 0
-shortcut = SubResource( 16 )
+shortcut = SubResource( 23 )
 text = "Save as"
 flat = true
 
@@ -836,9 +859,9 @@ margin_right = 203.0
 margin_bottom = 32.0
 hint_tooltip = "Search for a specific block."
 focus_mode = 0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 enabled_focus_mode = 0
-shortcut = SubResource( 18 )
+shortcut = SubResource( 25 )
 text = "Find"
 flat = true
 
@@ -848,7 +871,7 @@ margin_right = 273.0
 margin_bottom = 32.0
 hint_tooltip = "Open project menu."
 focus_mode = 0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 enabled_focus_mode = 0
 text = "Project"
 flat = true
@@ -859,11 +882,11 @@ margin_right = 350.0
 margin_bottom = 32.0
 hint_tooltip = "Open options menu."
 focus_mode = 0
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 13 )
 enabled_focus_mode = 0
 text = "Options"
 flat = true
-script = ExtResource( 18 )
+script = ExtResource( 19 )
 
 [node name="VScrollBar" type="VScrollBar" parent="FrontUILayer"]
 anchor_left = 1.0
@@ -876,7 +899,7 @@ theme = ExtResource( 5 )
 max_value = 2000.0
 page = 1200.0
 rounded = true
-script = ExtResource( 19 )
+script = ExtResource( 20 )
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar"]
 anchor_left = 1.0
@@ -887,7 +910,7 @@ margin_left = -342.0
 margin_top = -53.0
 margin_right = -31.0
 margin_bottom = -17.0
-custom_fonts/font = ExtResource( 20 )
+custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "(0,0)"
 align = 2
@@ -913,8 +936,8 @@ margin_left = -345.0
 margin_top = -281.5
 margin_right = 345.0
 margin_bottom = 281.5
-custom_styles/focus = SubResource( 19 )
-custom_styles/normal = SubResource( 20 )
+custom_styles/focus = SubResource( 26 )
+custom_styles/normal = SubResource( 27 )
 custom_fonts/font = ExtResource( 22 )
 custom_colors/caret_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -956,9 +979,9 @@ margin_bottom = 39.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "UnblackenScreen"
-anims/BlackenScreen = SubResource( 21 )
-anims/InspectorOpen = SubResource( 22 )
-anims/UnblackenScreen = SubResource( 23 )
+anims/BlackenScreen = SubResource( 28 )
+anims/InspectorOpen = SubResource( 29 )
+anims/UnblackenScreen = SubResource( 30 )
 
 [connection signal="area_entered" from="Map/Cursor/CursorArea" to="." method="_on_CursorArea_area_entered"]
 [connection signal="area_exited" from="Map/Cursor/CursorArea" to="." method="_on_CursorArea_area_exited"]
@@ -968,8 +991,8 @@ anims/UnblackenScreen = SubResource( 23 )
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
-[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
+[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Find" to="." method="_on_Find_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_pressed"]
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_toggled"]
