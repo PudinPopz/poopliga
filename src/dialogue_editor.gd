@@ -35,8 +35,10 @@ var current_meta_block = null
 var focus = null
 var last_focus = null
 
-var selected_block = null setget set_selected_block, get_selected_block
+var selected_block = null setget set_selected_block
 var hovered_block = null
+
+var undo_buffer = []
 
 func _input(event):
 	cursor.position = get_global_mouse_position()
@@ -63,6 +65,7 @@ func _input(event):
 			yield(get_tree().create_timer(0), "timeout")
 			tail_block.dialogue_line_edit.readonly = false
 
+	# CTRL + T: Script mode
 	if is_ctrl_down and Input.is_action_just_pressed("t"):
 		script_mode.visible = !script_mode.visible
 		if script_mode.visible:
@@ -72,14 +75,9 @@ func _input(event):
 			if is_node_alive(last_focus):
 				last_focus.grab_focus()
 
-
-	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
-		# Additional check for if underneath active inspector
-		var overlaps_inspector = $InspectorLayer/Inspector/BGButton.is_hovered()
-		if !$InspectorLayer/Inspector.visible or !overlaps_inspector:
-			set_selected_block(hovered_block)
-
-
+	# CTRL + Z: Undo previous command
+	if is_ctrl_down and Input.is_action_just_pressed("z") and (focus == null or !(focus is LineEdit or focus is TextEdit)):
+		undo_last()
 
 	# Allow for script mode to actually be escaped
 	if script_mode.visible and Input.is_key_pressed(KEY_ESCAPE):
@@ -89,6 +87,14 @@ func _input(event):
 	if $InspectorLayer/Inspector.visible and Input.is_key_pressed(KEY_ESCAPE):
 		$InspectorLayer/Inspector.visible = false
 
+
+
+	# Select block on mouse click
+	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
+		# Additional check for if underneath active inspector
+		var overlaps_inspector = $InspectorLayer/Inspector/BGButton.is_hovered()
+		if !$InspectorLayer/Inspector.visible or !overlaps_inspector:
+			set_selected_block(hovered_block)
 
 
 	if event is InputEventKey:
@@ -364,7 +370,10 @@ var DB = DialogueBlock.instance()
 
 func load_blocks_from_json(json):
 	var dict := {}
-	dict = parse_json((json))
+	if json is Dictionary:
+		dict = json
+	else:
+		dict = parse_json((json))
 
 	# Add meta block (must be first block to avoid bugs)
 	var meta_key = "__META__*****"
@@ -407,6 +416,9 @@ func reset(create_new_meta_block := true):
 	MainCamera.reset()
 	get_node("Map/GridBG").update_grid()
 
+	# Clear undo buffer
+	undo_buffer = []
+
 	lowest_position = DEFAULT_LOWEST_POSITION
 	highest_position = DEFAULT_HIGHEST_POSITION
 
@@ -427,10 +439,19 @@ func reset(create_new_meta_block := true):
 	yield(get_tree().create_timer(2), "timeout")
 	$FrontUILayer/VScrollBar.update_scroll_bar()
 
-func _on_Options2_focus_exited():
-	pass # Replace with function body.
+func undo_last():
+	if undo_buffer.size() <= 0:
+		return
+	var last_command = undo_buffer.pop_back()
+	var event : String = last_command[0]
+	var value = last_command[1]
 
-
+	match event:
+		"deleted":
+			# Undelete block (spawn back)
+			var dict : Dictionary = value
+			for key in dict.keys():
+				Editor.add_block_from_key(dict, key)
 
 var prev_window_size = Vector2(100,100)
 
@@ -495,8 +516,6 @@ func set_selected_block(value):
 
 	$InspectorLayer/Inspector.update_inspector()
 
-func get_selected_block():
-	return selected_block
 
 
 

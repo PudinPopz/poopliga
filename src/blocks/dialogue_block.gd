@@ -244,6 +244,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			MainCamera.last_blocks_on_screen = []
 			if Editor.selected_block == self:
 				Editor.selected_block = null
+
+			# Save into undo buffer
+			var dict = {}
+			dict[self.id] = self.serialize()
+			Editor.undo_buffer.append(["deleted", dict])
+
 			self.queue_free() # actually kill
 
 
