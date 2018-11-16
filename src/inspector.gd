@@ -25,8 +25,6 @@ func _on_Inspector_visibility_changed():
 	update_inspector()
 
 func update_inspector():
-
-
 	$Name/Label.max_length = 10
 	# Check if block actually valid
 	if Editor.selected_block == null or !is_instance_valid(Editor.selected_block):
