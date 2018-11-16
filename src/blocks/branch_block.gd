@@ -84,6 +84,11 @@ func get_selected_tail_connector():
 func serialize():
 	for i in range(choices.size()):
 		choices[i] = get_choice_field(i).text
+		# Check for invalid tails and set them equal to ""
+		if !Editor.blocks.has_node(tails[i]):
+			print("Invalid tail: ", tails[i])
+			tails[i] = ""
+			
 
 	extra_data = {
 		tail_count = tail_count,
@@ -92,6 +97,25 @@ func serialize():
 	}
 	var dict = .serialize()
 	return dict
+
+func update_choices():
+	# Hide and reveal choice fields
+	for i in range(choices.size()):
+		if !Editor.blocks.has_node(tails[i]):
+			tails[i] = ""
+			continue
+		var field = get_choice_field(i)
+		var connector = get_tail_connector(i)
+		if i >= tail_count:
+			field.get_parent().visible = false
+			connector.get_parent().visible = false
+			tails[i] = ""
+			connector.texture_normal = spr_triangle_normal
+			connector.modulate.a = 0.32
+		else:
+			field.get_parent().visible = true
+			connector.get_parent().visible = true
+			
 
 func _on_TailCountHSlider_value_changed(value: float) -> void:
 	tail_count = value
@@ -104,18 +128,6 @@ func _on_TailCountHSlider_value_changed(value: float) -> void:
 	else:
 		$NinePatchRect.rect_size.y = 150
 
-	# Hide and reveal choice fields
-	for i in range(choices.size()):
-		var field = get_choice_field(i)
-		var connector = get_tail_connector(i)
-		if i >= tail_count:
-			field.get_parent().visible = false
-			connector.get_parent().visible = false
-			tails[i] = ""
-			connector.texture_normal = spr_triangle_normal
-			connector.modulate.a = 0.32
-		else:
-			field.get_parent().visible = true
-			connector.get_parent().visible = true
+	update_choices()
 
 	line_draw_node.update()

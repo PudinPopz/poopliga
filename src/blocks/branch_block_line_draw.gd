@@ -40,6 +40,10 @@ func _draw():
 		for i in range(get_parent().tails.size()):
 			var tail = get_parent().tails[i]
 			if tail != null and tail != "":
+				if !Editor.blocks.has_node(tail):
+					get_parent().tails[i] = ""
+					get_parent().update_choices()
+					continue
 				var tail_block = Editor.blocks.get_node(tail)
 				line_color = get_parent().get_tail_connector(i).get_parent().modulate
 				var start_pos = Vector2()

@@ -24,17 +24,17 @@ func _ready() -> void:
 func _on_Inspector_visibility_changed():
 	update_inspector()
 
-func update_inspector():
+func update_inspector(force := false):
 	$Name/Label.max_length = 10
 	# Check if block actually valid
-	if Editor.selected_block == null or !is_instance_valid(Editor.selected_block):
+	if Editor.selected_block == null or !is_instance_valid(Editor.selected_block) or !(Editor.selected_block is Editor.DBScript):
 		$Name/Label.max_length = 20
 		$Name/Label.text = "No block selected."
 		set_all_containers_visibility(false)
 		$EmptyContainer.visible = true
 		return
 	# Do nothing if reselecting the same thing
-	if $Name/Label.text == str(Editor.selected_block.id):
+	if !force and $Name/Label.text == str(Editor.selected_block.id):
 		return
 	$Name/Label.text = str(Editor.selected_block.id)
 

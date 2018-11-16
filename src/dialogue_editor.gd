@@ -435,8 +435,8 @@ func reset(create_new_meta_block := true):
 
 	$InspectorLayer/Inspector.update_inspector()
 
-	# Do rest of stuff 2 frames after
-	yield(get_tree().create_timer(2), "timeout")
+	# Do rest of stuff 0.1 s after
+	yield(get_tree().create_timer(0.1), "timeout")
 	$FrontUILayer/VScrollBar.update_scroll_bar()
 
 func undo_last():
@@ -452,6 +452,7 @@ func undo_last():
 			var dict : Dictionary = value
 			for key in dict.keys():
 				Editor.add_block_from_key(dict, key)
+				$InspectorLayer/Inspector.update_inspector(true)
 
 var prev_window_size = Vector2(100,100)
 
@@ -500,7 +501,8 @@ func set_selected_block(value):
 	var previous_block = selected_block
 	selected_block = value
 
-	if selected_block == null:
+	if !is_node_alive(selected_block) or !(selected_block is DBScript):
+		selected_block = null
 		$InspectorLayer/Inspector.update_inspector()
 		return
 
