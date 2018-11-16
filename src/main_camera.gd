@@ -175,7 +175,7 @@ func update_pan():
 	if position.floor() != prev_pos.floor():
 		_on_moved()
 
-	#  @TODO: Implement looping mouse cursor
+	#  TODO: Implement looping mouse cursor
 	if loop_mouse_cursor:
 		#OS.mouse
 		var screen_mouse_pos = get_viewport().get_mouse_position() + OS.window_position
@@ -230,7 +230,7 @@ func _process(delta):
 	position.y = clamp(position.y, limit_top, limit_bottom)
 
 
-	# Apply end smoothing @TODO: Implement this
+	# Apply end smoothing TODO: Implement this
 
 
 

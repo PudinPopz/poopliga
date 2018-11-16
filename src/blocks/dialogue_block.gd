@@ -22,8 +22,7 @@ export (NODE_TYPE) var node_type := NODE_TYPE.meta_block
 const ThrowawaySound = preload("res://src/throwaway_sound.tscn")
 
 # RESOURCES
-const spr_unfilled_circle = preload("res://sprites/icons/unfilled_circle_thick.png")
-const spr_filled_circle = preload("res://sprites/icons/filled_circle.png")
+
 const spr_unfilled_triangle = preload("res://sprites/icons/connector_small_unfilled.png")
 const spr_filled_triangle = preload("res://sprites/icons/connector_small.png")
 
@@ -71,7 +70,7 @@ var force_process_input = false
 onready var _head_connector_modulate_default = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default = $NinePatchRect/TailConnector.modulate
 
-# @TODO: Use observer pattern instead of just making all nodes with connections run every frame
+# TODO: Use observer pattern instead of just making all nodes with connections run every frame
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

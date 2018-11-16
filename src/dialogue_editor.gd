@@ -48,7 +48,7 @@ func _input(event):
 
 	focus = control.get_focus_owner()
 
-	# @TODO: Add system for remembering previous and jumping back to it
+	# TODO: Add system for remembering previous and jumping back to it
 	if is_ctrl_down and Input.is_action_just_pressed("enter"):
 		if focus is TextEdit and focus.name == "DialogueTextEdit":
 			var block = focus.get_parent().get_parent()
@@ -192,7 +192,6 @@ func _on_popup_hide():
 	MainCamera.freeze = false
 
 func _on_Save_pressed():
-	# if not already open (@TODO)
 	saveas_dialog.popup_centered(Vector2(1200,600))
 	saveas_dialog.current_dir = current_folder
 	saveas_dialog.current_file = current_file
@@ -216,7 +215,7 @@ func save_as(path):
 	current_file = get_filename_from_path(path)
 	current_folder = get_folder_from_path(path)
 
-# @TODO: Make actually pretty print
+# TODO: Make actually pretty print
 func convert_to_multiline_json(json : String):
 	var output = json
 	output = output.replace("{", "{\n")
@@ -293,7 +292,7 @@ func _on_BackUIButton_pressed():
 		# Register double click
 
 		spawn_block(DB.NODE_TYPE.dialogue_block, true)
-		# @TODO: ADD UNDO EQUIVALENT TO BUFFER
+		# TODO: ADD UNDO EQUIVALENT TO BUFFER
 
 
 	double_click_timer = double_click_timer_time
