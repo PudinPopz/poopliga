@@ -52,7 +52,7 @@ func _input(event):
 
 	# TODO: Add system for remembering previous and jumping back to it
 	if is_ctrl_down and Input.is_action_just_pressed("enter"):
-		if focus is TextEdit and focus.name == "DialogueTextEdit":
+		if is_instance_valid(focus) and focus is TextEdit and focus.name == "DialogueTextEdit":
 			var block = focus.get_parent().get_parent()
 			var tail_block
 			if block.tail == "":
