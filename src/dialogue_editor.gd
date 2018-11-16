@@ -76,7 +76,7 @@ func _input(event):
 	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
 		# Additional check for if underneath active inspector
 		var overlaps_inspector = $InspectorLayer/Inspector/BGButton.is_hovered()
-		if $InspectorLayer/Inspector.visible and !overlaps_inspector:
+		if !$InspectorLayer/Inspector.visible or !overlaps_inspector:
 			set_selected_block(hovered_block)
 
 
