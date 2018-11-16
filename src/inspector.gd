@@ -1,7 +1,9 @@
 extends Panel
 
 func _ready() -> void:
-	# Set up signal connections
+	$Name/Label.connect("text_entered", self, "set_block_id")
+
+	# Set up signal connections for properties
 	for child in $DialogueBoxContainer/PropertiesVBox.get_children():
 		var label = child.get_node("Label")
 		if label == null:
@@ -23,8 +25,12 @@ func _on_Inspector_visibility_changed():
 	update_inspector()
 
 func update_inspector():
+
+
+	$Name/Label.max_length = 10
 	# Check if block actually valid
 	if Editor.selected_block == null or !is_instance_valid(Editor.selected_block):
+		$Name/Label.max_length = 20
 		$Name/Label.text = "No block selected."
 		set_all_containers_visibility(false)
 		$EmptyContainer.visible = true
@@ -83,6 +89,14 @@ func on_bool_property_changed(button_pressed, button):
 		Editor.selected_block.extra_data.erase(property_name)
 		return
 	Editor.selected_block.extra_data[property_name] = button_pressed
+
+
+func set_block_id(new_text):
+	if !Editor.is_node_alive(Editor.selected_block):
+		return
+	Editor.selected_block.set_id(new_text)
+	Editor.selected_block.id_label.text = Editor.selected_block.id
+	update_inspector()
 
 func set_all_containers_visibility(visibility):
 	for container in get_children():
