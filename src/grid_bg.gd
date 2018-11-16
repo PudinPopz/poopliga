@@ -72,9 +72,7 @@ var def_vp = Vector2(1280,720)
 var line_color = Color("0fffffff")
 var tile_size = 128
 func _draw():
-	#tile_size = 12
 	var length = Vector2(0,0)
-	#print(length)
 	var zoom = MainCamera.zoom.x
 	#zoom = 1
 	var tile_amount = 25*zoom*(Vector2(1,1))

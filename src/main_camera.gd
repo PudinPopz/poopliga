@@ -138,7 +138,6 @@ func _input(event):
 		if Input.is_action_pressed("scroll_down"):
 			scroll_mode = 1
 			position.y += scroll_spd + 3*scroll_spd*int(Input.is_action_pressed("shift"))
-			#print(scroll_spd)
 			emit_signal("scrolled")
 			_on_moved()
 		if Input.is_action_pressed("scroll_up"):
@@ -223,7 +222,6 @@ func _process(delta):
 		lerp_time += 1*delta
 
 	if lerp_time >= lerp_finish_time or (pan_mode and lerp_time >= 0.1):
-		#print(lerp_time)
 		position = target_pos
 		in_lerp = false
 		lerp_time = 0
@@ -243,7 +241,7 @@ func _process(delta):
 	# 	new_magnitude = clamp(new_magnitude, 0, 30)
 
 	# 	raw_velocity = new_magnitude * raw_velocity.normalized()
-	# 	print(new_magnitude)
+	# 	
 
 	# 	position += raw_velocity #* (200*delta)
 

@@ -41,20 +41,17 @@ func update_inspector():
 		update_dialogue_box_container()
 
 
-
-	print(Editor.selected_block.extra_data)
-
 func update_dialogue_box_container():
 	for child in $DialogueBoxContainer/PropertiesVBox.get_children():
-		var label = child.get_node("Label")
-		if label == null:
+		if !child.has_node("Label"):
 			continue
+
+		var label = child.get_node("Label")
 		var property_name : String = label.text
-		var property_value
 
 		# Update line edits
-		var line_edit : LineEdit = child.get_node("LineEdit")
-		if line_edit != null:
+		if child.has_node("LineEdit"):
+			var line_edit : LineEdit = child.get_node("LineEdit")
 			line_edit.text = ""
 			if Editor.selected_block.extra_data.has(property_name):
 				line_edit.text = Editor.selected_block.extra_data[property_name]

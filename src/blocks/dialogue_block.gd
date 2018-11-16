@@ -353,7 +353,6 @@ func _on_Id_Label_text_entered(new_text):
 	#anim_player.play("spawn")
 	id_label.release_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
-	print(get_id())
 	Editor.selected_block = self
 
 func _on_Id_Label_focus_exited():
@@ -361,7 +360,6 @@ func _on_Id_Label_focus_exited():
 		return
 	set_id(id_label.text)
 	anim_player.play("spawn")
-	print(get_id())
 
 func _on_TailConnector_button_down():
 	in_connecting_mode = true

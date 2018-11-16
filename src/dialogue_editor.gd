@@ -212,7 +212,7 @@ func save_as(path):
 	file.close()
 
 	var end_time_str = "Saved " + str(dict.size()) + "Blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
-	print(end_time_str)
+
 	current_file = get_filename_from_path(path)
 	current_folder = get_folder_from_path(path)
 
@@ -454,12 +454,10 @@ func _on_FindWindow_confirmed():
 func _on_CursorArea_area_entered(area):
 	if area.get_parent() is DBScript:
 		hovered_block = area.get_parent()
-		print(hovered_block)
 
 func _on_CursorArea_area_exited(area: Area2D) -> void:
 	if area.get_parent() is DBScript:
 		hovered_block = null
-		print(hovered_block)
 
 var _popin_fix_pending = false
 var _popin_fix_pending_timer = -1
