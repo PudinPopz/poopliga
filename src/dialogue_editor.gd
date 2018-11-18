@@ -407,6 +407,8 @@ func add_block_from_key(dict, key):
 	if node_type == 0: # If meta block:
 		current_meta_block = block # Get reference to it
 
+	return block
+
 func reset(create_new_meta_block := true):
 	# Clear everything on board (Kill all children in dialogueblocks)
 
@@ -441,6 +443,7 @@ func reset(create_new_meta_block := true):
 
 func undo_last():
 	if undo_buffer.size() <= 0:
+		push_message("There is nothing to undo.")
 		return
 	var last_command = undo_buffer.pop_back()
 	var event : String = last_command[0]
@@ -450,9 +453,14 @@ func undo_last():
 		"deleted":
 			# Undelete block (spawn back)
 			var dict : Dictionary = value
+			var undeleted_block
 			for key in dict.keys():
-				Editor.add_block_from_key(dict, key)
+				undeleted_block = Editor.add_block_from_key(dict, key)
 				$InspectorLayer/Inspector.update_inspector(true)
+			if dict.size() == 1:
+				push_message("UNDO: Deleted block " + undeleted_block.id + ".")
+			else:
+				push_message("UNDO: Deleted " + str(dict.size()) + " blocks.")
 
 var prev_window_size = Vector2(100,100)
 
@@ -518,8 +526,14 @@ func set_selected_block(value):
 
 	$InspectorLayer/Inspector.update_inspector()
 
-
-
+var _clear_message_pending = false
+func push_message(text : String, duration := 4.0):
+	$FrontUILayer/Message.text = text
+	if duration != -1 and !_clear_message_pending:
+		_clear_message_pending = true
+		yield(get_tree().create_timer(duration), "timeout")
+		$FrontUILayer/Message.text = ""
+		_clear_message_pending = false
 
 enum {
 	ctrl,

@@ -1,10 +1,13 @@
 extends Panel
 
+var in_action_mode = false
+
 func _ready() -> void:
 	$Name/Label.connect("text_entered", self, "set_block_id")
+	$ActionsModeButton.connect("toggled", self, "toggle_mode")
 
 	# Set up signal connections for properties
-	for child in $DialogueBoxContainer/PropertiesVBox.get_children():
+	for child in $DialogueBoxContainer/Control/PropertiesVBox.get_children():
 		var label = child.get_node("Label")
 		if label == null:
 			continue
@@ -32,6 +35,7 @@ func update_inspector(force := false):
 		$Name/Label.text = "No block selected."
 		set_all_containers_visibility(false)
 		$EmptyContainer.visible = true
+		$ActionsModeButton.visible = false
 		return
 	# Do nothing if reselecting the same thing
 	if !force and $Name/Label.text == str(Editor.selected_block.id):
@@ -40,18 +44,30 @@ func update_inspector(force := false):
 
 	set_all_containers_visibility(false)
 
+
 	match Editor.selected_block.node_type:
 		Editor.DB.NODE_TYPE.dialogue_block:
 			$DialogueBoxContainer.visible = true
+			$ActionsModeButton.visible = true
 		_:
 			$EmptyContainer.visible = true
+			$ActionsModeButton.visible = false
 
 	if $DialogueBoxContainer.visible:
 		update_dialogue_box_container()
 
 
 func update_dialogue_box_container():
-	for child in $DialogueBoxContainer/PropertiesVBox.get_children():
+	# Decide whether properties or actions are shown
+	if in_action_mode:
+		$DialogueBoxContainer/Control/PropertiesVBox.visible = false
+		$DialogueBoxContainer/Control/ActionsVBox.visible = true
+	else:
+		$DialogueBoxContainer/Control/PropertiesVBox.visible = true
+		$DialogueBoxContainer/Control/ActionsVBox.visible = false
+
+	# Update fields in properties vbox
+	for child in $DialogueBoxContainer/Control/PropertiesVBox.get_children():
 		if !child.has_node("Label"):
 			continue
 
@@ -79,6 +95,10 @@ func on_string_property_changed(new_text, line_edit):
 		Editor.selected_block.extra_data.erase(property_name)
 		return
 	Editor.selected_block.extra_data[property_name] = new_text
+
+func toggle_mode(button_pressed):
+	in_action_mode = button_pressed
+	update_inspector(true)
 
 func on_bool_property_changed(button_pressed, button):
 	var property_name : String = button.get_parent().get_parent().get_node("Label").text
