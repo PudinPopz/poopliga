@@ -60,3 +60,8 @@ func swap_dialogue_box_tscn(path : String):
 
 	new_dialogue_box.queue_free()
 
+func _on_CharacterLineEdit_focus_exited() -> void:
+	pass
+	#if Input.is_key_pressed(KEY_TAB):
+	#	get_parent().get_node("DialogueTextEdit").grab_focus()
+

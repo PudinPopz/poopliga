@@ -109,7 +109,9 @@ func _input(event):
 
 func handle_focus_shortcuts(event):
 	if focus == null:
-		return
+		focus == selected_block
+		if focus == null:
+			return
 	var block = focus.owner
 	if block == null or !(block is DBScript):
 		return
