@@ -6,22 +6,24 @@ func _ready() -> void:
 	$Name/Label.connect("text_entered", self, "set_block_id")
 	$ActionsModeButton.connect("toggled", self, "toggle_mode")
 
-	# Set up signal connections for properties
+	# Connect signals for defaults
 	for child in $DialogueBoxContainer/Control/PropertiesVBox.get_children():
-		var label = child.get_node("Label")
-		if label == null:
-			continue
-
-		# Line edits
-		var line_edit : LineEdit = child.get_node("LineEdit")
-		if line_edit != null:
+		# Update line edits
+		if child.has_node("LineEdit"):
+			var line_edit : LineEdit = child.get_node("LineEdit")
+			line_edit.text = ""
+			# Connect signals
+			if line_edit.is_connected("text_changed", self, "on_string_property_changed"):
+				line_edit.disconnect("text_changed", self, "on_string_property_changed")
 			line_edit.connect("text_changed", self, "on_string_property_changed", [line_edit])
 
-		# Toggle buttons
-		var toggle : Button = child.get_node("ToggleContainer/Toggle")
-		if toggle != null:
-			toggle.connect("toggled", self, "on_bool_property_changed", [toggle])
-
+		# Update toggles
+		if child.has_node("ToggleContainer/Toggle"):
+			var toggle : Button = child.get_node("ToggleContainer/Toggle")
+			toggle.pressed = false
+			# Connect signals
+			if !toggle.is_connected("toggled", self, "on_bool_property_changed"):
+				toggle.connect("toggled", self, "on_bool_property_changed", [toggle])
 	update_inspector()
 
 func _on_Inspector_visibility_changed():
@@ -44,7 +46,6 @@ func update_inspector(force := false):
 
 	set_all_containers_visibility(false)
 
-
 	match Editor.selected_block.node_type:
 		Editor.DB.NODE_TYPE.dialogue_block:
 			$DialogueBoxContainer.visible = true
@@ -65,13 +66,66 @@ func update_dialogue_box_container():
 	else:
 		$DialogueBoxContainer/Control/PropertiesVBox.visible = true
 		$DialogueBoxContainer/Control/ActionsVBox.visible = false
+		update_dialogue_properties_vbox()
 
+
+func update_dialogue_properties_vbox():
+	var properties_vbox_children : Array = $DialogueBoxContainer/Control/PropertiesVBox.get_children()
 	# Update fields in properties vbox
-	for child in $DialogueBoxContainer/Control/PropertiesVBox.get_children():
-		if !child.has_node("Label"):
+	var attribute_separator : VSeparator = $DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeSeparator
+	var separator_index := attribute_separator.get_index()
+
+	var custom_attribute_template : HBoxContainer = $DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeTemplate
+	custom_attribute_template.visible = false
+
+	# Handle custom attributes
+
+	# Clear all nodes after the separator
+	var current_index : int = separator_index + 1
+	while current_index < properties_vbox_children.size():
+		var child = properties_vbox_children[current_index]
+		if child != custom_attribute_template: # Keep the template alive so it can be copied
+			# Kill child
+			child.visible = false
+
+		current_index += 1
+
+
+	# Convert project custom attributes string to array
+	# (TODO: Use a dictionary instead when adding default values and custom type data)
+	var project_settings_dict : Dictionary = Editor.current_meta_block.project_settings
+	var custom_attributes_string : String = project_settings_dict["custom_block_attributes"]
+	# Separate by commas and newlines
+	custom_attributes_string = custom_attributes_string.replace("\n", ",")
+	var custom_attributes_array = custom_attributes_string.split(",")
+
+	# Create custom attribute fields based on attribute names
+	for attribute_name in custom_attributes_array:
+		attribute_name = attribute_name.strip_edges()
+		if attribute_name == "":
+			continue
+		var attribute_hbox : HBoxContainer = custom_attribute_template.duplicate()
+		attribute_hbox.name = attribute_name
+		attribute_hbox.get_node("Label").text = attribute_name
+		attribute_hbox.visible = true
+		$DialogueBoxContainer/Control/PropertiesVBox.add_child(attribute_hbox)
+
+		var line_edit : LineEdit = attribute_hbox.get_node("LineEdit")
+		line_edit.text = ""
+		if Editor.selected_block.extra_data.has(attribute_name):
+			line_edit.text = Editor.selected_block.extra_data[attribute_name]
+		# Connect signals
+		if line_edit.is_connected("text_changed", self, "on_string_property_changed"):
+			line_edit.disconnect("text_changed", self, "on_string_property_changed")
+		print("CONNECTING " + line_edit.get_parent().name)
+		line_edit.connect("text_changed", self, "on_string_property_changed", [line_edit])
+
+
+	for child in properties_vbox_children:
+		if !child.has_node("Label") or child == custom_attribute_template or !child.visible:
 			continue
 
-		var label = child.get_node("Label")
+		var label : Label = child.get_node("Label")
 		var property_name : String = label.text
 
 		# Update line edits
@@ -87,6 +141,7 @@ func update_dialogue_box_container():
 			toggle.pressed = false
 			if Editor.selected_block.extra_data.has(property_name):
 				toggle.pressed = Editor.selected_block.extra_data[property_name]
+
 
 func on_string_property_changed(new_text, line_edit):
 	var property_name : String = line_edit.get_parent().get_node("Label").text

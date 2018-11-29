@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://src/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/grid_bg.gd" type="Script" id=2]
@@ -16,18 +16,20 @@
 [ext_resource path="res://src/project_window.gd" type="Script" id=14]
 [ext_resource path="res://fonts/UI_16.tres" type="DynamicFont" id=15]
 [ext_resource path="res://themes/textedit_darkblue_no_top_margin.tres" type="StyleBox" id=16]
-[ext_resource path="res://src/options_window.gd" type="Script" id=17]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=18]
-[ext_resource path="res://src/help_window.gd" type="Script" id=19]
-[ext_resource path="res://fonts/UI_bold_16.tres" type="DynamicFont" id=20]
-[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=21]
-[ext_resource path="res://src/save.gd" type="Script" id=22]
-[ext_resource path="res://src/options_button.gd" type="Script" id=23]
-[ext_resource path="res://src/scroll_bar.gd" type="Script" id=24]
-[ext_resource path="res://src/script_mode.gd" type="Script" id=25]
-[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=26]
-[ext_resource path="res://src/background.tscn" type="PackedScene" id=27]
-[ext_resource path="res://sprites/backgrounds/bg1.jpg" type="Texture" id=28]
+[ext_resource path="res://fonts/NotoSans-Regular.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://fonts/Hack-Regular.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://src/options_window.gd" type="Script" id=19]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=20]
+[ext_resource path="res://src/help_window.gd" type="Script" id=21]
+[ext_resource path="res://fonts/UI_bold_16.tres" type="DynamicFont" id=22]
+[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=23]
+[ext_resource path="res://src/save.gd" type="Script" id=24]
+[ext_resource path="res://src/options_button.gd" type="Script" id=25]
+[ext_resource path="res://src/scroll_bar.gd" type="Script" id=26]
+[ext_resource path="res://src/script_mode.gd" type="Script" id=27]
+[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=28]
+[ext_resource path="res://src/background.tscn" type="PackedScene" id=29]
+[ext_resource path="res://sprites/backgrounds/bg1.jpg" type="Texture" id=30]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -106,6 +108,13 @@ content_margin_bottom = 0.0
 
 bg_color = Color( 1, 1, 1, 1 )
 
+[sub_resource type="DynamicFont" id=36]
+
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 18 )
+fallback/0 = ExtResource( 17 )
+
 [sub_resource type="InputEventKey" id=18]
 
 control = true
@@ -161,23 +170,23 @@ scancode = 70
 
 shortcut = SubResource( 27 )
 
-[sub_resource type="InputEventKey" id=36]
+[sub_resource type="InputEventKey" id=29]
 
 control = true
 command = true
 scancode = 72
 
-[sub_resource type="ShortCut" id=37]
+[sub_resource type="ShortCut" id=30]
 
-shortcut = SubResource( 36 )
+shortcut = SubResource( 29 )
 
-[sub_resource type="StyleBoxEmpty" id=38]
-
-
-[sub_resource type="StyleBoxEmpty" id=39]
+[sub_resource type="StyleBoxEmpty" id=31]
 
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="StyleBoxEmpty" id=32]
+
+
+[sub_resource type="Animation" id=33]
 
 step = 0.0
 tracks/0/type = "value"
@@ -276,7 +285,6 @@ texture = ExtResource( 4 )
 shape = SubResource( 1 )
 
 [node name="InspectorLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 3
 
 [node name="Inspector" type="Panel" parent="InspectorLayer"]
@@ -403,14 +411,10 @@ custom_styles/bg = SubResource( 10 )
 scroll_horizontal_enabled = false
 
 [node name="Control" type="Control" parent="InspectorLayer/Inspector/DialogueBoxContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_top = 6.0
-margin_right = -415.0
-margin_bottom = -623.0
+margin_bottom = 6.0
 
 [node name="PropertiesVBox" type="VBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control"]
-editor/display_folded = true
 margin_right = 405.0
 margin_bottom = 188.0
 mouse_filter = 2
@@ -521,26 +525,27 @@ custom_styles/hover_pressed = SubResource( 15 )
 custom_styles/normal = SubResource( 16 )
 align = 1
 
-[node name="VSeparator" type="VSeparator" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
+[node name="CustomAttributeSeparator" type="VSeparator" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
 margin_top = 148.0
 margin_right = 405.0
 margin_bottom = 151.0
 custom_styles/separator = SubResource( 17 )
 
-[node name="SpecialFlag" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
+[node name="CustomAttributeTemplate" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
 margin_top = 161.0
 margin_right = 405.0
 margin_bottom = 188.0
 
-[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/SpecialFlag"]
+[node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeTemplate"]
 margin_right = 221.0
 margin_bottom = 26.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 12 )
 text = "Special Flag"
 valign = 1
+percent_visible = -0.037037
 
-[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/SpecialFlag"]
+[node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeTemplate"]
 margin_left = 225.0
 margin_right = 405.0
 margin_bottom = 27.0
@@ -550,7 +555,6 @@ clear_button_enabled = true
 caret_blink = true
 
 [node name="ActionsVBox" type="VBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control"]
-editor/display_folded = true
 visible = false
 margin_top = 6.0
 margin_right = 410.0
@@ -560,14 +564,14 @@ custom_constants/separation = 14
 [node name="ViewConnections" type="Button" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox"]
 margin_right = 410.0
 margin_bottom = 34.0
-rect_min_size = Vector2( 410, 0 )
+rect_min_size = Vector2( 400, 0 )
 text = "View Connections"
 
 [node name="GoToEndOfChain" type="Button" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox"]
 margin_top = 48.0
 margin_right = 410.0
 margin_bottom = 82.0
-rect_min_size = Vector2( 410, 0 )
+rect_min_size = Vector2( 400, 0 )
 text = "Go to End of Chain"
 
 [node name="EmptyContainer" type="ScrollContainer" parent="InspectorLayer/Inspector"]
@@ -593,7 +597,6 @@ text = "No properties to display. "
 align = 1
 
 [node name="FrontWindows" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 3
 
 [node name="BlackShade" type="Control" parent="FrontWindows"]
@@ -634,6 +637,7 @@ theme = ExtResource( 5 )
 window_title = "Project Settings"
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/ProjectWindow/Panel"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 19.0
@@ -695,6 +699,27 @@ custom_styles/normal = ExtResource( 16 )
 max_length = 50
 caret_blink = true
 
+[node name="CustomBlockAttributesLabel" type="Label" parent="FrontWindows/ProjectWindow/Panel"]
+margin_left = 19.0
+margin_top = 197.0
+margin_right = 258.0
+margin_bottom = 220.0
+size_flags_horizontal = 3
+text = "Custom Block Attributes"
+
+[node name="CustomBlockAttributesTextEdit" type="TextEdit" parent="FrontWindows/ProjectWindow/Panel"]
+margin_left = 19.0
+margin_top = 231.0
+margin_right = 350.0
+margin_bottom = 351.0
+rect_min_size = Vector2( 0, 120 )
+custom_fonts/font = SubResource( 36 )
+custom_colors/current_line_color = Color( 1, 1, 1, 0.0470588 )
+highlight_current_line = true
+show_line_numbers = true
+context_menu_enabled = false
+caret_blink = true
+
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
 editor/display_folded = true
 anchor_left = 0.5
@@ -707,7 +732,7 @@ margin_right = 230.0
 margin_bottom = 203.0
 theme = ExtResource( 5 )
 window_title = "Options"
-script = ExtResource( 17 )
+script = ExtResource( 19 )
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow"]
 anchor_left = 0.5
@@ -726,7 +751,7 @@ margin_right = 223.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Scroll Speed:"
 valign = 1
@@ -751,7 +776,7 @@ margin_right = 223.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Zoom Speed:"
 valign = 1
@@ -778,7 +803,7 @@ margin_right = 223.0
 margin_bottom = 122.0
 rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Editor Background:"
 valign = 1
@@ -799,7 +824,7 @@ margin_right = 223.0
 margin_bottom = 163.0
 rect_min_size = Vector2( 200, 0 )
 focus_mode = 0
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 pressed = true
 text = "Low Processor Mode"
@@ -811,7 +836,7 @@ margin_top = 132.0
 margin_right = 427.0
 margin_bottom = 163.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Disable Animations"
 align = 1
@@ -821,7 +846,7 @@ margin_top = 173.0
 margin_right = 223.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Enable VSync"
 align = 1
@@ -832,7 +857,7 @@ margin_top = 173.0
 margin_right = 427.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 18 )
+custom_fonts/font = ExtResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Mute Sound"
 align = 1
@@ -855,7 +880,7 @@ rect_min_size = Vector2( 200, 200 )
 theme = ExtResource( 5 )
 window_title = "Help"
 resizable = true
-script = ExtResource( 19 )
+script = ExtResource( 21 )
 
 [node name="Control" type="Control" parent="FrontWindows/HelpWindow"]
 anchor_right = 1.0
@@ -871,7 +896,7 @@ anchor_bottom = 1.0
 margin_left = 10.0
 margin_right = -9.0
 margin_bottom = 19.0
-custom_fonts/bold_font = ExtResource( 20 )
+custom_fonts/bold_font = ExtResource( 22 )
 bbcode_enabled = true
 bbcode_text = "[b][u]MOVING THE CAMERA[/u] [/b]
 [b]Pan Camera: [/b]Right Click / Alt + Click
@@ -968,7 +993,7 @@ color = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 margin_bottom = 35.0
 color = Color( 0.117647, 0.490196, 0.65098, 1 )
-script = ExtResource( 21 )
+script = ExtResource( 23 )
 
 [node name="ColorRect" type="ColorRect" parent="FrontUILayer"]
 anchor_right = 1.0
@@ -1017,7 +1042,7 @@ enabled_focus_mode = 0
 shortcut = SubResource( 24 )
 text = "Save"
 flat = true
-script = ExtResource( 22 )
+script = ExtResource( 24 )
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 visible = false
@@ -1065,7 +1090,7 @@ custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "Options"
 flat = true
-script = ExtResource( 23 )
+script = ExtResource( 25 )
 
 [node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 margin_left = 354.0
@@ -1075,7 +1100,7 @@ hint_tooltip = "Saves the current file to a specified location."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
-shortcut = SubResource( 37 )
+shortcut = SubResource( 30 )
 text = "Help"
 flat = true
 
@@ -1090,7 +1115,7 @@ theme = ExtResource( 5 )
 max_value = 2000.0
 page = 1200.0
 rounded = true
-script = ExtResource( 24 )
+script = ExtResource( 26 )
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar"]
 anchor_left = 1.0
@@ -1118,8 +1143,6 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 2
 bbcode_enabled = true
-bbcode_text = "Test message"
-text = "Test message"
 scroll_active = false
 
 [node name="ScriptModeLayer" type="CanvasLayer" parent="."]
@@ -1128,7 +1151,7 @@ scroll_active = false
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 25 )
+script = ExtResource( 27 )
 
 [node name="ColorRect" type="ColorRect" parent="ScriptModeLayer/ScriptMode"]
 anchor_right = 1.0
@@ -1143,9 +1166,9 @@ margin_left = -345.0
 margin_top = -281.5
 margin_right = 345.0
 margin_bottom = 281.5
-custom_styles/focus = SubResource( 38 )
-custom_styles/normal = SubResource( 39 )
-custom_fonts/font = ExtResource( 26 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/normal = SubResource( 32 )
+custom_fonts/font = ExtResource( 28 )
 custom_colors/caret_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/current_line_color = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -1175,9 +1198,9 @@ __meta__ = {
 [node name="BGLayer" type="CanvasLayer" parent="."]
 layer = -100
 
-[node name="Background" parent="BGLayer" instance=ExtResource( 27 )]
+[node name="Background" parent="BGLayer" instance=ExtResource( 29 )]
 modulate = Color( 1, 1, 1, 1 )
-texture = ExtResource( 28 )
+texture = ExtResource( 30 )
 
 [node name="Control" type="Control" parent="."]
 margin_top = -1.0
@@ -1186,7 +1209,7 @@ margin_bottom = 39.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "UnblackenScreen"
-anims/BlackenScreen = SubResource( 40 )
+anims/BlackenScreen = SubResource( 33 )
 anims/InspectorOpen = SubResource( 34 )
 anims/UnblackenScreen = SubResource( 35 )
 

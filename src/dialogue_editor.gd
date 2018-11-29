@@ -17,7 +17,6 @@ onready var cursor = get_node("Map/Cursor")
 onready var control = get_node("Control")
 onready var script_mode = get_node("ScriptModeLayer/ScriptMode")
 
-
 var saveas_dialog
 
 var lowest_position = DEFAULT_LOWEST_POSITION
@@ -105,6 +104,7 @@ func _input(event):
 			# I for Inspector
 			if focus == null or !(focus is LineEdit or focus is TextEdit):
 				if Input.is_key_pressed(KEY_I) or Input.is_key_pressed(KEY_E):
+					update_inspector(true)
 					$InspectorLayer/Inspector.visible = !$InspectorLayer/Inspector.visible
 
 func handle_focus_shortcuts(event):
@@ -130,6 +130,7 @@ func _ready():
 	reset()
 	saveas_dialog = create_saveas_file_dialog()
 	fix_popin_bug(10)
+
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -166,12 +167,10 @@ func _notification(what):
 
 # Fix for weird rendering bug after tab out	(CAN BE SLOW)
 func fix_rendering_bug():
-
 	var start_time = OS.get_ticks_msec()
 	blocks.visible = false
 	blocks.visible = true
 	print("Fixing rendering bug in ", OS.get_ticks_msec() - start_time, "ms")
-
 	return
 
 func create_saveas_file_dialog():
@@ -227,11 +226,11 @@ func save_as(path):
 # TODO: Make actually pretty print
 func convert_to_multiline_json(json : String):
 	var output = json
-	output = output.replace("{", "{\n")
-	output = output.replace("}", "}\n")
+	output = output.replace("{", "\n{\n")
+	output = output.replace("}", "\n}\n")
 	output = output.replace(",", ",\n")
-	output = output.replace("[", "[\n")
-	output = output.replace("]", "]\n")
+	output = output.replace("[", "\n[\n")
+	output = output.replace("]", "\n]\n")
 	return output
 
 func convert_from_multiline_json(json : String):
@@ -425,7 +424,7 @@ func reset(create_new_meta_block := true):
 	highest_position = DEFAULT_HIGHEST_POSITION
 
 	current_meta_block = null
-	selected_block = null
+	set_selected_block(null)
 	hovered_block = null
 
 	# Create new meta block
@@ -435,15 +434,20 @@ func reset(create_new_meta_block := true):
 			current_meta_block.name = "___INVALID_META_BLOCK_______@@@"
 		current_meta_block = spawn_block(DB.NODE_TYPE.meta_block)
 
-	$InspectorLayer/Inspector.update_inspector()
+	update_inspector(true)
+	get_inspector().visible = false
 
 	# Do rest of stuff 0.1 s after
 	yield(get_tree().create_timer(0.1), "timeout")
 	$FrontUILayer/VScrollBar.update_scroll_bar()
+	set_selected_block(null)
+	update_inspector(true)
+	print(selected_block)
+	push_message(" ")
 
 func undo_last():
 	if undo_buffer.size() <= 0:
-		push_message("There is nothing to undo.")
+		push_message("There is nothing left to undo.")
 		return
 	var last_command = undo_buffer.pop_back()
 	var event : String = last_command[0]
@@ -456,7 +460,7 @@ func undo_last():
 			var undeleted_block
 			for key in dict.keys():
 				undeleted_block = Editor.add_block_from_key(dict, key)
-				$InspectorLayer/Inspector.update_inspector(true)
+				update_inspector(true)
 			if dict.size() == 1:
 				push_message("UNDO: Deleted block " + undeleted_block.id + ".")
 			else:
@@ -511,7 +515,7 @@ func set_selected_block(value):
 
 	if !is_node_alive(selected_block) or !(selected_block is DBScript):
 		selected_block = null
-		$InspectorLayer/Inspector.update_inspector()
+		update_inspector()
 		return
 
 	# Highlight selected block
@@ -524,7 +528,14 @@ func set_selected_block(value):
 	#selected_block._on_DraggableSegment_pressed()
 	#selected_block.dragging = true
 
-	$InspectorLayer/Inspector.update_inspector()
+	update_inspector()
+
+
+func get_inspector():
+	return $InspectorLayer/Inspector
+
+func update_inspector(force := false):
+	get_inspector().update_inspector(force)
 
 var _clear_message_pending = false
 func push_message(text : String, duration := 4.0):
