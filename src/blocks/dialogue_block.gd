@@ -155,6 +155,8 @@ func fill_with_garbage():
 	dialogue_rich_text_label.bbcode_text = str(randi()).sha256_text()
 	dialogue_line_edit.text = str(randi()).sha256_text()
 
+var _all_connections = {}
+var _starting_pos = Vector2()
 func _input(event):
 	if MainCamera.scroll_mode != 0:
 		mouse_offset.y += MainCamera.scroll_mode * MainCamera.scroll_spd
@@ -162,13 +164,38 @@ func _input(event):
 	if !Input.is_action_pressed("click"):
 		dragging = false
 		mouse_offset = Vector2()
+		_all_connections = {}
+
+	elif tail != "" and (_all_connections == {} or Input.is_action_just_pressed("click")):
+		# Get starting position of this block on first frame of clicking
+		_starting_pos = rect_position
+
+		# Update _all_connections with their starting positions on first frame of clicking
+		var connections := get_connections()
+		# Get starting positions of all connections
+		for connection in connections:
+			_all_connections[connection] = connection.rect_position
+
+
 	if event is InputEventMouseMotion:
 		mouse_pos = event.position
 		if dragging:
 			mouse_delta = (mouse_pos - mouse_previous_pos)
+			# Set position of this block to wherever the mouse is dragging it to
 			rect_position = previous_pos + mouse_delta  * MainCamera.zoom_level  + mouse_offset
+
 			if just_created:
 				rect_position = get_global_mouse_position()
+
+			# Move any connections this block has (if enabled)
+
+			var move_as_chain_enabled = Editor.editor_settings.has("move_blocks_as_chain") and Editor.editor_settings["move_blocks_as_chain"] == true
+			# Move as chain is shift + disabled or !shift + enabled
+			if (!move_as_chain_enabled and Editor.is_modifier_down("shift")) or (move_as_chain_enabled and !Editor.is_modifier_down("shift")):
+				for block in _all_connections:
+					var block_previous_pos : Vector2 = _all_connections[block]
+					block.rect_position = block_previous_pos + (rect_position - _starting_pos)  #* MainCamera.zoom_level + mouse_offset
+
 			# Teleport block to cursor if too far away
 			if abs(get_global_mouse_position().y - rect_position.y) > 200 or \
 			abs(get_global_mouse_position().x - rect_position.x) > 2000:
@@ -349,6 +376,8 @@ func get_character_name():
 func set_tail(new_tail):
 	tail = new_tail
 	update()
+	print("hi")
+	Editor.update_inspector(true)
 
 func get_tail():
 	return tail
@@ -405,7 +434,7 @@ func release_connection_mode():
 	in_connecting_mode = false
 	MainCamera.CURRENT_CONNECTION_HEAD_NODE = null
 	update()
-
+	Editor.update_inspector(true)
 	if tail == "":
 		set_process(false)
 
@@ -422,6 +451,28 @@ func spawn_block_below():
 	update()
 
 	return tail_block
+
+func get_connections() -> Array:
+	var all_tails := []
+	var current_block : DialogueBlock = self
+	while current_block.tail != "":
+		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
+		if !Editor.is_node_alive(next_block) or next_block == null:
+			break
+		all_tails.append(next_block)
+		current_block = next_block
+	return all_tails
+
+func get_end_of_chain() -> DialogueBlock:
+	var current_block : DialogueBlock = self
+	while current_block.tail != "":
+		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
+		if !Editor.is_node_alive(next_block) or next_block == null:
+			break
+		current_block = next_block
+	if !Editor.is_node_alive(current_block):
+		return null
+	return current_block
 
 # DRAWING CODE
 

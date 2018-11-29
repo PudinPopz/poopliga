@@ -70,6 +70,16 @@ func update_dialogue_box_container():
 
 
 func update_dialogue_properties_vbox():
+	# Update info text
+	var info_text := ""
+	var block_connections = Editor.selected_block.get_connections()
+	info_text += "Number of connections: " + str(block_connections.size()) + "\n"
+	info_text += "Next connection: " + Editor.selected_block.tail + "\n"
+	info_text += "End of chain: " + Editor.selected_block.get_end_of_chain().id
+
+	$DialogueBoxContainer/Control/PropertiesVBox/InfoText.bbcode_text = info_text
+
+
 	var properties_vbox_children : Array = $DialogueBoxContainer/Control/PropertiesVBox.get_children()
 	# Update fields in properties vbox
 	var attribute_separator : VSeparator = $DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeSeparator
@@ -175,3 +185,31 @@ func set_all_containers_visibility(visibility):
 	for container in get_children():
 		if container is ScrollContainer:
 			container.visible = visibility
+
+func _on_ViewConnections_pressed() -> void:
+	var output : String = ""
+
+	if !Editor.is_node_alive(Editor.selected_block):
+		Editor.push_message("Error: Selected block does not exist")
+		return
+
+	var all_tails = Editor.selected_block.get_connections()
+
+	var tails_str := ""
+	for tail in all_tails:
+		tails_str += tail.id + ", "
+	tails_str = tails_str.substr(0, tails_str.length() - 2)
+	Editor.push_message(tails_str)
+
+func _on_GoToEndOfChain_pressed() -> void:
+	if !Editor.is_node_alive(Editor.selected_block):
+		Editor.push_message("Error: Selected block does not exist")
+		return
+
+	var end_block : DialogueBlock = Editor.selected_block.get_end_of_chain()
+	if end_block == null:
+		Editor.push_message("Error: End of chain does not exist")
+		return
+
+	MainCamera.lerp_camera_pos(end_block.rect_position)
+	Editor.set_selected_block(end_block)

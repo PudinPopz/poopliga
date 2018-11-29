@@ -108,85 +108,85 @@ content_margin_bottom = 0.0
 
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="DynamicFont" id=36]
+[sub_resource type="DynamicFont" id=18]
 
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 18 )
 fallback/0 = ExtResource( 17 )
 
-[sub_resource type="InputEventKey" id=18]
+[sub_resource type="InputEventKey" id=19]
 
 control = true
 command = true
 scancode = 78
 
-[sub_resource type="ShortCut" id=19]
+[sub_resource type="ShortCut" id=20]
 
-shortcut = SubResource( 18 )
+shortcut = SubResource( 19 )
 
-[sub_resource type="InputEventKey" id=20]
+[sub_resource type="InputEventKey" id=21]
 
 control = true
 command = true
 scancode = 79
 
-[sub_resource type="ShortCut" id=21]
+[sub_resource type="ShortCut" id=22]
 
-shortcut = SubResource( 20 )
+shortcut = SubResource( 21 )
 
-[sub_resource type="Theme" id=22]
+[sub_resource type="Theme" id=23]
 
 default_font = ExtResource( 15 )
 
-[sub_resource type="InputEventKey" id=23]
+[sub_resource type="InputEventKey" id=24]
 
 control = true
 command = true
 scancode = 83
 
-[sub_resource type="ShortCut" id=24]
+[sub_resource type="ShortCut" id=25]
 
-shortcut = SubResource( 23 )
+shortcut = SubResource( 24 )
 
-[sub_resource type="InputEventKey" id=25]
+[sub_resource type="InputEventKey" id=26]
 
 shift = true
 control = true
 command = true
 scancode = 83
 
-[sub_resource type="ShortCut" id=26]
+[sub_resource type="ShortCut" id=27]
 
-shortcut = SubResource( 25 )
+shortcut = SubResource( 26 )
 
-[sub_resource type="InputEventKey" id=27]
+[sub_resource type="InputEventKey" id=28]
 
 control = true
 command = true
 scancode = 70
 
-[sub_resource type="ShortCut" id=28]
+[sub_resource type="ShortCut" id=29]
 
-shortcut = SubResource( 27 )
+shortcut = SubResource( 28 )
 
-[sub_resource type="InputEventKey" id=29]
+[sub_resource type="InputEventKey" id=30]
 
 control = true
 command = true
 scancode = 72
 
-[sub_resource type="ShortCut" id=30]
+[sub_resource type="ShortCut" id=31]
 
-shortcut = SubResource( 29 )
-
-[sub_resource type="StyleBoxEmpty" id=31]
-
+shortcut = SubResource( 30 )
 
 [sub_resource type="StyleBoxEmpty" id=32]
 
 
-[sub_resource type="Animation" id=33]
+[sub_resource type="StyleBoxEmpty" id=33]
+
+
+[sub_resource type="Animation" id=34]
 
 step = 0.0
 tracks/0/type = "value"
@@ -214,7 +214,7 @@ tracks/1/keys = {
 "values": [ false, false ]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=35]
 
 length = 0.2
 tracks/0/type = "value"
@@ -230,7 +230,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.0470588 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=36]
 
 step = 0.0
 tracks/0/type = "value"
@@ -421,9 +421,21 @@ mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
-[node name="CharacterPortrait" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
+[node name="InfoText" type="RichTextLabel" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
 margin_right = 405.0
-margin_bottom = 27.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 90 )
+focus_mode = 2
+custom_fonts/normal_font = ExtResource( 12 )
+bbcode_enabled = true
+bbcode_text = "<INFO TEXT>"
+text = "<INFO TEXT>"
+selection_enabled = true
+
+[node name="CharacterPortrait" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
+margin_top = 100.0
+margin_right = 405.0
+margin_bottom = 127.0
 
 [node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/CharacterPortrait"]
 margin_right = 221.0
@@ -443,9 +455,9 @@ clear_button_enabled = true
 caret_blink = true
 
 [node name="SoundFile" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
-margin_top = 37.0
+margin_top = 137.0
 margin_right = 405.0
-margin_bottom = 64.0
+margin_bottom = 164.0
 
 [node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/SoundFile"]
 margin_right = 221.0
@@ -465,9 +477,9 @@ clear_button_enabled = true
 caret_blink = true
 
 [node name="MusicSwap" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
-margin_top = 74.0
+margin_top = 174.0
 margin_right = 405.0
-margin_bottom = 101.0
+margin_bottom = 201.0
 
 [node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/MusicSwap"]
 margin_right = 221.0
@@ -487,9 +499,9 @@ clear_button_enabled = true
 caret_blink = true
 
 [node name="Append" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
-margin_top = 111.0
+margin_top = 211.0
 margin_right = 405.0
-margin_bottom = 138.0
+margin_bottom = 238.0
 rect_min_size = Vector2( 0, 27 )
 
 [node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/Append"]
@@ -526,15 +538,15 @@ custom_styles/normal = SubResource( 16 )
 align = 1
 
 [node name="CustomAttributeSeparator" type="VSeparator" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
-margin_top = 148.0
+margin_top = 248.0
 margin_right = 405.0
-margin_bottom = 151.0
+margin_bottom = 251.0
 custom_styles/separator = SubResource( 17 )
 
 [node name="CustomAttributeTemplate" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
-margin_top = 161.0
+margin_top = 261.0
 margin_right = 405.0
-margin_bottom = 188.0
+margin_bottom = 288.0
 
 [node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeTemplate"]
 margin_right = 221.0
@@ -543,7 +555,6 @@ size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 12 )
 text = "Special Flag"
 valign = 1
-percent_visible = -0.037037
 
 [node name="LineEdit" type="LineEdit" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeTemplate"]
 margin_left = 225.0
@@ -713,7 +724,7 @@ margin_top = 231.0
 margin_right = 350.0
 margin_bottom = 351.0
 rect_min_size = Vector2( 0, 120 )
-custom_fonts/font = SubResource( 36 )
+custom_fonts/font = SubResource( 18 )
 custom_colors/current_line_color = Color( 1, 1, 1, 0.0470588 )
 highlight_current_line = true
 show_line_numbers = true
@@ -721,7 +732,6 @@ context_menu_enabled = false
 caret_blink = true
 
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -862,10 +872,21 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Mute Sound"
 align = 1
 
-[node name="Control" type="Control" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="MoveBlocksAsChain" type="CheckBox" parent="FrontWindows/OptionsWindow/GridContainer"]
 margin_top = 214.0
 margin_right = 223.0
-margin_bottom = 214.0
+margin_bottom = 245.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/font = ExtResource( 20 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Move Blocks As Chain"
+align = 1
+
+[node name="Control" type="Control" parent="FrontWindows/OptionsWindow/GridContainer"]
+margin_left = 227.0
+margin_top = 214.0
+margin_right = 427.0
+margin_bottom = 245.0
 
 [node name="HelpWindow" type="AcceptDialog" parent="FrontWindows"]
 anchor_left = 0.5
@@ -1014,7 +1035,7 @@ hint_tooltip = "Creates a new empty file."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
-shortcut = SubResource( 19 )
+shortcut = SubResource( 20 )
 text = "New"
 flat = true
 
@@ -1026,7 +1047,7 @@ hint_tooltip = "Opens a previously saved file."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
-shortcut = SubResource( 21 )
+shortcut = SubResource( 22 )
 text = "Open"
 flat = true
 
@@ -1037,9 +1058,9 @@ margin_bottom = 32.0
 hint_tooltip = "Saves the current file to disk, overwriting the previously opened file.
 "
 focus_mode = 0
-theme = SubResource( 22 )
+theme = SubResource( 23 )
 enabled_focus_mode = 0
-shortcut = SubResource( 24 )
+shortcut = SubResource( 25 )
 text = "Save"
 flat = true
 script = ExtResource( 24 )
@@ -1053,7 +1074,7 @@ hint_tooltip = "Saves the current file to a specified location."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
-shortcut = SubResource( 26 )
+shortcut = SubResource( 27 )
 text = "Save as"
 flat = true
 
@@ -1065,7 +1086,7 @@ hint_tooltip = "Search for a specific block."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
-shortcut = SubResource( 28 )
+shortcut = SubResource( 29 )
 text = "Find"
 flat = true
 
@@ -1092,15 +1113,27 @@ text = "Options"
 flat = true
 script = ExtResource( 25 )
 
-[node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
+[node name="Inspector" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 margin_left = 354.0
-margin_right = 401.0
+margin_right = 439.0
+margin_bottom = 32.0
+hint_tooltip = "(E / I)
+Open the Inspector. "
+focus_mode = 0
+custom_fonts/font = ExtResource( 15 )
+enabled_focus_mode = 0
+text = "Inspector"
+flat = true
+
+[node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
+margin_left = 443.0
+margin_right = 490.0
 margin_bottom = 32.0
 hint_tooltip = "Saves the current file to a specified location."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
-shortcut = SubResource( 30 )
+shortcut = SubResource( 31 )
 text = "Help"
 flat = true
 
@@ -1166,8 +1199,8 @@ margin_left = -345.0
 margin_top = -281.5
 margin_right = 345.0
 margin_bottom = 281.5
-custom_styles/focus = SubResource( 31 )
-custom_styles/normal = SubResource( 32 )
+custom_styles/focus = SubResource( 32 )
+custom_styles/normal = SubResource( 33 )
 custom_fonts/font = ExtResource( 28 )
 custom_colors/caret_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -1209,13 +1242,15 @@ margin_bottom = 39.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "UnblackenScreen"
-anims/BlackenScreen = SubResource( 33 )
-anims/InspectorOpen = SubResource( 34 )
-anims/UnblackenScreen = SubResource( 35 )
+anims/BlackenScreen = SubResource( 34 )
+anims/InspectorOpen = SubResource( 35 )
+anims/UnblackenScreen = SubResource( 36 )
 
 [connection signal="area_entered" from="Map/Cursor/CursorArea" to="." method="_on_CursorArea_area_entered"]
 [connection signal="area_exited" from="Map/Cursor/CursorArea" to="." method="_on_CursorArea_area_exited"]
 [connection signal="visibility_changed" from="InspectorLayer/Inspector" to="InspectorLayer/Inspector" method="_on_Inspector_visibility_changed"]
+[connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/ViewConnections" to="InspectorLayer/Inspector" method="_on_ViewConnections_pressed"]
+[connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/GoToEndOfChain" to="InspectorLayer/Inspector" method="_on_GoToEndOfChain_pressed"]
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
 [connection signal="file_selected" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_file_selected"]
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
@@ -1228,5 +1263,6 @@ anims/UnblackenScreen = SubResource( 35 )
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_toggled"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Options" to="FrontWindows/OptionsWindow" method="_on_Options_pressed"]
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Options" to="FrontWindows/OptionsWindow" method="_on_Options_toggled"]
+[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Inspector" to="." method="_on_Inspector_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Help" to="FrontWindows/HelpWindow" method="_on_Help_pressed"]
 [connection signal="pressed" from="BackUILayer/BackUIButton" to="." method="_on_BackUIButton_pressed"]

@@ -241,7 +241,7 @@ func _process(delta):
 	# 	new_magnitude = clamp(new_magnitude, 0, 30)
 
 	# 	raw_velocity = new_magnitude * raw_velocity.normalized()
-	# 	
+	#
 
 	# 	position += raw_velocity #* (200*delta)
 
@@ -278,10 +278,4 @@ enum MODIFIER {
 }
 
 func is_modifier_down(modifier):
-	match modifier:
-		MODIFIER.ctrl:
-			return is_ctrl_down or Input.is_action_pressed("ctrl")
-		MODIFIER.alt:
-			return is_alt_down or Input.is_action_pressed("alt")
-		MODIFIER.shift:
-			return is_shift_down or Input.is_action_pressed("shift")
+	return Editor.is_modifier_down(modifier)

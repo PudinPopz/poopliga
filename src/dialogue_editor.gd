@@ -39,6 +39,8 @@ var hovered_block = null
 
 var undo_buffer = []
 
+var editor_settings = {}
+
 func _input(event):
 	cursor.position = get_global_mouse_position()
 
@@ -85,8 +87,6 @@ func _input(event):
 	# Escape inspector
 	if $InspectorLayer/Inspector.visible and Input.is_key_pressed(KEY_ESCAPE):
 		$InspectorLayer/Inspector.visible = false
-
-
 
 	# Select block on mouse click
 	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
@@ -344,9 +344,8 @@ func _on_Open_pressed():
 	window.rect_position.y += 10
 	MainCamera.freeze = true
 
-	pass # Replace with function body.
-
-
+func _on_Inspector_pressed() -> void:
+	get_inspector().visible = !get_inspector().visible
 
 func _on_OpenFileWindow_file_selected(path):
 	current_folder = get_folder_from_path(path)
@@ -555,6 +554,16 @@ enum {
 	}
 
 func is_modifier_down(modifier):
+	# Allow for string values to also be entered
+	if typeof(modifier) == TYPE_STRING:
+		match modifier:
+			"ctrl":
+				modifier = ctrl
+			"alt":
+				modifier = alt
+			"shift":
+				modifier = shift
+
 	match modifier:
 		ctrl:
 			return is_ctrl_down or Input.is_action_pressed("ctrl")
@@ -580,3 +589,6 @@ static func get_folder_from_path(path: String):
 static func get_filename_from_path(path: String):
 	var end_index = path.rfind("/")
 	return path.substr(end_index + 1, path.length())
+
+
+

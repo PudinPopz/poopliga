@@ -88,7 +88,7 @@ func serialize():
 		if !Editor.blocks.has_node(tails[i]):
 			print("Invalid tail: ", tails[i])
 			tails[i] = ""
-			
+
 
 	extra_data = {
 		tail_count = tail_count,
@@ -115,10 +115,10 @@ func update_choices():
 		else:
 			field.get_parent().visible = true
 			connector.get_parent().visible = true
-			
+
 
 func _on_TailCountHSlider_value_changed(value: float) -> void:
-	tail_count = value
+	tail_count = int(value)
 
 	# Resize NinePatchRect
 	if value >= 5:
