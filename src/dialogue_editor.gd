@@ -474,6 +474,9 @@ func _on_FindWindow_confirmed():
 	if given_id == "":
 		given_id = $FrontWindows/FindWindow/HBoxContainer2/LineEdit.placeholder_text
 		$FrontWindows/FindWindow/HBoxContainer2/LineEdit.text = given_id
+
+	given_id = given_id.strip_edges()
+
 	if blocks.has_node(given_id) and given_id != "" :
 		var node =blocks.get_node(given_id)
 		#MainCamera.pan_mode = true

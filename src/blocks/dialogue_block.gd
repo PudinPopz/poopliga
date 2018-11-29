@@ -321,6 +321,7 @@ func _on_CharacterLineEdit_text_changed(new_text):
 
 # SETTERS AND GETTERS
 func set_id(new_id):
+	new_id = new_id.strip_edges()
 	var new_id_original = new_id
 	if node_type == NODE_TYPE.meta_block:
 		id = "__META__*****"
