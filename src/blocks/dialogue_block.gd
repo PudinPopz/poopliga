@@ -54,7 +54,7 @@ onready var area_2d := get_node("Area2D")
 
 onready var nine_patch_size : Vector2 = nine_patch_rect.rect_size
 
-var hand_placed = false
+var hand_placed : bool = false
 var just_created : bool = false
 var dragging : bool = false
 var previous_pos := Vector2(0,0)
@@ -62,11 +62,11 @@ var mouse_delta := Vector2(0,0)
 var mouse_pos := Vector2(0,0)
 var mouse_previous_pos := Vector2(0,0)
 var mouse_offset := Vector2(0,0)
-var on_screen = false
-var title_bar_hovered = false
-var in_connecting_mode = false
+var on_screen : bool = false
+var title_bar_hovered : bool = false
+var in_connecting_mode : bool = false
 
-var force_process_input := false
+var force_process_input : bool = false
 
 onready var _head_connector_modulate_default : Color = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default : Color = $NinePatchRect/TailConnector.modulate
