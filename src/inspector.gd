@@ -197,9 +197,10 @@ func _on_ViewConnections_pressed() -> void:
 
 	var tails_str := ""
 	for tail in all_tails:
-		tails_str += tail.id + ", "
+		tails_str += tail.id + "\n"
 	tails_str = tails_str.substr(0, tails_str.length() - 2)
-	Editor.push_message(tails_str)
+	#Editor.push_message(tails_str)
+	Editor.popup_message(tails_str, "View Connections", true)
 
 
 func _on_ViewChainAsScript_pressed() -> void:

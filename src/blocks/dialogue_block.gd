@@ -19,17 +19,17 @@ export (NODE_TYPE) var node_type := NODE_TYPE.meta_block
 
 # IMPORTS
 
-const ThrowawaySound = preload("res://src/throwaway_sound.tscn")
+const ThrowawaySound := preload("res://src/throwaway_sound.tscn")
 
 # RESOURCES
 
-const spr_unfilled_triangle = preload("res://sprites/icons/connector_small_unfilled.png")
-const spr_filled_triangle = preload("res://sprites/icons/connector_small.png")
+const spr_unfilled_triangle := preload("res://sprites/icons/connector_small_unfilled.png")
+const spr_filled_triangle := preload("res://sprites/icons/connector_small.png")
 
 
-const snd_head = preload("res://snd/head.ogg")
-const snd_tail = preload("res://snd/tail.ogg")
-const snd_delet = preload("res://snd/delet_sound.ogg")
+const snd_head := preload("res://snd/head.ogg")
+const snd_tail := preload("res://snd/tail.ogg")
+const snd_delet := preload("res://snd/delet_sound.ogg")
 
 
 # FIELDS
@@ -335,7 +335,8 @@ func set_id(new_id):
 			new_id = old_id
 		else:
 			new_id = randomise_id()
-		print(new_id_original + " IS INVALID INPUT - ID CHANGED TO: ", new_id)
+		var error_msg : String = new_id_original + " already exists - ID changed to " + new_id
+		Editor.push_message(error_msg)
 
 	id = new_id
 	id_label.text = id # Update textfield
@@ -384,10 +385,10 @@ func get_tail():
 
 func _on_Id_Label_text_entered(new_text):
 	set_id(new_text)
-	#anim_player.play("spawn")
 	id_label.release_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
 	Editor.selected_block = self
+	anim_player.play("spawn")
 
 func _on_Id_Label_focus_exited():
 	if id == id_label.text:
@@ -459,7 +460,8 @@ func get_connections(include_self := false) -> Array:
 	var current_block : DialogueBlock = self
 	while current_block.tail != "":
 		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
-		if !Editor.is_node_alive(next_block) or next_block == null:
+		# Break if invalid next block or if next block is literally itself
+		if !Editor.is_node_alive(next_block) or next_block == null or current_block.tail == self.id:
 			break
 		all_tails.append(next_block)
 		current_block = next_block
@@ -469,7 +471,7 @@ func get_end_of_chain() -> DialogueBlock:
 	var current_block : DialogueBlock = self
 	while current_block.tail != "":
 		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
-		if !Editor.is_node_alive(next_block) or next_block == null:
+		if !Editor.is_node_alive(next_block) or next_block == null or current_block.tail == self.id:
 			break
 		current_block = next_block
 	if !Editor.is_node_alive(current_block):
