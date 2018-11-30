@@ -452,8 +452,10 @@ func spawn_block_below():
 
 	return tail_block
 
-func get_connections() -> Array:
+func get_connections(include_self := false) -> Array:
 	var all_tails := []
+	if include_self:
+		all_tails.append(self)
 	var current_block : DialogueBlock = self
 	while current_block.tail != "":
 		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
@@ -473,6 +475,17 @@ func get_end_of_chain() -> DialogueBlock:
 	if !Editor.is_node_alive(current_block):
 		return null
 	return current_block
+
+func to_script_string(separator := "\n", character_name_to_upper := true) -> String:
+	var script_string := ""
+	if character_name_to_upper:
+		script_string += character_name.to_upper()
+	else:
+		script_string += character_name
+	script_string += separator
+	script_string += dialogue_string
+
+	return script_string.strip_edges()
 
 # DRAWING CODE
 

@@ -53,6 +53,7 @@ func _input(event):
 
 	focus = control.get_focus_owner()
 
+	# CTRL + Enter: Go to next in chain
 	# TODO: Add system for remembering previous and jumping back to it
 	if is_ctrl_down and Input.is_action_just_pressed("enter"):
 		if is_instance_valid(focus) and focus is TextEdit and focus.name == "DialogueTextEdit":
@@ -67,6 +68,7 @@ func _input(event):
 			tail_block.dialogue_line_edit.grab_focus()
 			yield(get_tree().create_timer(0), "timeout")
 			tail_block.dialogue_line_edit.readonly = false
+			selected_block = tail_block
 
 	# CTRL + T: Script mode
 	if is_ctrl_down and Input.is_action_just_pressed("t"):
@@ -134,6 +136,8 @@ func _ready():
 	reset()
 	saveas_dialog = create_saveas_file_dialog()
 	fix_popin_bug(10)
+
+
 
 
 var double_click_timer_time = 0.35
@@ -554,6 +558,19 @@ func push_message(text : String, duration := 4.0):
 		$FrontUILayer/Message.text = ""
 		_message_timer = null
 
+func popup_message(text : String, title : String = "", use_richtextlabel := false):
+	var popup : AcceptDialog = $FrontWindows/GenericPopupMessage
+	popup.dialog_text = text
+	popup.window_title = title
+
+	# Use rich text label to display text instead of normal message text if desired
+	if use_richtextlabel:
+		var richtextlabel = $FrontWindows/GenericPopupMessage/Control/RichTextLabel
+		richtextlabel.bbcode_enabled = true
+		richtextlabel.bbcode_text = text
+		popup.dialog_text = ""
+
+	popup.popup_centered()
 
 enum {
 	ctrl,

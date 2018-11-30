@@ -285,6 +285,7 @@ texture = ExtResource( 4 )
 shape = SubResource( 1 )
 
 [node name="InspectorLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 layer = 3
 
 [node name="Inspector" type="Panel" parent="InspectorLayer"]
@@ -618,6 +619,39 @@ align = 1
 [node name="FrontWindows" type="CanvasLayer" parent="."]
 layer = 3
 
+[node name="GenericPopupMessage" type="AcceptDialog" parent="FrontWindows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.0
+margin_top = -118.0
+margin_right = 204.0
+margin_bottom = 119.0
+theme = ExtResource( 5 )
+window_title = ""
+resizable = true
+
+[node name="Control" type="Control" parent="FrontWindows/GenericPopupMessage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -50.0
+rect_clip_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FrontWindows/GenericPopupMessage/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 17.0
+margin_top = 13.0
+margin_right = -18.0
+margin_bottom = -47.0
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
+
 [node name="BlackShade" type="Control" parent="FrontWindows"]
 visible = false
 modulate = Color( 1, 1, 1, 0.384573 )
@@ -740,6 +774,7 @@ context_menu_enabled = false
 caret_blink = true
 
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -897,6 +932,7 @@ margin_right = 427.0
 margin_bottom = 245.0
 
 [node name="HelpWindow" type="AcceptDialog" parent="FrontWindows"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -957,6 +993,7 @@ Continue Dialogue Chain: Ctrl + Enter (in text field) (you can also double click
 Move Blocks As Chain: Hold shift whilst dragging top block (in text field)"
 
 [node name="FindWindow" type="AcceptDialog" parent="FrontWindows"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1266,8 +1303,8 @@ anims/UnblackenScreen = SubResource( 36 )
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
-[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Find" to="." method="_on_Find_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_pressed"]
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_toggled"]

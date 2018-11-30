@@ -203,7 +203,13 @@ func _on_ViewConnections_pressed() -> void:
 
 
 func _on_ViewChainAsScript_pressed() -> void:
-	pass
+	var script_str := ""
+	for block in Editor.selected_block.get_connections(true):
+		script_str += block.to_script_string()
+		script_str += "\n\n"
+	script_str = script_str.strip_edges()
+	Editor.popup_message(script_str, "View Chain as Script", true)
+
 
 
 func _on_GoToEndOfChain_pressed() -> void:

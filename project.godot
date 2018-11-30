@@ -217,6 +217,7 @@ z={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
@@ -225,7 +226,7 @@ quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false
 quality/reflections/high_quality_ggx=false
 quality/shading/force_vertex_shading=true
-quality/subsurface_scattering/weight_samples=false
-quality/voxel_cone_tracing/high_quality=false
 environment/default_clear_color=Color( 0, 0.0117647, 0.0313726, 1 )
 environment/default_environment="res://default_env.tres"
+quality/subsurface_scattering/weight_samples=false
+quality/voxel_cone_tracing/high_quality=false
