@@ -127,7 +127,7 @@ func update_dialogue_properties_vbox():
 		# Connect signals
 		if line_edit.is_connected("text_changed", self, "on_string_property_changed"):
 			line_edit.disconnect("text_changed", self, "on_string_property_changed")
-		print("CONNECTING " + line_edit.get_parent().name)
+
 		line_edit.connect("text_changed", self, "on_string_property_changed", [line_edit])
 
 
@@ -201,6 +201,11 @@ func _on_ViewConnections_pressed() -> void:
 	tails_str = tails_str.substr(0, tails_str.length() - 2)
 	Editor.push_message(tails_str)
 
+
+func _on_ViewChainAsScript_pressed() -> void:
+	pass
+
+
 func _on_GoToEndOfChain_pressed() -> void:
 	if !Editor.is_node_alive(Editor.selected_block):
 		Editor.push_message("Error: Selected block does not exist")
@@ -213,3 +218,4 @@ func _on_GoToEndOfChain_pressed() -> void:
 
 	MainCamera.lerp_camera_pos(end_block.rect_position)
 	Editor.set_selected_block(end_block)
+

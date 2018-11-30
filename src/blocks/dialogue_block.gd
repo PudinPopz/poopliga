@@ -377,7 +377,6 @@ func get_character_name():
 func set_tail(new_tail):
 	tail = new_tail
 	update()
-	print("hi")
 	Editor.update_inspector(true)
 
 func get_tail():

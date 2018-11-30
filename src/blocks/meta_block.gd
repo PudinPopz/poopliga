@@ -30,7 +30,9 @@ func _ready() -> void:
 
 func serialize():
 	extra_data = {
-		project_settings = project_settings
+		project_settings = project_settings,
+		last_saved = OS.get_datetime(),
+		last_camera_pos = MainCamera.position
 	}
 	var dict = .serialize()
 	return dict

@@ -415,6 +415,8 @@ margin_top = 6.0
 margin_bottom = 6.0
 
 [node name="PropertiesVBox" type="VBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control"]
+editor/display_folded = true
+visible = false
 margin_right = 405.0
 margin_bottom = 188.0
 mouse_filter = 2
@@ -566,7 +568,6 @@ clear_button_enabled = true
 caret_blink = true
 
 [node name="ActionsVBox" type="VBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control"]
-visible = false
 margin_top = 6.0
 margin_right = 410.0
 margin_bottom = 88.0
@@ -578,10 +579,17 @@ margin_bottom = 34.0
 rect_min_size = Vector2( 400, 0 )
 text = "View Connections"
 
-[node name="GoToEndOfChain" type="Button" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox"]
+[node name="ViewChainAsScript" type="Button" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox"]
 margin_top = 48.0
 margin_right = 410.0
 margin_bottom = 82.0
+rect_min_size = Vector2( 400, 0 )
+text = "View Chain as Script"
+
+[node name="GoToEndOfChain" type="Button" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox"]
+margin_top = 96.0
+margin_right = 410.0
+margin_bottom = 130.0
 rect_min_size = Vector2( 400, 0 )
 text = "Go to End of Chain"
 
@@ -1057,8 +1065,7 @@ flat = true
 margin_left = 108.0
 margin_right = 155.0
 margin_bottom = 32.0
-hint_tooltip = "Saves the current file to disk, overwriting the previously opened file.
-"
+hint_tooltip = "Saves the current file to disk."
 focus_mode = 0
 theme = SubResource( 23 )
 enabled_focus_mode = 0
@@ -1084,7 +1091,7 @@ flat = true
 margin_left = 159.0
 margin_right = 203.0
 margin_bottom = 32.0
-hint_tooltip = "Search for a specific block."
+hint_tooltip = "Searches for a specific block."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
@@ -1096,7 +1103,7 @@ flat = true
 margin_left = 207.0
 margin_right = 273.0
 margin_bottom = 32.0
-hint_tooltip = "Open project menu."
+hint_tooltip = "Opens project settings."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
@@ -1107,7 +1114,7 @@ flat = true
 margin_left = 277.0
 margin_right = 350.0
 margin_bottom = 32.0
-hint_tooltip = "Open options menu."
+hint_tooltip = "Opens the options menu."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
@@ -1120,7 +1127,7 @@ margin_left = 354.0
 margin_right = 439.0
 margin_bottom = 32.0
 hint_tooltip = "(E / I)
-Open the Inspector. "
+Opens the Inspector. "
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
@@ -1131,7 +1138,7 @@ flat = true
 margin_left = 443.0
 margin_right = 490.0
 margin_bottom = 32.0
-hint_tooltip = "Saves the current file to a specified location."
+hint_tooltip = "Opens the help menu."
 focus_mode = 0
 custom_fonts/font = ExtResource( 15 )
 enabled_focus_mode = 0
@@ -1252,6 +1259,7 @@ anims/UnblackenScreen = SubResource( 36 )
 [connection signal="area_exited" from="Map/Cursor/CursorArea" to="." method="_on_CursorArea_area_exited"]
 [connection signal="visibility_changed" from="InspectorLayer/Inspector" to="InspectorLayer/Inspector" method="_on_Inspector_visibility_changed"]
 [connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/ViewConnections" to="InspectorLayer/Inspector" method="_on_ViewConnections_pressed"]
+[connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/ViewChainAsScript" to="InspectorLayer/Inspector" method="_on_ViewChainAsScript_pressed"]
 [connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/GoToEndOfChain" to="InspectorLayer/Inspector" method="_on_GoToEndOfChain_pressed"]
 [connection signal="confirmed" from="FrontWindows/FindWindow" to="." method="_on_FindWindow_confirmed"]
 [connection signal="file_selected" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_file_selected"]

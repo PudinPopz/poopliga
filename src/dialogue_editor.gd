@@ -37,6 +37,8 @@ var last_focus = null
 var selected_block = null setget set_selected_block
 var hovered_block = null
 
+var rect_selected_blocks = []
+
 var undo_buffer = []
 
 var editor_settings = {}
@@ -176,21 +178,21 @@ func fix_rendering_bug():
 	return
 
 func create_saveas_file_dialog():
-	var thing = FileDialog.new()
-	get_node("FrontWindows").add_child(thing)
-	thing.access = FileDialog.ACCESS_FILESYSTEM
-	thing.current_dir = current_folder
-	thing.current_file = current_file
-	thing.resizable = true
-	thing.theme = theme
-	thing.theme.default_font = fnt_noto_sans_16
-	thing.add_filter("*.poopliga")
-	thing.mode = FileDialog.MODE_SAVE_FILE
-	thing.connect("file_selected",self,"save_as")
-	thing.connect("popup_hide",self,"_on_popup_hide")
-	return thing
+	var fd = FileDialog.new()
+	get_node("FrontWindows").add_child(fd)
+	fd.access = FileDialog.ACCESS_FILESYSTEM
+	fd.current_dir = current_folder
+	fd.current_file = current_file
+	fd.resizable = true
+	fd.theme = theme
+	fd.theme.default_font = fnt_noto_sans_16
+	fd.add_filter("*.poopliga")
+	fd.mode = FileDialog.MODE_SAVE_FILE
+	fd.connect("file_selected",self,"save_as")
+	fd.connect("popup_hide",self,"_on_popup_hide")
+	return fd
 
-# SavesbBlocks to dictionary - NOT file!
+# Saves blocks to dictionary - NOT file!
 func save_blocks_to_dict():
 	var dict = {}
 	# Add data of all children of DialogueBlocks to dictionary
@@ -213,32 +215,20 @@ func save_as(path):
 	var dict = save_blocks_to_dict()
 
 	var file = File.new()
-	var json = to_json(dict)
-	var pretty_json = convert_to_multiline_json(json)
+	var json = JSON.print(dict, "  ")
+	var pretty_json = json
 
 	file.open(path, File.WRITE)
 	file.store_string(pretty_json)
 	file.close()
 
-	var end_time_str = "Saved " + str(dict.size()) + "Blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
+	# NOTE: Dict size is decremented by 1 as the count should not include the meta block.
+	var message = "Saved " + str(dict.size() - 1) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
+	push_message(message, 6.0)
 
 	current_file = get_filename_from_path(path)
 	current_folder = get_folder_from_path(path)
 
-# TODO: Make actually pretty print
-func convert_to_multiline_json(json : String):
-	var output = json
-	output = output.replace("{", "\n{\n")
-	output = output.replace("}", "\n}\n")
-	output = output.replace(",", ",\n")
-	output = output.replace("[", "\n[\n")
-	output = output.replace("]", "\n]\n")
-	return output
-
-func convert_from_multiline_json(json : String):
-	var output = json
-	output = output.replace("\n", "")
-	return output
 
 func fill_with_garbage_blocks(amount):
 	for i in range(amount):
@@ -348,27 +338,34 @@ func _on_Inspector_pressed() -> void:
 	get_inspector().visible = !get_inspector().visible
 
 func _on_OpenFileWindow_file_selected(path):
+
 	current_folder = get_folder_from_path(path)
 	current_file = get_filename_from_path(path)
 	var window = get_node("FrontWindows/OpenFileWindow")
 	var file = File.new()
 	file.open(path, File.READ)
 	var json = file.get_as_text()
-	json = convert_from_multiline_json(json)
 
-	# Kill all existingbBlocks to make room for new file
+	# Kill all existing blocks to make room for new file
 	reset(false) # DO NOT CREATE A NEW META BLOCK - Let it happen when loaded
 
+	# Wait for next frame to ensure reset worked properly
 	yield(get_tree().create_timer(0.000),"timeout")
-	load_blocks_from_json(json)
+
+	var start_time = OS.get_ticks_msec()
+	# Load blocks from json whilst obtaining the amount of blocks as a return value
+	var amount_of_blocks = load_blocks_from_json(json)
+	var end_time = OS.get_ticks_msec()
+	var message = "Loaded " + str(amount_of_blocks) +  " blocks in " + str(end_time - start_time) + "ms."
+	yield(get_tree().create_timer(0.1),"timeout")
+	push_message(message, 6.0)
 
 func _on_OpenFileWindow_popup_hide():
 	MainCamera.freeze = false
-	pass # Replace with function body.
 
 var DB = DialogueBlock.instance()
 
-func load_blocks_from_json(json):
+func load_blocks_from_json(json) -> int: # Returns number of blocks
 	var dict := {}
 	if json is Dictionary:
 		dict = json
@@ -379,9 +376,13 @@ func load_blocks_from_json(json):
 	var meta_key = "__META__*****"
 	add_block_from_key(dict, meta_key)
 	# Loop through individual blocks
+	var number_of_blocks : int = 0
 	for key in dict.keys():
 		if key != meta_key: # Ignore if meta block (has already been added)
 			add_block_from_key(dict, key)
+			number_of_blocks += 1
+
+	return number_of_blocks
 
 func add_block_from_key(dict, key):
 	var values_dict = dict[key]
@@ -443,7 +444,6 @@ func reset(create_new_meta_block := true):
 	$FrontUILayer/VScrollBar.update_scroll_bar()
 	set_selected_block(null)
 	update_inspector(true)
-	print(selected_block)
 	push_message(" ")
 
 func undo_last():
@@ -542,13 +542,18 @@ func update_inspector(force := false):
 	get_inspector().update_inspector(force)
 
 var _clear_message_pending = false
+var _message_timer : SceneTreeTimer = null
 func push_message(text : String, duration := 4.0):
 	$FrontUILayer/Message.text = text
-	if duration != -1 and !_clear_message_pending:
-		_clear_message_pending = true
-		yield(get_tree().create_timer(duration), "timeout")
+	if duration != -1:
+		if _message_timer == null or !is_instance_valid(_message_timer):
+			_message_timer = get_tree().create_timer(duration)
+		else:
+			_message_timer.time_left = duration
+		yield(_message_timer, "timeout")
 		$FrontUILayer/Message.text = ""
-		_clear_message_pending = false
+		_message_timer = null
+
 
 enum {
 	ctrl,
