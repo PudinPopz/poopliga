@@ -896,7 +896,7 @@ anchor_bottom = 0.5
 margin_left = -212.0
 margin_top = -203.0
 margin_right = 212.0
-margin_bottom = 173.0
+margin_bottom = 254.0
 rect_min_size = Vector2( 200, 200 )
 theme = ExtResource( 5 )
 window_title = "Help"
@@ -931,7 +931,8 @@ bbcode_text = "[b][u]MOVING THE CAMERA[/u] [/b]
 
 [b][u]MISCELLANEOUS[/u] [/b]
 [b]Show Inspector: [/b]I / E
-[b]Continue Dialogue Chain: [/b]Ctrl + Enter (in text field)"
+[b]Continue Dialogue Chain: [/b]Ctrl + Enter (in text field) (you can also double click the connector)
+[b]Move Blocks As Chain: [/b]Hold shift whilst dragging top block (in text field)"
 text = "MOVING THE CAMERA 
 Pan Camera: Right Click / Alt + Click
 Zoom Camera: Ctrl + Scroll / Right Click + Scroll
@@ -944,7 +945,8 @@ Title Block: T + Click
 
 MISCELLANEOUS 
 Show Inspector: I / E
-Continue Dialogue Chain: Ctrl + Enter (in text field)"
+Continue Dialogue Chain: Ctrl + Enter (in text field) (you can also double click the connector)
+Move Blocks As Chain: Hold shift whilst dragging top block (in text field)"
 
 [node name="FindWindow" type="AcceptDialog" parent="FrontWindows"]
 anchor_left = 0.5
