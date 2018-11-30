@@ -1,5 +1,6 @@
 extends Control
 class_name DialogueBlock
+
 enum NODE_TYPE {
 	meta_block # 0 - Stored at "__META__*****" and contains only metadata in extra_data
 	dialogue_block, # 1
@@ -42,16 +43,16 @@ var extra_data := {} # Treated as "properties" if just a normal dialogue block
 
 # CHILD NODES
 
-onready var nine_patch_rect = get_node("NinePatchRect")
-onready var id_label = get_node("NinePatchRect/TitleBar/Id_Label")
-onready var draggable_segment = get_node("NinePatchRect/TitleBar/DraggableSegment")
-onready var dialogue_rich_text_label = get_node("NinePatchRect/Dialogue").get_node("DialogueRichTextLabel")
-onready var character_line_edit = get_node("NinePatchRect/Dialogue").get_node("CharacterLineEdit")
-onready var dialogue_line_edit = get_node("NinePatchRect/DialogueTextEdit")
-onready var anim_player = get_node("AnimationPlayer")
-onready var area_2d = get_node("Area2D")
+onready var nine_patch_rect := get_node("NinePatchRect")
+onready var id_label := get_node("NinePatchRect/TitleBar/Id_Label")
+onready var draggable_segment := get_node("NinePatchRect/TitleBar/DraggableSegment")
+onready var dialogue_rich_text_label := get_node("NinePatchRect/Dialogue").get_node("DialogueRichTextLabel")
+onready var character_line_edit := get_node("NinePatchRect/Dialogue").get_node("CharacterLineEdit")
+onready var dialogue_line_edit := get_node("NinePatchRect/DialogueTextEdit")
+onready var anim_player := get_node("AnimationPlayer")
+onready var area_2d := get_node("Area2D")
 
-onready var nine_patch_size = nine_patch_rect.rect_size
+onready var nine_patch_size : Vector2 = nine_patch_rect.rect_size
 
 var hand_placed = false
 var just_created : bool = false
@@ -65,10 +66,10 @@ var on_screen = false
 var title_bar_hovered = false
 var in_connecting_mode = false
 
-var force_process_input = false
+var force_process_input := false
 
-onready var _head_connector_modulate_default = $NinePatchRect/TitleBar/HeadConnector.modulate
-onready var _tail_connector_modulate_default = $NinePatchRect/TailConnector.modulate
+onready var _head_connector_modulate_default : Color = $NinePatchRect/TitleBar/HeadConnector.modulate
+onready var _tail_connector_modulate_default : Color = $NinePatchRect/TailConnector.modulate
 
 # TODO: Use observer pattern instead of just making all nodes with connections run every frame
 
