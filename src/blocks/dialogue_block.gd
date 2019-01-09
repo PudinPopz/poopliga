@@ -68,6 +68,8 @@ var in_connecting_mode : bool = false
 
 var force_process_input : bool = false
 
+
+
 onready var _head_connector_modulate_default : Color = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default : Color = $NinePatchRect/TailConnector.modulate
 
@@ -255,6 +257,9 @@ func _on_DeleteButton_button_down():
 	move_to_front()
 
 func _on_DeleteButton_pressed():
+	# Store previous animation to check if already in kill animation later
+	var previous_anim = anim_player.current_animation
+
 	if Editor.selected_block == self:
 		Editor.selected_block = null
 	anim_player.play("kill")
@@ -264,6 +269,16 @@ func _on_DeleteButton_pressed():
 	death_sound.volume_db = -6.118
 	MainCamera.add_child(death_sound)
 
+	# Save into undo buffer
+	# Note: this is done at the START of the delete animation rather than the end
+	# to allow for the user to panic press Ctrl+Z.
+	# To avoid filling up the delete queue upon spamming of the delete button,
+	# the code checks if the block is already condemned (i.e. in the death animation)
+	if previous_anim != "kill":
+		var dict = {}
+		dict[self.id] = self.serialize()
+		Editor.undo_buffer.append(["deleted", dict])
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"kill":
@@ -272,11 +287,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			MainCamera.last_blocks_on_screen = []
 			if Editor.selected_block == self:
 				Editor.selected_block = null
-
-			# Save into undo buffer
-			var dict = {}
-			dict[self.id] = self.serialize()
-			Editor.undo_buffer.append(["deleted", dict])
 
 			self.queue_free() # actually kill
 

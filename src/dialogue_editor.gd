@@ -464,6 +464,10 @@ func undo_last():
 			var dict : Dictionary = value
 			var undeleted_block
 			for key in dict.keys():
+				if blocks.has_node(key):
+					var block_to_delete = blocks.get_node(key)
+					block_to_delete.name = key + "_PD"
+					block_to_delete.queue_free()
 				undeleted_block = Editor.add_block_from_key(dict, key)
 				update_inspector(true)
 			if dict.size() == 1:

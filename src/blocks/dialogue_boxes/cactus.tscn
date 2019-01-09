@@ -15,13 +15,6 @@ margin_right = 89.5813
 margin_bottom = 147.0
 rect_scale = Vector2( 0.8, 0.8 )
 
-[node name="TextureRect" type="ColorRect" parent="."]
-visible = false
-margin_left = -762.0
-margin_top = -362.0
-margin_right = 802.0
-margin_bottom = 402.0
-
 [node name="DialogueBoxSprite" type="Sprite" parent="."]
 position = Vector2( 199.025, 131.946 )
 scale = Vector2( 0.341088, 0.341088 )
