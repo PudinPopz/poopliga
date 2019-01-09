@@ -23,9 +23,9 @@ _global_script_class_icons={
 config/name="McFakeFake Poopliga Dialogue Editor"
 run/main_scene="res://scenes/0.tscn"
 run/low_processor_mode=true
-boot_splash/image="res://sprites/icons/trash.png"
-boot_splash/fullsize=false
-config/icon="res://sprites/icons/trash_shadowed.png"
+boot_splash/image="res://sprites/loading_screen.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://sprites/icons/trash.png"
 
 [autoload]
 

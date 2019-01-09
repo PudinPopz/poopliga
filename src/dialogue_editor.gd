@@ -328,7 +328,6 @@ func _on_Find_pressed():
 
 
 func _on_Open_pressed():
-
 	var window = get_node("FrontWindows/OpenFileWindow")
 	window.current_dir = current_folder
 	window.current_file = current_file
@@ -342,7 +341,6 @@ func _on_Inspector_pressed() -> void:
 	get_inspector().visible = !get_inspector().visible
 
 func _on_OpenFileWindow_file_selected(path):
-
 	current_folder = get_folder_from_path(path)
 	current_file = get_filename_from_path(path)
 	var window = get_node("FrontWindows/OpenFileWindow")
@@ -535,11 +533,6 @@ func set_selected_block(value):
 	if is_node_alive(previous_block) and previous_block != selected_block:
 		previous_block.nine_patch_rect.modulate = Color(1,1,1)
 
-	# Simulate dragging
-	#selected_block.get_node("NinePatchRect/TitleBar/DraggableSegment").pressed = true
-	#selected_block._on_DraggableSegment_pressed()
-	#selected_block.dragging = true
-
 	update_inspector()
 
 
@@ -618,6 +611,3 @@ static func get_folder_from_path(path: String):
 static func get_filename_from_path(path: String):
 	var end_index = path.rfind("/")
 	return path.substr(end_index + 1, path.length())
-
-
-
