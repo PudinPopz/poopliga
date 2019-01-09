@@ -14,6 +14,8 @@ func _ready():
 			swap_dialogue_box_tscn("res://src/blocks/dialogue_boxes/black_serif.tscn")
 		2:
 			swap_dialogue_box_tscn("res://src/blocks/dialogue_boxes/jangnanmon.tscn")
+		3:
+			swap_dialogue_box_tscn("res://src/blocks/dialogue_boxes/cactus.tscn")
 
 
 
@@ -21,13 +23,17 @@ func swap_dialogue_box_tscn(path : String):
 	var new_dialogue_box = load(path)
 	new_dialogue_box = new_dialogue_box.instance()
 
-	dialogue_box_sprite.texture                = new_dialogue_box.get_node("DialogueBoxSprite").texture
-	dialogue_box_sprite.transform              = new_dialogue_box.get_node("DialogueBoxSprite").transform
+	rect_scale = new_dialogue_box.rect_scale
+
+	dialogue_box_sprite.texture           = new_dialogue_box.get_node("DialogueBoxSprite").texture
+	dialogue_box_sprite.transform         = new_dialogue_box.get_node("DialogueBoxSprite").transform
+	dialogue_box_sprite.scale             = new_dialogue_box.get_node("DialogueBoxSprite").scale
 
 	var new_cle = new_dialogue_box.get_node("CharacterLineEdit")
 	character_line_edit.align             = new_cle.align
 	character_line_edit.rect_position     = new_cle.rect_position
 	character_line_edit.rect_size         = new_cle.rect_size
+	character_line_edit.rect_scale        = new_cle.rect_scale
 	character_line_edit.margin_bottom     = new_cle.margin_bottom
 	character_line_edit.margin_right      = new_cle.margin_right
 	character_line_edit.margin_top        = new_cle.margin_top
@@ -42,6 +48,7 @@ func swap_dialogue_box_tscn(path : String):
 	var new_rtl = new_dialogue_box.get_node("DialogueRichTextLabel")
 	dialogue_rich_text_label.rect_position     = new_rtl.rect_position
 	dialogue_rich_text_label.rect_size         = new_rtl.rect_size
+	dialogue_rich_text_label.rect_scale        = new_rtl.rect_scale
 	dialogue_rich_text_label.margin_bottom     = new_rtl.margin_bottom
 	dialogue_rich_text_label.margin_right      = new_rtl.margin_right
 	dialogue_rich_text_label.margin_top        = new_rtl.margin_top

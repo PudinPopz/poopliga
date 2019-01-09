@@ -690,7 +690,6 @@ theme = ExtResource( 5 )
 window_title = "Project Settings"
 
 [node name="GridContainer" type="GridContainer" parent="FrontWindows/ProjectWindow/Panel"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 19.0
@@ -715,7 +714,7 @@ rect_min_size = Vector2( 150, 30 )
 custom_fonts/font = ExtResource( 15 )
 text = "Black Serif"
 align = 1
-items = [ "Custom", null, true, -1, null, "Black Serif", null, false, -1, null, "Jangnanmon", null, false, -1, null ]
+items = [ "Custom", null, true, -1, null, "Black Serif", null, false, -1, null, "Jangnanmon", null, false, -1, null, "Cactus", null, false, -1, null ]
 selected = 1
 
 [node name="AuthorLabel" type="Label" parent="FrontWindows/ProjectWindow/Panel/GridContainer"]
