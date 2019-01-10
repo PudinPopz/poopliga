@@ -267,7 +267,6 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Blocks" type="YSort" parent="Map"]
-sort_enabled = false
 
 [node name="SelectionRect" type="Node2D" parent="Map"]
 script = ExtResource( 3 )
