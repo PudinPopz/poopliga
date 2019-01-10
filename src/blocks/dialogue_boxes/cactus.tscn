@@ -38,7 +38,7 @@ caret_blink = true
 [node name="DialogueRichTextLabel" type="RichTextLabel" parent="."]
 margin_left = -229.0
 margin_top = 74.0
-margin_right = 677.0
+margin_right = 691.0
 margin_bottom = 206.0
 rect_scale = Vector2( 0.86, 1 )
 rect_clip_content = false

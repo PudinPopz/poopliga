@@ -27,7 +27,6 @@ const ThrowawaySound := preload("res://src/throwaway_sound.tscn")
 const spr_unfilled_triangle := preload("res://sprites/icons/connector_small_unfilled.png")
 const spr_filled_triangle := preload("res://sprites/icons/connector_small.png")
 
-
 const snd_head := preload("res://snd/head.ogg")
 const snd_tail := preload("res://snd/tail.ogg")
 const snd_delet := preload("res://snd/delet_sound.ogg")
@@ -105,7 +104,7 @@ func _ready():
 	yield(get_tree().create_timer(0), "timeout")
 
 	if hand_placed:
-		Editor.selected_block = self
+		Editor.set_selected_block(self)
 
 	if node_type != NODE_TYPE.meta_block and node_type != NODE_TYPE.branch_block:
 		$VisibilityNotifier2D.connect("screen_entered", self, "on_screen_entered")
@@ -201,9 +200,9 @@ func _input(event):
 					var block_previous_pos : Vector2 = _all_connections[block]
 					block.rect_position = block_previous_pos + (rect_position - _starting_pos)  #* MainCamera.zoom_level + mouse_offset
 
-			# Teleport block to cursor if too far away
+			# Teleport block to cursor if too far away or if panning
 			if abs(get_global_mouse_position().y - rect_position.y) > 200 or \
-			abs(get_global_mouse_position().x - rect_position.x) > 2000:
+			abs(get_global_mouse_position().x - rect_position.x) > 2000 or MainCamera.pan_mode:
 				just_created = true # Act like just created
 			# Check if new highest or new lowest and apply if necessary
 			if rect_position.y > Editor.lowest_position:
@@ -355,7 +354,7 @@ func set_id(new_id):
 	id_label.text = id # Update textfield
 	name = id # Update name in tree
 	MainCamera.LAST_MODIFIED_BLOCK = self
-	Editor.selected_block = self
+	Editor.set_selected_block(self)
 
 
 
@@ -400,7 +399,7 @@ func _on_Id_Label_text_entered(new_text):
 	set_id(new_text)
 	id_label.release_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
-	Editor.selected_block = self
+	Editor.set_selected_block(self)
 	anim_player.play("spawn")
 
 func _on_Id_Label_focus_exited():
@@ -424,10 +423,10 @@ func _on_TailConnector_button_down():
 		spawn_block_below()
 
 	Editor.double_click_timer = Editor.double_click_timer_time
-	Editor.selected_block = self
+
 
 func _on_TailConnector_button_up():
-	Editor.selected_block = self
+	Editor.set_selected_block(self)
 	pass
 
 # Selecting block

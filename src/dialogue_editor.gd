@@ -55,20 +55,33 @@ func _input(event):
 
 	# CTRL + Enter: Go to next in chain
 	# TODO: Add system for remembering previous and jumping back to it
+	# TODO: Also maybe clean this because it's kinda a mess
 	if is_ctrl_down and Input.is_action_just_pressed("enter"):
-		if is_instance_valid(focus) and focus is TextEdit and focus.name == "DialogueTextEdit":
-			var block = focus.get_parent().get_parent()
-			var tail_block
-			if block.tail == "":
-				tail_block = block.spawn_block_below()
+		if is_instance_valid(focus) and focus is TextEdit and focus.name == "DialogueTextEdit" or \
+		is_node_alive(selected_block):
+
+			var block : DialogueBlock
+			if is_node_alive(selected_block):
+				block = selected_block
 			else:
-				tail_block = blocks.get_node(block.tail)
-				MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.rect_position.y) + Vector2(0, 200), 0.5)
-			tail_block.dialogue_line_edit.readonly = true
-			tail_block.dialogue_line_edit.grab_focus()
-			yield(get_tree().create_timer(0), "timeout")
-			tail_block.dialogue_line_edit.readonly = false
-			selected_block = tail_block
+				block = focus.get_parent().get_parent()
+
+			if block.node_type == block.NODE_TYPE.dialogue_block:
+				var tail_block
+				if block.tail == "":
+					tail_block = block.spawn_block_below()
+				else:
+					tail_block = blocks.get_node(block.tail)
+
+				if is_node_alive(tail_block):
+					MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.rect_position.y) + Vector2(0, 200), 0.5)
+					tail_block.dialogue_line_edit.readonly = true
+					tail_block.dialogue_line_edit.grab_focus()
+					yield(get_tree().create_timer(0), "timeout")
+					tail_block.dialogue_line_edit.readonly = false
+					set_selected_block(tail_block)
+
+
 
 	# CTRL + T: Script mode
 	if is_ctrl_down and Input.is_action_just_pressed("t"):

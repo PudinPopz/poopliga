@@ -1,6 +1,5 @@
 extends Camera2D
 signal scrolled
-#signal moved
 
 # IMPORTS
 var DialogueBlock = preload("res://src/blocks/dialogue_block.gd")
@@ -147,13 +146,8 @@ func _input(event):
 			_on_moved()
 
 
-
-
 	if Input.is_action_just_pressed("refresh"):
 		update_rendered(true, -1)
-
-
-
 
 
 func update_zoom():

@@ -303,7 +303,6 @@ autoplay = "MovingDots"
 anims/MovingDots = SubResource( 2 )
 
 [node name="BG" type="Control" parent="InspectorLayer/Inspector"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 1.0
@@ -329,7 +328,7 @@ material = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_clip_content = true
-color = Color( 0, 0.027451, 0.0784314, 0.792157 )
+color = Color( 0, 0.027451, 0.0784314, 0.654902 )
 
 [node name="Dots" type="TextureRect" parent="InspectorLayer/Inspector/BG/ColorRect"]
 modulate = Color( 1, 1, 1, 0.0196078 )
