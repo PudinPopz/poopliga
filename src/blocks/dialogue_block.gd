@@ -183,6 +183,8 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_pos = event.position
 		if dragging:
+			# Set focus to this block
+			Editor.set_selected_block(self)
 			mouse_delta = (mouse_pos - mouse_previous_pos)
 			# Set position of this block to wherever the mouse is dragging it to
 			rect_position = previous_pos + mouse_delta  * MainCamera.zoom_level  + mouse_offset

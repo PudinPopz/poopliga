@@ -267,6 +267,7 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Blocks" type="YSort" parent="Map"]
+sort_enabled = false
 
 [node name="SelectionRect" type="Node2D" parent="Map"]
 script = ExtResource( 3 )
@@ -1301,8 +1302,8 @@ anims/UnblackenScreen = SubResource( 36 )
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
-[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
+[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Find" to="." method="_on_Find_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_pressed"]
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_toggled"]

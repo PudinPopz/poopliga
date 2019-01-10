@@ -126,7 +126,8 @@ expand = true
 [node name="DraggableSegment" type="Button" parent="NinePatchRect/TitleBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 35.0
+margin_top = -10.0
+margin_bottom = 48.0
 focus_mode = 0
 theme = ExtResource( 4 )
 custom_styles/focus = SubResource( 1 )
