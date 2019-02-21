@@ -75,7 +75,6 @@ onready var _tail_connector_modulate_default : Color = $NinePatchRect/TailConnec
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#nine_patch_rect.visible = false # Disabled for now
 	set_process(false)
 	set_physics_process(false)
 	if !just_created:

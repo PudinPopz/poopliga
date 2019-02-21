@@ -1,14 +1,22 @@
 extends WindowDialog
 
-onready var search_line_edit : LineEdit = $VBoxContainer/HBoxContainer/LineEdit
+onready var search_line_edit : LineEdit = $VBoxContainer/HBoxContainer/FindLineEdit
+onready var replace_line_edit : LineEdit = $VBoxContainer/HBoxContainer2/ReplaceLineEdit
+onready var replace_checkbox : CheckBox = $VBoxContainer/HBoxContainer2/ReplaceCheckBox
+
 var matches : Array = []
 
 func _ready() -> void:
 	$SearchButton.connect("pressed", self, "search")
 	$ItemList.connect("item_selected", self, "on_block_selected")
+	replace_checkbox.connect("toggled", self, "on_replace_checkbox_toggled")
 	connect("visibility_changed", self, "on_visibility_changed")
+
 	$SearchCountLabel.text = ""
 	$RefineCheckbox.disabled = true
+	replace_checkbox.pressed = false
+	on_replace_checkbox_toggled(false)
+
 
 func _input(event: InputEvent) -> void:
 	if !visible:
@@ -21,6 +29,9 @@ func on_visibility_changed():
 	if visible:
 		yield(get_tree().create_timer(0), "timeout")
 		search_line_edit.grab_focus()
+
+func on_replace_checkbox_toggled(button_pressed):
+	replace_line_edit.editable = button_pressed
 
 func search() -> void:
 	var includes : Array = get_included_block_types()

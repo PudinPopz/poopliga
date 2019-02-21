@@ -893,9 +893,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -255.0
-margin_top = -177.0
+margin_top = -217.0
 margin_right = 273.0
-margin_bottom = 187.0
+margin_bottom = 181.0
 rect_min_size = Vector2( 270, 305 )
 theme = ExtResource( 5 )
 window_title = "Find"
@@ -912,19 +912,20 @@ theme = SubResource( 13 )
 custom_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FrontWindows/FindWindow/VBoxContainer"]
-margin_right = 203.0
+margin_right = 233.0
 margin_bottom = 27.0
 
 [node name="Label" type="Label" parent="FrontWindows/FindWindow/VBoxContainer/HBoxContainer"]
 margin_top = 2.0
-margin_right = 40.0
+margin_right = 70.0
 margin_bottom = 25.0
+rect_min_size = Vector2( 70, 0 )
 custom_fonts/font = ExtResource( 15 )
 text = "Find: "
 
-[node name="LineEdit" type="LineEdit" parent="FrontWindows/FindWindow/VBoxContainer/HBoxContainer"]
-margin_left = 44.0
-margin_right = 203.32
+[node name="FindLineEdit" type="LineEdit" parent="FrontWindows/FindWindow/VBoxContainer/HBoxContainer"]
+margin_left = 74.0
+margin_right = 233.32
 margin_bottom = 27.0
 rect_min_size = Vector2( 159.32, 0 )
 size_flags_vertical = 4
@@ -932,9 +933,39 @@ theme = ExtResource( 5 )
 clear_button_enabled = true
 caret_blink = true
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="FrontWindows/FindWindow/VBoxContainer"]
+visible = false
+margin_top = 37.0
+margin_right = 261.0
+margin_bottom = 68.0
+
+[node name="Label" type="Label" parent="FrontWindows/FindWindow/VBoxContainer/HBoxContainer2"]
+margin_top = 4.0
+margin_right = 70.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 70, 0 )
+custom_fonts/font = ExtResource( 15 )
+text = "Replace: "
+
+[node name="ReplaceLineEdit" type="LineEdit" parent="FrontWindows/FindWindow/VBoxContainer/HBoxContainer2"]
+margin_left = 74.0
+margin_top = 2.0
+margin_right = 233.32
+margin_bottom = 29.0
+rect_min_size = Vector2( 159.32, 0 )
+size_flags_vertical = 4
+theme = ExtResource( 5 )
+clear_button_enabled = true
+caret_blink = true
+
+[node name="ReplaceCheckBox" type="CheckBox" parent="FrontWindows/FindWindow/VBoxContainer/HBoxContainer2"]
+margin_left = 237.0
+margin_right = 261.0
+margin_bottom = 31.0
+
 [node name="MiscGridContainer" type="GridContainer" parent="FrontWindows/FindWindow/VBoxContainer"]
 margin_top = 37.0
-margin_right = 203.0
+margin_right = 233.0
 margin_bottom = 68.0
 theme = SubResource( 14 )
 columns = 2
@@ -953,13 +984,13 @@ text = "RegEx"
 
 [node name="Label" type="Label" parent="FrontWindows/FindWindow/VBoxContainer"]
 margin_top = 78.0
-margin_right = 203.0
+margin_right = 233.0
 margin_bottom = 101.0
 text = "Match:"
 
 [node name="MatchGridContainer" type="GridContainer" parent="FrontWindows/FindWindow/VBoxContainer"]
 margin_top = 111.0
-margin_right = 203.0
+margin_right = 233.0
 margin_bottom = 177.0
 theme = SubResource( 14 )
 columns = 2
@@ -986,14 +1017,14 @@ text = "Character"
 
 [node name="Label2" type="Label" parent="FrontWindows/FindWindow/VBoxContainer"]
 margin_top = 187.0
-margin_right = 203.0
+margin_right = 233.0
 margin_bottom = 210.0
 text = "Include:"
 
 [node name="IncludeGridContainer" type="GridContainer" parent="FrontWindows/FindWindow/VBoxContainer"]
 editor/display_folded = true
 margin_top = 220.0
-margin_right = 203.0
+margin_right = 233.0
 margin_bottom = 286.0
 theme = SubResource( 14 )
 columns = 2

@@ -3,3 +3,5 @@ C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Tools\McFakeF
 C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Tools\McFakeFake Poopliga Dialogue Editor.pdb
 C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.dll
 C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.pdb
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Tools\NHunspell.dll
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Tools\NHunspell.pdb
