@@ -16,8 +16,8 @@ onready var blocks = get_node("Map/Blocks")
 onready var cursor = get_node("Map/Cursor")
 onready var control = get_node("Control")
 onready var script_mode = get_node("ScriptModeLayer/ScriptMode")
-onready var dimmer : ColorRect = $TopLayer/LoadingDimmer
-onready var dimmer_label : Label = $TopLayer/LoadingDimmer/Label
+onready var dimmer : ColorRect = $DimmerLayer/LoadingDimmer
+onready var dimmer_label : Label = $DimmerLayer/LoadingDimmer/Label
 
 var saveas_dialog
 
@@ -42,6 +42,10 @@ var hovered_block = null
 var rect_selected_blocks = []
 
 var undo_buffer = []
+
+var autosave_frequency_msec : float = 120 * 1000 # msec
+
+var last_autosave : int = -99999
 
 var editor_settings = {}
 
@@ -178,6 +182,10 @@ func _process(delta):
 		fix_popin_bug()
 		already_refreshed = true
 
+	# Handle autosaving after certain amounts of time
+	if OS.get_ticks_msec() - last_autosave >= autosave_frequency_msec:
+		autosave()
+
 var _pending_render_bug_fix = false
 var _pending_render_bug_fix_timer = 0
 
@@ -185,6 +193,13 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT \
 	or what == MainLoop.NOTIFICATION_WM_UNFOCUS_REQUEST:
 		_pending_render_bug_fix = true
+		autosave()
+	if what == MainLoop.NOTIFICATION_CRASH:
+		autosave(true)
+	if what == MainLoop.NOTIFICATION_OS_MEMORY_WARNING:
+		autosave()
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		autosave(true)
 
 # Fix for weird rendering bug after tab out	(CAN BE SLOW)
 func fix_rendering_bug():
@@ -217,6 +232,18 @@ func save_blocks_to_dict():
 		dict[block.id] = block.serialize()
 	return dict
 
+
+func autosave(force : bool = false):
+	if !force and OS.get_ticks_msec() - last_autosave < 15000:
+		return
+	var f : String = get_filename_from_path(current_file)
+	if !f.ends_with(".poopliga"):
+		f = f + ".poopliga"
+	var path =  "user://" + "auto-" + f
+	save_as(path, true)
+	last_autosave = OS.get_ticks_msec()
+	print("Autosaved")
+
 func _on_popup_hide():
 	MainCamera.freeze = false
 
@@ -236,8 +263,9 @@ func _on_Save_pressed():
 	saveas_dialog.rect_position += Vector2(0,10)
 	MainCamera.freeze = true
 
-func save_as(path : String, show_loading_screen : bool = true):
-	show_dimmer("Saving File...")
+func save_as(path : String, sneaky : bool = false):
+	if !sneaky:
+		show_dimmer("Saving File...")
 	var start_time = OS.get_ticks_msec()
 	var dict = save_blocks_to_dict()
 
@@ -249,12 +277,12 @@ func save_as(path : String, show_loading_screen : bool = true):
 	file.store_string(pretty_json)
 	file.close()
 
-	# NOTE: Dict size is decremented by 1 as the count should not include the meta block.
-	var message = "Saved " + str(dict.size() - 1) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
-	push_message(message, 6.0)
-
-	current_file = get_filename_from_path(path)
-	current_folder = get_folder_from_path(path)
+	if !sneaky:
+		current_file = get_filename_from_path(path)
+		current_folder = get_folder_from_path(path)
+		# NOTE: Dict size is decremented by 1 as the count should not include the meta block.
+		var message = "Saved " + str(dict.size() - 1) + " blocks in " + str(OS.get_ticks_msec()-start_time) + "ms."
+		push_message(message, 6.0)
 	close_dimmer()
 
 
@@ -342,12 +370,13 @@ func _on_New_pressed():
 func _on_Open_pressed():
 	# Use Windows file I/O if on windows
 	if System.use_os_file_io:
-		show_dimmer("Loading File...")
+
 		var path : String = CSharp.FileDialog.OpenFileDialog()
 		if path == null:
 			close_dimmer()
 			return
 
+		show_dimmer("Loading File...")
 		yield(get_tree().create_timer(0.0),"timeout")
 		_on_OpenFileWindow_file_selected(path)
 		return
@@ -539,7 +568,8 @@ func get_inspector():
 	return $InspectorLayer/Inspector
 
 func update_inspector(force := false):
-	get_inspector().update_inspector(force)
+	if get_inspector().visible:
+		get_inspector().update_inspector(force)
 
 var _clear_message_pending = false
 var _message_timer : SceneTreeTimer = null
@@ -569,7 +599,8 @@ func popup_message(text : String, title : String = "", use_richtextlabel := fals
 	popup.popup_centered()
 
 func show_dimmer(text : String):
-	dimmer_label.text = text
+	push_message("")
+	push_message(text)
 	dimmer.visible = true
 
 func close_dimmer():
@@ -612,9 +643,11 @@ static func is_node_alive(node : Node):
 	return true
 
 static func get_folder_from_path(path: String):
+	path = path.replace("\\", "/")
 	var end_index = path.rfind("/")
 	return path.substr(0, end_index)
 
 static func get_filename_from_path(path: String):
+	path = path.replace("\\", "/")
 	var end_index = path.rfind("/")
 	return path.substr(end_index + 1, path.length())

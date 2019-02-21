@@ -205,6 +205,8 @@ func reset(pos = Vector2(640, 360)):
 func _process(delta):
 	no_zoom_limit = false
 	Editor.get_node("Map/GridBG").visible = true
+	if delta >= 1.0:
+		delta = 0.1
 	# Lerping
 	if in_lerp:
 		if !pan_mode:

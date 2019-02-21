@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/blocks/dialogue_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/ninepatch2.png" type="Texture" id=2]
@@ -17,17 +17,16 @@
 [ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=15]
 [ext_resource path="res://src/blocks/dialogue_block_line_draw.gd" type="Script" id=16]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=9]
 
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0, 0, 0, 0.231373 )
 
 [sub_resource type="Animation" id=4]
-
 resource_name = "kill"
 length = 0.4
 step = 0.05
@@ -57,7 +56,6 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=5]
-
 resource_name = "spawn"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -73,11 +71,9 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
-
 extents = Vector2( 385.447, 239.449 )
 
 [sub_resource type="RectangleShape2D" id=7]
-
 extents = Vector2( 21.0916, 17.0142 )
 
 [node name="DialogueBlock" type="Control" groups=[
@@ -106,6 +102,12 @@ patch_margin_left = 64
 patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
+
+[node name="Button" type="Button" parent="NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/focus = SubResource( 9 )
+flat = true
 
 [node name="TitleBar" type="Control" parent="NinePatchRect"]
 anchor_right = 1.0
@@ -142,9 +144,10 @@ margin_right = 129.0
 margin_bottom = 26.0
 focus_next = NodePath("../../Dialogue/CharacterLineEdit")
 focus_mode = 1
+mouse_filter = 1
 theme = ExtResource( 4 )
 custom_styles/focus = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/normal = SubResource( 8 )
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0.639216, 0.639216, 0.639216, 1 )
 max_length = 10
@@ -173,11 +176,21 @@ script = ExtResource( 8 )
 [node name="Dialogue" parent="NinePatchRect" instance=ExtResource( 9 )]
 script = ExtResource( 10 )
 
-[node name="CharacterLineEdit" parent="NinePatchRect/Dialogue" index="1"]
+[node name="FrontButton" type="Button" parent="NinePatchRect/Dialogue"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -225.0
+margin_top = -4.0
+margin_right = 215.0
+margin_bottom = 131.0
+custom_styles/focus = SubResource( 9 )
+flat = true
+
+[node name="CharacterLineEdit" parent="NinePatchRect/Dialogue" index="2"]
 focus_next = NodePath("../../DialogueTextEdit")
 focus_previous = NodePath("../../TitleBar/Id_Label")
 
-[node name="DialogueRichTextLabel" parent="NinePatchRect/Dialogue" index="2"]
+[node name="DialogueRichTextLabel" parent="NinePatchRect/Dialogue" index="3"]
 mouse_filter = 2
 
 [node name="DialogueTextEdit" type="TextEdit" parent="NinePatchRect"]
@@ -247,6 +260,7 @@ position = Vector2( 10.0826, 6.46904 )
 shape = SubResource( 7 )
 
 [connection signal="focus_entered" from="NinePatchRect" to="." method="_on_NinePatchRect_focus_entered"]
+[connection signal="button_down" from="NinePatchRect/Button" to="." method="_on_Button_button_down"]
 [connection signal="mouse_entered" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_entered"]
 [connection signal="mouse_exited" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_mouse_exited"]
 [connection signal="pressed" from="NinePatchRect/TitleBar/DraggableSegment" to="." method="_on_DraggableSegment_pressed"]
@@ -255,6 +269,7 @@ shape = SubResource( 7 )
 [connection signal="text_entered" from="NinePatchRect/TitleBar/Id_Label" to="." method="_on_Id_Label_text_entered"]
 [connection signal="button_down" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_button_down"]
 [connection signal="pressed" from="NinePatchRect/DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="button_down" from="NinePatchRect/Dialogue/FrontButton" to="." method="_on_Button_button_down"]
 [connection signal="focus_exited" from="NinePatchRect/Dialogue/CharacterLineEdit" to="NinePatchRect/Dialogue" method="_on_CharacterLineEdit_focus_exited"]
 [connection signal="text_changed" from="NinePatchRect/Dialogue/CharacterLineEdit" to="." method="_on_CharacterLineEdit_text_changed"]
 [connection signal="focus_entered" from="NinePatchRect/DialogueTextEdit" to="." method="_on_DialogueTextEdit_focus_entered"]

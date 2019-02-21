@@ -27,9 +27,21 @@ func _ready() -> void:
 	update_inspector()
 
 func _on_Inspector_visibility_changed():
-	update_inspector()
+	if visible:
+		update_inspector(true)
 
+var last_inspector_update : float = 0
+var inspector_update_pending : bool = false
 func update_inspector(force := false):
+	if !visible:
+		return
+	if OS.get_ticks_msec() - last_inspector_update < 400:
+		if !inspector_update_pending:
+			inspector_update_pending = true
+			yield(get_tree().create_timer(0.2),"timeout")
+			update_inspector(force)
+			inspector_update_pending = false
+		return
 	$Name/Label.max_length = 10
 	# Check if block actually valid
 	if Editor.selected_block == null or !is_instance_valid(Editor.selected_block) or !(Editor.selected_block is Editor.DBScript):
@@ -56,6 +68,8 @@ func update_inspector(force := false):
 
 	if $DialogueBoxContainer.visible:
 		update_dialogue_box_container()
+
+	last_inspector_update = OS.get_ticks_msec()
 
 
 func update_dialogue_box_container():

@@ -471,22 +471,38 @@ func get_connections(include_self := false) -> Array:
 	if include_self:
 		all_tails.append(self)
 	var current_block : DialogueBlock = self
+	var safety_iterator : int = 0
 	while current_block.tail != "":
+		var child_count : int = Editor.blocks.get_child_count()
+		if !Editor.blocks.has_node(current_block.tail):
+			break
 		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
 		# Break if invalid next block or if next block is literally itself
 		if !Editor.is_node_alive(next_block) or next_block == null or current_block.tail == self.id:
 			break
 		all_tails.append(next_block)
 		current_block = next_block
+		safety_iterator += 1
+		if safety_iterator > child_count:
+			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
+			break
 	return all_tails
 
 func get_end_of_chain() -> DialogueBlock:
 	var current_block : DialogueBlock = self
+	var child_count : int = Editor.blocks.get_child_count()
+	var safety_iterator : int = 0
 	while current_block.tail != "":
+		if !Editor.blocks.has_node(current_block.tail):
+			break
 		var next_block : DialogueBlock = Editor.blocks.get_node(current_block.tail)
 		if !Editor.is_node_alive(next_block) or next_block == null or current_block.tail == self.id:
 			break
 		current_block = next_block
+		safety_iterator += 1
+		if safety_iterator > child_count:
+			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
+			break
 	if !Editor.is_node_alive(current_block):
 		return null
 	return current_block
@@ -537,3 +553,7 @@ func _process(delta):
 		release_connection_mode()
 
 	update()
+
+func _on_Button_button_down() -> void:
+	Editor.hovered_block = self
+	Editor.set_selected_block(self)
