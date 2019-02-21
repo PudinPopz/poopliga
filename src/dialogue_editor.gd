@@ -16,6 +16,8 @@ onready var blocks = get_node("Map/Blocks")
 onready var cursor = get_node("Map/Cursor")
 onready var control = get_node("Control")
 onready var script_mode = get_node("ScriptModeLayer/ScriptMode")
+onready var dimmer : ColorRect = $TopLayer/LoadingDimmer
+onready var dimmer_label : Label = $TopLayer/LoadingDimmer/Label
 
 var saveas_dialog
 
@@ -106,7 +108,7 @@ func _input(event):
 	# Select block on mouse click
 	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
 		# Additional check for if underneath active inspector
-		var overlaps_inspector = $InspectorLayer/Inspector/BGButton.is_hovered()
+		var overlaps_inspector : bool = true
 		if !$InspectorLayer/Inspector.visible or !overlaps_inspector:
 			set_selected_block(hovered_block)
 
@@ -140,6 +142,7 @@ func handle_focus_shortcuts(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	show_dimmer("Loading...")
 	theme = preload("res://themes/default_theme.tres")
 	current_folder = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	randomize()
@@ -147,6 +150,8 @@ func _ready():
 	reset()
 	saveas_dialog = create_saveas_file_dialog()
 	fix_popin_bug(10)
+
+	close_dimmer()
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -216,13 +221,23 @@ func _on_popup_hide():
 	MainCamera.freeze = false
 
 func _on_Save_pressed():
+	if System.use_os_file_io:
+		var path : String = CSharp.FileDialog.SaveFileDialog()
+		if path == null:
+			return
+		show_dimmer("Saving File")
+
+		save_as(path)
+		close_dimmer()
+		return
 	saveas_dialog.popup_centered(Vector2(1200,600))
 	saveas_dialog.current_dir = current_folder
 	saveas_dialog.current_file = current_file
 	saveas_dialog.rect_position += Vector2(0,10)
 	MainCamera.freeze = true
 
-func save_as(path):
+func save_as(path : String, show_loading_screen : bool = true):
+	show_dimmer("Saving File...")
 	var start_time = OS.get_ticks_msec()
 	var dict = save_blocks_to_dict()
 
@@ -240,6 +255,7 @@ func save_as(path):
 
 	current_file = get_filename_from_path(path)
 	current_folder = get_folder_from_path(path)
+	close_dimmer()
 
 
 func fill_with_garbage_blocks(amount):
@@ -324,6 +340,18 @@ func _on_New_pressed():
 
 
 func _on_Open_pressed():
+	# Use Windows file I/O if on windows
+	if System.use_os_file_io:
+		show_dimmer("Loading File...")
+		var path : String = CSharp.FileDialog.OpenFileDialog()
+		if path == null:
+			close_dimmer()
+			return
+
+		yield(get_tree().create_timer(0.0),"timeout")
+		_on_OpenFileWindow_file_selected(path)
+		return
+
 	var window = get_node("FrontWindows/OpenFileWindow")
 	window.current_dir = current_folder
 	window.current_file = current_file
@@ -337,6 +365,7 @@ func _on_Inspector_pressed() -> void:
 	get_inspector().visible = !get_inspector().visible
 
 func _on_OpenFileWindow_file_selected(path):
+	show_dimmer("Loading file...")
 	current_folder = get_folder_from_path(path)
 	current_file = get_filename_from_path(path)
 	var window = get_node("FrontWindows/OpenFileWindow")
@@ -357,6 +386,7 @@ func _on_OpenFileWindow_file_selected(path):
 	var message = "Loaded " + str(amount_of_blocks) +  " blocks in " + str(end_time - start_time) + "ms."
 	yield(get_tree().create_timer(0.1),"timeout")
 	push_message(message, 6.0)
+	close_dimmer()
 
 func _on_OpenFileWindow_popup_hide():
 	MainCamera.freeze = false
@@ -537,6 +567,14 @@ func popup_message(text : String, title : String = "", use_richtextlabel := fals
 		popup.dialog_text = ""
 
 	popup.popup_centered()
+
+func show_dimmer(text : String):
+	dimmer_label.text = text
+	dimmer.visible = true
+
+func close_dimmer():
+	dimmer.visible = false
+
 
 enum {
 	ctrl,

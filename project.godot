@@ -29,6 +29,8 @@ config/icon="res://sprites/icons/trash.png"
 
 [autoload]
 
+CSharp="*res://src/csharp/csharp.gd"
+System="*res://src/utils/system.gd"
 MainCamera="*res://src/main_camera.tscn"
 Editor="*res://src/dialogue_editor.tscn"
 
