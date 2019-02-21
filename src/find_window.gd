@@ -112,6 +112,7 @@ func on_block_selected(index):
 	var block : DialogueBlock = matches[index]
 	MainCamera.lerp_time = 0
 	MainCamera.lerp_camera_pos(block.rect_position)
+	Editor.set_selected_block(block)
 
 func get_included_block_types() -> Array:
 	var output : Array = []
