@@ -1,0 +1,5 @@
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Tools\McFakeFake Poopliga Dialogue Editor.dll
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Tools\McFakeFake Poopliga Dialogue Editor.pdb
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.dll
+C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.pdb

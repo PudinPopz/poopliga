@@ -37,7 +37,6 @@ var id := "" setget set_id, get_id
 var dialogue_string := "" setget set_dialogue_string, get_dialogue_string
 var character_name := "" setget set_character_name, get_character_name
 var tail := "" setget set_tail, get_tail
-var salsa_code := ""
 var extra_data := {} # Treated as "properties" if just a normal dialogue block
 
 # CHILD NODES
@@ -136,7 +135,6 @@ func serialize(): # Converts dialogue block fields to a dictionary. Yes, we're u
 		text = get_dialogue_string(),
 		char = get_character_name(),
 		tail = tail,
-		code = salsa_code,
 		posx = floor(rect_position.x), # JSON does not support Vector2
 		posy = floor(rect_position.y),
 		data = extra_data
@@ -193,7 +191,7 @@ func _input(event):
 
 			# Move any connections this block has (if enabled)
 
-			var move_as_chain_enabled = Editor.editor_settings.has("move_blocks_as_chain") and Editor.editor_settings["move_blocks_as_chain"] == true
+			var move_as_chain_enabled : bool = Editor.editor_settings.has("move_blocks_as_chain") and Editor.editor_settings["move_blocks_as_chain"] == true
 			# Move as chain is shift + disabled or !shift + enabled
 			if (!move_as_chain_enabled and Editor.is_modifier_down("shift")) or (move_as_chain_enabled and !Editor.is_modifier_down("shift")):
 				for block in _all_connections:
@@ -409,6 +407,7 @@ func _on_Id_Label_focus_exited():
 	anim_player.play("spawn")
 
 func _on_TailConnector_button_down():
+	Editor.set_selected_block(self)
 	in_connecting_mode = true
 	tail = ""
 	MainCamera.CURRENT_CONNECTION_HEAD_NODE = self
@@ -418,22 +417,25 @@ func _on_TailConnector_button_down():
 	$NinePatchRect.grab_focus()
 	MainCamera.LAST_MODIFIED_BLOCK = self
 
+	# Spawn new block on double click
+	var new_block : DialogueBlock = null
 	if Editor.double_click_timer > 0.001:
 		# Register double click
-		spawn_block_below()
+		new_block  = spawn_block_below()
+
 
 	Editor.double_click_timer = Editor.double_click_timer_time
-
+	# If a new block has been spawned, select it.
+	if Editor.is_node_alive(new_block):
+		yield(get_tree().create_timer(0), "timeout")
+		Editor.set_selected_block(new_block)
 
 func _on_TailConnector_button_up():
-	Editor.set_selected_block(self)
 	pass
 
 # Selecting block
 func _on_NinePatchRect_focus_entered():
 	Editor.hovered_block = self
-
-
 
 func release_connection_mode():
 	tail = ""
@@ -521,7 +523,6 @@ func _draw():
 	$LineDrawNode.update()
 
 func _process(delta):
-
 	if node_type == NODE_TYPE.meta_block:
 		if name != "__META__*****": # Do not rest until id is changed
 			id = "__META__*****"

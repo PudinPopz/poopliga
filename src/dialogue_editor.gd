@@ -56,7 +56,7 @@ func _input(event):
 	# CTRL + Enter: Go to next in chain
 	# TODO: Add system for remembering previous and jumping back to it
 	# TODO: Also maybe clean this because it's kinda a mess
-	if is_ctrl_down and Input.is_action_just_pressed("enter"):
+	if is_ctrl_down and (Input.is_action_just_pressed("enter") or Input.is_action_just_pressed("space")):
 		if is_instance_valid(focus) and focus is TextEdit and focus.name == "DialogueTextEdit" or \
 		is_node_alive(selected_block):
 
@@ -80,8 +80,6 @@ func _input(event):
 					yield(get_tree().create_timer(0), "timeout")
 					tail_block.dialogue_line_edit.readonly = false
 					set_selected_block(tail_block)
-
-
 
 	# CTRL + T: Script mode
 	if is_ctrl_down and Input.is_action_just_pressed("t"):
@@ -149,9 +147,6 @@ func _ready():
 	reset()
 	saveas_dialog = create_saveas_file_dialog()
 	fix_popin_bug(10)
-
-
-
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -311,7 +306,6 @@ func _on_BackUIButton_pressed():
 		spawn_block(DB.NODE_TYPE.dialogue_block, true)
 		# TODO: ADD UNDO EQUIVALENT TO BUFFER
 
-
 	double_click_timer = double_click_timer_time
 
 var confirm_create_new = null
@@ -327,17 +321,6 @@ func _on_New_pressed():
 		get_node("FrontWindows").add_child(confirm_create_new)
 		confirm_create_new.connect("confirmed",self,"reset")
 	confirm_create_new.popup_centered()
-
-func _on_Find_pressed():
-
-	$FrontWindows/FindWindow.popup_centered()
-
-	$FrontWindows/FindWindow/HBoxContainer2/LineEdit.placeholder_text =$FrontWindows/FindWindow/HBoxContainer2/LineEdit.text
-	$FrontWindows/FindWindow/HBoxContainer2/LineEdit.text = ""
-
-	$FrontWindows/FindWindow/HBoxContainer2/LineEdit.grab_focus()
-
-	pass # Replace with function body.
 
 
 func _on_Open_pressed():
@@ -416,7 +399,6 @@ func add_block_from_key(dict, key):
 	block.dialogue_line_edit.text = values_dict["text"]
 	block.set_character_name(values_dict["char"])
 	block.set_dialogue_string(values_dict["text"])
-	block.salsa_code = values_dict["code"]
 	block.extra_data = values_dict["data"]
 	block.update_dialogue_rich_text_label()
 
@@ -488,27 +470,6 @@ func undo_last():
 
 var prev_window_size = Vector2(100,100)
 
-func _on_FindWindow_confirmed():
-	var given_id = $FrontWindows/FindWindow/HBoxContainer2/LineEdit.text
-	if given_id == "":
-		given_id = $FrontWindows/FindWindow/HBoxContainer2/LineEdit.placeholder_text
-		$FrontWindows/FindWindow/HBoxContainer2/LineEdit.text = given_id
-
-	given_id = given_id.strip_edges()
-
-	if blocks.has_node(given_id) and given_id != "" :
-		var node =blocks.get_node(given_id)
-		#MainCamera.pan_mode = true
-		MainCamera.lerp_camera_pos(node.rect_position + Vector2(0, 200))
-
-		MainCamera.update_rendered(true , -1)
-		MainCamera.update()
-
-		#OS.set_window_size(Vector2(100,100))
-		fix_popin_bug()
-	else:
-		$FrontWindows/FindWindow.popup_centered()
-		$FrontWindows/FindWindow/HBoxContainer2/LineEdit.grab_focus()
 
 func _on_CursorArea_area_entered(area):
 	if area.get_parent() is DBScript:
@@ -521,16 +482,11 @@ func _on_CursorArea_area_exited(area: Area2D) -> void:
 var _popin_fix_pending = false
 var _popin_fix_pending_timer = -1
 
-
 func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
 	prev_window_size = OS.get_window_safe_area().size
 	OS.set_window_size(Vector2(prev_window_size.x+1,prev_window_size.y+1))
 	_popin_fix_pending = true
 	_popin_fix_pending_timer = timer
-
-
-func force_redraw():
-	pass
 
 func set_selected_block(value):
 	var previous_block = selected_block

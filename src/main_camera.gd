@@ -25,7 +25,6 @@ func _ready():
 	update_rendered(true, -1)
 	set_physics_process(true)
 
-
 var scroll_spd = 180
 var zoom_spd = 1.5
 var zoom_level_max = 3
@@ -209,10 +208,10 @@ func _process(delta):
 	# Lerping
 	if in_lerp:
 		if !pan_mode:
-			if lerp_time >= 1.0:
-				position = position.linear_interpolate(target_pos, pow(lerp_time, 2))
-			else:
-				position = position.linear_interpolate(target_pos, lerp_time)
+			#if lerp_time >= 1.0:
+			#	position = position.linear_interpolate(target_pos, pow(lerp_time, 2))
+			#else:
+			position = position.linear_interpolate(target_pos, lerp_time)
 		lerp_time += 1*delta
 
 	if lerp_time >= lerp_finish_time or (pan_mode and lerp_time >= 0.1):
@@ -222,28 +221,6 @@ func _process(delta):
 
 	position.x = clamp(position.x, limit_left, limit_right)
 	position.y = clamp(position.y, limit_top, limit_bottom)
-
-
-	# Apply end smoothing TODO: Implement this
-
-
-
-	# if !pan_mode:
-	# 	var new_magnitude = raw_velocity.length()
-	# 	new_magnitude -= ((1.0/(0.5*(new_magnitude + 1))) * 100 * (1.0/60.0))
-
-	# 	new_magnitude = clamp(new_magnitude, 0, 30)
-
-	# 	raw_velocity = new_magnitude * raw_velocity.normalized()
-	#
-
-	# 	position += raw_velocity #* (200*delta)
-
-	# raw_velocity = (position - previous_pos)
-	# previous_pos = position
-
-
-
 
 	# Zoom out
 	if is_modifier_down(MODIFIER.alt) and (Input.is_key_pressed(KEY_F) or Input.is_key_pressed(KEY_Z)):
@@ -258,7 +235,7 @@ func _process(delta):
 		no_zoom_limit = false
 		update_zoom()
 
-func lerp_camera_pos(target, seconds = 1.0, reset_time = false):
+func lerp_camera_pos(target : Vector2, seconds : float = 1.0, reset_time : bool = false):
 	in_lerp = true
 	target_pos = target
 	lerp_finish_time = seconds
