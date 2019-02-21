@@ -213,6 +213,8 @@ func _input(event):
 		previous_pos = rect_position
 		mouse_previous_pos = mouse_pos
 		dragging = true
+		Editor.hovered_block = self
+		Editor.selected_block = self
 
 	if Input.is_action_just_released("click"):
 		just_created = false
@@ -250,6 +252,8 @@ func _on_DraggableSegment_pressed():
 	MainCamera.LAST_MODIFIED_BLOCK = self
 	if Input.is_action_pressed("x"):
 		_on_DeleteButton_pressed()
+	Editor.hovered_block = self
+	Editor.set_selected_block(self)
 
 func _on_DeleteButton_button_down():
 	move_to_front()
@@ -303,6 +307,8 @@ func _on_DialogueTextEdit_focus_entered():
 	set_process_input(true)
 	MainCamera.LAST_MODIFIED_BLOCK = self
 	Editor.hovered_block = self
+	if Input.is_action_just_pressed("click") or Input.is_action_just_released("click"):
+		Editor.set_selected_block(self)
 
 func _on_DialogueTextEdit_focus_exited():
 	set_process_input(false)
@@ -430,11 +436,14 @@ func _on_TailConnector_button_down():
 		Editor.set_selected_block(new_block)
 
 func _on_TailConnector_button_up():
-	pass
+	Editor.set_selected_block(self)
+
 
 # Selecting block
 func _on_NinePatchRect_focus_entered():
 	Editor.hovered_block = self
+	if Input.is_action_just_pressed("click") or Input.is_action_just_released("click"):
+		Editor.set_selected_block(self)
 
 func release_connection_mode():
 	tail = ""
@@ -557,3 +566,21 @@ func _process(delta):
 func _on_Button_button_down() -> void:
 	Editor.hovered_block = self
 	Editor.set_selected_block(self)
+
+
+func _on_DialogueRichTextLabel_meta_clicked(meta) -> void:
+	Editor.hovered_block = self
+	Editor.set_selected_block(self)
+	pass # Replace with function body.
+
+
+func _on_DialogueRichTextLabel_gui_input(event: InputEvent) -> void:
+	Editor.hovered_block = self
+	Editor.set_selected_block(self)
+	pass # Replace with function body.
+
+
+func _on_DialogueTextEdit_cursor_changed() -> void:
+	Editor.hovered_block = self
+	Editor.set_selected_block(self)
+	pass # Replace with function body.
