@@ -336,7 +336,6 @@ custom_fonts/font = SubResource( 4 )
 text = "Loading..."
 
 [node name="Map" type="Control" parent="."]
-editor/display_folded = true
 
 [node name="GridBG" type="Node2D" parent="Map"]
 script = ExtResource( 4 )
@@ -360,7 +359,6 @@ texture = ExtResource( 6 )
 shape = SubResource( 5 )
 
 [node name="InspectorLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 3
 
 [node name="Inspector" type="Panel" parent="InspectorLayer"]

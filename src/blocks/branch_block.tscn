@@ -26,24 +26,17 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-
 [sub_resource type="StyleBoxEmpty" id=2]
-
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
-
 [sub_resource type="StyleBoxEmpty" id=4]
-
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
-
 [sub_resource type="StyleBoxEmpty" id=6]
 
-
 [sub_resource type="Theme" id=7]
-
 default_font = ExtResource( 18 )
 LineEdit/colors/clear_button_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
@@ -60,7 +53,6 @@ LineEdit/styles/read_only = null
 SpinBox/icons/updown = null
 
 [sub_resource type="Animation" id=8]
-
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
@@ -77,7 +69,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=9]
-
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("NinePatchRect:modulate")
@@ -93,11 +84,9 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=10]
-
 extents = Vector2( 341.65, 67.4807 )
 
 [sub_resource type="RectangleShape2D" id=11]
-
 extents = Vector2( 21.0916, 17.0142 )
 
 [node name="BranchBlock" type="Control" groups=[

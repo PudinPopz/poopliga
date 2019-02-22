@@ -49,8 +49,13 @@ var last_autosave : int = -99999
 
 var editor_settings = {}
 
+var viewport_mouse_pos : Vector2 = Vector2()
+
 func _input(event):
 	cursor.position = get_global_mouse_position()
+
+	if event is InputEventMouseMotion:
+		viewport_mouse_pos = event.position
 
 	if event is InputEventWithModifiers and !event.is_echo():
 		is_ctrl_down = event.control or event.command
@@ -111,9 +116,13 @@ func _input(event):
 
 	# Select block on mouse click
 	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
+		# Mouse in viewport coordinates
+		var overlaps_inspector : bool = viewport_mouse_pos.x >= Editor.get_inspector().rect_position.x
 		# Additional check for if underneath active inspector
-		var overlaps_inspector : bool = true
-		if !$InspectorLayer/Inspector.visible or !overlaps_inspector:
+		if $InspectorLayer/Inspector.visible:
+			if !overlaps_inspector:
+				set_selected_block(hovered_block)
+		else:
 			set_selected_block(hovered_block)
 
 
@@ -651,3 +660,4 @@ static func get_filename_from_path(path: String):
 	path = path.replace("\\", "/")
 	var end_index = path.rfind("/")
 	return path.substr(end_index + 1, path.length())
+
