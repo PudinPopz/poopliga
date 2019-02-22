@@ -36,7 +36,7 @@ var current_meta_block = null
 var focus = null
 var last_focus = null
 
-var selected_block = null setget set_selected_block
+var selected_block : DialogueBlock = null setget set_selected_block
 var hovered_block = null
 
 var rect_selected_blocks = []
@@ -362,7 +362,6 @@ func _on_BackUIButton_pressed():
 	# Spawn regular block if no modifiers
 	elif double_click_timer > 0.001 or Input.is_action_pressed("ctrl") or is_ctrl_down:
 		# Register double click
-
 		spawn_block(DB.NODE_TYPE.dialogue_block, true)
 		# TODO: ADD UNDO EQUIVALENT TO BUFFER
 
@@ -530,6 +529,8 @@ func undo_last():
 	var event : String = last_command[0]
 	var value = last_command[1]
 
+	var previously_selected_block = selected_block
+
 	match event:
 		"deleted": # This event can apply to one or many blocks, which explains the nested dictionaries and overall jank.
 			# Undelete block (spawn back)
@@ -561,15 +562,18 @@ func undo_last():
 
 				undeleted_blocks.append(undeleted_block)
 
-
-
-
 			update_inspector(true)
 
 			if undeleted_blocks.size() == 1:
 				push_message("UNDO: Deleted block " + undeleted_blocks[0].id + ".")
 			else:
 				push_message("UNDO: Deleted " + str(dict.size()) + " blocks.")
+
+
+			# Select previously selected block to fix bug where undeleted block would for some reason be selected
+			# (BUG ACTUALLY WORKS AS A NICE FEATURE - WILL KEEP FOR THE TIME BEING)
+			#yield(get_tree().create_timer(0), "timeout")
+			#set_selected_block(previously_selected_block)
 
 var prev_window_size = Vector2(100,100)
 
@@ -592,6 +596,9 @@ func fix_popin_bug(timer = 2): # TODO: Rename as to not confuse things
 	_popin_fix_pending_timer = timer
 
 func set_selected_block(value):
+	# If value is string, convert it to dialogue block.
+	if value is String:
+		value = blocks.get_node(value) as DialogueBlock
 	var previous_block = selected_block
 	selected_block = value
 
