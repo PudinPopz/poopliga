@@ -26,10 +26,11 @@ func _draw():
 		draw_line(_line_start_pos, _tail_location, Color.white, 4, true)
 
 	# If node has a defined tail node
-	if get_parent().tail != "":
-		var tail_node = Editor.blocks.get_node(get_parent().tail)
+	var tail : String = get_parent().tail
+	if tail != "" and Editor.blocks.has_node(tail):
+		var tail_node = Editor.blocks.get_node(tail)
 		if tail_node == null:
-			get_parent().tail = ""
+			get_parent().set_tail("")
 			return
 		_tail_location = tail_node.rect_position
 		_tail_location.y += 14

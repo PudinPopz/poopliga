@@ -77,12 +77,13 @@ func update_dialogue_box_container():
 
 
 func update_dialogue_properties_vbox():
-	# Update info text
+	# Update info text (TODO: Make terminology less confusing)
 	var info_text := ""
-	var block_connections = Editor.selected_block.get_connections()
-	info_text += "Number of connections: " + str(block_connections.size()) + "\n"
+	var connections_in_chain : Array = Editor.selected_block.get_connections_in_chain()
+	info_text += "Number of connections in chain: " + str(connections_in_chain.size()) + "\n"
 	info_text += "Next connection: " + Editor.selected_block.tail + "\n"
-	info_text += "End of chain: " + Editor.selected_block.get_end_of_chain().id
+	info_text += "End of chain: " + Editor.selected_block.get_end_of_chain().id + "\n"
+	info_text += "Block(s) connected to this: " + str(Editor.selected_block.connected_blocks)
 
 	$DialogueBoxContainer/Control/PropertiesVBox/InfoText.bbcode_text = info_text
 

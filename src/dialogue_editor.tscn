@@ -484,7 +484,6 @@ texture_pressed = ExtResource( 13 )
 expand = true
 
 [node name="DialogueBoxContainer" type="ScrollContainer" parent="InspectorLayer/Inspector"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -508,13 +507,16 @@ custom_constants/separation = 10
 
 [node name="InfoText" type="RichTextLabel" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
 margin_right = 405.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 0, 90 )
+margin_bottom = 110.0
+rect_min_size = Vector2( 0, 110 )
 focus_mode = 2
 custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
 bbcode_text = "<INFO TEXT>"
-text = "<INFO TEXT>"
+text = "<INFO TEXT>
+Line 2
+Line 3
+Line 4"
 selection_enabled = true
 
 [node name="CustomAttributeSeparator" type="VSeparator" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
@@ -525,9 +527,9 @@ margin_bottom = 103.0
 custom_styles/separator = SubResource( 14 )
 
 [node name="CustomAttributeTemplate" type="HBoxContainer" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
-margin_top = 100.0
+margin_top = 120.0
 margin_right = 405.0
-margin_bottom = 127.0
+margin_bottom = 147.0
 
 [node name="Label" type="Label" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox/CustomAttributeTemplate"]
 margin_right = 221.0

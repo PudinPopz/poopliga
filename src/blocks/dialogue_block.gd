@@ -63,6 +63,7 @@ var mouse_offset := Vector2(0,0)
 var on_screen : bool = false
 var title_bar_hovered : bool = false
 var in_connecting_mode : bool = false
+var connected_blocks : Array = [] # Blocks connected to this one
 
 var force_process_input : bool = false
 
@@ -96,6 +97,7 @@ func _ready():
 	# Play spawn animation
 	if hand_placed:
 		anim_player.play("spawn")
+		$AudioStreamPlayer.play()
 		nine_patch_rect.visible = true
 
 	# Do rest of stuff on frame after ready
@@ -170,7 +172,7 @@ func _input(event):
 		_starting_pos = rect_position
 
 		# Update _all_connections with their starting positions on first frame of clicking
-		var connections := get_connections()
+		var connections := get_connections_in_chain()
 		# Get starting positions of all connections
 		for connection in connections:
 			_all_connections[connection] = connection.rect_position
@@ -277,20 +279,43 @@ func _on_DeleteButton_pressed():
 	# To avoid filling up the delete queue upon spamming of the delete button,
 	# the code checks if the block is already condemned (i.e. in the death animation)
 	if previous_anim != "kill":
+		# Even though this is a single block, it will be treated the same by the undo system as if it were multiple.
+		# This means it must be wrapped inside another dict.
 		var dict = {}
-		dict[self.id] = self.serialize()
+		# Include serialised block data, as well as other things like what blocks were connected.
+		dict[self.id] = {
+			"block_dict" : self.serialize(),
+			"connected_blocks" : connected_blocks.duplicate()
+		}
+
 		Editor.undo_buffer.append(["deleted", dict])
+		clear_connected_tail_blocks()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"kill":
-			# Tell Camera2D to reset array of last rendered stuff
-			# (workaround for null pointer)
-			MainCamera.last_blocks_on_screen = []
-			if Editor.selected_block == self:
-				Editor.selected_block = null
-
+			before_destroy()
 			self.queue_free() # actually kill
+
+# Stuff meant to be called BEFORE queue_free().
+func before_destroy() -> void:
+	# Tell Camera2D to reset array of last rendered stuff
+	# (workaround for null pointer)
+	MainCamera.last_blocks_on_screen = []
+	if Editor.selected_block == self:
+		Editor.selected_block = null
+	# Remove references to self from old tail by setting current tail blank
+	set_tail("")
+	# Do this just to be safe
+	clear_connected_tail_blocks()
+
+# Clear tails of blocks connected to this
+func clear_connected_tail_blocks():
+	for tail in connected_blocks:
+		var tail_block : DialogueBlock = Editor.blocks.get_node(tail)
+		tail_block.set_tail("")
+		tail_block.visible = false
+		tail_block.visible = true
 
 
 func _on_DraggableSegment_mouse_entered():
@@ -391,9 +416,23 @@ func get_character_name():
 	return character_line_edit.text
 
 func set_tail(new_tail):
+	var old_tail : String = tail
 	tail = new_tail
+	update_connections(old_tail, new_tail)
 	update()
 	Editor.update_inspector(true)
+
+func update_connections(old_tail : String, new_tail : String):
+	# Remove self from old tail's list of connected nodes
+	if old_tail != "" and Editor.blocks.has_node(old_tail):
+		var old_tail_block : DialogueBlock = Editor.blocks.get_node(old_tail)
+		old_tail_block.connected_blocks.erase(self.id)
+
+	# Add self to new tail's list of connected nodes
+	if new_tail != "" and Editor.blocks.has_node(new_tail):
+		var new_tail_block : DialogueBlock = Editor.blocks.get_node(new_tail)
+		if !new_tail_block.connected_blocks.has(self.id):
+			new_tail_block.connected_blocks.append(self.id)
 
 func get_tail():
 	return tail
@@ -414,7 +453,7 @@ func _on_Id_Label_focus_exited():
 func _on_TailConnector_button_down():
 	Editor.set_selected_block(self)
 	in_connecting_mode = true
-	tail = ""
+	set_tail("")
 	MainCamera.CURRENT_CONNECTION_HEAD_NODE = self
 	update()
 	set_process(true)
@@ -446,13 +485,13 @@ func _on_NinePatchRect_focus_entered():
 		Editor.set_selected_block(self)
 
 func release_connection_mode():
-	tail = ""
+	set_tail("")
 
 	if MainCamera.CURRENT_CONNECTION_HEAD_NODE != self:
 		return
 
 	if Editor.is_node_alive(MainCamera.CURRENT_CONNECTION_TAIL_NODE) and MainCamera.CURRENT_CONNECTION_TAIL_NODE != self:
-		tail = MainCamera.CURRENT_CONNECTION_TAIL_NODE.id
+		set_tail(MainCamera.CURRENT_CONNECTION_TAIL_NODE.id)
 
 	in_connecting_mode = false
 	MainCamera.CURRENT_CONNECTION_HEAD_NODE = null
@@ -465,7 +504,7 @@ func spawn_block_below():
 	release_connection_mode()
 	var tail_block = Editor.spawn_block(NODE_TYPE.dialogue_block, false, rect_position + Vector2(0,600))
 	tail_block.randomise_id()
-	tail = tail_block.id
+	set_tail(tail_block.id)
 	MainCamera.lerp_camera_pos(Vector2(MainCamera.position.x, tail_block.rect_position.y) + Vector2(0, 200), 0.5)
 	tail_block.dialogue_line_edit.grab_focus()
 	MainCamera.CURRENT_CONNECTION_TAIL_NODE = tail_block
@@ -475,7 +514,7 @@ func spawn_block_below():
 
 	return tail_block
 
-func get_connections(include_self := false) -> Array:
+func get_connections_in_chain(include_self := false) -> Array:
 	var all_tails := []
 	if include_self:
 		all_tails.append(self)

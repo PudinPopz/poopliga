@@ -157,7 +157,6 @@ func handle_focus_shortcuts(event):
 	elif event.alt and event.scancode in [KEY_D, KEY_T]:
 		block.dialogue_line_edit.grab_focus()
 	elif event.alt and event.scancode == KEY_I:
-		print("ID FOCUS")
 		block.id_label.grab_focus()
 
 
@@ -311,7 +310,7 @@ func fill_with_garbage_blocks(amount):
 		new_block.rect_position = Vector2(0,rand_range(0,9990))
 		new_block.fill_with_garbage()
 
-func spawn_block(node_type := DB.NODE_TYPE.dialogue_block, hand_placed = false, pos := Vector2(0,0), add_child := true):
+func spawn_block(node_type := DB.NODE_TYPE.dialogue_block, hand_placed = false, pos := Vector2(0,0), add_child := true) -> DialogueBlock:
 	var block_pos = pos
 
 	var node_to_spawn = DialogueBlock
@@ -456,15 +455,19 @@ func load_blocks_from_json(json) -> int: # Returns number of blocks
 			add_block_from_key(dict, key)
 			number_of_blocks += 1
 
+	# Ensure all blocks have the right connection data (force set tails)
+	for block in blocks.get_children():
+		block.update_connections(block.tail, block.tail)
+
 	return number_of_blocks
 
 func add_block_from_key(dict, key):
-	var values_dict = dict[key]
-	var id = key
-	var node_type = int(values_dict["type"])
-	var pos = Vector2(values_dict["posx"], values_dict["posy"])
+	var values_dict : Dictionary = dict[key]
+	var id : String = key
+	var node_type : int = int(values_dict["type"])
+	var pos : Vector2 = Vector2(values_dict["posx"], values_dict["posy"])
 
-	var block = spawn_block(node_type)
+	var block : DialogueBlock = spawn_block(node_type)
 	block.set_id(id)
 	block.rect_position = pos
 	block.node_type = node_type
@@ -528,19 +531,43 @@ func undo_last():
 	var value = last_command[1]
 
 	match event:
-		"deleted":
+		"deleted": # This event can apply to one or many blocks, which explains the nested dictionaries and overall jank.
 			# Undelete block (spawn back)
 			var dict : Dictionary = value
-			var undeleted_block
+			var undeleted_blocks : Array = []
+
+			# If only one block is being deleted, this will only loop once.
 			for key in dict.keys():
+				# Overwrite block if already exists somehow
+				var block_dict : Dictionary = dict[key]["block_dict"]
+				var connected_blocks : Array = dict[key]["connected_blocks"]
 				if blocks.has_node(key):
 					var block_to_delete = blocks.get_node(key)
 					block_to_delete.name = key + "_PD"
 					block_to_delete.queue_free()
-				undeleted_block = Editor.add_block_from_key(dict, key)
-				update_inspector(true)
-			if dict.size() == 1:
-				push_message("UNDO: Deleted block " + undeleted_block.id + ".")
+
+				# Convert to format able to be read by add_block_from_key()
+				var simulated_dict : Dictionary = {}
+				simulated_dict[key] = block_dict
+				var undeleted_block : DialogueBlock = Editor.add_block_from_key(simulated_dict, key)
+				# Try to connect previously connected blocks back to this block
+				for block_id in connected_blocks:
+					if !blocks.has_node(block_id):
+						continue
+					var connected_block : DialogueBlock = blocks.get_node(block_id)
+					# Connect to this one if empty
+					if connected_block.tail == "":
+						connected_block.set_tail(undeleted_block.id)
+
+				undeleted_blocks.append(undeleted_block)
+
+
+
+
+			update_inspector(true)
+
+			if undeleted_blocks.size() == 1:
+				push_message("UNDO: Deleted block " + undeleted_blocks[0].id + ".")
 			else:
 				push_message("UNDO: Deleted " + str(dict.size()) + " blocks.")
 
