@@ -1,5 +1,5 @@
 extends Control
-
+# TODO: Separate behaviours into different nodes/scripts rather than having this one huge file.
 const MetaBlock = preload("res://src/blocks/meta_block.tscn")
 const DBScript = preload("res://src/blocks/dialogue_block.gd")
 const DialogueBlock = preload("res://src/blocks/dialogue_block.tscn")
