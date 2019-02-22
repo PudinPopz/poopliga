@@ -131,11 +131,16 @@ func _input(event):
 		if is_alt_down:
 			handle_focus_shortcuts(event)
 		else:
-			# I for Inspector
 			if focus == null or !(focus is LineEdit or focus is TextEdit):
+				# I for Inspector
 				if Input.is_key_pressed(KEY_I) or Input.is_key_pressed(KEY_E):
 					update_inspector(true)
-					$InspectorLayer/Inspector.visible = !$InspectorLayer/Inspector.visible
+					get_inspector().visible = !get_inspector().visible
+				# F for focus camera on block
+				elif Input.is_key_pressed(KEY_F):
+					if is_node_alive(selected_block):
+						MainCamera.lerp_camera_pos(selected_block.rect_position, 1.0, true)
+
 
 func handle_focus_shortcuts(event):
 	if focus == null:
