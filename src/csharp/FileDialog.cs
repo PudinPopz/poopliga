@@ -12,43 +12,64 @@ public class FileDialog : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        
     }
 
+    [STAThread]
     public static string OpenFileDialog()
     {
-        var openFileDialog = new OpenFileDialog
+        // Try catch blocks seem to reduce the likelihood of crashing.
+        try
         {
-            InitialDirectory = "C:/Users/jamie/Desktop/",
-            Filter = "Poopliga files (*.poopliga, *.ppga, *.json)|*.poopliga;*.ppga;*.json|All files (*.*)|*.*",
-            FilterIndex = 1,
-            RestoreDirectory = false
-        };
+            var openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = "C:/Users/jamie/Desktop/",
+                Filter = "Poopliga files (*.poopliga, *.ppga, *.json)|*.poopliga;*.ppga;*.json|All files (*.*)|*.*",
+                FilterIndex = 1,
+                //ShowHelp = true,
+                RestoreDirectory = false
+            };
 
-
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
+            var result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var path = openFileDialog.FileName;
+                return path;
+            }
+        }
+        catch
         {
-            var path = openFileDialog.FileName;
-            return path;
+            return null;
         }
 
         return null;
     }
-    
+
+    [STAThread]
     public static string SaveFileDialog()
     {
-        var saveFileDialog = new SaveFileDialog
+        // Try catch blocks seem to reduce the likelihood of crashing.
+        try
         {
-            InitialDirectory = "C:/Users/jamie/Desktop/",
-            Filter = "Poopliga files (*.poopliga, *.ppga, *.json)|*.poopliga;*.ppga;*.json|All files (*.*)|*.*",
-            FilterIndex = 1,
-            RestoreDirectory = false
-        };
+            var saveFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = "C:/Users/jamie/Desktop/",
+                Filter = "Poopliga files (*.poopliga, *.ppga, *.json)|*.poopliga;*.ppga;*.json|All files (*.*)|*.*",
+                FilterIndex = 1,
+                //ShowHelp = true,
+                RestoreDirectory = false
+            };
 
-
-        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            var result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var path = saveFileDialog.FileName;
+                return path;
+            }
+        }
+        catch
         {
-            var path = saveFileDialog.FileName;
-            return path;
+            return null;
         }
 
         return null;
