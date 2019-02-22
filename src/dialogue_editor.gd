@@ -148,13 +148,16 @@ func handle_focus_shortcuts(event):
 		if focus == null:
 			return
 	var block = focus.owner
+	if !(block is DBScript):
+		block = block.owner
 	if block == null or !(block is DBScript):
 		return
 	if event.alt and event.scancode == KEY_C:
 		block.character_line_edit.grab_focus()
-	if event.alt and event.scancode == KEY_D:
+	elif event.alt and event.scancode in [KEY_D, KEY_T]:
 		block.dialogue_line_edit.grab_focus()
-	if event.alt and event.scancode == KEY_I:
+	elif event.alt and event.scancode == KEY_I:
+		print("ID FOCUS")
 		block.id_label.grab_focus()
 
 
