@@ -287,7 +287,9 @@ func _on_DeleteButton_pressed():
 		dict[self.id] = {
 			"block_dict" : self.serialize(),
 			"previous_blocks" : previous_blocks.duplicate()
+
 		}
+		# TODO: Make branch blocks behave like normal blocks with regards to undoing stuff
 
 		Editor.undo_buffer.append(["deleted", dict])
 		clear_connected_tail_blocks()
@@ -434,10 +436,19 @@ func set_character_name(new_character_name):
 	update_placeholder_text_in_chain()
 
 # TODO: Make this function make more sense.
+
+# Recursion prevention
+var update_placeholder_text_in_chain_recursions = -1
 func update_placeholder_text_in_chain(check_previous : bool = true):
+
 	# Do nothing if editor is in the process of loading stuff
 	if Editor.is_still_loading:
 		return
+
+	if update_placeholder_text_in_chain_recursions >= 4:
+		return
+
+	update_placeholder_text_in_chain_recursions += 1
 
 	character_line_edit.placeholder_text = ""
 
@@ -468,7 +479,7 @@ func update_placeholder_text_in_chain(check_previous : bool = true):
 				var previous_block : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
 				character_placeholder_source = previous_block.character_placeholder_source
 				update_placeholder_text_in_chain(false)
-
+	update_placeholder_text_in_chain_recursions = -1
 
 
 func are_previous_block_characters_the_same() -> bool:
@@ -618,7 +629,7 @@ func get_connections_in_chain(include_self := false) -> Array:
 		all_tails.append(next_block)
 		current_block = next_block
 		safety_iterator += 1
-		if safety_iterator > child_count:
+		if safety_iterator > child_count or current_block == self:
 			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
 			break
 	return all_tails
@@ -636,7 +647,7 @@ func get_end_of_chain() -> DialogueBlock:
 			break
 		current_block = next_block
 		safety_iterator += 1
-		if safety_iterator > child_count:
+		if safety_iterator > child_count or (safety_iterator >= 2 and current_block == self):
 			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
 			break
 	if !Editor.is_node_alive(current_block):
