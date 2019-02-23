@@ -184,6 +184,7 @@ margin_bottom = 435.0
 [node name="CharacterLineEdit" parent="NinePatchRect/Dialogue" index="2"]
 focus_next = NodePath("../../DialogueTextEdit")
 focus_previous = NodePath("../../TitleBar/Id_Label")
+placeholder_alpha = 0.4
 
 [node name="DialogueRichTextLabel" parent="NinePatchRect/Dialogue" index="3"]
 mouse_filter = 2

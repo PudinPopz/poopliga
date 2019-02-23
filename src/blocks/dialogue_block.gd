@@ -306,6 +306,8 @@ func before_destroy() -> void:
 		Editor.selected_block = null
 	# Remove references to self from old tail by setting current tail blank
 	set_tail("")
+	# Clear placeholder text of blocks below this
+	set_character_name("")
 	# Do this just to be safe
 	clear_connected_tail_blocks()
 
@@ -411,6 +413,21 @@ func get_dialogue_string():
 
 func set_character_name(new_character_name):
 	character_name = new_character_name
+	update_placeholder_text_in_chain()
+
+func update_placeholder_text_in_chain():
+	# Do nothing if editor is in the process of loading stuff
+	if Editor.is_still_loading:
+		return
+	# Do nothing if no character name
+	if character_name == "":
+		return
+	# Update placeholder text of nodes in chain
+	for block in get_connections_in_chain():
+		if block.character_line_edit.text != "":
+			break
+		block.character_line_edit.placeholder_text = character_name
+		block.character_line_edit.placeholder_alpha = 0.4
 
 func get_character_name():
 	return character_line_edit.text
@@ -423,6 +440,9 @@ func set_tail(new_tail):
 	Editor.update_inspector(true)
 
 func update_connections(old_tail : String, new_tail : String):
+	# Do nothing if editor is in the process of loading stuff
+	if Editor.is_still_loading:
+		return
 	# Remove self from old tail's list of connected nodes
 	if old_tail != "" and Editor.blocks.has_node(old_tail):
 		var old_tail_block : DialogueBlock = Editor.blocks.get_node(old_tail)
@@ -514,6 +534,7 @@ func spawn_block_below():
 
 	return tail_block
 
+# Returns an array of DialogueBlocks that are subsequent connections of this block.
 func get_connections_in_chain(include_self := false) -> Array:
 	var all_tails := []
 	if include_self:
@@ -535,6 +556,32 @@ func get_connections_in_chain(include_self := false) -> Array:
 			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
 			break
 	return all_tails
+
+
+func get_actual_character():
+	if character_line_edit.text != "":
+		return character_line_edit.text
+	var character : String = ""
+	var current_block : DialogueBlock = self
+	var safety_iterator : int = 0
+	while current_block.connected_blocks.size() == 1:
+		var child_count : int = Editor.blocks.get_child_count()
+		if !Editor.blocks.has_node(current_block.tail):
+			break
+		var previous_block_id : String = current_block.connected_blocks[0]
+		var previous_block : DialogueBlock = Editor.blocks.get_node(previous_block_id)
+		# Break if invalid previous_block or if previous_block is literally itself
+		if !Editor.is_node_alive(previous_block) or previous_block == null or previous_block.id == self.id:
+			break
+		if previous_block.character_line_edit.text != "":
+			character = previous_block.character_line_edit.text
+			break
+		current_block = previous_block
+		safety_iterator += 1
+		if safety_iterator > child_count:
+			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
+			break
+	return character
 
 func get_end_of_chain() -> DialogueBlock:
 	var current_block : DialogueBlock = self
@@ -585,6 +632,8 @@ func _draw():
 
 	$LineDrawNode.update()
 
+
+# TODO: Make this bit more performant
 func _process(delta):
 	if node_type == NODE_TYPE.meta_block:
 		if name != "__META__*****": # Do not rest until id is changed
@@ -602,6 +651,7 @@ func _process(delta):
 
 	update()
 
+
 func _on_Button_button_down() -> void:
 	Editor.hovered_block = self
 	Editor.set_selected_block(self)
@@ -610,16 +660,13 @@ func _on_Button_button_down() -> void:
 func _on_DialogueRichTextLabel_meta_clicked(meta) -> void:
 	Editor.hovered_block = self
 	Editor.set_selected_block(self)
-	pass # Replace with function body.
 
 
 func _on_DialogueRichTextLabel_gui_input(event: InputEvent) -> void:
 	Editor.hovered_block = self
 	Editor.set_selected_block(self)
-	pass # Replace with function body.
 
 
 func _on_DialogueTextEdit_cursor_changed() -> void:
 	Editor.hovered_block = self
 	Editor.set_selected_block(self)
-	pass # Replace with function body.

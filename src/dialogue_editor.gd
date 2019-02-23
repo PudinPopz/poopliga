@@ -31,6 +31,8 @@ var is_ctrl_down := false
 var is_alt_down := false
 var is_shift_down := false
 
+var is_still_loading := true
+
 var current_meta_block = null
 
 var focus = null
@@ -48,6 +50,7 @@ var autosave_frequency_msec : float = 120 * 1000 # msec
 var last_autosave : int = -99999
 
 var editor_settings = {}
+
 
 var viewport_mouse_pos : Vector2 = Vector2()
 
@@ -172,6 +175,7 @@ func _ready():
 	fix_popin_bug(10)
 
 	close_dimmer()
+	is_still_loading = false
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -438,6 +442,9 @@ func _on_OpenFileWindow_popup_hide():
 var DB = DialogueBlock.instance()
 
 func load_blocks_from_json(json) -> int: # Returns number of blocks
+	var previous_low_processor_usage_mode : bool = OS.low_processor_usage_mode
+	OS.low_processor_usage_mode = false
+	is_still_loading = true
 	var dict := {}
 	if json is Dictionary:
 		dict = json
@@ -454,10 +461,16 @@ func load_blocks_from_json(json) -> int: # Returns number of blocks
 			add_block_from_key(dict, key)
 			number_of_blocks += 1
 
-	# Ensure all blocks have the right connection data (force set tails)
-	for block in blocks.get_children():
-		block.update_connections(block.tail, block.tail)
+	is_still_loading = false
 
+	for block in blocks.get_children():
+		# Ensure all blocks have the right connection data (force set tails)
+		block.update_connections(block.tail, block.tail)
+		# Update placeholder text of blocks in chain
+		block.update_placeholder_text_in_chain()
+
+
+	OS.low_processor_usage_mode = previous_low_processor_usage_mode
 	return number_of_blocks
 
 func add_block_from_key(dict, key):
