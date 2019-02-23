@@ -332,7 +332,6 @@ func spawn_block(node_type := DB.NODE_TYPE.dialogue_block, hand_placed = false, 
 			node_to_spawn = BranchBlock
 
 	var new_block = node_to_spawn.instance()
-	#new_block.node_type = node_type
 	new_block.just_created = true
 	new_block.hand_placed = hand_placed
 	if add_child:
@@ -463,12 +462,13 @@ func load_blocks_from_json(json) -> int: # Returns number of blocks
 
 	is_still_loading = false
 
+	# Update certain things now that everything is finally loaded and that
+	# blocks are aware of the full context of the project
 	for block in blocks.get_children():
 		# Ensure all blocks have the right connection data (force set tails)
 		block.update_connections(block.tail, block.tail)
 		# Update placeholder text of blocks in chain
 		block.update_placeholder_text_in_chain()
-
 
 	OS.low_processor_usage_mode = previous_low_processor_usage_mode
 	return number_of_blocks
@@ -480,6 +480,7 @@ func add_block_from_key(dict, key):
 	var pos : Vector2 = Vector2(values_dict["posx"], values_dict["posy"])
 
 	var block : DialogueBlock = spawn_block(node_type)
+
 	block.set_id(id)
 	block.rect_position = pos
 	block.node_type = node_type
@@ -554,7 +555,7 @@ func undo_last():
 			for key in dict.keys():
 				# Overwrite block if already exists somehow
 				var block_dict : Dictionary = dict[key]["block_dict"]
-				var connected_blocks : Array = dict[key]["connected_blocks"]
+				var previous_blocks : Array = dict[key]["previous_blocks"]
 				if blocks.has_node(key):
 					var block_to_delete = blocks.get_node(key)
 					block_to_delete.name = key + "_PD"
@@ -564,14 +565,16 @@ func undo_last():
 				var simulated_dict : Dictionary = {}
 				simulated_dict[key] = block_dict
 				var undeleted_block : DialogueBlock = Editor.add_block_from_key(simulated_dict, key)
+
 				# Try to connect previously connected blocks back to this block
-				for block_id in connected_blocks:
+				for block_id in previous_blocks:
 					if !blocks.has_node(block_id):
 						continue
-					var connected_block : DialogueBlock = blocks.get_node(block_id)
+					var previous_block : DialogueBlock = blocks.get_node(block_id)
 					# Connect to this one if empty
-					if connected_block.tail == "":
-						connected_block.set_tail(undeleted_block.id)
+					if previous_block.tail == "":
+						previous_block.set_tail(undeleted_block.id)
+					previous_block.set_process(true)
 
 				undeleted_blocks.append(undeleted_block)
 

@@ -63,11 +63,11 @@ var mouse_offset := Vector2(0,0)
 var on_screen : bool = false
 var title_bar_hovered : bool = false
 var in_connecting_mode : bool = false
-var connected_blocks : Array = [] # Blocks connected to this one
+var previous_blocks : Array = [] # Blocks connected to this one
 
 var force_process_input : bool = false
 
-
+var block_with_character_name : DialogueBlock = null
 
 onready var _head_connector_modulate_default : Color = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default : Color = $NinePatchRect/TailConnector.modulate
@@ -117,6 +117,7 @@ func _ready():
 		Editor.lowest_position = rect_position.y
 	if rect_position.y < Editor.highest_position:
 		Editor.highest_position = rect_position.y
+
 
 func on_screen_entered():
 	visible = true
@@ -285,7 +286,7 @@ func _on_DeleteButton_pressed():
 		# Include serialised block data, as well as other things like what blocks were connected.
 		dict[self.id] = {
 			"block_dict" : self.serialize(),
-			"connected_blocks" : connected_blocks.duplicate()
+			"previous_blocks" : previous_blocks.duplicate()
 		}
 
 		Editor.undo_buffer.append(["deleted", dict])
@@ -313,7 +314,7 @@ func before_destroy() -> void:
 
 # Clear tails of blocks connected to this
 func clear_connected_tail_blocks():
-	for tail in connected_blocks:
+	for tail in previous_blocks:
 		var tail_block : DialogueBlock = Editor.blocks.get_node(tail)
 		tail_block.set_tail("")
 		tail_block.visible = false
@@ -416,18 +417,34 @@ func set_character_name(new_character_name):
 	update_placeholder_text_in_chain()
 
 func update_placeholder_text_in_chain():
+	# TODO: Make this work with more than one block connected up top
 	# Do nothing if editor is in the process of loading stuff
 	if Editor.is_still_loading:
 		return
-	# Do nothing if no character name
+
+	# Update self
 	if character_name == "":
+		if previous_blocks.size() == 1:
+			var previous_block : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
+			previous_block.update_placeholder_text_in_chain()
+		else:
+			character_line_edit.placeholder_text = ""
 		return
+
 	# Update placeholder text of nodes in chain
 	for block in get_connections_in_chain():
 		if block.character_line_edit.text != "":
 			break
-		block.character_line_edit.placeholder_text = character_name
 		block.character_line_edit.placeholder_alpha = 0.4
+		if block.previous_blocks.size() == 1:
+			block.character_line_edit.placeholder_text = character_name
+		else:
+			block.character_line_edit.placeholder_text = ""
+
+func are_previous_block_characters_the_same() -> bool:
+	return true
+	pass
+
 
 func get_character_name():
 	return character_line_edit.text
@@ -446,13 +463,15 @@ func update_connections(old_tail : String, new_tail : String):
 	# Remove self from old tail's list of connected nodes
 	if old_tail != "" and Editor.blocks.has_node(old_tail):
 		var old_tail_block : DialogueBlock = Editor.blocks.get_node(old_tail)
-		old_tail_block.connected_blocks.erase(self.id)
+		old_tail_block.previous_blocks.erase(self.id)
+		old_tail_block.update_placeholder_text_in_chain()
 
 	# Add self to new tail's list of connected nodes
 	if new_tail != "" and Editor.blocks.has_node(new_tail):
 		var new_tail_block : DialogueBlock = Editor.blocks.get_node(new_tail)
-		if !new_tail_block.connected_blocks.has(self.id):
-			new_tail_block.connected_blocks.append(self.id)
+		if !new_tail_block.previous_blocks.has(self.id):
+			new_tail_block.previous_blocks.append(self.id)
+		new_tail_block.update_placeholder_text_in_chain()
 
 func get_tail():
 	return tail
@@ -564,11 +583,11 @@ func get_actual_character():
 	var character : String = ""
 	var current_block : DialogueBlock = self
 	var safety_iterator : int = 0
-	while current_block.connected_blocks.size() == 1:
+	while current_block.previous_blocks.size() == 1:
 		var child_count : int = Editor.blocks.get_child_count()
 		if !Editor.blocks.has_node(current_block.tail):
 			break
-		var previous_block_id : String = current_block.connected_blocks[0]
+		var previous_block_id : String = current_block.previous_blocks[0]
 		var previous_block : DialogueBlock = Editor.blocks.get_node(previous_block_id)
 		# Break if invalid previous_block or if previous_block is literally itself
 		if !Editor.is_node_alive(previous_block) or previous_block == null or previous_block.id == self.id:
