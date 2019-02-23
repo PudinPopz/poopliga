@@ -14,6 +14,7 @@ dest_files=[ "res://.import/trash_open_small.png-37e97a0bf92205dd0c56f3be25b107f
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true

@@ -14,6 +14,7 @@ dest_files=[ "res://.import/trash_shadowed.png-b7d2b94640a12c2071de0cfe00e01217.
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true

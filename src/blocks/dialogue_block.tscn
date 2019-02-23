@@ -177,7 +177,7 @@ script = ExtResource( 10 )
 
 [node name="Button" parent="NinePatchRect/Dialogue" index="0"]
 margin_left = -229.0
-margin_top = 10.0
+margin_top = 72.0
 margin_right = 543.0
 margin_bottom = 435.0
 

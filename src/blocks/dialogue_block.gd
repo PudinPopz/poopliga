@@ -446,6 +446,7 @@ func update_placeholder_text_in_chain(check_previous : bool = true):
 		return
 
 	if update_placeholder_text_in_chain_recursions >= 4:
+		print(update_placeholder_text_in_chain_recursions)
 		return
 
 	update_placeholder_text_in_chain_recursions += 1
@@ -470,7 +471,7 @@ func update_placeholder_text_in_chain(check_previous : bool = true):
 		if character_placeholder_source != "" and Editor.blocks.has_node(character_placeholder_source):
 			source_block = Editor.blocks.get_node(character_placeholder_source)
 			if source_block != self:
-				source_block.update_placeholder_text_in_chain()
+				source_block.update_placeholder_text_in_chain(false)
 			else:
 				character_placeholder_source = ""
 		# If placeholder text still not changed, try previous block's placeholder source

@@ -269,7 +269,7 @@ func _on_popup_hide():
 
 func _on_Save_pressed():
 	if System.use_os_file_io:
-		var path : String = CSharp.FileDialog.SaveFileDialog()
+		var path : String = CSharp.WinFileDialog.SaveFileDialog()
 		if path == null:
 			return
 		show_dimmer("Saving File")
@@ -388,8 +388,7 @@ func _on_New_pressed():
 func _on_Open_pressed():
 	# Use Windows file I/O if on windows
 	if System.use_os_file_io:
-
-		var path : String = CSharp.FileDialog.OpenFileDialog()
+		var path : String = CSharp.WinFileDialog.OpenFileDialog()
 		if path == null:
 			close_dimmer()
 			return
