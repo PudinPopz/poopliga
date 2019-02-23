@@ -67,7 +67,6 @@ var previous_blocks : Array = [] # Blocks connected to this one
 
 var force_process_input : bool = false
 
-var block_with_character_name : DialogueBlock = null
 
 onready var _head_connector_modulate_default : Color = $NinePatchRect/TitleBar/HeadConnector.modulate
 onready var _tail_connector_modulate_default : Color = $NinePatchRect/TailConnector.modulate
@@ -417,14 +416,13 @@ func set_character_name(new_character_name):
 	update_placeholder_text_in_chain()
 
 func update_placeholder_text_in_chain():
-	# TODO: Make this work with more than one block connected up top
 	# Do nothing if editor is in the process of loading stuff
 	if Editor.is_still_loading:
 		return
 
 	# Update self
 	if character_name == "":
-		if previous_blocks.size() == 1:
+		if previous_blocks.size() != 0 and are_previous_block_characters_the_same():
 			var previous_block : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
 			previous_block.update_placeholder_text_in_chain()
 		else:
@@ -436,12 +434,25 @@ func update_placeholder_text_in_chain():
 		if block.character_line_edit.text != "":
 			break
 		block.character_line_edit.placeholder_alpha = 0.4
-		if block.previous_blocks.size() == 1:
+		if block.previous_blocks.size() != 0 and block.are_previous_block_characters_the_same():
 			block.character_line_edit.placeholder_text = character_name
 		else:
 			block.character_line_edit.placeholder_text = ""
 
 func are_previous_block_characters_the_same() -> bool:
+	if previous_blocks.size() <= 1:
+		return true
+	var block_0 : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
+	var test_character : String = block_0.character_name
+	if test_character == "":
+		test_character = block_0.character_line_edit.placeholder_text
+	for block_id in previous_blocks:
+		var block : DialogueBlock = Editor.blocks.get_node(block_id)
+		var actual_character : String = block.character_name
+		if actual_character == "":
+			actual_character = block.character_line_edit.placeholder_text
+		if actual_character != test_character:
+			return false
 	return true
 	pass
 
@@ -576,31 +587,6 @@ func get_connections_in_chain(include_self := false) -> Array:
 			break
 	return all_tails
 
-
-func get_actual_character():
-	if character_line_edit.text != "":
-		return character_line_edit.text
-	var character : String = ""
-	var current_block : DialogueBlock = self
-	var safety_iterator : int = 0
-	while current_block.previous_blocks.size() == 1:
-		var child_count : int = Editor.blocks.get_child_count()
-		if !Editor.blocks.has_node(current_block.tail):
-			break
-		var previous_block_id : String = current_block.previous_blocks[0]
-		var previous_block : DialogueBlock = Editor.blocks.get_node(previous_block_id)
-		# Break if invalid previous_block or if previous_block is literally itself
-		if !Editor.is_node_alive(previous_block) or previous_block == null or previous_block.id == self.id:
-			break
-		if previous_block.character_line_edit.text != "":
-			character = previous_block.character_line_edit.text
-			break
-		current_block = previous_block
-		safety_iterator += 1
-		if safety_iterator > child_count:
-			print("SAFETY ITERATOR BREAK: " + str(safety_iterator))
-			break
-	return character
 
 func get_end_of_chain() -> DialogueBlock:
 	var current_block : DialogueBlock = self
