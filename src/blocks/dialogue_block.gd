@@ -64,6 +64,7 @@ var on_screen : bool = false
 var title_bar_hovered : bool = false
 var in_connecting_mode : bool = false
 var previous_blocks : Array = [] # Blocks connected to this one
+var character_placeholder_source : String = ""
 
 var force_process_input : bool = false
 
@@ -383,6 +384,23 @@ func set_id(new_id):
 	id = new_id
 	id_label.text = id # Update textfield
 	name = id # Update name in tree
+
+	# Replace reference in tail block
+	if tail != "" and Editor.blocks.has_node(tail):
+		var tail_block : DialogueBlock = Editor.blocks.get_node(tail)
+		tail_block.previous_blocks.erase(old_id)
+		set_tail("")
+		set_tail(tail_block.id)
+
+	# Reconnect previous blocks to self after rename
+	for block_id in previous_blocks:
+		var block : DialogueBlock = Editor.blocks.get_node(block_id)
+		block.set_tail("")
+		block.set_tail(self.id)
+
+	# Update character placeholder text
+	update_placeholder_text_in_chain()
+
 	MainCamera.LAST_MODIFIED_BLOCK = self
 	Editor.set_selected_block(self)
 
@@ -415,33 +433,48 @@ func set_character_name(new_character_name):
 	character_name = new_character_name
 	update_placeholder_text_in_chain()
 
-func update_placeholder_text_in_chain():
+# TODO: Make this function make more sense.
+func update_placeholder_text_in_chain(check_previous : bool = true):
 	# Do nothing if editor is in the process of loading stuff
 	if Editor.is_still_loading:
 		return
 
-	# Update self
-	if character_name == "":
-		if previous_blocks.size() != 0 and are_previous_block_characters_the_same():
-			var previous_block : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
-			previous_block.update_placeholder_text_in_chain()
-		else:
-			character_line_edit.placeholder_text = ""
-		return
+	character_line_edit.placeholder_text = ""
 
-	# Update placeholder text of nodes in chain
+	var character_unknown := false
 	for block in get_connections_in_chain():
-		if block.character_line_edit.text != "":
+		if block.character_name != "":
 			break
 		block.character_line_edit.placeholder_alpha = 0.4
-		if block.previous_blocks.size() != 0 and block.are_previous_block_characters_the_same():
+		if !character_unknown and block.are_previous_block_characters_the_same():
 			block.character_line_edit.placeholder_text = character_name
+			block.character_placeholder_source = self.id
 		else:
+			character_unknown = true
 			block.character_line_edit.placeholder_text = ""
+
+	if character_name == "":
+		character_line_edit.placeholder_text = ""
+		var source_block : DialogueBlock = null
+		if character_placeholder_source != "" and Editor.blocks.has_node(character_placeholder_source):
+			source_block = Editor.blocks.get_node(character_placeholder_source)
+			if source_block != self:
+				source_block.update_placeholder_text_in_chain()
+			else:
+				character_placeholder_source = ""
+		# If placeholder text still not changed, try previous block's placeholder source
+		if check_previous and character_line_edit.placeholder_text == "":
+			if previous_blocks.size() >= 1 and are_previous_block_characters_the_same():
+				var previous_block : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
+				character_placeholder_source = previous_block.character_placeholder_source
+				update_placeholder_text_in_chain(false)
+
+
 
 func are_previous_block_characters_the_same() -> bool:
 	if previous_blocks.size() <= 1:
 		return true
+
 	var block_0 : DialogueBlock = Editor.blocks.get_node(previous_blocks[0])
 	var test_character : String = block_0.character_name
 	if test_character == "":
@@ -454,16 +487,18 @@ func are_previous_block_characters_the_same() -> bool:
 		if actual_character != test_character:
 			return false
 	return true
-	pass
 
 
 func get_character_name():
 	return character_line_edit.text
 
 func set_tail(new_tail):
+	if !Editor.is_still_loading and !Editor.blocks.has_node(new_tail):
+		new_tail = ""
 	var old_tail : String = tail
 	tail = new_tail
 	update_connections(old_tail, new_tail)
+	update_placeholder_text_in_chain()
 	update()
 	Editor.update_inspector(true)
 
@@ -483,6 +518,7 @@ func update_connections(old_tail : String, new_tail : String):
 		if !new_tail_block.previous_blocks.has(self.id):
 			new_tail_block.previous_blocks.append(self.id)
 		new_tail_block.update_placeholder_text_in_chain()
+	update_placeholder_text_in_chain()
 
 func get_tail():
 	return tail

@@ -700,7 +700,7 @@ func is_modifier_down(modifier):
 			return is_shift_down or Input.is_action_pressed("shift")
 
 
-static func is_node_alive(node : Node):
+static func is_node_alive(node):
 	if node == null:
 		return false
 	if !is_instance_valid(node):

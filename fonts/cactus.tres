@@ -3,7 +3,6 @@
 [ext_resource path="res://fonts/ArchitectsDaughter-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-
 size = 36
 use_mipmaps = true
 use_filter = true

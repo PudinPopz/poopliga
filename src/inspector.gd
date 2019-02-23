@@ -80,7 +80,7 @@ func update_dialogue_properties_vbox():
 	# Update info text (TODO: Make terminology less confusing)
 	var info_text := ""
 	var connections_in_chain : Array = Editor.selected_block.get_connections_in_chain()
-	var connections_to_this : Array = Editor.selected_block.connected_blocks
+	var connections_to_this : Array = Editor.selected_block.previous_blocks
 	info_text += "Number of connections in chain: " + str(connections_in_chain.size()) + "\n"
 	info_text += "Next connection: " + Editor.selected_block.tail + "\n"
 	info_text += "End of chain: " + Editor.selected_block.get_end_of_chain().id + "\n"
