@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\csharp\FileDialog.cs" />
+    <Compile Include="src\csharp\SpellCheck.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\csharp" />
