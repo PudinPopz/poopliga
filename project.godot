@@ -236,6 +236,10 @@ space={
  ]
 }
 
+[mono]
+
+export/include_scripts_content=true
+
 [rendering]
 
 quality/intended_usage/framebuffer_allocation=0

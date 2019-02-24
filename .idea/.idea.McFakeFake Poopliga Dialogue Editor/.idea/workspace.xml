@@ -2,17 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e168659-ee54-4721-9239-700054b3cc6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/default_env.tres" beforeDir="false" afterPath="$PROJECT_DIR$/default_env.tres" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/export_presets.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/export_presets.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.McFakeFake Poopliga Dialogue Editor/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.McFakeFake Poopliga Dialogue Editor/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.McFakeFake Poopliga Dialogue Editor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.McFakeFake Poopliga Dialogue Editor/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/assemblies/GodotSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/assemblies/GodotSharp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/assemblies/GodotSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/assemblies/GodotSharp.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/assemblies/GodotSharp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/assemblies/GodotSharp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/assemblies/GodotSharpEditor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/assemblies/GodotSharpEditor.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/assemblies/GodotSharpEditor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/assemblies/GodotSharpEditor.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/metadata/api_assemblies.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/metadata/api_assemblies.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/metadata/scripts_metadata.editor" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/metadata/scripts_metadata.editor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/metadata/scripts_metadata.editor_player" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/metadata/scripts_metadata.editor_player" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/bin/Debug/McFakeFake Poopliga Dialogue Editor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/bin/Debug/McFakeFake Poopliga Dialogue Editor.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/bin/Debug/NHunspell.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/bin/Debug/NHunspell.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/bin/Tools/McFakeFake Poopliga Dialogue Editor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/temp/bin/Tools/McFakeFake Poopliga Dialogue Editor.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/bin/Tools/McFakeFake Poopliga Dialogue Editor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/temp/bin/Tools/McFakeFake Poopliga Dialogue Editor.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Debug/McFakeFake Poopliga Dialogue Editor.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Debug/McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Debug/McFakeFake Poopliga Dialogue Editor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Debug/McFakeFake Poopliga Dialogue Editor.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Tools/McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/temp/obj/Tools/McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Tools/McFakeFake Poopliga Dialogue Editor.dll" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/temp/obj/Tools/McFakeFake Poopliga Dialogue Editor.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mono/temp/obj/Tools/McFakeFake Poopliga Dialogue Editor.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/.mono/temp/obj/Tools/McFakeFake Poopliga Dialogue Editor.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/McFakeFake Poopliga Dialogue Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/McFakeFake Poopliga Dialogue Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/0.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/0.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/blocks/dialogue_block.gd" beforeDir="false" afterPath="$PROJECT_DIR$/src/blocks/dialogue_block.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dialogue_editor.gd" beforeDir="false" afterPath="$PROJECT_DIR$/src/dialogue_editor.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dialogue_editor.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/src/dialogue_editor.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main_camera.gd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main_camera.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map.gd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/options_button.gd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/save.gd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csharp/FileDialog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/csharp/FileDialog.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,58 +39,82 @@
     <session id="743131439">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cs" value="2" />
+          <entry key="config" value="1" />
+          <entry key="cs" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="C#" value="2" />
+          <entry key="C#" value="4" />
+          <entry key="Config" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cs" value="64" />
+          <entry key="cs" value="387" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="C#" value="64" />
+          <entry key="C#" value="387" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test.cs">
+        <entry file="file://$PROJECT_DIR$/src/csharp/FileDialog.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="15" lean-forward="true" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+            <state relative-caret-position="264">
+              <caret line="17" column="8" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
               <folding>
-                <marker date="1550678706551" expanded="true" signature="6:115" ph="..." />
-                <marker date="1550678706551" expanded="true" signature="141:793" ph="{...}" />
-                <marker date="1550678706551" expanded="true" signature="254:468" ph="{...}" />
-                <marker date="1550678706551" expanded="true" signature="502:648" ph="{...}" />
-                <marker date="1550678706551" expanded="true" signature="649:791" ph="/* Called every frame. 'delta' is the elapsed time since the previous frame. ... */" />
+                <marker date="1550945153334" expanded="true" signature="6:76" ph="..." />
+                <marker date="1550945153334" expanded="true" signature="109:1440" ph="{...}" />
+                <marker date="1550945153334" expanded="true" signature="143:152" ph="{...}" />
+                <marker date="1550945153334" expanded="true" signature="205:806" ph="{...}" />
+                <marker date="1550945153334" expanded="true" signature="364:788" ph="/* var openFileDialog = new OpenFileDialog ... */" />
+                <marker date="1550945153334" expanded="true" signature="859:1437" ph="{...}" />
+                <marker date="1550945153334" expanded="true" signature="863:1420" ph="/* Try catch blocks seem to reduce the likelihood of crashing. ... */" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CA9F80AC-8A05-4679-AFD3-0D068A4314C6/b0/c28f4655/CommonDialog.cs">
+        <entry file="file://$USER_HOME$/AppData/Roaming/Godot/mono/solutions/2324398154963942341_7_1550782202/GodotSharp/ObjectType/Node.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="157" column="17" selection-start-line="157" selection-start-column="17" selection-end-line="157" selection-end-column="17" />
+            <state relative-caret-position="-2958">
+              <caret line="315" column="28" selection-start-line="315" selection-start-column="28" selection-end-line="315" selection-end-column="28" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Properties/AssemblyInfo.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+              <folding>
+                <marker date="1550923262679" expanded="true" signature="26:155" ph="/* Information about this assembly is defined by the following attributes. ... */" />
+                <marker date="1550923262679" expanded="true" signature="461:685" ph="/* The assembly version has the format &quot;{Major}.{Minor}.{Build}.{Revision}&quot;. ... */" />
+                <marker date="1550923262679" expanded="true" signature="725:958" ph="/* The following attributes are used to specify the signing key for the assembly, ... */" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/packages.config">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -84,13 +123,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/test.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csharp/FileDialog.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Properties/AssemblyInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Roaming/Godot/mono/solutions/2324398154963942341_7_1550782202/GodotSharp/ObjectType/Node.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///C# Console" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/CA9F80AC-8A05-4679-AFD3-0D068A4314C6/b0/c28f4655/CommonDialog.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/test.cs" />
+        <option value="$PROJECT_DIR$/src/csharp/FileDialog.cs" />
       </list>
     </option>
   </component>
@@ -101,10 +145,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="84" />
-    <option name="y" value="120" />
+    <option name="x" value="934" />
+    <option name="y" value="305" />
     <option name="width" value="1913" />
-    <option name="height" value="1287" />
+    <option name="height" value="1271" />
   </component>
   <component name="ProjectView">
     <navigator currentView="SolutionExplorer" proportions="" version="1">
@@ -140,7 +184,20 @@
               <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
               <item name="McFakeFake Poopliga Dialogue Editor" type="24d0babc:SolutionExplorerModelNode" />
               <item name="McFakeFake Poopliga Dialogue Editor" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Properties" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="McFakeFake Poopliga Dialogue Editor" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="McFakeFake Poopliga Dialogue Editor" type="24d0babc:SolutionExplorerModelNode" />
               <item name="src" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="McFakeFake Poopliga Dialogue Editor" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="McFakeFake Poopliga Dialogue Editor" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="src" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="csharp" type="24d0babc:SolutionExplorerModelNode" />
             </path>
           </expand>
           <select />
@@ -154,6 +211,7 @@
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="C:/Program Files (x86)/Reference Assemblies/Microsoft/Framework/.NETFramework/v4.5/System.Windows.Forms.dll" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -178,11 +236,12 @@
       <option name="presentableId" value="Default" />
       <updated>1550677657315</updated>
       <workItem from="1550677661740" duration="1075000" />
+      <workItem from="1550928052691" duration="5590000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1075000" />
+    <option name="totallyTimeSpent" value="7800000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -194,19 +253,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="84" y="120" width="1913" height="1287" extended-state="0" />
+    <frame x="934" y="305" width="1913" height="1271" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24959217" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26101142" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="NuGet" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Unit Tests" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Build" weight="0.32971996" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -214,18 +267,25 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Errors In Solution" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Unit Tests Coverage" />
+      <window_info anchor="bottom" id="NuGet" order="7" visible="true" weight="0.32971996" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unit Tests" order="11" />
+      <window_info anchor="bottom" id="Terminal" order="12" />
+      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" weight="0.32971996" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="5" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -248,16 +308,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.cs">
+    <entry file="file://$PROJECT_DIR$/src/Test.cs" />
+    <entry file="file://$USER_HOME$/AppData/Roaming/Godot/mono/solutions/2324398154963942341_7_1550782202/GodotSharp/ObjectType/Node.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="15" lean-forward="true" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+        <state relative-caret-position="-2958">
+          <caret line="315" column="28" selection-start-line="315" selection-start-column="28" selection-end-line="315" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Properties/AssemblyInfo.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
           <folding>
-            <marker date="1550678706551" expanded="true" signature="6:115" ph="..." />
-            <marker date="1550678706551" expanded="true" signature="141:793" ph="{...}" />
-            <marker date="1550678706551" expanded="true" signature="254:468" ph="{...}" />
-            <marker date="1550678706551" expanded="true" signature="502:648" ph="{...}" />
-            <marker date="1550678706551" expanded="true" signature="649:791" ph="/* Called every frame. 'delta' is the elapsed time since the previous frame. ... */" />
+            <marker date="1550923262679" expanded="true" signature="26:155" ph="/* Information about this assembly is defined by the following attributes. ... */" />
+            <marker date="1550923262679" expanded="true" signature="461:685" ph="/* The assembly version has the format &quot;{Major}.{Minor}.{Build}.{Revision}&quot;. ... */" />
+            <marker date="1550923262679" expanded="true" signature="725:958" ph="/* The following attributes are used to specify the signing key for the assembly, ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages.config">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/csharp/FileDialog.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="17" column="8" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+          <folding>
+            <marker date="1550945153334" expanded="true" signature="6:76" ph="..." />
+            <marker date="1550945153334" expanded="true" signature="109:1440" ph="{...}" />
+            <marker date="1550945153334" expanded="true" signature="143:152" ph="{...}" />
+            <marker date="1550945153334" expanded="true" signature="205:806" ph="{...}" />
+            <marker date="1550945153334" expanded="true" signature="364:788" ph="/* var openFileDialog = new OpenFileDialog ... */" />
+            <marker date="1550945153334" expanded="true" signature="859:1437" ph="{...}" />
+            <marker date="1550945153334" expanded="true" signature="863:1420" ph="/* Try catch blocks seem to reduce the likelihood of crashing. ... */" />
           </folding>
         </state>
       </provider>
