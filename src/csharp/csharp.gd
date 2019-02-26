@@ -12,4 +12,8 @@ func _ready() -> void:
 		is_working = true
 		print("C# Active")
 
+	if !is_working:
+		return
 
+	# Warm up the spellchecker to prevent initial lag
+	SpellCheck.WarmUp()

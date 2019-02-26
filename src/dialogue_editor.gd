@@ -412,6 +412,8 @@ func _on_Inspector_pressed() -> void:
 
 func _on_OpenFileWindow_file_selected(path):
 	show_dimmer("Loading file...")
+	var previous_bus_mute : bool = AudioServer.is_bus_mute(0)
+	AudioServer.set_bus_mute(0, true)
 	current_folder = get_folder_from_path(path)
 	current_file = get_filename_from_path(path)
 	var window = get_node("FrontWindows/OpenFileWindow")
@@ -430,8 +432,11 @@ func _on_OpenFileWindow_file_selected(path):
 	var amount_of_blocks = load_blocks_from_json(json)
 	var end_time = OS.get_ticks_msec()
 	var message = "Loaded " + str(amount_of_blocks) +  " blocks in " + str(end_time - start_time) + "ms."
+
 	yield(get_tree().create_timer(0.1),"timeout")
 	push_message(message, 6.0)
+
+	AudioServer.set_bus_mute(0, previous_bus_mute)
 	close_dimmer()
 
 func _on_OpenFileWindow_popup_hide():
@@ -718,3 +723,8 @@ static func get_filename_from_path(path: String):
 	var end_index = path.rfind("/")
 	return path.substr(end_index + 1, path.length())
 
+class Sorter:
+	static func y_pos(a : Control, b : Control):
+		if a.rect_position.y < b.rect_position.y:
+			return true
+		return false

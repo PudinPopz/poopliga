@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://src/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/palette_swap.gd" type="Script" id=2]
@@ -25,12 +25,15 @@
 [ext_resource path="res://fonts/UI_bold_16.tres" type="DynamicFont" id=23]
 [ext_resource path="res://src/find_window.gd" type="Script" id=24]
 [ext_resource path="res://themes/textedit_darkblue.tres" type="StyleBox" id=25]
-[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=26]
-[ext_resource path="res://src/scroll_bar.gd" type="Script" id=27]
-[ext_resource path="res://src/script_mode.gd" type="Script" id=28]
-[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=29]
-[ext_resource path="res://src/background.tscn" type="PackedScene" id=30]
-[ext_resource path="res://sprites/backgrounds/bg1.jpg" type="Texture" id=31]
+[ext_resource path="res://src/spellcheck_window.gd" type="Script" id=26]
+[ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=27]
+[ext_resource path="res://src/tools_menu.gd" type="Script" id=28]
+[ext_resource path="res://themes/popup_menu_stylebox.tres" type="StyleBox" id=29]
+[ext_resource path="res://src/scroll_bar.gd" type="Script" id=30]
+[ext_resource path="res://src/script_mode.gd" type="Script" id=31]
+[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=32]
+[ext_resource path="res://src/background.tscn" type="PackedScene" id=33]
+[ext_resource path="res://sprites/backgrounds/bg1.jpg" type="Texture" id=34]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -159,14 +162,7 @@ func _on_Save_pressed():
 	pass # Replace with function body.
 "
 
-[sub_resource type="InputEventKey" id=26]
-shift = true
-control = true
-command = true
-scancode = 83
-
 [sub_resource type="ShortCut" id=27]
-shortcut = SubResource( 26 )
 
 [sub_resource type="InputEventKey" id=28]
 control = true
@@ -195,6 +191,11 @@ func _on_toggled(button_pressed):
 #func _process(delta):
 #	pass
 "
+
+[sub_resource type="DynamicFont" id=38]
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
 
 [sub_resource type="InputEventKey" id=31]
 control = true
@@ -284,7 +285,6 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="DimmerLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="LoadingDimmer" type="Control" parent="DimmerLayer"]
 anchor_right = 1.0
@@ -513,10 +513,7 @@ focus_mode = 2
 custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
 bbcode_text = "<INFO TEXT>"
-text = "<INFO TEXT>
-Line 2
-Line 3
-Line 4"
+text = "<INFO TEXT>"
 selection_enabled = true
 
 [node name="CustomAttributeSeparator" type="VSeparator" parent="InspectorLayer/Inspector/DialogueBoxContainer/Control/PropertiesVBox"]
@@ -597,7 +594,6 @@ text = "No properties to display. "
 align = 1
 
 [node name="FrontWindows" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 3
 
 [node name="GenericPopupMessage" type="AcceptDialog" parent="FrontWindows"]
@@ -1178,6 +1174,59 @@ margin_right = 349.296
 margin_bottom = -16.2443
 text = "Found 0 matches."
 
+[node name="SpellCheckWindow" type="WindowDialog" parent="FrontWindows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -183.0
+margin_top = -217.0
+margin_right = 201.0
+margin_bottom = 181.0
+rect_min_size = Vector2( 270, 305 )
+theme = ExtResource( 8 )
+window_title = "Spellcheck"
+resizable = true
+script = ExtResource( 26 )
+
+[node name="ItemList" type="ItemList" parent="FrontWindows/SpellCheckWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = -13.0
+margin_bottom = -50.0
+theme = ExtResource( 8 )
+custom_styles/bg = ExtResource( 25 )
+allow_reselect = true
+max_text_lines = 2
+
+[node name="CheckButton" type="Button" parent="FrontWindows/SpellCheckWindow"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -130.979
+margin_top = -40.4581
+margin_right = -10.9788
+margin_bottom = -6.45813
+rect_min_size = Vector2( 120, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 17 )
+text = "Refresh"
+
+[node name="ErrorCountLabel" type="Label" parent="FrontWindows/SpellCheckWindow"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -350.245
+margin_top = -34.6246
+margin_right = -147.245
+margin_bottom = -11.6246
+text = "Found 0 errors."
+align = 2
+
 [node name="OpenFileWindow" type="FileDialog" parent="FrontWindows"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1208,7 +1257,7 @@ color = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 margin_bottom = 35.0
 color = Color( 0.117647, 0.490196, 0.65098, 1 )
-script = ExtResource( 26 )
+script = ExtResource( 27 )
 
 [node name="ColorRect" type="ColorRect" parent="FrontUILayer"]
 anchor_right = 1.0
@@ -1318,9 +1367,29 @@ enabled_focus_mode = 0
 text = "Inspector"
 flat = true
 
-[node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
+[node name="Tools" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
 margin_left = 443.0
-margin_right = 490.0
+margin_right = 496.0
+margin_bottom = 32.0
+hint_tooltip = "Saves the current file to a specified location."
+focus_mode = 0
+custom_fonts/font = ExtResource( 17 )
+enabled_focus_mode = 0
+text = "Tools"
+flat = true
+script = ExtResource( 28 )
+
+[node name="PopupMenu" type="PopupMenu" parent="FrontUILayer/LeftHBoxContainer/Tools"]
+margin_top = 36.0
+margin_right = 108.0
+margin_bottom = 86.0
+custom_styles/panel = ExtResource( 29 )
+custom_fonts/font = SubResource( 38 )
+items = [ "Spellcheck", null, 0, false, false, 0, 0, null, "", false, "Import", null, 0, false, true, 1, 0, null, "", false ]
+
+[node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
+margin_left = 500.0
+margin_right = 547.0
 margin_bottom = 32.0
 hint_tooltip = "Opens the help menu."
 focus_mode = 0
@@ -1341,7 +1410,7 @@ theme = ExtResource( 8 )
 max_value = 2000.0
 page = 1200.0
 rounded = true
-script = ExtResource( 27 )
+script = ExtResource( 30 )
 
 [node name="Label" type="Label" parent="FrontUILayer/VScrollBar"]
 anchor_left = 1.0
@@ -1377,7 +1446,7 @@ scroll_active = false
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 28 )
+script = ExtResource( 31 )
 
 [node name="ColorRect" type="ColorRect" parent="ScriptModeLayer/ScriptMode"]
 anchor_right = 1.0
@@ -1394,7 +1463,7 @@ margin_right = 345.0
 margin_bottom = 281.5
 custom_styles/focus = SubResource( 33 )
 custom_styles/normal = SubResource( 34 )
-custom_fonts/font = ExtResource( 29 )
+custom_fonts/font = ExtResource( 32 )
 custom_colors/caret_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/current_line_color = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -1424,9 +1493,9 @@ __meta__ = {
 [node name="BGLayer" type="CanvasLayer" parent="."]
 layer = -100
 
-[node name="Background" parent="BGLayer" instance=ExtResource( 30 )]
+[node name="Background" parent="BGLayer" instance=ExtResource( 33 )]
 modulate = Color( 1, 1, 1, 1 )
-texture = ExtResource( 31 )
+texture = ExtResource( 34 )
 
 [node name="Control" type="Control" parent="."]
 margin_top = -1.0

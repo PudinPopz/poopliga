@@ -81,7 +81,7 @@ func search() -> void:
 					matches.append(block)
 
 
-	matches.sort_custom(Sorter, "y_pos")
+	matches.sort_custom(Editor.Sorter, "y_pos")
 
 	var search_count_str : String = ""
 
@@ -147,8 +147,3 @@ func get_properties_to_match() -> Array:
 func _on_Find_pressed() -> void:
 	popup_centered()
 
-class Sorter:
-	static func y_pos(a : Control, b : Control):
-		if a.rect_position.y < b.rect_position.y:
-			return true
-		return false
