@@ -20,11 +20,11 @@
 [ext_resource path="res://themes/textedit_darkblue_no_top_margin.tres" type="StyleBox" id=18]
 [ext_resource path="res://fonts/Hack-Regular.ttf" type="DynamicFontData" id=19]
 [ext_resource path="res://src/options_window.gd" type="Script" id=20]
-[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=21]
-[ext_resource path="res://src/help_window.gd" type="Script" id=22]
-[ext_resource path="res://fonts/UI_bold_16.tres" type="DynamicFont" id=23]
-[ext_resource path="res://src/find_window.gd" type="Script" id=24]
-[ext_resource path="res://themes/textedit_darkblue.tres" type="StyleBox" id=25]
+[ext_resource path="res://themes/textedit_darkblue.tres" type="StyleBox" id=21]
+[ext_resource path="res://fonts/UI_default.tres" type="DynamicFont" id=22]
+[ext_resource path="res://src/help_window.gd" type="Script" id=23]
+[ext_resource path="res://fonts/UI_bold_16.tres" type="DynamicFont" id=24]
+[ext_resource path="res://src/find_window.gd" type="Script" id=25]
 [ext_resource path="res://src/spellcheck_window.gd" type="Script" id=26]
 [ext_resource path="res://src/accent_hue_controller.gd" type="Script" id=27]
 [ext_resource path="res://src/tools_menu.gd" type="Script" id=28]
@@ -327,6 +327,10 @@ color = Color( 0, 0, 0, 0.423529 )
 [node name="StopperButton" type="Button" parent="DimmerLayer/LoadingDimmer/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 41.8542
+margin_top = 6.69135
+margin_right = 41.8542
+margin_bottom = 6.69135
 flat = true
 
 [node name="Label" type="Label" parent="DimmerLayer/LoadingDimmer"]
@@ -659,6 +663,7 @@ theme = ExtResource( 8 )
 script = ExtResource( 16 )
 
 [node name="Panel" type="WindowDialog" parent="FrontWindows/ProjectWindow"]
+editor/display_folded = true
 margin_left = -188.0
 margin_top = -177.0
 margin_right = 283.0
@@ -750,42 +755,53 @@ context_menu_enabled = false
 caret_blink = true
 
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
-editor/display_folded = true
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -229.0
+margin_left = -355.0
 margin_top = -203.0
-margin_right = 230.0
+margin_right = 263.0
 margin_bottom = 203.0
 theme = ExtResource( 8 )
 window_title = "Options"
 script = ExtResource( 20 )
 
-[node name="GridContainer" type="GridContainer" parent="FrontWindows/OptionsWindow"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -213.5
-margin_top = -192.5
-margin_right = 213.5
-margin_bottom = 192.5
+[node name="ItemList" type="ItemList" parent="FrontWindows/OptionsWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 14.0
+margin_top = 10.0
+margin_right = -466.0
+margin_bottom = -23.0
+custom_styles/bg = ExtResource( 21 )
+items = [ "General", null, false, "Spellcheck", null, false ]
+allow_reselect = true
+
+[node name="General" type="GridContainer" parent="FrontWindows/OptionsWindow"]
+editor/display_folded = true
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -446.813
+margin_top = 10.5
+margin_right = -19.8129
+margin_bottom = 395.5
 custom_constants/vseparation = 10
 columns = 2
 
-[node name="ScrollSpeedLabel" type="Label" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="ScrollSpeedLabel" type="Label" parent="FrontWindows/OptionsWindow/General"]
 margin_right = 223.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Scroll Speed:"
 valign = 1
 
-[node name="ScrollSpeedSlider" type="HSlider" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="ScrollSpeedSlider" type="HSlider" parent="FrontWindows/OptionsWindow/General"]
 margin_left = 227.0
 margin_right = 427.0
 margin_bottom = 34.0
@@ -799,18 +815,18 @@ rounded = true
 ticks_on_borders = true
 focus_mode = 0
 
-[node name="ZoomSpeedLabel" type="Label" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="ZoomSpeedLabel" type="Label" parent="FrontWindows/OptionsWindow/General"]
 margin_top = 44.0
 margin_right = 223.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Zoom Speed:"
 valign = 1
 
-[node name="ZoomSpeedSlider" type="HSlider" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="ZoomSpeedSlider" type="HSlider" parent="FrontWindows/OptionsWindow/General"]
 margin_left = 227.0
 margin_top = 44.0
 margin_right = 427.0
@@ -826,18 +842,18 @@ exp_edit = true
 ticks_on_borders = true
 focus_mode = 0
 
-[node name="EditorBackgroundLabel" type="Label" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="EditorBackgroundLabel" type="Label" parent="FrontWindows/OptionsWindow/General"]
 margin_top = 88.0
 margin_right = 223.0
 margin_bottom = 122.0
 rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Editor Background:"
 valign = 1
 
-[node name="EditorBackgroundSelect" type="OptionButton" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="EditorBackgroundSelect" type="OptionButton" parent="FrontWindows/OptionsWindow/General"]
 margin_left = 227.0
 margin_top = 88.0
 margin_right = 427.0
@@ -847,65 +863,117 @@ text = "bg1"
 items = [ "bg1", null, false, -1, null, "bg2", null, false, -1, null, "bg3", null, false, -1, null, "bg4", null, false, -1, null ]
 selected = 0
 
-[node name="LowProcessorMode" type="CheckBox" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="LowProcessorMode" type="CheckBox" parent="FrontWindows/OptionsWindow/General"]
 margin_top = 132.0
 margin_right = 223.0
 margin_bottom = 163.0
 rect_min_size = Vector2( 200, 0 )
 focus_mode = 0
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 pressed = true
 text = "Low Processor Mode"
 align = 1
 
-[node name="DisableAnimations" type="CheckBox" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="DisableAnimations" type="CheckBox" parent="FrontWindows/OptionsWindow/General"]
 margin_left = 227.0
 margin_top = 132.0
 margin_right = 427.0
 margin_bottom = 163.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Disable Animations"
 align = 1
 
-[node name="EnableVSync" type="CheckBox" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="EnableVSync" type="CheckBox" parent="FrontWindows/OptionsWindow/General"]
 margin_top = 173.0
 margin_right = 223.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Enable VSync"
 align = 1
 
-[node name="MuteSound" type="CheckBox" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="MuteSound" type="CheckBox" parent="FrontWindows/OptionsWindow/General"]
 margin_left = 227.0
 margin_top = 173.0
 margin_right = 427.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Mute Sound"
 align = 1
 
-[node name="MoveBlocksAsChain" type="CheckBox" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="MoveBlocksAsChain" type="CheckBox" parent="FrontWindows/OptionsWindow/General"]
 margin_top = 214.0
 margin_right = 223.0
 margin_bottom = 245.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = ExtResource( 21 )
+custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Move Blocks As Chain"
 align = 1
 
-[node name="Control" type="Control" parent="FrontWindows/OptionsWindow/GridContainer"]
+[node name="Control" type="Control" parent="FrontWindows/OptionsWindow/General"]
 margin_left = 227.0
 margin_top = 214.0
 margin_right = 427.0
 margin_bottom = 245.0
+
+[node name="Spellcheck" type="GridContainer" parent="FrontWindows/OptionsWindow"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -447.0
+margin_top = 11.0
+margin_right = -20.0
+margin_bottom = 373.0
+custom_constants/vseparation = 10
+columns = 2
+
+[node name="Enabled" type="Label" parent="FrontWindows/OptionsWindow/Spellcheck"]
+margin_top = 3.0
+margin_right = 347.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 0, 34 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 22 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Realtime Spellcheck Enabled"
+valign = 1
+
+[node name="RealtimeSpellcheckEnabled" type="CheckButton" parent="FrontWindows/OptionsWindow/Spellcheck"]
+margin_left = 351.0
+margin_right = 427.0
+margin_bottom = 40.0
+pressed = true
+
+[node name="IgnoredWordsLabel" type="Label" parent="FrontWindows/OptionsWindow/Spellcheck"]
+margin_top = 50.0
+margin_right = 347.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 34 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 22 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Ignored words"
+valign = 1
+
+[node name="Control2" type="Control" parent="FrontWindows/OptionsWindow/Spellcheck"]
+margin_left = 351.0
+margin_top = 50.0
+margin_right = 427.0
+margin_bottom = 84.0
+
+[node name="IgnoredWords" type="TextEdit" parent="FrontWindows/OptionsWindow/Spellcheck"]
+margin_top = 94.0
+margin_right = 347.0
+margin_bottom = 372.0
+rect_min_size = Vector2( 175.74, 278 )
+size_flags_vertical = 2
+show_line_numbers = true
 
 [node name="HelpWindow" type="AcceptDialog" parent="FrontWindows"]
 editor/display_folded = true
@@ -921,7 +989,7 @@ rect_min_size = Vector2( 200, 200 )
 theme = ExtResource( 8 )
 window_title = "Help"
 resizable = true
-script = ExtResource( 22 )
+script = ExtResource( 23 )
 
 [node name="Control" type="Control" parent="FrontWindows/HelpWindow"]
 anchor_right = 1.0
@@ -937,7 +1005,7 @@ anchor_bottom = 1.0
 margin_left = 10.0
 margin_right = -9.0
 margin_bottom = 19.0
-custom_fonts/bold_font = ExtResource( 23 )
+custom_fonts/bold_font = ExtResource( 24 )
 bbcode_enabled = true
 bbcode_text = "[b][u]MOVING THE CAMERA[/u] [/b]
 [b]Pan Camera: [/b]Right Click / Alt + Click
@@ -982,7 +1050,7 @@ rect_min_size = Vector2( 270, 305 )
 theme = ExtResource( 8 )
 window_title = "Find"
 resizable = true
-script = ExtResource( 24 )
+script = ExtResource( 25 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FrontWindows/FindWindow"]
 margin_left = 12.8334
@@ -1137,7 +1205,7 @@ margin_top = 12.0
 margin_right = -13.0
 margin_bottom = -38.0
 theme = ExtResource( 8 )
-custom_styles/bg = ExtResource( 25 )
+custom_styles/bg = ExtResource( 21 )
 allow_reselect = true
 
 [node name="RefineCheckbox" type="CheckBox" parent="FrontWindows/FindWindow"]
@@ -1197,7 +1265,7 @@ margin_top = 12.0
 margin_right = -13.0
 margin_bottom = -50.0
 theme = ExtResource( 8 )
-custom_styles/bg = ExtResource( 25 )
+custom_styles/bg = ExtResource( 21 )
 allow_reselect = true
 max_text_lines = 2
 
@@ -1516,6 +1584,7 @@ anims/UnblackenScreen = SubResource( 37 )
 [connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/ViewConnections" to="InspectorLayer/Inspector" method="_on_ViewConnections_pressed"]
 [connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/ViewChainAsScript" to="InspectorLayer/Inspector" method="_on_ViewChainAsScript_pressed"]
 [connection signal="pressed" from="InspectorLayer/Inspector/DialogueBoxContainer/Control/ActionsVBox/GoToEndOfChain" to="InspectorLayer/Inspector" method="_on_GoToEndOfChain_pressed"]
+[connection signal="item_selected" from="FrontWindows/OptionsWindow/ItemList" to="FrontWindows/OptionsWindow" method="_on_ItemList_item_selected"]
 [connection signal="file_selected" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_file_selected"]
 [connection signal="popup_hide" from="FrontWindows/OpenFileWindow" to="." method="_on_OpenFileWindow_popup_hide"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/New" to="." method="_on_New_pressed"]

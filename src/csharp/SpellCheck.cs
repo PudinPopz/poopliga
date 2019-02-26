@@ -16,6 +16,10 @@ public class SpellCheck : Node
 {
 	private static readonly Hunspell Hunspell = new Hunspell("en_UK.aff", "en_UK.dic");
 
+	private static bool _realtimeEnabled = true;
+
+	private static Dictionary _ignoredWords = new Dictionary();
+
 	public class SpellCheckResult : Object
 	{
 		public readonly Control Block;
@@ -115,12 +119,17 @@ public class SpellCheck : Node
 		if (word.EndsWith("-"))
 			word = word.Remove(word.Length - 1, 1);
 
+		// If in ignored words dictionary, return true
+		if (_ignoredWords.ContainsKey(word.ToLower()))
+			return true;
+
 		// If still returning a spelling mistake after cleanup
 		if (Hunspell.Spell(word) == false)
 		{
 			// Strip trailing 's' to allow plural acronyms
 			if (word.EndsWith("s"))
 				word = word.Remove(word.Length - 1, 1);
+
 
 			// Ignore if word is all caps
 			if (word == word.ToUpper())
@@ -130,5 +139,20 @@ public class SpellCheck : Node
 		}
 
 		return true;
+	}
+
+	private static void SetIgnoredWords(Dictionary dict)
+	{
+		_ignoredWords = dict;
+	}
+
+	private static void SetRealtimeEnabled(bool enabled)
+	{
+		_realtimeEnabled = enabled;
+	}
+
+	private static bool IsRealtimeEnabled()
+	{
+		return _realtimeEnabled;
 	}
 }

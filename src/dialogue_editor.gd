@@ -49,10 +49,33 @@ var autosave_frequency_msec : float = 120 * 1000 # msec
 
 var last_autosave : int = -99999
 
-var editor_settings = {}
+var editor_settings : Dictionary = {}
 
 
 var viewport_mouse_pos : Vector2 = Vector2()
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	show_dimmer("Loading...")
+
+	# Load editor settings from file
+	var settings_path : String = "user://editor_settings.json"
+	var file : File = File.new()
+	if file.file_exists(settings_path):
+		file.open(settings_path, File.READ)
+		editor_settings = parse_json(file.get_as_text())
+		file.close()
+
+	theme = preload("res://themes/default_theme.tres")
+	current_folder = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
+	randomize()
+	set_process(true)
+	reset()
+	saveas_dialog = create_saveas_file_dialog()
+	fix_popin_bug(10)
+
+	close_dimmer()
+	is_still_loading = false
 
 func _input(event):
 	cursor.position = get_global_mouse_position()
@@ -163,19 +186,7 @@ func handle_focus_shortcuts(event):
 		block.id_label.grab_focus()
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	show_dimmer("Loading...")
-	theme = preload("res://themes/default_theme.tres")
-	current_folder = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-	randomize()
-	set_process(true)
-	reset()
-	saveas_dialog = create_saveas_file_dialog()
-	fix_popin_bug(10)
 
-	close_dimmer()
-	is_still_loading = false
 
 var double_click_timer_time = 0.35
 var double_click_timer = 0
@@ -216,10 +227,14 @@ func _notification(what):
 		autosave()
 	if what == MainLoop.NOTIFICATION_CRASH:
 		autosave(true)
+		$FrontWindows/OptionsWindow.save_options_to_file()
 	if what == MainLoop.NOTIFICATION_OS_MEMORY_WARNING:
 		autosave()
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		autosave(true)
+		$FrontWindows/OptionsWindow.save_options_to_file()
+		# TODO: Are you sure you want to quit?
+		get_tree().quit()
 
 # Fix for weird rendering bug after tab out	(CAN BE SLOW)
 func fix_rendering_bug():
