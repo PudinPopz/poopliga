@@ -2,13 +2,13 @@ extends Camera2D
 signal scrolled
 
 # IMPORTS
-var DialogueBlock = preload("res://src/blocks/dialogue_block.gd")
+var DialogueBlock := preload("res://src/blocks/dialogue_block.gd")
 
 onready var area_2d = get_node("Area2D")
 onready var collision_shape = area_2d.get_node("CollisionShape2D")
 
-var LAST_MOUSE_POS = Vector2()
-var LAST_CHAR_NAME = ""
+var LAST_MOUSE_POS := Vector2()
+var LAST_CHAR_NAME : String = ""
 
 var LAST_MODIFIED_BLOCK = null
 
@@ -25,28 +25,32 @@ func _ready():
 	update_rendered(true, -1)
 	set_physics_process(true)
 
-var scroll_spd = 180
-var zoom_spd = 1.5
-var zoom_level_max = 3
-var loop_mouse_cursor = true
+var scroll_spd : float = 180
+var zoom_spd : float = 1.5
+var zoom_level_max : float = 3
+var loop_mouse_cursor : bool = true
 
-var zoom_level = zoom_level_max
-var mouse_pos = Vector2(0,0)
-var mouse_previous_pos = Vector2(0,0)
-var mouse_delta = Vector2(0,0)
-var pan_mode = false
+# Variables for feature where user can return back to previous position after a heavy lerp (TODO)
+var save_previous_pos_threshold : float = 600
+var saved_previous_pos : Vector2 = position
+
+var zoom_level : float = zoom_level_max
+var mouse_pos := Vector2(0,0)
+var mouse_previous_pos := Vector2(0,0)
+var mouse_delta := Vector2(0,0)
+var pan_mode : bool = false
 var scroll_mode : int = 0
-var camera_previous_pos = Vector2(0,0)
-var freeze = false
-var target_pos = Vector2(0,0)
-var in_lerp = false
-var lerp_time = 0
-var lerp_finish_time = 1.0
+var camera_previous_pos := Vector2(0,0)
+var freeze : bool = false
+var target_pos := Vector2(0,0)
+var in_lerp : bool = false
+var lerp_time : float = 0
+var lerp_finish_time : float = 1.0
 
-var blocks_on_screen = []
-var last_blocks_on_screen = []
+var blocks_on_screen : Array = []
+var last_blocks_on_screen : Array = []
 
-var no_zoom_limit = false
+var no_zoom_limit : bool = false
 
 var ignore_mouse := true # Workaround for broken panning when out of focus
 var is_ctrl_down := false
