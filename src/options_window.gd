@@ -20,6 +20,7 @@ func _ready():
 
 	connect("visibility_changed", self, "on_visibility_changed")
 
+	item_list.select(0)
 	_on_ItemList_item_selected(0)
 
 	# Wait for dialogue editor before loading settings just in case
