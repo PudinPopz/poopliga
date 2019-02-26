@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/blocks/branch_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dialogue/ninepatch2.png" type="Texture" id=2]
@@ -15,14 +15,13 @@
 [ext_resource path="res://fonts/serif_dialogue.tres" type="DynamicFont" id=13]
 [ext_resource path="res://fonts/serif_char_bold.tres" type="DynamicFont" id=14]
 [ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=15]
-[ext_resource path="res://src/text_edit_fixer.gd" type="Script" id=16]
-[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=17]
-[ext_resource path="res://fonts/UI_18.tres" type="DynamicFont" id=18]
-[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=19]
-[ext_resource path="res://sprites/icons/connector_small.png" type="Texture" id=20]
-[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=21]
-[ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=22]
-[ext_resource path="res://src/blocks/branch_block_line_draw.gd" type="Script" id=23]
+[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=16]
+[ext_resource path="res://fonts/UI_18.tres" type="DynamicFont" id=17]
+[ext_resource path="res://fonts/hack_20.tres" type="DynamicFont" id=18]
+[ext_resource path="res://sprites/icons/connector_small.png" type="Texture" id=19]
+[ext_resource path="res://snd/boop.ogg" type="AudioStream" id=20]
+[ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=21]
+[ext_resource path="res://src/blocks/branch_block_line_draw.gd" type="Script" id=22]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -37,7 +36,7 @@
 [sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="Theme" id=7]
-default_font = ExtResource( 18 )
+default_font = ExtResource( 17 )
 LineEdit/colors/clear_button_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 1, 1, 1, 1 )
 LineEdit/colors/cursor_color = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -239,7 +238,6 @@ custom_constants/line_spacing = 0
 context_menu_enabled = false
 wrap_enabled = true
 caret_blink = true
-script = ExtResource( 16 )
 
 [node name="TailConnector" type="TextureButton" parent="NinePatchRect"]
 visible = false
@@ -253,7 +251,7 @@ disabled = true
 action_mode = 0
 button_mask = 0
 enabled_focus_mode = 0
-texture_normal = ExtResource( 17 )
+texture_normal = ExtResource( 16 )
 expand = true
 stretch_mode = 5
 
@@ -309,7 +307,7 @@ margin_bottom = 16.5
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 19 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 0, 0.75, 1, 1 )
 context_menu_enabled = false
 clear_button_enabled = true
@@ -335,7 +333,7 @@ margin_bottom = 16.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 19 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 1, 0.485714, 0, 1 )
 context_menu_enabled = false
 clear_button_enabled = true
@@ -362,7 +360,7 @@ margin_bottom = 16.5
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 19 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 0, 1, 0.0512822, 1 )
 context_menu_enabled = false
 clear_button_enabled = true
@@ -390,7 +388,7 @@ margin_bottom = 16.5
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 19 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 0.958904, 1, 0, 1 )
 context_menu_enabled = false
 clear_button_enabled = true
@@ -417,7 +415,7 @@ margin_bottom = 16.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 19 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 0.802198, 0, 1, 1 )
 context_menu_enabled = false
 clear_button_enabled = true
@@ -445,7 +443,7 @@ margin_bottom = 16.5
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 4 )
-custom_fonts/font = ExtResource( 19 )
+custom_fonts/font = ExtResource( 18 )
 custom_colors/font_color = Color( 1, 0, 0.102564, 1 )
 context_menu_enabled = false
 clear_button_enabled = true
@@ -490,8 +488,8 @@ focus_mode = 1
 mouse_filter = 1
 action_mode = 0
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 20 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 expand = true
 stretch_mode = 5
 
@@ -519,8 +517,8 @@ focus_mode = 1
 mouse_filter = 1
 action_mode = 0
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 20 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 expand = true
 stretch_mode = 5
 
@@ -548,8 +546,8 @@ focus_mode = 1
 mouse_filter = 1
 action_mode = 0
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 20 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 expand = true
 stretch_mode = 5
 
@@ -577,8 +575,8 @@ focus_mode = 1
 mouse_filter = 1
 action_mode = 0
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 20 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 expand = true
 stretch_mode = 5
 
@@ -606,8 +604,8 @@ focus_mode = 1
 mouse_filter = 1
 action_mode = 0
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 20 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 expand = true
 stretch_mode = 5
 
@@ -635,8 +633,8 @@ focus_mode = 1
 mouse_filter = 1
 action_mode = 0
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 20 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 expand = true
 stretch_mode = 5
 
@@ -645,9 +643,9 @@ anims/kill = SubResource( 8 )
 anims/spawn = SubResource( 9 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 21 )
+stream = ExtResource( 20 )
 autoplay = true
-script = ExtResource( 22 )
+script = ExtResource( 21 )
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 0, 41.4524 )
@@ -663,7 +661,7 @@ shape = SubResource( 10 )
 [node name="LineDrawNode" type="Node2D" parent="."]
 position = Vector2( 0, 310 )
 z_index = 4
-script = ExtResource( 23 )
+script = ExtResource( 22 )
 
 [node name="HeadArea2D" type="Area2D" parent="."]
 position = Vector2( -10, 7.626 )

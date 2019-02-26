@@ -167,6 +167,11 @@ func _input(event):
 					if is_node_alive(selected_block):
 						MainCamera.lerp_camera_pos(selected_block.rect_position, 1.0, true)
 
+		# Fix for not being able to go from dialogue text to character
+		if is_shift_down and Input.is_key_pressed(KEY_TAB) and focus is TextEdit:
+			if focus.owner is DBScript:
+				yield(get_tree().create_timer(0.0),"timeout")
+				focus.owner.character_line_edit.grab_focus()
 
 func handle_focus_shortcuts(event):
 	if focus == null:

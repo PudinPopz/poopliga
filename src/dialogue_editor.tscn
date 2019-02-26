@@ -368,6 +368,7 @@ texture = ExtResource( 7 )
 shape = SubResource( 5 )
 
 [node name="InspectorLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 layer = 3
 
 [node name="Inspector" type="Panel" parent="InspectorLayer"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/blocks/meta_block.gd" type="Script" id=1]
 [ext_resource path="res://sprites/icons/unfilled_circle_thick.png" type="Texture" id=2]
@@ -10,11 +10,10 @@
 [ext_resource path="res://fonts/lato_27.tres" type="DynamicFont" id=8]
 [ext_resource path="res://sprites/dialogue/dialoguebox.png" type="Texture" id=9]
 [ext_resource path="res://fonts/hack_largeish.tres" type="DynamicFont" id=10]
-[ext_resource path="res://src/text_edit_fixer.gd" type="Script" id=11]
-[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=12]
-[ext_resource path="res://snd/boop2.ogg" type="AudioStream" id=13]
-[ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=14]
-[ext_resource path="res://src/blocks/dialogue_block_line_draw.gd" type="Script" id=15]
+[ext_resource path="res://sprites/icons/connector_small_unfilled.png" type="Texture" id=11]
+[ext_resource path="res://snd/boop2.ogg" type="AudioStream" id=12]
+[ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=13]
+[ext_resource path="res://src/blocks/dialogue_block_line_draw.gd" type="Script" id=14]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0625, 0.0625, 0.0625, 1 )
@@ -229,7 +228,6 @@ readonly = true
 context_menu_enabled = false
 wrap_enabled = true
 caret_blink = true
-script = ExtResource( 11 )
 
 [node name="TailConnector" type="TextureButton" parent="NinePatchRect"]
 visible = false
@@ -245,7 +243,7 @@ margin_bottom = -4.0
 mouse_filter = 1
 disabled = true
 action_mode = 0
-texture_normal = ExtResource( 12 )
+texture_normal = ExtResource( 11 )
 expand = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -254,9 +252,9 @@ anims/kill = SubResource( 9 )
 anims/spawn = SubResource( 10 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 12 )
 volume_db = -80.0
-script = ExtResource( 14 )
+script = ExtResource( 13 )
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false
@@ -272,7 +270,7 @@ disabled = true
 visible = false
 position = Vector2( 0, 310 )
 z_index = 4
-script = ExtResource( 15 )
+script = ExtResource( 14 )
 
 [node name="HeadArea2D" type="Area2D" parent="."]
 visible = false
