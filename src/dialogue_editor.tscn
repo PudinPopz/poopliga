@@ -1439,7 +1439,6 @@ flat = true
 margin_left = 443.0
 margin_right = 496.0
 margin_bottom = 32.0
-hint_tooltip = "Saves the current file to a specified location."
 focus_mode = 0
 custom_fonts/font = ExtResource( 17 )
 enabled_focus_mode = 0

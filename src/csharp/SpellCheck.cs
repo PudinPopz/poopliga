@@ -1,12 +1,6 @@
-using System.Linq;
-using System.Security.Principal;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
 using Godot;
 using NHunspell;
 using Godot.Collections;
-using Thread = System.Threading.Thread;
 
 // ReSharper disable ParameterTypeCanBeEnumerable.Global
 
