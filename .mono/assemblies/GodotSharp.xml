@@ -4,6 +4,24 @@
         <name>GodotSharp</name>
     </assembly>
     <members>
+        <member name="P:Godot.Basis.x">
+            <summary>
+            Returns the basis matrix’s x vector.
+            This is equivalent to <see cref="P:Godot.Basis.Column0"/>.
+            </summary>
+        </member>
+        <member name="P:Godot.Basis.y">
+            <summary>
+            Returns the basis matrix’s y vector.
+            This is equivalent to <see cref="P:Godot.Basis.Column1"/>.
+            </summary>
+        </member>
+        <member name="P:Godot.Basis.z">
+            <summary>
+            Returns the basis matrix’s z vector.
+            This is equivalent to <see cref="P:Godot.Basis.Column2"/>.
+            </summary>
+        </member>
         <member name="T:Godot.Node">
             <summary>
             Nodes are Godot's building blocks. They can be assigned as the child of another node, resulting in a tree arrangement. A given node can contain any number of nodes as children with the requirement that all siblings (direct children of a node) should have unique names.
@@ -10980,6 +10998,7 @@
         </member>
         <member name="P:Godot.CPUParticles.ColorRamp">
             <summary>
+            Each particle's vertex color will vary along this [GradientTexture].
             </summary>
         </member>
         <member name="P:Godot.CPUParticles.HueVariation">
@@ -28053,26 +28072,6 @@
             Returns a list of the bodies colliding with this one. Use [member contacts_reported] to set the maximum number reported. You must also set [member contact_monitor] to [code]true[/code]. Note that the result of this test is not immediate after moving objects. For performance, list of collisions is updated once per frame and before the physics step. Consider using signals instead.
             </summary>
         </member>
-        <member name="P:Godot.RootMotionView.AnimationPath">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.Color">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.CellSize">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.Radius">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.ZeroY">
-            <summary>
-            </summary>
-        </member>
         <member name="T:Godot.SceneState">
             <summary>
             Maintains a list of resources, nodes, exported, and overridden properties, and built-in scripts associated with a scene.
@@ -28343,6 +28342,13 @@
         <member name="M:Godot.SceneTree.CreateTimer(System.Single,System.Boolean)">
             <summary>
             Returns a [SceneTreeTimer] which will [signal SceneTreeTimer.timeout] after the given time in seconds elapsed in this SceneTree. If [code]pause_mode_process[/code] is set to false, pausing the SceneTree will also pause the timer.
+            Commonly used to create a one-shot delay timer as in the following example:
+            [codeblock]
+            func some_function():
+            print("start")
+            yield(get_tree().create_timer(1.0), "timeout")
+            print("end")
+            [/codeblock]
             </summary>
         </member>
         <member name="M:Godot.SceneTree.GetNodeCount">
@@ -28444,8 +28450,21 @@
             Returns the sender's peer ID for the most recently received RPC call.
             </summary>
         </member>
+        <member name="T:Godot.SceneTreeTimer">
+            <summary>
+            A one-shot timer managed by the scene tree, which emits [signal timeout] on completion. See also [method SceneTree.create_timer].
+            As opposed to [Timer], it does not require the instantiation of a node. Commonly used to create a one-shot delay timer as in the following example:
+            [codeblock]
+            func some_function():
+            print("start")
+            yield(get_tree().create_timer(1.0), "timeout")
+            print("end")
+            [/codeblock]
+            </summary>
+        </member>
         <member name="P:Godot.SceneTreeTimer.TimeLeft">
             <summary>
+            The time remaining.
             </summary>
         </member>
         <member name="T:Godot.Script">
@@ -35566,7 +35585,11 @@
         </member>
         <member name="M:Godot.Viewport.GetTexture">
             <summary>
-            Returns the viewport's texture.
+            Returns the viewport's texture. Note that due to the way OpenGL works, the resulting [ViewportTexture] is flipped vertically. You can use [method Image.flip_y] on the result of [method Texture.get_data] to flip it back, for example:
+            [codeblock]
+            var img = get_viewport().get_texture().get_data()
+            img.flip_y()
+            [/codeblock]
             </summary>
         </member>
         <member name="M:Godot.Viewport.GetViewportRid">

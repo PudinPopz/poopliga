@@ -143,12 +143,10 @@ func _input(event):
 	# Select block on mouse click
 	if Input.is_action_just_pressed("click") and hovered_block != null and is_instance_valid(hovered_block):
 		# Mouse in viewport coordinates
-		var overlaps_inspector : bool = viewport_mouse_pos.x >= Editor.get_inspector().rect_position.x
-		# Additional check for if underneath active inspector
-		if $InspectorLayer/Inspector.visible:
-			if !overlaps_inspector:
-				set_selected_block(hovered_block)
-		else:
+		var overlaps_menu_bar : bool = viewport_mouse_pos.y <= $FrontUILayer/ColorRectBG2.rect_size.y
+		var overlaps_inspector : bool = $InspectorLayer/Inspector.visible && viewport_mouse_pos.x >= Editor.get_inspector().rect_position.x
+		var is_blocked : bool = overlaps_menu_bar || overlaps_inspector
+		if !is_blocked:
 			set_selected_block(hovered_block)
 
 
