@@ -4,6 +4,8 @@ the world's worst dialogue editor
 
 This project started out as an experiment with Godot's UI system that went way too far. Initially, this was going to be a 2D level editor with a dialogue editor as a "bonus feature"; thus, the codebase (as well as platform of choice) carries many remnants of that fact. As the development of this project was primarily a learning experience, code quality ranges from questionable to violating the Geneva Conventions. The code for this project was made up of so much spaghetti that Benito Mussolini tried to impose increased import tariffs on it. It's horrible, but somehow still works *way* better than it has any right to.
 
+![](https://i.imgur.com/Tj5lH8a.jpg)
+
 FEATURES (off the top of my head at approximately 2:30am)
 * Saves to very easy to implement JSON
 * Easily create branching narratives
