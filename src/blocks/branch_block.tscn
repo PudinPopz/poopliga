@@ -7,7 +7,7 @@
 [ext_resource path="res://fonts/UI_20.tres" type="DynamicFont" id=5]
 [ext_resource path="res://sprites/icons/trash_small.png" type="Texture" id=6]
 [ext_resource path="res://sprites/icons/trash_open_small.png" type="Texture" id=7]
-[ext_resource path="res://scenes/title_bar_button_hover.gd" type="Script" id=8]
+[ext_resource path="res://src/title_bar_button_hover.gd" type="Script" id=8]
 [ext_resource path="res://sprites/dialogue/advdialoguebox.png" type="Texture" id=9]
 [ext_resource path="res://fonts/serif_dialogue_bolditalic.tres" type="DynamicFont" id=10]
 [ext_resource path="res://fonts/serif_dialogue_italic.tres" type="DynamicFont" id=11]
@@ -22,6 +22,7 @@
 [ext_resource path="res://snd/boop.ogg" type="AudioStream" id=20]
 [ext_resource path="res://src/random_pitch_sound.gd" type="Script" id=21]
 [ext_resource path="res://src/blocks/branch_block_line_draw.gd" type="Script" id=22]
+
 
 [sub_resource type="StyleBoxEmpty" id=1]
 

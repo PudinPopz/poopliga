@@ -18,6 +18,4 @@ C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Tools\McFakeFake Poopliga Dialogu
 C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Tools\McFakeFake Poopliga Dialogue Editor.pdb
 C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Tools\NHunspell.dll
 C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Tools\NHunspell.pdb
-C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.csprojAssemblyReference.cache
-C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.csproj.CoreCompileInputs.cache
-C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.csproj.CopyComplete
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Tools\McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache
