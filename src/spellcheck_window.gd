@@ -3,7 +3,11 @@ extends WindowDialog
 onready var item_list : ItemList = $ItemList
 onready var error_count_label : Label = $ErrorCountLabel
 
+onready var ignore_word_button : Button = $HBoxContainer/IgnoreWord 
+onready var ignore_block_button : Button = $HBoxContainer/IgnoreBlock 
+
 var error_arr : Array = []
+var item_index : int = -99
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,6 +18,9 @@ func _ready() -> void:
 	$CheckButton.connect("pressed", self, "on_check_pressed")
 	$ItemList.connect("item_selected", self, "on_item_selected")
 	error_count_label.text = ""
+	
+	ignore_word_button.connect("pressed", self, "on_word_ignored")
+	ignore_block_button.connect("pressed", self, "on_block_ignored")
 
 func on_visibility_changed():
 	if visible:
@@ -45,13 +52,34 @@ func on_check_pressed():
 			error_count_label.text = str(error_count) + " errors found."
 
 
-
-
 func on_item_selected(index : int):
+	item_index = index
 	var block : DialogueBlock = error_arr[index].Block
 	MainCamera.lerp_time = 0
 	MainCamera.lerp_camera_pos(block.rect_position)
 	Editor.set_selected_block(block)
+
+func on_word_ignored():
+	if item_index < 0:
+		return
+		
+	var word : String = error_arr[item_index].Word
+	var new_list : String = Editor.current_meta_block.project_settings["spellcheck_ignored_words"] + "\n" + word
+	new_list = new_list.strip_edges()
+	Editor.current_meta_block.project_settings["spellcheck_ignored_words"] = new_list
+	Editor.emit_signal("spellcheck_ignore_list_updated")
+	on_check_pressed()
+	
+func on_block_ignored():
+	if item_index < 0:
+		return
+	
+	var block_id : String = error_arr[item_index].Block.id
+	var new_list : String = Editor.current_meta_block.project_settings["spellcheck_ignored_words"] + "\n" + '"' + block_id + '"'
+	new_list = new_list.strip_edges()
+	Editor.current_meta_block.project_settings["spellcheck_ignored_words"] = new_list
+	Editor.emit_signal("spellcheck_ignore_list_updated")
+	on_check_pressed()
 
 class Sorter:
 	static func spellcheck_y_pos(a, b):

@@ -1,4 +1,8 @@
 extends Control
+
+signal new_file
+signal spellcheck_ignore_list_updated
+
 # TODO: Separate behaviours into different nodes/scripts rather than having this one huge file.
 const MetaBlock = preload("res://src/blocks/meta_block.tscn")
 const DBScript = preload("res://src/blocks/dialogue_block.gd")
@@ -215,8 +219,6 @@ func _process(delta):
 		fix_rendering_bug()
 		fix_popin_bug()
 		already_refreshed = true
-
-	
 	
 	# Handle autosaving after certain amounts of time
 	if OS.get_ticks_msec() - last_autosave >= autosave_frequency_msec:
@@ -504,6 +506,7 @@ func _on_OpenFileWindow_file_selected(path):
 	AudioServer.set_bus_mute(0, previous_bus_mute)
 	close_dimmer()
 	open_file_behaviour = OPEN_FILE_BEHAVIOUR.new_file
+	emit_signal("new_file")
 
 func _on_OpenFileWindow_popup_hide():
 	open_file_behaviour = OPEN_FILE_BEHAVIOUR.new_file

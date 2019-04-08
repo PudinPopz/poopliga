@@ -72,25 +72,12 @@ func update_spellcheck_settings():
 		CSharp.SpellCheck.SetRealtimeEnabled($Spellcheck/RealtimeSpellcheckEnabled.pressed)
 
 func update_ignored_words():
-	var ignored_words_dict : Dictionary = {}
-	var current_word : String = ""
-	var text : String = $Spellcheck/IgnoredWords.text
-	for i in range(len(text)):
-		var character : String = text[i]
-		var is_separator : bool = character in [' ', '\n', ',', ';']
-		if is_separator or i >= len(text) - 1:
-			if !is_separator:
-				current_word += character
-			if current_word != "":
-				ignored_words_dict[(current_word.strip_edges().to_lower())] = ""
-			current_word = ""
-			continue
-		current_word += character
+	var ignored_words_dict : Dictionary = CSharp.ignored_words_dict($Spellcheck/IgnoredWords.text)
 
 	Editor.editor_settings["spellcheck_ignored_words"] = $Spellcheck/IgnoredWords.text
 
 	if CSharp.is_working:
-		CSharp.SpellCheck.SetIgnoredWords(ignored_words_dict)
+		CSharp.SpellCheck.SetIgnoredWordsEditor(ignored_words_dict)
 
 
 func _on_scroll_speed_changed(value):

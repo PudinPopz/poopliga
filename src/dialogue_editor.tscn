@@ -630,7 +630,6 @@ theme = ExtResource( 8 )
 script = ExtResource( 16 )
 
 [node name="Panel" type="WindowDialog" parent="FrontWindows/ProjectWindow"]
-editor/display_folded = true
 margin_left = -188.0
 margin_top = -177.0
 margin_right = 283.0
@@ -702,17 +701,38 @@ caret_blink = true
 
 [node name="CustomBlockAttributesLabel" type="Label" parent="FrontWindows/ProjectWindow/Panel"]
 margin_left = 19.0
-margin_top = 197.0
+margin_top = 162.0
 margin_right = 258.0
-margin_bottom = 220.0
+margin_bottom = 185.0
 size_flags_horizontal = 3
-text = "Custom Block Attributes"
+text = "Custom block attributes"
 
 [node name="CustomBlockAttributesTextEdit" type="TextEdit" parent="FrontWindows/ProjectWindow/Panel"]
 margin_left = 19.0
-margin_top = 231.0
-margin_right = 350.0
-margin_bottom = 351.0
+margin_top = 196.0
+margin_right = 211.0
+margin_bottom = 388.0
+rect_min_size = Vector2( 0, 120 )
+custom_fonts/font = SubResource( 15 )
+custom_colors/current_line_color = Color( 1, 1, 1, 0.0470588 )
+highlight_current_line = true
+show_line_numbers = true
+context_menu_enabled = false
+caret_blink = true
+
+[node name="SpellcheckIgnoredWordsLabel" type="Label" parent="FrontWindows/ProjectWindow/Panel"]
+margin_left = 223.111
+margin_top = 162.0
+margin_right = 462.111
+margin_bottom = 185.0
+size_flags_horizontal = 3
+text = "Spellcheck ignored words/ids"
+
+[node name="SpellcheckIgnoredWordsTextEdit" type="TextEdit" parent="FrontWindows/ProjectWindow/Panel"]
+margin_left = 223.0
+margin_top = 196.0
+margin_right = 462.0
+margin_bottom = 388.0
 rect_min_size = Vector2( 0, 120 )
 custom_fonts/font = SubResource( 15 )
 custom_colors/current_line_color = Color( 1, 1, 1, 0.0470588 )
@@ -924,7 +944,7 @@ rect_min_size = Vector2( 0, 34 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 22 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Ignored Words"
+text = "Ignored Words (Editor)"
 valign = 1
 
 [node name="Control2" type="Control" parent="FrontWindows/OptionsWindow/Spellcheck"]
@@ -1213,7 +1233,7 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -183.0
+margin_left = -188.0
 margin_top = -217.0
 margin_right = 201.0
 margin_bottom = 181.0
@@ -1236,6 +1256,7 @@ allow_reselect = true
 max_text_lines = 2
 
 [node name="CheckButton" type="Button" parent="FrontWindows/SpellCheckWindow"]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -1250,16 +1271,37 @@ custom_fonts/font = ExtResource( 17 )
 text = "Refresh"
 
 [node name="ErrorCountLabel" type="Label" parent="FrontWindows/SpellCheckWindow"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 13.4289
+margin_top = -35.0
+margin_right = 172.429
+margin_bottom = -12.0
+text = "Found 0 errors."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FrontWindows/SpellCheckWindow"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -350.245
-margin_top = -34.6246
-margin_right = -147.245
-margin_bottom = -11.6246
-text = "Found 0 errors."
-align = 2
+margin_left = -238.698
+margin_top = -38.497
+margin_right = -8.698
+margin_bottom = -9.49701
+custom_constants/separation = 10
+
+[node name="IgnoreWord" type="Button" parent="FrontWindows/SpellCheckWindow/HBoxContainer"]
+margin_right = 107.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 17 )
+text = "Ignore word"
+
+[node name="IgnoreBlock" type="Button" parent="FrontWindows/SpellCheckWindow/HBoxContainer"]
+margin_left = 117.0
+margin_right = 225.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 17 )
+text = "Ignore block"
 
 [node name="OpenFileWindow" type="FileDialog" parent="FrontWindows"]
 anchor_left = 0.5

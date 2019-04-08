@@ -10,7 +10,8 @@ const DEFAULT_PROJECT_SETTINGS := {
 	dialogue_box_style = DBOX_BLACK_SERIF,
 	author = "",
 	description = "",
-	custom_block_attributes = ""
+	custom_block_attributes = "",
+	spellcheck_ignored_words = ""
 }
 
 var project_settings := DEFAULT_PROJECT_SETTINGS

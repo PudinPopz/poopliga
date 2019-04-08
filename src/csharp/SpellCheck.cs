@@ -12,7 +12,8 @@ public class SpellCheck : Node
 
 	private static bool _realtimeEnabled = true;
 
-	private static Dictionary _ignoredWords = new Dictionary();
+	private static Dictionary _ignoredWordsEditor = new Dictionary();
+	private static Dictionary _ignoredWordsProject = new Dictionary();
 
 	public class SpellCheckResult : Object
 	{
@@ -56,7 +57,9 @@ public class SpellCheck : Node
 				foreach (var indexWordPair in spellingErrors)
 				{
 					var spellCheckResult = new SpellCheckResult(block, indexWordPair.Key, indexWordPair.Value);
-					outputArr.Add(spellCheckResult);
+					// Add if block id isn't ignored by project settings
+					if (!_ignoredWordsProject.ContainsKey('"' + block.Name + '"'))
+						outputArr.Add(spellCheckResult);
 				}
 			}
 		}
@@ -114,7 +117,7 @@ public class SpellCheck : Node
 			word = word.Remove(word.Length - 1, 1);
 
 		// If in ignored words dictionary, return true
-		if (_ignoredWords.ContainsKey(word.ToLower()))
+		if (_ignoredWordsEditor.ContainsKey(word.ToLower()) || _ignoredWordsProject.ContainsKey(word.ToLower()))
 			return true;
 
 		// If still returning a spelling mistake after cleanup
@@ -135,9 +138,14 @@ public class SpellCheck : Node
 		return true;
 	}
 
-	private static void SetIgnoredWords(Dictionary dict)
+	private static void SetIgnoredWordsEditor(Dictionary dict)
 	{
-		_ignoredWords = dict;
+		_ignoredWordsEditor = dict;
+	}
+	
+	private static void SetIgnoredWordsProject(Dictionary dict)
+	{
+		_ignoredWordsProject = dict;
 	}
 
 	private static void SetRealtimeEnabled(bool enabled)
