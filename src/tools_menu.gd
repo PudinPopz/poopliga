@@ -25,5 +25,12 @@ func on_item_selected(ID : int) -> void:
 		0:
 			# Spellcheck
 			owner.get_node("FrontWindows/SpellCheckWindow").popup_centered()
+		1:
+			# Import
+			pass
+		
+		2:
+			# Autosaves
+			OS.shell_open(OS.get_user_data_dir())
 		_:
 			push_warning("Not yet implemented: " + str(ID))

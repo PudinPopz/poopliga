@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/ninepatch2.png-6f13e176af3954c3676dd9db2b821b64.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

@@ -5,3 +5,10 @@ C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\bin\Release\NHuns
 C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Release\McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache
 C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Release\McFakeFake Poopliga Dialogue Editor.dll
 C:\Users\jamie\Desktop\Old Documents\DialogueEditor\.mono\temp\obj\Release\McFakeFake Poopliga Dialogue Editor.pdb
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Release\McFakeFake Poopliga Dialogue Editor.dll
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Release\McFakeFake Poopliga Dialogue Editor.pdb
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Release\NHunspell.dll
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\bin\Release\NHunspell.pdb
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Release\McFakeFake Poopliga Dialogue Editor.csprojResolveAssemblyReference.cache
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Release\McFakeFake Poopliga Dialogue Editor.dll
+C:\Users\Jamie\Desktop\poopliga\.mono\temp\obj\Release\McFakeFake Poopliga Dialogue Editor.pdb

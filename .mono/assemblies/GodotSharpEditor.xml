@@ -1345,6 +1345,10 @@
             Override this method to provide the name that will appear in the gizmo visibility menu.
             </summary>
         </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetPriority">
+            <summary>
+            </summary>
+        </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.HasGizmo(Godot.Spatial)">
             <summary>
             Override this method to define which Spatial nodes have a gizmo from this plugin. Whenever a [Spatial] node is added to a scene this method is called, if it returns [code]true[/code] the node gets a generic [EditorSpatialGizmo] assigned and is added to this plugin's list of active gizmos.

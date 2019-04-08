@@ -1,0 +1,2566 @@
+{
+  "__META__*****": {
+    "key": "__META__*****",
+    "type": 0,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 0,
+    "posy": 0,
+    "data": {
+      "project_settings": {
+        "dialogue_box_style": 3,
+        "author": "",
+        "description": "",
+        "custom_block_attributes": "Character Portrait\nBackground\nPause\nFade In Speed\nCommand\nTop Left Message"
+      },
+      "last_saved": {
+        "year": 2019,
+        "month": 4,
+        "day": 9,
+        "weekday": 2,
+        "dst": false,
+        "hour": 2,
+        "minute": 24,
+        "second": 14
+      },
+      "last_camera_pos": "(295.538239, 246.315765)"
+    }
+  },
+  "c_5ce30d24": {
+    "key": "c_5ce30d24",
+    "type": 3,
+    "text": "Intro starts here",
+    "char": "",
+    "tail": "",
+    "posx": -417,
+    "posy": 361,
+    "data": {
+
+    }
+  },
+  "Project Cactus": {
+    "key": "Project Cactus",
+    "type": 2,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 460,
+    "posy": -120,
+    "data": {
+
+    }
+  },
+  "798b2812df": {
+    "key": "798b2812df",
+    "type": 1,
+    "text": "Evening, mate. ",
+    "char": "Other MP",
+    "tail": "8660282f4a",
+    "posx": 749,
+    "posy": 2221,
+    "data": {
+      "Background": "phdusk.jpg",
+      "Top Left Message": "Gautam Adani will remember this."
+    }
+  },
+  "c_22a6f186": {
+    "key": "c_22a6f186",
+    "type": 3,
+    "text": "Create a dialogue block with blank text to make a character appear on screen but do nothing otherwise",
+    "char": "",
+    "tail": "",
+    "posx": -373,
+    "posy": 997,
+    "data": {
+
+    }
+  },
+  "c_ad73ed54": {
+    "key": "c_ad73ed54",
+    "type": 3,
+    "text": "Narrator signified by \"-\" and \".\"\n\n\"-\" will dim the screen and \".\" will not.",
+    "char": "",
+    "tail": "",
+    "posx": 117,
+    "posy": 374,
+    "data": {
+
+    }
+  },
+  "c_f77f6559": {
+    "key": "c_f77f6559",
+    "type": 3,
+    "text": "Fade in speed applies to both character and background. If you want this to be separate, use blank blocks.",
+    "char": "",
+    "tail": "",
+    "posx": 25,
+    "posy": 1404,
+    "data": {
+
+    }
+  },
+  "c_2d274ca0": {
+    "key": "c_2d274ca0",
+    "type": 3,
+    "text": "Useful Commands:\nhide(time): Hides the text box\nauto_append_next: Shortcut for auto and append. ",
+    "char": "",
+    "tail": "",
+    "posx": 61,
+    "posy": 896,
+    "data": {
+
+    }
+  },
+  "Fucker": {
+    "key": "Fucker",
+    "type": 2,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 1016,
+    "posy": 142,
+    "data": {
+
+    }
+  },
+  "fe82590b24": {
+    "key": "fe82590b24",
+    "type": 1,
+    "text": "[center]7:00 PM - Parliament House[/center]",
+    "char": ".",
+    "tail": "d615639975",
+    "posx": 742,
+    "posy": 980,
+    "data": {
+      "Background": "phdusk.jpg",
+      "Pause": "2.0"
+    }
+  },
+  "e765f065da": {
+    "key": "e765f065da",
+    "type": 1,
+    "text": "You are Scott Morrison, the current sitting Prime Minister of Australia, and you really want to fuck a cactus.",
+    "char": "",
+    "tail": "3d04fe50d9",
+    "posx": 758,
+    "posy": 3527,
+    "data": {
+
+    }
+  },
+  "3d04fe50d9": {
+    "key": "3d04fe50d9",
+    "type": 1,
+    "text": "Luckily for you, the motel you're staying at tonight is in close proximity to a flower shop.",
+    "char": "",
+    "tail": "9e33df14b3",
+    "posx": 747,
+    "posy": 4066,
+    "data": {
+      "Pause": "2",
+      "Background": "black.png"
+    }
+  },
+  "9e33df14b3": {
+    "key": "9e33df14b3",
+    "type": 1,
+    "text": "Taking an immediate liking to the stories of succulent succulents from your colleagues, you decide to head there on your way to work tomorrow morning.",
+    "char": "",
+    "tail": "b6ce82e340",
+    "posx": 747,
+    "posy": 4601,
+    "data": {
+
+    }
+  },
+  "c_d8811ea2": {
+    "key": "c_d8811ea2",
+    "type": 3,
+    "text": "Going to use the UK spelling for centre here.",
+    "char": "",
+    "tail": "",
+    "posx": -246,
+    "posy": 5179,
+    "data": {
+
+    }
+  },
+  "c_ec0b029f": {
+    "key": "c_ec0b029f",
+    "type": 3,
+    "text": "TODO: Maybe rename Power Flower to something less obvious.",
+    "char": "",
+    "tail": "",
+    "posx": 129,
+    "posy": 5177,
+    "data": {
+
+    }
+  },
+  "b6ce82e340": {
+    "key": "b6ce82e340",
+    "type": 1,
+    "text": "",
+    "char": ".",
+    "tail": "13e1cef8b1",
+    "posx": 748,
+    "posy": 5130,
+    "data": {
+      "Pause": "0.5"
+    }
+  },
+  "13e1cef8b1": {
+    "key": "13e1cef8b1",
+    "type": 1,
+    "text": "[center]8:05 AM - Power Flower Garden Centre[/center]",
+    "char": ".",
+    "tail": "329f05235b",
+    "posx": 745,
+    "posy": 5727,
+    "data": {
+      "Pause": "2",
+      "Background": "gardencentre.jpg"
+    }
+  },
+  "329f05235b": {
+    "key": "329f05235b",
+    "type": 1,
+    "text": "You make your way to Power Flower, as today's first customer.",
+    "char": "-",
+    "tail": "bea52e3592",
+    "posx": 745,
+    "posy": 6299,
+    "data": {
+
+    }
+  },
+  "bee74da5a7": {
+    "key": "bee74da5a7",
+    "type": 1,
+    "text": "They immediately disperse, leaving you in the care of a lone sales assistant intern.",
+    "char": "",
+    "tail": "5b84b1d605",
+    "posx": 740,
+    "posy": 7432,
+    "data": {
+
+    }
+  },
+  "5b84b1d605": {
+    "key": "5b84b1d605",
+    "type": 1,
+    "text": "Um... hey there. A-Anything I can help you with?",
+    "char": "Intern",
+    "tail": "2967e5c2a4",
+    "posx": 740,
+    "posy": 7995,
+    "data": {
+
+    }
+  },
+  "2967e5c2a4": {
+    "key": "2967e5c2a4",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 737,
+    "posy": 8565,
+    "data": {
+      "tail_count": 2,
+      "tails": [
+        "e189874b62",
+        "6432897f69",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Ask where the cactus section is",
+        "No thanks. Prime Ministers don't need help.",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "e189874b62": {
+    "key": "e189874b62",
+    "type": 1,
+    "text": "You politely ask him where the cactus section is.",
+    "char": "-",
+    "tail": "0ab0e0d6f7",
+    "posx": 280,
+    "posy": 8847,
+    "data": {
+
+    }
+  },
+  "3f0ea6adff": {
+    "key": "3f0ea6adff",
+    "type": 1,
+    "text": "Shortly after explaining this to him, you realise that you don't actually know where the cactus section is, and humbly ask where it is located.",
+    "char": "",
+    "tail": "0ab0e0d6f7",
+    "posx": 1123,
+    "posy": 9428,
+    "data": {
+
+    }
+  },
+  "0ab0e0d6f7": {
+    "key": "0ab0e0d6f7",
+    "type": 1,
+    "text": "R-Right this way, sir.",
+    "char": "Intern",
+    "tail": "ae25cb0c47",
+    "posx": 839,
+    "posy": 10187,
+    "data": {
+
+    }
+  },
+  "ae25cb0c47": {
+    "key": "ae25cb0c47",
+    "type": 1,
+    "text": "",
+    "char": ".",
+    "tail": "ff58bff2ca",
+    "posx": 833,
+    "posy": 10814,
+    "data": {
+      "Pause": "2",
+      "Background": "black.png"
+    }
+  },
+  "bea52e3592": {
+    "key": "bea52e3592",
+    "type": 1,
+    "text": "The staff are quite welcoming at first, but grow more and more aware of your parliamentary eminence the closer you get to the cactus section.",
+    "char": "-",
+    "tail": "bee74da5a7",
+    "posx": 739,
+    "posy": 6864,
+    "data": {
+
+    }
+  },
+  "ff58bff2ca": {
+    "key": "ff58bff2ca",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "2b9720b162",
+    "posx": 823,
+    "posy": 11368,
+    "data": {
+      "Background": "gardencentre2.jpg",
+      "Pause": "2"
+    }
+  },
+  "2b9720b162": {
+    "key": "2b9720b162",
+    "type": 1,
+    "text": "Upon arriving at the cactus section, you notice a sign that says \"Please don't fuck the cactuses\".",
+    "char": "-",
+    "tail": "35aa9e0c96",
+    "posx": 823,
+    "posy": 11953,
+    "data": {
+
+    }
+  },
+  "35aa9e0c96": {
+    "key": "35aa9e0c96",
+    "type": 1,
+    "text": "You pretend not to notice it.",
+    "char": "",
+    "tail": "f3cb8029b9",
+    "posx": 823,
+    "posy": 12553,
+    "data": {
+
+    }
+  },
+  "f3cb8029b9": {
+    "key": "f3cb8029b9",
+    "type": 1,
+    "text": "Oh... right, that sign. A-As crude as it may be, our chain's been experiencing a bit of a problem as of late.",
+    "char": "Intern",
+    "tail": "6f61982bdc",
+    "posx": 823,
+    "posy": 13153,
+    "data": {
+
+    }
+  },
+  "6f61982bdc": {
+    "key": "6f61982bdc",
+    "type": 1,
+    "text": "Bankers, members of parliament, et cetera. They come to our shop...",
+    "char": "",
+    "tail": "d3ebf171a3",
+    "posx": 822,
+    "posy": 13678,
+    "data": {
+
+    }
+  },
+  "d3ebf171a3": {
+    "key": "d3ebf171a3",
+    "type": 1,
+    "text": "...and, uh, pardon my French, honourable Prime Minister sir, but they fuck our cactuses.",
+    "char": "",
+    "tail": "0f49eff99c",
+    "posx": 814,
+    "posy": 14238,
+    "data": {
+
+    }
+  },
+  "0f49eff99c": {
+    "key": "0f49eff99c",
+    "type": 1,
+    "text": "O-Often in broad daylight, too.",
+    "char": "",
+    "tail": "a7a36ab51e",
+    "posx": 805,
+    "posy": 14783,
+    "data": {
+
+    }
+  },
+  "fa0ae97790": {
+    "key": "fa0ae97790",
+    "type": 1,
+    "text": "...Surely you have nothing to do with that sort of stuff, right?",
+    "char": "",
+    "tail": "bb864b149d",
+    "posx": 807,
+    "posy": 16098,
+    "data": {
+
+    }
+  },
+  "a7a36ab51e": {
+    "key": "a7a36ab51e",
+    "type": 1,
+    "text": "Surely you understand how unsightly that is for our customers, r-right? And the poor cactuses...",
+    "char": "",
+    "tail": "fa0ae97790",
+    "posx": 803,
+    "posy": 15364,
+    "data": {
+
+    }
+  },
+  "bb864b149d": {
+    "key": "bb864b149d",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 814,
+    "posy": 16673,
+    "data": {
+      "tail_count": 2,
+      "tails": [
+        "62ef50df19",
+        "884d99738a",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Of course not.",
+        "Smile and wink",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "62ef50df19": {
+    "key": "62ef50df19",
+    "type": 1,
+    "text": "I'll place my trust in you, s-sir.",
+    "char": "Intern",
+    "tail": "fa3a5ed0e8",
+    "posx": 66,
+    "posy": 18471,
+    "data": {
+
+    }
+  },
+  "0a4b562542": {
+    "key": "0a4b562542",
+    "type": 1,
+    "text": "A bit extreme, I know, but our store likes to stand our ground.",
+    "char": "",
+    "tail": "07bb799734",
+    "posx": 1588,
+    "posy": 18910,
+    "data": {
+
+    }
+  },
+  "3677c88b40": {
+    "key": "3677c88b40",
+    "type": 1,
+    "text": "Yesterday it got to the point where we had to politely tell a member of parliament to cease intercourse with the cactuses.",
+    "char": "",
+    "tail": "0a4b562542",
+    "posx": 1621,
+    "posy": 18324,
+    "data": {
+
+    }
+  },
+  "7081d93112": {
+    "key": "7081d93112",
+    "type": 1,
+    "text": "I-I'll leave you alone for now, but if I catch wind of any cactus fucking, t-there will be serious consequences, Mr. Prime Minister.",
+    "char": "",
+    "tail": "3677c88b40",
+    "posx": 1641,
+    "posy": 17765,
+    "data": {
+
+    }
+  },
+  "07bb799734": {
+    "key": "07bb799734",
+    "type": 1,
+    "text": "So please, sir. K-Keep that in mind if you intend to engage in such activities.",
+    "char": "",
+    "tail": "fa3a5ed0e8",
+    "posx": 1564,
+    "posy": 19504,
+    "data": {
+
+    }
+  },
+  "6b6989f40e": {
+    "key": "6b6989f40e",
+    "type": 1,
+    "text": "You start to undo your belt, when suddenly-  ",
+    "char": "",
+    "tail": "d1fcee6795",
+    "posx": 756,
+    "posy": 20784,
+    "data": {
+      "Command": "auto"
+    }
+  },
+  "d1fcee6795": {
+    "key": "d1fcee6795",
+    "type": 1,
+    "text": "Excuse me, sir.",
+    "char": "???",
+    "tail": "51650cabed",
+    "posx": 756,
+    "posy": 21384,
+    "data": {
+      "Character Portrait": "Eugene"
+    }
+  },
+  "51650cabed": {
+    "key": "51650cabed",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "482c0e7c27",
+    "posx": 756,
+    "posy": 21984,
+    "data": {
+      "Command": "hide(3)"
+    }
+  },
+  "d8187d12f1": {
+    "key": "d8187d12f1",
+    "type": 1,
+    "text": "Immediately after you finish your sentence, the cactus orders an angry swarm of wasps to attack you.",
+    "char": "-",
+    "tail": "48a75212dc",
+    "posx": 1617,
+    "posy": 25391,
+    "data": {
+      "Top Left Message": "Eugene will remember this."
+    }
+  },
+  "48a75212dc": {
+    "key": "48a75212dc",
+    "type": 1,
+    "text": "You survive the onslaught, but your pride doesn't.",
+    "char": "",
+    "tail": "854b55c967",
+    "posx": 1604,
+    "posy": 25965,
+    "data": {
+
+    }
+  },
+  "854b55c967": {
+    "key": "854b55c967",
+    "type": 1,
+    "text": "You check your watch, and it turns out you were being stung for over an hour.",
+    "char": "",
+    "tail": "fccd89b35e",
+    "posx": 1603,
+    "posy": 26541,
+    "data": {
+      "Character Portrait": "null"
+    }
+  },
+  "585a0d3040": {
+    "key": "585a0d3040",
+    "type": 1,
+    "text": "Fortunately, the driver doesn't recognise you because of the swelling.",
+    "char": "",
+    "tail": "3fac430175",
+    "posx": 1592,
+    "posy": 27707,
+    "data": {
+
+    }
+  },
+  "fccd89b35e": {
+    "key": "fccd89b35e",
+    "type": 1,
+    "text": "You're late for work, so you call an Uber.",
+    "char": "",
+    "tail": "585a0d3040",
+    "posx": 1603,
+    "posy": 27104,
+    "data": {
+      "Background": "black.png"
+    }
+  },
+  "4331a90641": {
+    "key": "4331a90641",
+    "type": 1,
+    "text": "Disappointed, you leave the store and head off to work.",
+    "char": "",
+    "tail": "3fac430175",
+    "posx": -237,
+    "posy": 27513,
+    "data": {
+
+    }
+  },
+  "3fac430175": {
+    "key": "3fac430175",
+    "type": 1,
+    "text": "",
+    "char": ".",
+    "tail": "c192b24e52",
+    "posx": 578,
+    "posy": 28340,
+    "data": {
+      "Pause": "2",
+      "Fade In Speed": "2",
+      "Background": "ph.jpg",
+      "Character Portrait": "null"
+    }
+  },
+  "482c0e7c27": {
+    "key": "482c0e7c27",
+    "type": 1,
+    "text": "The name's Eugene.",
+    "char": "",
+    "tail": "49e40b1216",
+    "posx": 738,
+    "posy": 22943,
+    "data": {
+
+    }
+  },
+  "c192b24e52": {
+    "key": "c192b24e52",
+    "type": 1,
+    "text": "You finally arrive at Parliament House.",
+    "char": "-",
+    "tail": "77b54c1736",
+    "posx": 574,
+    "posy": 28936,
+    "data": {
+      "Background": "ph.jpg"
+    }
+  },
+  "77b54c1736": {
+    "key": "77b54c1736",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "2c9a288006",
+    "posx": 574,
+    "posy": 29551,
+    "data": {
+      "Background": "houseofreps.jpg",
+      "Pause": "2"
+    }
+  },
+  "2c9a288006": {
+    "key": "2c9a288006",
+    "type": 1,
+    "text": "...These are the people that introduced the <RANDOM_BILL_NAME>.",
+    "char": "MP",
+    "tail": "7498a185a3",
+    "posx": 574,
+    "posy": 30151,
+    "data": {
+
+    }
+  },
+  "7498a185a3": {
+    "key": "7498a185a3",
+    "type": 1,
+    "text": "Can we really trust their word on the economy? I think not-",
+    "char": "",
+    "tail": "67d8749e94",
+    "posx": 574,
+    "posy": 30751,
+    "data": {
+
+    }
+  },
+  "67fb9c5660": {
+    "key": "67fb9c5660",
+    "type": 1,
+    "text": "I've just taken the biggest, most glorious shit in the history of shits.",
+    "char": "",
+    "tail": "1b4ee3b1e4",
+    "posx": 594,
+    "posy": 32007,
+    "data": {
+
+    }
+  },
+  "67d8749e94": {
+    "key": "67d8749e94",
+    "type": 1,
+    "text": "Mister Speaker, I have an announcement to make.",
+    "char": "Other MP",
+    "tail": "67fb9c5660",
+    "posx": 594,
+    "posy": 31407,
+    "data": {
+
+    }
+  },
+  "1b4ee3b1e4": {
+    "key": "1b4ee3b1e4",
+    "type": 1,
+    "text": "And it is very very smelly.",
+    "char": "",
+    "tail": "e45e46e450",
+    "posx": 582,
+    "posy": 32576,
+    "data": {
+
+    }
+  },
+  "e45e46e450": {
+    "key": "e45e46e450",
+    "type": 1,
+    "text": "Please refrain from interrupting, sir.",
+    "char": "Speaker",
+    "tail": "588a601d29",
+    "posx": 577,
+    "posy": 33217,
+    "data": {
+
+    }
+  },
+  "588a601d29": {
+    "key": "588a601d29",
+    "type": 1,
+    "text": "Yeah, you heard Mister Speaker!",
+    "char": "MP",
+    "tail": "505375badb",
+    "posx": 579,
+    "posy": 33931,
+    "data": {
+
+    }
+  },
+  "505375badb": {
+    "key": "505375badb",
+    "type": 1,
+    "text": "By the way, to the lowly representative that just interrupted me, I'll have you know that I just took a shit too, and it was the biggest and most glorious shit ever.",
+    "char": "",
+    "tail": "aa90a50d67",
+    "posx": 579,
+    "posy": 34531,
+    "data": {
+
+    }
+  },
+  "aa90a50d67": {
+    "key": "aa90a50d67",
+    "type": 1,
+    "text": "I had to shit in a toilet so big that Harold Holt probably drowned in it.",
+    "char": "",
+    "tail": "c8ed50c6c0",
+    "posx": 577,
+    "posy": 35095,
+    "data": {
+
+    }
+  },
+  "c8ed50c6c0": {
+    "key": "c8ed50c6c0",
+    "type": 1,
+    "text": "But because my shit was so big, Harold Holt would have been fine, because the shit was so big compared to the amount of water in the toilet.",
+    "char": "",
+    "tail": "b8f0ed81ac",
+    "posx": 577,
+    "posy": 35695,
+    "data": {
+
+    }
+  },
+  "b8f0ed81ac": {
+    "key": "b8f0ed81ac",
+    "type": 1,
+    "text": "What I'm trying to say is that my shit could have saved Harold Holt, but your shit couldn't, because you probably shit in a very small and very smelly toilet.",
+    "char": "",
+    "tail": "e7cdc7a297",
+    "posx": 577,
+    "posy": 36295,
+    "data": {
+
+    }
+  },
+  "e7cdc7a297": {
+    "key": "e7cdc7a297",
+    "type": 1,
+    "text": "And that shit would have saved Harold Holt too, if it weren't for the fact that-",
+    "char": "",
+    "tail": "7e20869d05",
+    "posx": 577,
+    "posy": 36895,
+    "data": {
+
+    }
+  },
+  "7e20869d05": {
+    "key": "7e20869d05",
+    "type": 1,
+    "text": "Psst. Scotty.",
+    "char": "???",
+    "tail": "6f7bc60491",
+    "posx": 577,
+    "posy": 37495,
+    "data": {
+
+    }
+  },
+  "6f7bc60491": {
+    "key": "6f7bc60491",
+    "type": 1,
+    "text": "A very familiar voice creeps up on you. It's your old pal Peter Dutton, who is not racist.",
+    "char": "-",
+    "tail": "13766e2612",
+    "posx": 581,
+    "posy": 38107,
+    "data": {
+
+    }
+  },
+  "13766e2612": {
+    "key": "13766e2612",
+    "type": 1,
+    "text": "Hear you've been having some trouble with the cactuses, uh, mate.",
+    "char": "Peter",
+    "tail": "62faf1f702",
+    "posx": 581,
+    "posy": 38707,
+    "data": {
+
+    }
+  },
+  "62faf1f702": {
+    "key": "62faf1f702",
+    "type": 1,
+    "text": "That is not good. That is not good at all.",
+    "char": "",
+    "tail": "083d420326",
+    "posx": 581,
+    "posy": 39307,
+    "data": {
+
+    }
+  },
+  "083d420326": {
+    "key": "083d420326",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 578,
+    "posy": 39996,
+    "data": {
+      "tail_count": 2,
+      "tails": [
+        "4e16293a7e",
+        "4b64320f6b",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Ask for advice",
+        "Stop distracting me, I'm trying to listen.",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "4b64320f6b": {
+    "key": "4b64320f6b",
+    "type": 1,
+    "text": "Sorry mate.",
+    "char": "Peter",
+    "tail": "486d6cc315",
+    "posx": 1083,
+    "posy": 40393,
+    "data": {
+
+    }
+  },
+  "486d6cc315": {
+    "key": "486d6cc315",
+    "type": 1,
+    "text": "You keep listening to the debate.",
+    "char": "-",
+    "tail": "1786a6900b",
+    "posx": 1113,
+    "posy": 41004,
+    "data": {
+
+    }
+  },
+  "1786a6900b": {
+    "key": "1786a6900b",
+    "type": 1,
+    "text": "Be honest here! How big was that shit? In centimetres, of course. Tell us, right now.",
+    "char": "Other MP",
+    "tail": "b88565091a",
+    "posx": 1132,
+    "posy": 41575,
+    "data": {
+
+    }
+  },
+  "b88565091a": {
+    "key": "b88565091a",
+    "type": 1,
+    "text": "Thirty three-",
+    "char": "MP",
+    "tail": "39d444714b",
+    "posx": 1132,
+    "posy": 42175,
+    "data": {
+
+    }
+  },
+  "39d444714b": {
+    "key": "39d444714b",
+    "type": 1,
+    "text": "Bullshit!",
+    "char": "Other MP",
+    "tail": "6434a15ec0",
+    "posx": 1132,
+    "posy": 42775,
+    "data": {
+
+    }
+  },
+  "6434a15ec0": {
+    "key": "6434a15ec0",
+    "type": 1,
+    "text": "I ask that you refrain from such unparliamentary language.",
+    "char": "Speaker",
+    "tail": "60665c51d7",
+    "posx": 1132,
+    "posy": 43375,
+    "data": {
+
+    }
+  },
+  "60665c51d7": {
+    "key": "60665c51d7",
+    "type": 1,
+    "text": "I withdraw my previous comment.",
+    "char": "Other MP",
+    "tail": "c3b0e3d9c7",
+    "posx": 1132,
+    "posy": 43975,
+    "data": {
+
+    }
+  },
+  "c3b0e3d9c7": {
+    "key": "c3b0e3d9c7",
+    "type": 1,
+    "text": "However, I stand by my comment that my shits are the biggest, most smelly and glorious shits in the history of this parliament-",
+    "char": "",
+    "tail": "35adfd5cdd",
+    "posx": 1132,
+    "posy": 44575,
+    "data": {
+
+    }
+  },
+  "35adfd5cdd": {
+    "key": "35adfd5cdd",
+    "type": 1,
+    "text": "Rubbish.",
+    "char": "MP #3",
+    "tail": "a1957670d5",
+    "posx": 1132,
+    "posy": 45175,
+    "data": {
+
+    }
+  },
+  "a1957670d5": {
+    "key": "a1957670d5",
+    "type": 1,
+    "text": "Order!",
+    "char": "Speaker",
+    "tail": "d8a4603fd9",
+    "posx": 1132,
+    "posy": 45775,
+    "data": {
+
+    }
+  },
+  "d8a4603fd9": {
+    "key": "d8a4603fd9",
+    "type": 1,
+    "text": "Go fuck yourself, mate. You have the weakest, most tiny shits I have ever seen.",
+    "char": "Other MP",
+    "tail": "9f0fca2c21",
+    "posx": 1131,
+    "posy": 46375,
+    "data": {
+
+    }
+  },
+  "9f0fca2c21": {
+    "key": "9f0fca2c21",
+    "type": 1,
+    "text": "Order.",
+    "char": "Speaker",
+    "tail": "fc3e791c17",
+    "posx": 1131,
+    "posy": 46975,
+    "data": {
+
+    }
+  },
+  "fc3e791c17": {
+    "key": "fc3e791c17",
+    "type": 1,
+    "text": "I withdraw my previous comment. However, my shit is so big-",
+    "char": "Other MP",
+    "tail": "685a8d1815",
+    "posx": 1130,
+    "posy": 47575,
+    "data": {
+
+    }
+  },
+  "685a8d1815": {
+    "key": "685a8d1815",
+    "type": 1,
+    "text": "My shits are so big you can see them from outer space.",
+    "char": "MP",
+    "tail": "821d0e4c80",
+    "posx": 1125,
+    "posy": 48175,
+    "data": {
+
+    }
+  },
+  "821d0e4c80": {
+    "key": "821d0e4c80",
+    "type": 1,
+    "text": "Ha, good one. You haven't seen a big shit until you've seen my big shit collide with the Andromeda Galaxy. ",
+    "char": "MP #3",
+    "tail": "555b3a0e89",
+    "posx": 1125,
+    "posy": 48775,
+    "data": {
+
+    }
+  },
+  "555b3a0e89": {
+    "key": "555b3a0e89",
+    "type": 1,
+    "text": "Doo doo, big shit caca doo doo poo poo bum bum.",
+    "char": "MP #4",
+    "tail": "1bdbbadf34",
+    "posx": 1125,
+    "posy": 49375,
+    "data": {
+
+    }
+  },
+  "1bdbbadf34": {
+    "key": "1bdbbadf34",
+    "type": 1,
+    "text": "Order, please.",
+    "char": "Speaker",
+    "tail": "542143b9db",
+    "posx": 1099,
+    "posy": 50575,
+    "data": {
+
+    }
+  },
+  "4e16293a7e": {
+    "key": "4e16293a7e",
+    "type": 1,
+    "text": "You ask Peter for some advice.",
+    "char": "-",
+    "tail": "001278dd16",
+    "posx": -559,
+    "posy": 44558,
+    "data": {
+
+    }
+  },
+  "001278dd16": {
+    "key": "001278dd16",
+    "type": 1,
+    "text": "You can't just pull down your pants and walk up to any old cactus nowadays.",
+    "char": "Peter",
+    "tail": "c8e5b977b1",
+    "posx": 4,
+    "posy": 51872,
+    "data": {
+
+    }
+  },
+  "542143b9db": {
+    "key": "542143b9db",
+    "type": 1,
+    "text": "You tap Peter on the shoulder and ask for advice.",
+    "char": "-",
+    "tail": "001278dd16",
+    "posx": 1033,
+    "posy": 51213,
+    "data": {
+
+    }
+  },
+  "c8e5b977b1": {
+    "key": "c8e5b977b1",
+    "type": 1,
+    "text": "Trust me, I learnt that the hard way.",
+    "char": "",
+    "tail": "7f99b2f7fd",
+    "posx": 4,
+    "posy": 52472,
+    "data": {
+
+    }
+  },
+  "7f99b2f7fd": {
+    "key": "7f99b2f7fd",
+    "type": 1,
+    "text": "So, how exactly do you win over a cactus?",
+    "char": "",
+    "tail": "76cac0c94e",
+    "posx": 4,
+    "posy": 53072,
+    "data": {
+
+    }
+  },
+  "76cac0c94e": {
+    "key": "76cac0c94e",
+    "type": 1,
+    "text": "Catfishing. Lots of catfishing.",
+    "char": "",
+    "tail": "d3a07fb813",
+    "posx": 4,
+    "posy": 53672,
+    "data": {
+
+    }
+  },
+  "d3a07fb813": {
+    "key": "d3a07fb813",
+    "type": 1,
+    "text": "There's a dating app called Succulr that pretty much every cactus on the planet uses.",
+    "char": "",
+    "tail": "4a7faeb5ff",
+    "posx": 4,
+    "posy": 54272,
+    "data": {
+
+    }
+  },
+  "4a7faeb5ff": {
+    "key": "4a7faeb5ff",
+    "type": 1,
+    "text": "That's right. Succulr. I have so many accounts that installing it on phones is practically muscle memory to me.",
+    "char": "",
+    "tail": "8768dcd778",
+    "posx": 4,
+    "posy": 54872,
+    "data": {
+
+    }
+  },
+  "8768dcd778": {
+    "key": "8768dcd778",
+    "type": 1,
+    "text": "Without your consent, Peter grabs your phone and installs Succulr in only 45 minutes.",
+    "char": "-",
+    "tail": "4b6703ed4a",
+    "posx": 5,
+    "posy": 55511,
+    "data": {
+
+    }
+  },
+  "succulr": {
+    "key": "succulr",
+    "type": 1,
+    "text": "SucculentScott69... nice.",
+    "char": "-",
+    "tail": "76f83bbd8c",
+    "posx": 10,
+    "posy": 57934,
+    "data": {
+
+    }
+  },
+  "4b6703ed4a": {
+    "key": "4b6703ed4a",
+    "type": 1,
+    "text": "I'll just create your account...",
+    "char": "Peter",
+    "tail": "117af87d29",
+    "posx": 9,
+    "posy": 56123,
+    "data": {
+      "Background": "black.png"
+    }
+  },
+  "1d35268ee9": {
+    "key": "1d35268ee9",
+    "type": 1,
+    "text": "Done! ",
+    "char": "",
+    "tail": "succulr",
+    "posx": 5,
+    "posy": 57354,
+    "data": {
+      "Pause": "1",
+      "Background": "houseofreps.jpg"
+    }
+  },
+  "117af87d29": {
+    "key": "117af87d29",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "1d35268ee9",
+    "posx": 5,
+    "posy": 56721,
+    "data": {
+      "Pause": "2"
+    }
+  },
+  "Liked Noone": {
+    "key": "Liked Noone",
+    "type": 2,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 4621,
+    "posy": 153,
+    "data": {
+
+    }
+  },
+  "76f83bbd8c": {
+    "key": "76f83bbd8c",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "POSTSUCC",
+    "posx": 8,
+    "posy": 58563,
+    "data": {
+      "Command": "show_succulr;hide"
+    }
+  },
+  "POSTSUCC": {
+    "key": "POSTSUCC",
+    "type": 1,
+    "text": "Guys, you won't believe this, but I just took another very big shit.",
+    "char": "MP",
+    "tail": "b00e5f36e0",
+    "posx": 17,
+    "posy": 59173,
+    "data": {
+
+    }
+  },
+  "b00e5f36e0": {
+    "key": "b00e5f36e0",
+    "type": 1,
+    "text": "For some reason, you feel like you're done with parliamentary debate for today, so you decide to head back home.",
+    "char": "-",
+    "tail": "END_MAIN-1",
+    "posx": 12,
+    "posy": 59730,
+    "data": {
+
+    }
+  },
+  "END_MAIN-1": {
+    "key": "END_MAIN-1",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "END_MAIN",
+    "posx": 10,
+    "posy": 60291,
+    "data": {
+      "Background": "black.png",
+      "Command": "auto",
+      "Pause": "4"
+    }
+  },
+  "END_MAIN": {
+    "key": "END_MAIN",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 10,
+    "posy": 60891,
+    "data": {
+      "Command": "go_to_succulr_branch"
+    }
+  },
+  "fd28da314a": {
+    "key": "fd28da314a",
+    "type": 1,
+    "text": "You reach for your phone on the bedside table.",
+    "char": "-",
+    "tail": "677d435d32",
+    "posx": 2902,
+    "posy": 1521,
+    "data": {
+
+    }
+  },
+  "677d435d32": {
+    "key": "677d435d32",
+    "type": 1,
+    "text": "It's Jonathan, the hunky postmodern sex machine you swiped right on at work today.",
+    "char": "",
+    "tail": "1d1fd61825",
+    "posx": 2902,
+    "posy": 2121,
+    "data": {
+
+    }
+  },
+  "1d1fd61825": {
+    "key": "1d1fd61825",
+    "type": 1,
+    "text": "Hi. I see you swiped right on my profile. ",
+    "char": "Jonathan",
+    "tail": "974442b457",
+    "posx": 2902,
+    "posy": 2721,
+    "data": {
+      "Character Portrait": "none",
+      "Command": "fade_in_music"
+    }
+  },
+  "974442b457": {
+    "key": "974442b457",
+    "type": 1,
+    "text": "I swiped right on yours too... ironically of course.",
+    "char": "",
+    "tail": "f878fb4809",
+    "posx": 2902,
+    "posy": 3321,
+    "data": {
+
+    }
+  },
+  "f878fb4809": {
+    "key": "f878fb4809",
+    "type": 1,
+    "text": "(I love what you did with the green face paint - it's almost as if you simply pretended to be a cactus for some nefarious plot)",
+    "char": "",
+    "tail": "9ebcf1b38e",
+    "posx": 2902,
+    "posy": 3921,
+    "data": {
+
+    }
+  },
+  "9ebcf1b38e": {
+    "key": "9ebcf1b38e",
+    "type": 1,
+    "text": "For a human, I find you so repulsive that it's almost sexy. Almost.",
+    "char": "",
+    "tail": "bc52959b5a",
+    "posx": 2902,
+    "posy": 4521,
+    "data": {
+
+    }
+  },
+  "bc52959b5a": {
+    "key": "bc52959b5a",
+    "type": 1,
+    "text": "I figured I'd take the plunge, though. You up for brunch tomorrow?",
+    "char": "",
+    "tail": "25866c8f85",
+    "posx": 2902,
+    "posy": 5121,
+    "data": {
+
+    }
+  },
+  "25866c8f85": {
+    "key": "25866c8f85",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 2889,
+    "posy": 5650,
+    "data": {
+      "tail_count": 2,
+      "tails": [
+        "53fcf2770b",
+        "53fcf2770b",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Yes",
+        "Fuck yes",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "53fcf2770b": {
+    "key": "53fcf2770b",
+    "type": 1,
+    "text": "(Jonathan is typing...)",
+    "char": ".",
+    "tail": "a4e9edbdff",
+    "posx": 2892,
+    "posy": 5947,
+    "data": {
+
+    }
+  },
+  "a4e9edbdff": {
+    "key": "a4e9edbdff",
+    "type": 1,
+    "text": "Sounds good. I'll see you there.",
+    "char": "Jonathan",
+    "tail": "f1c29164f1",
+    "posx": 2892,
+    "posy": 6547,
+    "data": {
+      "Character Portrait": "none"
+    }
+  },
+  "JONATHAN": {
+    "key": "JONATHAN",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "3c4e3f8f54",
+    "posx": 2912,
+    "posy": 404,
+    "data": {
+      "Command": "fade_out_music(1)",
+      "Pause": "0.5"
+    }
+  },
+  "Liked Jonathan": {
+    "key": "Liked Jonathan",
+    "type": 2,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 2781,
+    "posy": 117,
+    "data": {
+
+    }
+  },
+  "3c4e3f8f54": {
+    "key": "3c4e3f8f54",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "fd28da314a",
+    "posx": 2908,
+    "posy": 923,
+    "data": {
+      "Command": "play_sound(notification)",
+      "Pause": "7"
+    }
+  },
+  "START": {
+    "key": "START",
+    "type": 1,
+    "text": "",
+    "char": ".",
+    "tail": "fe82590b24",
+    "posx": 741,
+    "posy": 369,
+    "data": {
+      "Fade In Speed": "5",
+      "Background": "black.png",
+      "Character Portrait": "null"
+    }
+  },
+  "6432897f69": {
+    "key": "6432897f69",
+    "type": 1,
+    "text": "You inform him that you, the Prime Minister of Australia, know exactly what you are looking for, and know exactly how to get there.",
+    "char": "-",
+    "tail": "3f0ea6adff",
+    "posx": 1203,
+    "posy": 8831,
+    "data": {
+
+    }
+  },
+  "884d99738a": {
+    "key": "884d99738a",
+    "type": 1,
+    "text": "!",
+    "char": "Intern",
+    "tail": "7081d93112",
+    "posx": 1496,
+    "posy": 16981,
+    "data": {
+
+    }
+  },
+  "fa3a5ed0e8": {
+    "key": "fa3a5ed0e8",
+    "type": 1,
+    "text": "The intern walks off, leaving you alone with the cactuses.",
+    "char": "-",
+    "tail": "6b6989f40e",
+    "posx": 756,
+    "posy": 20184,
+    "data": {
+
+    }
+  },
+  "b337907986": {
+    "key": "b337907986",
+    "type": 1,
+    "text": "The cactus realises what you are doing, and orders an angry swarm of wasps to attack you.",
+    "char": "-",
+    "tail": "48a75212dc",
+    "posx": 756,
+    "posy": 27017,
+    "data": {
+      "Top Left Message": "Eugene will remember this."
+    }
+  },
+  "85f0276532": {
+    "key": "85f0276532",
+    "type": 1,
+    "text": "Well, you certainly don't look like a cactus.",
+    "char": "Eugene",
+    "tail": "2516950e4a",
+    "posx": -191,
+    "posy": 25122,
+    "data": {
+
+    }
+  },
+  "49e40b1216": {
+    "key": "49e40b1216",
+    "type": 1,
+    "text": "You lock eyes with the cactus. It looks as confused as you are.",
+    "char": "-",
+    "tail": "a7b57708d7",
+    "posx": 742,
+    "posy": 23610,
+    "data": {
+
+    }
+  },
+  "a7b57708d7": {
+    "key": "a7b57708d7",
+    "type": 1,
+    "text": "You're not a cactus, are you? You look prickly, but I'm not seeing any pear.",
+    "char": "Eugene",
+    "tail": "5fd9c3e0e4",
+    "posx": 759,
+    "posy": 24185,
+    "data": {
+
+    }
+  },
+  "5fd9c3e0e4": {
+    "key": "5fd9c3e0e4",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 744,
+    "posy": 24733,
+    "data": {
+      "tail_count": 3,
+      "tails": [
+        "85f0276532",
+        "093eee7691",
+        "d8187d12f1",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "I'm a cactus, alright.",
+        "Nope. Not a cactus.",
+        "Can we get to the fucking already?",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "093eee7691": {
+    "key": "093eee7691",
+    "type": 1,
+    "text": "In that case, I can't let you come any closer. Sorry.",
+    "char": "Eugene",
+    "tail": "a52e353122",
+    "posx": 761,
+    "posy": 25177,
+    "data": {
+
+    }
+  },
+  "2516950e4a": {
+    "key": "2516950e4a",
+    "type": 1,
+    "text": "Unfortunately, I'm not going to let you come any closer.",
+    "char": "",
+    "tail": "a52e353122",
+    "posx": -50,
+    "posy": 25641,
+    "data": {
+
+    }
+  },
+  "a52e353122": {
+    "key": "a52e353122",
+    "type": 1,
+    "text": "Just trying to protect my fellow cacti from... you know.",
+    "char": "",
+    "tail": "49582d83bd",
+    "posx": 758,
+    "posy": 26156,
+    "data": {
+
+    }
+  },
+  "49582d83bd": {
+    "key": "49582d83bd",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 764,
+    "posy": 26703,
+    "data": {
+      "tail_count": 2,
+      "tails": [
+        "ee80934551",
+        "b337907986",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Respect its boundaries and walk away",
+        "Try to fuck the cactus anyway",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "ee80934551": {
+    "key": "ee80934551",
+    "type": 1,
+    "text": "You realise that you're probably not going to get anywhere with the cacti today.",
+    "char": "-",
+    "tail": "4331a90641",
+    "posx": -235,
+    "posy": 26966,
+    "data": {
+      "Background": "black.png",
+      "Character Portrait": "null"
+    }
+  },
+  "d615639975": {
+    "key": "d615639975",
+    "type": 1,
+    "text": "Well, looks like we’re off for today. Evening, gents. ",
+    "char": "MP",
+    "tail": "798b2812df",
+    "posx": 743,
+    "posy": 1611,
+    "data": {
+      "Background": "phdusk.jpg"
+    }
+  },
+  "8660282f4a": {
+    "key": "8660282f4a",
+    "type": 1,
+    "text": "You've just spent five hours straight debating an amendment to the <RANDOM_BILL_NAME>.",
+    "char": "-",
+    "tail": "e765f065da",
+    "posx": 749,
+    "posy": 2813,
+    "data": {
+
+    }
+  },
+  "Liked Eugene": {
+    "key": "Liked Eugene",
+    "type": 2,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 6371,
+    "posy": 159,
+    "data": {
+
+    }
+  },
+  "EUGENE": {
+    "key": "EUGENE",
+    "type": 1,
+    "text": "You swiped right on Eugene, the cactus you interacted with the other day at Power Flower.",
+    "char": "-",
+    "tail": "c7a3477edc",
+    "posx": 6388,
+    "posy": 359,
+    "data": {
+
+    }
+  },
+  "c7a3477edc": {
+    "key": "c7a3477edc",
+    "type": 1,
+    "text": "You think back on the wonderful time you had together when you last shared an encounter.",
+    "char": "",
+    "tail": "ed2df50eb0",
+    "posx": 6388,
+    "posy": 959,
+    "data": {
+
+    }
+  },
+  "ed2df50eb0": {
+    "key": "ed2df50eb0",
+    "type": 1,
+    "text": "And besides, name one person who could resist a solid seventy-two inches?",
+    "char": "",
+    "tail": "141731c83f",
+    "posx": 6388,
+    "posy": 1559,
+    "data": {
+
+    }
+  },
+  "141731c83f": {
+    "key": "141731c83f",
+    "type": 1,
+    "text": "You slide into the DMs with a Sco-Mo classic.",
+    "char": "",
+    "tail": "48226fcba6",
+    "posx": 6388,
+    "posy": 2159,
+    "data": {
+
+    }
+  },
+  "48226fcba6": {
+    "key": "48226fcba6",
+    "type": 1,
+    "text": "\"Nice areola wanna fuck\"",
+    "char": "",
+    "tail": "e949e00ea3",
+    "posx": 6388,
+    "posy": 2759,
+    "data": {
+
+    }
+  },
+  "33a92ae3fd": {
+    "key": "33a92ae3fd",
+    "type": 1,
+    "text": "Dear SucculentScott69,",
+    "char": "Eugene",
+    "tail": "f8630111e4",
+    "posx": 6390,
+    "posy": 4005,
+    "data": {
+
+    }
+  },
+  "f8630111e4": {
+    "key": "f8630111e4",
+    "type": 1,
+    "text": "Thank you for the warm compliment, they're completely natural.",
+    "char": "",
+    "tail": "0596813699",
+    "posx": 6390,
+    "posy": 4605,
+    "data": {
+
+    }
+  },
+  "0596813699": {
+    "key": "0596813699",
+    "type": 1,
+    "text": "Regarding your proposition for us to engage in sexual intercourse, I must respectfully decline.",
+    "char": "",
+    "tail": "12209dcace",
+    "posx": 6390,
+    "posy": 5205,
+    "data": {
+
+    }
+  },
+  "12209dcace": {
+    "key": "12209dcace",
+    "type": 1,
+    "text": "However, I am inclined to provide you a counter-offer for your troubles.",
+    "char": "",
+    "tail": "5932ddee6e",
+    "posx": 6390,
+    "posy": 5805,
+    "data": {
+
+    }
+  },
+  "5932ddee6e": {
+    "key": "5932ddee6e",
+    "type": 1,
+    "text": "How does dinner at 7:30 PM sound?",
+    "char": "",
+    "tail": "d030c94d42",
+    "posx": 6390,
+    "posy": 6405,
+    "data": {
+
+    }
+  },
+  "d030c94d42": {
+    "key": "d030c94d42",
+    "type": 1,
+    "text": "Kind Regards,",
+    "char": "",
+    "tail": "8f34c24438",
+    "posx": 6390,
+    "posy": 7005,
+    "data": {
+
+    }
+  },
+  "8f34c24438": {
+    "key": "8f34c24438",
+    "type": 1,
+    "text": "Eugene",
+    "char": "",
+    "tail": "6b8a20c3e9",
+    "posx": 6390,
+    "posy": 7605,
+    "data": {
+
+    }
+  },
+  "e949e00ea3": {
+    "key": "e949e00ea3",
+    "type": 1,
+    "text": "It isn't long before the indistinguishable '...' of a satisfied customer appears on screen.",
+    "char": ".",
+    "tail": "33a92ae3fd",
+    "posx": 6383,
+    "posy": 3357,
+    "data": {
+
+    }
+  },
+  "c_0eeebe51": {
+    "key": "c_0eeebe51",
+    "type": 3,
+    "text": "If possible, I want like a dull outline of Eugene to appear here.",
+    "char": "",
+    "tail": "",
+    "posx": 7226,
+    "posy": 3444,
+    "data": {
+
+    }
+  },
+  "484efda8fb": {
+    "key": "484efda8fb",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 6386,
+    "posy": 8913,
+    "data": {
+      "tail_count": 3,
+      "tails": [
+        "63d0275d10",
+        "b76a032088",
+        "9cdfffcfc9",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Where do you wanna go?",
+        "How about you snack on something else",
+        "Straight up just send a photo of your dick",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "163946e095": {
+    "key": "163946e095",
+    "type": 1,
+    "text": "Dear SucculentScott69,",
+    "char": "Eugene",
+    "tail": "fdb17d6084",
+    "posx": 5453,
+    "posy": 9947,
+    "data": {
+
+    }
+  },
+  "fdb17d6084": {
+    "key": "fdb17d6084",
+    "type": 1,
+    "text": "I can assure you that any choice made for our dining tonight will satisfy my appetite.",
+    "char": "",
+    "tail": "5124ad5342",
+    "posx": 5453,
+    "posy": 10547,
+    "data": {
+
+    }
+  },
+  "5124ad5342": {
+    "key": "5124ad5342",
+    "type": 1,
+    "text": "My only preference is that the lettuce does not have 15% GST in it.",
+    "char": "",
+    "tail": "59a2733231",
+    "posx": 5453,
+    "posy": 11147,
+    "data": {
+
+    }
+  },
+  "59a2733231": {
+    "key": "59a2733231",
+    "type": 1,
+    "text": "That was a joke.",
+    "char": "",
+    "tail": "1e4f79a94d",
+    "posx": 5453,
+    "posy": 11747,
+    "data": {
+
+    }
+  },
+  "1e4f79a94d": {
+    "key": "1e4f79a94d",
+    "type": 1,
+    "text": "Regardless, I believe a mutually acceptable location to eat will be the Squiffy Seed Ox. It is a five-star restaurant just outside Braddon.",
+    "char": "",
+    "tail": "96ef70a6eb",
+    "posx": 5453,
+    "posy": 12347,
+    "data": {
+
+    }
+  },
+  "96ef70a6eb": {
+    "key": "96ef70a6eb",
+    "type": 1,
+    "text": "I anticipate seeing you there.",
+    "char": "",
+    "tail": "5b2ec4d7be",
+    "posx": 5453,
+    "posy": 12947,
+    "data": {
+
+    }
+  },
+  "5b2ec4d7be": {
+    "key": "5b2ec4d7be",
+    "type": 1,
+    "text": "Kind Regards,",
+    "char": "",
+    "tail": "7e4f784311",
+    "posx": 5453,
+    "posy": 13547,
+    "data": {
+
+    }
+  },
+  "7e4f784311": {
+    "key": "7e4f784311",
+    "type": 1,
+    "text": "Eugene",
+    "char": "",
+    "tail": "7032d3b814",
+    "posx": 5453,
+    "posy": 14147,
+    "data": {
+
+    }
+  },
+  "63d0275d10": {
+    "key": "63d0275d10",
+    "type": 1,
+    "text": "A few minutes pass before Eugene replies.",
+    "char": ".",
+    "tail": "163946e095",
+    "posx": 5453,
+    "posy": 9347,
+    "data": {
+
+    }
+  },
+  "b76a032088": {
+    "key": "b76a032088",
+    "type": 1,
+    "text": "A few minutes pass before Eugene replies.",
+    "char": ".",
+    "tail": "b8a6a998a9",
+    "posx": 6394,
+    "posy": 9351,
+    "data": {
+
+    }
+  },
+  "b8a6a998a9": {
+    "key": "b8a6a998a9",
+    "type": 1,
+    "text": "Dear SucculentScott69,",
+    "char": "Eugene",
+    "tail": "04a2b30455",
+    "posx": 6394,
+    "posy": 9951,
+    "data": {
+
+    }
+  },
+  "04a2b30455": {
+    "key": "04a2b30455",
+    "type": 1,
+    "text": "I am assuming by your terminology of snacking \"on something else\", you are once again referring to the act of you and I engaging in sexual intercourse.",
+    "char": "",
+    "tail": "c9211e2b7a",
+    "posx": 6394,
+    "posy": 10551,
+    "data": {
+
+    }
+  },
+  "c9211e2b7a": {
+    "key": "c9211e2b7a",
+    "type": 1,
+    "text": "Again, I must respectfully decline.",
+    "char": "",
+    "tail": "3708a087df",
+    "posx": 6394,
+    "posy": 11151,
+    "data": {
+
+    }
+  },
+  "3708a087df": {
+    "key": "3708a087df",
+    "type": 1,
+    "text": "It is not that I am not interested in your \"something else\", but I believe getting to know each other first may be a more mutually beneficial option for the two of us.",
+    "char": "",
+    "tail": "546da3ef0d",
+    "posx": 6394,
+    "posy": 11751,
+    "data": {
+
+    }
+  },
+  "546da3ef0d": {
+    "key": "546da3ef0d",
+    "type": 1,
+    "text": "This way, we will be able to best determine our compatibility, judging likes and dislikes before deciding whether we are willing to consent to sexual activity.",
+    "char": "",
+    "tail": "500f570e32",
+    "posx": 6394,
+    "posy": 12351,
+    "data": {
+
+    }
+  },
+  "500f570e32": {
+    "key": "500f570e32",
+    "type": 1,
+    "text": "Regardless, I shall meet you at the Squiffy Seed Ox (a five-star restaurant) at 7:30 PM. I anticipate seeing you there.",
+    "char": "",
+    "tail": "1adb57a9c6",
+    "posx": 6394,
+    "posy": 12951,
+    "data": {
+
+    }
+  },
+  "1adb57a9c6": {
+    "key": "1adb57a9c6",
+    "type": 1,
+    "text": "Kind Regards,",
+    "char": "",
+    "tail": "d940ef76da",
+    "posx": 6394,
+    "posy": 13551,
+    "data": {
+
+    }
+  },
+  "d940ef76da": {
+    "key": "d940ef76da",
+    "type": 1,
+    "text": "Eugene",
+    "char": "",
+    "tail": "7032d3b814",
+    "posx": 6394,
+    "posy": 14151,
+    "data": {
+
+    }
+  },
+  "9cdfffcfc9": {
+    "key": "9cdfffcfc9",
+    "type": 1,
+    "text": "A few minutes pass before Eugene replies.",
+    "char": "-",
+    "tail": "4af9715f40",
+    "posx": 7305,
+    "posy": 9351,
+    "data": {
+
+    }
+  },
+  "4af9715f40": {
+    "key": "4af9715f40",
+    "type": 1,
+    "text": "Dear SucculentScott69,",
+    "char": "Eugene",
+    "tail": "38921cf137",
+    "posx": 7305,
+    "posy": 9951,
+    "data": {
+
+    }
+  },
+  "38921cf137": {
+    "key": "38921cf137",
+    "type": 1,
+    "text": "No.",
+    "char": "",
+    "tail": "2a4817927a",
+    "posx": 7305,
+    "posy": 10551,
+    "data": {
+
+    }
+  },
+  "2a4817927a": {
+    "key": "2a4817927a",
+    "type": 1,
+    "text": "",
+    "char": "-",
+    "tail": "",
+    "posx": 7305,
+    "posy": 11151,
+    "data": {
+
+    }
+  },
+  "c_9e4923c5": {
+    "key": "c_9e4923c5",
+    "type": 3,
+    "text": "Game over screen.",
+    "char": "",
+    "tail": "",
+    "posx": 8006,
+    "posy": 11257,
+    "data": {
+
+    }
+  },
+  "7032d3b814": {
+    "key": "7032d3b814",
+    "type": 1,
+    "text": "You decide to end the conversation there (always leave them wanting more) and head into the shower to 'prepare yourself' for the date.",
+    "char": ".",
+    "tail": "5ac2359a4d",
+    "posx": 6394,
+    "posy": 14751,
+    "data": {
+
+    }
+  },
+  "5ac2359a4d": {
+    "key": "5ac2359a4d",
+    "type": 1,
+    "text": "Two hours of edging later and it's time for dinner.",
+    "char": "",
+    "tail": "9637deeff3",
+    "posx": 6394,
+    "posy": 15351,
+    "data": {
+
+    }
+  },
+  "9637deeff3": {
+    "key": "9637deeff3",
+    "type": 1,
+    "text": "You meet Eugene at the Squiffy Seed Ox at exactly 7:32 PM (you came anyway and had to clean up).",
+    "char": ".",
+    "tail": "7bbede7c88",
+    "posx": 6394,
+    "posy": 15951,
+    "data": {
+
+    }
+  },
+  "7bbede7c88": {
+    "key": "7bbede7c88",
+    "type": 1,
+    "text": "Oddly enough though, despire his precise attitude, Eugene is nowhere to be seen. ",
+    "char": "",
+    "tail": "68d5662c70",
+    "posx": 6394,
+    "posy": 16551,
+    "data": {
+
+    }
+  },
+  "68d5662c70": {
+    "key": "68d5662c70",
+    "type": 1,
+    "text": "Excuse me sir.",
+    "char": "Waiter",
+    "tail": "2c757daba4",
+    "posx": 6394,
+    "posy": 17151,
+    "data": {
+
+    }
+  },
+  "2c757daba4": {
+    "key": "2c757daba4",
+    "type": 1,
+    "text": "A waiter who looks weirdly similar to Barnaby Joyce approaches you with a large dish in tow.",
+    "char": ".",
+    "tail": "5fa7d013a5",
+    "posx": 6394,
+    "posy": 17751,
+    "data": {
+
+    }
+  },
+  "5fa7d013a5": {
+    "key": "5fa7d013a5",
+    "type": 1,
+    "text": "You ask him if he is in fact Barnaby Joyce.",
+    "char": "",
+    "tail": "33ec0c7f95",
+    "posx": 6394,
+    "posy": 18351,
+    "data": {
+
+    }
+  },
+  "33ec0c7f95": {
+    "key": "33ec0c7f95",
+    "type": 1,
+    "text": "No; that would be extremely weird. Like, that I'd just be hiding out as a waiter in this restaurant as a result of my failed stint in parliament. That's a preposterous statement.",
+    "char": "Waiter",
+    "tail": "7e7ed545eb",
+    "posx": 6394,
+    "posy": 18951,
+    "data": {
+
+    }
+  },
+  "7e7ed545eb": {
+    "key": "7e7ed545eb",
+    "type": 1,
+    "text": "Idiot.",
+    "char": "Barnaby",
+    "tail": "510f45f97f",
+    "posx": 6394,
+    "posy": 19551,
+    "data": {
+
+    }
+  },
+  "510f45f97f": {
+    "key": "510f45f97f",
+    "type": 1,
+    "text": "Anyway, this was specifically requested to be delivered to you.",
+    "char": "",
+    "tail": "9cd7659217",
+    "posx": 6394,
+    "posy": 20151,
+    "data": {
+
+    }
+  },
+  "9cd7659217": {
+    "key": "9cd7659217",
+    "type": 1,
+    "text": "He hands you a bedazzled iPhone off the dish and rushes off to go wash some plates or deny gay rights or something.",
+    "char": ".",
+    "tail": "7c55414804",
+    "posx": 6394,
+    "posy": 20751,
+    "data": {
+
+    }
+  },
+  "7c55414804": {
+    "key": "7c55414804",
+    "type": 1,
+    "text": "Almost instantly, the phone begins to ring.",
+    "char": "",
+    "tail": "23cc1ff293",
+    "posx": 6394,
+    "posy": 21351,
+    "data": {
+
+    }
+  },
+  "23cc1ff293": {
+    "key": "23cc1ff293",
+    "type": 1,
+    "text": "Uh, hi there. I represent Mr. Eugene, I believe you met him on Succulr?",
+    "char": "???",
+    "tail": "",
+    "posx": 6394,
+    "posy": 21951,
+    "data": {
+
+    }
+  },
+  "6b8a20c3e9": {
+    "key": "6b8a20c3e9",
+    "type": 1,
+    "text": "Well then, time to shoot off a reply.",
+    "char": ".",
+    "tail": "484efda8fb",
+    "posx": 6384,
+    "posy": 8278,
+    "data": {
+
+    }
+  },
+  "NOONE": {
+    "key": "NOONE",
+    "type": 1,
+    "text": "chose noone",
+    "char": "fw",
+    "tail": "",
+    "posx": 4401,
+    "posy": 366,
+    "data": {
+
+    }
+  },
+  "f1c29164f1": {
+    "key": "f1c29164f1",
+    "type": 1,
+    "text": "",
+    "char": ".",
+    "tail": "1e0d5573ec",
+    "posx": 2892,
+    "posy": 7147,
+    "data": {
+      "Pause": "1"
+    }
+  },
+  "1e0d5573ec": {
+    "key": "1e0d5573ec",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "0b1f08de4b",
+    "posx": 2892,
+    "posy": 7747,
+    "data": {
+      "Pause": "2",
+      "Background": "cafe.jpg"
+    }
+  },
+  "0b1f08de4b": {
+    "key": "0b1f08de4b",
+    "type": 1,
+    "text": "The next morning, you arrive at a chic café populated by dirty millennials.",
+    "char": "-",
+    "tail": "5200240de2",
+    "posx": 2900,
+    "posy": 8348,
+    "data": {
+
+    }
+  },
+  "251ab58bc8": {
+    "key": "251ab58bc8",
+    "type": 1,
+    "text": "Oh, Scott! I could tell it was you from the way you were shitting out of your mouth.",
+    "char": "Jonathan",
+    "tail": "b1494bcce8",
+    "posx": 2909,
+    "posy": 10087,
+    "data": {
+
+    }
+  },
+  "5200240de2": {
+    "key": "5200240de2",
+    "type": 1,
+    "text": "God, you hate millennials.",
+    "char": "",
+    "tail": "469edda802",
+    "posx": 2905,
+    "posy": 8919,
+    "data": {
+
+    }
+  },
+  "469edda802": {
+    "key": "469edda802",
+    "type": 1,
+    "text": "You order a spiced pickle latte macchiato, when suddenly...",
+    "char": "",
+    "tail": "251ab58bc8",
+    "posx": 2909,
+    "posy": 9487,
+    "data": {
+
+    }
+  },
+  "b1494bcce8": {
+    "key": "b1494bcce8",
+    "type": 1,
+    "text": "I'm Jonathan. Nice to meet you.",
+    "char": "Jonathan",
+    "tail": "0a8590084e",
+    "posx": 2909,
+    "posy": 10687,
+    "data": {
+
+    }
+  },
+  "0a8590084e": {
+    "key": "0a8590084e",
+    "type": 4,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": 2910,
+    "posy": 11249,
+    "data": {
+      "tail_count": 2,
+      "tails": [
+        "627aa40999",
+        "627aa40999",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "choices": [
+        "Nice to meet you.",
+        "Can you help me find some napkins?",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "627aa40999": {
+    "key": "627aa40999",
+    "type": 1,
+    "text": "end",
+    "char": "",
+    "tail": "",
+    "posx": 2986,
+    "posy": 11602,
+    "data": {
+
+    }
+  },
+  "858a4788b1": {
+    "key": "858a4788b1",
+    "type": 1,
+    "text": "",
+    "char": "",
+    "tail": "",
+    "posx": -960,
+    "posy": -212,
+    "data": {
+
+    }
+  }
+}

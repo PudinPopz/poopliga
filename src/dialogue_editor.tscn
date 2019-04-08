@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://src/dialogue_editor.gd" type="Script" id=1]
 [ext_resource path="res://src/palette_swap.gd" type="Script" id=2]
@@ -141,28 +141,14 @@ scancode = 83
 [sub_resource type="ShortCut" id=24]
 shortcut = SubResource( 23 )
 
-[sub_resource type="GDScript" id=25]
-script/source = "extends Button
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_Save_pressed():
-	pass # Replace with function body.
-"
+[sub_resource type="InputEventKey" id=38]
+shift = true
+control = true
+command = true
+scancode = 83
 
 [sub_resource type="ShortCut" id=26]
+shortcut = SubResource( 38 )
 
 [sub_resource type="InputEventKey" id=27]
 control = true
@@ -171,26 +157,6 @@ scancode = 70
 
 [sub_resource type="ShortCut" id=28]
 shortcut = SubResource( 27 )
-
-[sub_resource type="GDScript" id=29]
-script/source = "extends Button
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	connect(\"toggled\", self, \"_on_toggled\")
-	pass # Replace with function body.
-
-func _on_toggled(button_pressed):
-
-	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-"
 
 [sub_resource type="DynamicFont" id=30]
 use_mipmaps = true
@@ -1373,10 +1339,8 @@ enabled_focus_mode = 0
 shortcut = SubResource( 24 )
 text = "Save"
 flat = true
-script = SubResource( 25 )
 
 [node name="SaveAs" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-visible = false
 margin_left = 159.0
 margin_right = 227.0
 margin_bottom = 32.0
@@ -1389,8 +1353,8 @@ text = "Save as"
 flat = true
 
 [node name="Find" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-margin_left = 159.0
-margin_right = 203.0
+margin_left = 231.0
+margin_right = 275.0
 margin_bottom = 32.0
 hint_tooltip = "Searches for a specific block."
 focus_mode = 0
@@ -1401,8 +1365,8 @@ text = "Find"
 flat = true
 
 [node name="Project" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-margin_left = 207.0
-margin_right = 273.0
+margin_left = 279.0
+margin_right = 345.0
 margin_bottom = 32.0
 hint_tooltip = "Opens project settings."
 focus_mode = 0
@@ -1412,8 +1376,8 @@ text = "Project"
 flat = true
 
 [node name="Options" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-margin_left = 277.0
-margin_right = 350.0
+margin_left = 349.0
+margin_right = 422.0
 margin_bottom = 32.0
 hint_tooltip = "Opens the options menu."
 focus_mode = 0
@@ -1421,11 +1385,10 @@ custom_fonts/font = ExtResource( 17 )
 enabled_focus_mode = 0
 text = "Options"
 flat = true
-script = SubResource( 29 )
 
 [node name="Inspector" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-margin_left = 354.0
-margin_right = 439.0
+margin_left = 426.0
+margin_right = 511.0
 margin_bottom = 32.0
 hint_tooltip = "(E / I)
 Opens the Inspector. "
@@ -1436,8 +1399,8 @@ text = "Inspector"
 flat = true
 
 [node name="Tools" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-margin_left = 443.0
-margin_right = 496.0
+margin_left = 515.0
+margin_right = 568.0
 margin_bottom = 32.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 17 )
@@ -1452,11 +1415,11 @@ margin_right = 108.0
 margin_bottom = 86.0
 custom_styles/panel = ExtResource( 29 )
 custom_fonts/font = SubResource( 30 )
-items = [ "Spellcheck", null, 0, false, false, 0, 0, null, "", false, "Import", null, 0, false, true, 1, 0, null, "", false ]
+items = [ "Spellcheck", null, 0, false, false, 0, 0, null, "", false, "Import", null, 0, false, true, 1, 0, null, "", false, "Autosaves", null, 0, false, false, -1, 0, null, "", false ]
 
 [node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
-margin_left = 500.0
-margin_right = 547.0
+margin_left = 572.0
+margin_right = 619.0
 margin_bottom = 32.0
 hint_tooltip = "Opens the help menu."
 focus_mode = 0
@@ -1590,6 +1553,7 @@ anims/UnblackenScreen = SubResource( 37 )
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Open" to="." method="_on_Open_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Save" to="FrontUILayer/LeftHBoxContainer/Save" method="_on_Save_pressed"]
+[connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/SaveAs" to="." method="_on_SaveAs_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Find" to="FrontWindows/FindWindow" method="_on_Find_pressed"]
 [connection signal="pressed" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_pressed"]
 [connection signal="toggled" from="FrontUILayer/LeftHBoxContainer/Project" to="FrontWindows/ProjectWindow" method="_on_Project_toggled"]

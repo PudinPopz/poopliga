@@ -189,13 +189,13 @@ func handle_focus_shortcuts(event):
 		block.id_label.grab_focus()
 
 
-
-
 var double_click_timer_time = 0.35
 var double_click_timer = 0
 var already_refreshed = false
 var last_unix_time = 0
+
 func _process(delta):
+	if !is_in_focus: return
 	if delta == 0: return
 	# Handle window title bar
 	if int(OS.get_unix_time()) != int(last_unix_time):
@@ -216,6 +216,8 @@ func _process(delta):
 		fix_popin_bug()
 		already_refreshed = true
 
+	
+	
 	# Handle autosaving after certain amounts of time
 	if OS.get_ticks_msec() - last_autosave >= autosave_frequency_msec:
 		autosave()
@@ -223,11 +225,19 @@ func _process(delta):
 var _pending_render_bug_fix = false
 var _pending_render_bug_fix_timer = 0
 
+var is_in_focus : bool = true
+
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT \
 	or what == MainLoop.NOTIFICATION_WM_UNFOCUS_REQUEST:
 		_pending_render_bug_fix = true
 		autosave()
+		
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		is_in_focus = true
+	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		is_in_focus = false
+	
 	if what == MainLoop.NOTIFICATION_CRASH:
 		autosave(true)
 		$FrontWindows/OptionsWindow.save_options_to_file()
@@ -277,7 +287,15 @@ func autosave(force : bool = false):
 	var f : String = get_filename_from_path(current_file)
 	if !f.ends_with(".poopliga"):
 		f = f + ".poopliga"
-	var path =  "user://" + "auto-" + f
+	
+	# Make folder
+	var dir := Directory.new()
+	dir.open("user://")
+	dir.make_dir(f)
+	
+	var date : Dictionary = OS.get_datetime()
+	var date_string : String = str(date["year"]) + "-" + str(date["month"]) + "-" + str(date["day"]) + "--" + str(date["hour"]) + "-" + str(date["minute"])
+	var path : String =  "user://" + f + "/" + date_string + ".poopliga"
 	save_as(path, true)
 	last_autosave = OS.get_ticks_msec()
 	print("Autosaved")
@@ -286,6 +304,18 @@ func _on_popup_hide():
 	MainCamera.freeze = false
 
 func _on_Save_pressed():
+	# If no current file, use save as dialog instead
+	if current_file == "":
+		_on_SaveAs_pressed()
+		return
+		
+	var path : String = current_folder + "/" + current_file
+	save_as(path)
+	print("Saved to " + path)
+
+func _on_SaveAs_pressed():
+	# Clear modifier keys to prevent them from sticking after file dialog freeze
+	clear_modifier_keys() 
 	if System.use_os_file_io:
 		var path : String = CSharp.WinFileDialog.SaveFileDialog()
 		if path == null:
@@ -294,6 +324,7 @@ func _on_Save_pressed():
 
 		save_as(path)
 		close_dimmer()
+		clear_modifier_keys() 
 		return
 	saveas_dialog.popup_centered(Vector2(1200,600))
 	saveas_dialog.current_dir = current_folder
@@ -404,6 +435,8 @@ func _on_New_pressed():
 
 
 func _on_Open_pressed():
+	# Clear modifier keys to prevent them from sticking after file dialog freeze
+	clear_modifier_keys() 
 	# Use Windows file I/O if on windows
 	if System.use_os_file_io:
 		var path : String = CSharp.WinFileDialog.OpenFileDialog()
@@ -414,6 +447,7 @@ func _on_Open_pressed():
 		show_dimmer("Loading File...")
 		yield(get_tree().create_timer(0.0),"timeout")
 		_on_OpenFileWindow_file_selected(path)
+		clear_modifier_keys() 
 		return
 
 	var window = get_node("FrontWindows/OpenFileWindow")
@@ -721,6 +755,14 @@ func is_modifier_down(modifier):
 		shift:
 			return is_shift_down or Input.is_action_pressed("shift")
 
+func clear_modifier_keys():
+	is_ctrl_down = false
+	is_alt_down = false
+	is_shift_down = false
+	
+	Input.action_release("alt")
+	Input.action_release("ctrl")
+	Input.action_release("shift")
 
 static func is_node_alive(node):
 	if node == null:
@@ -746,3 +788,5 @@ class Sorter:
 		if a.rect_position.y < b.rect_position.y:
 			return true
 		return false
+
+

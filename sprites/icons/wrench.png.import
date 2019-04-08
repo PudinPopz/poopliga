@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/wrench.png-819b914b7f9f4d89427fa8edeae7962d.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
