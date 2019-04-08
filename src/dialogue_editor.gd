@@ -246,8 +246,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		autosave(true)
 		$FrontWindows/OptionsWindow.save_options_to_file()
-		# TODO: Are you sure you want to quit?
-		get_tree().quit()
+		
 
 # Fix for weird rendering bug after tab out	(CAN BE SLOW)
 func fix_rendering_bug():
