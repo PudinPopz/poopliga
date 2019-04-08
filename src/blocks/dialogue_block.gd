@@ -698,11 +698,16 @@ func _process(delta):
 			if tail != "":
 				set_process(false)
 		return
-
+	
 	if in_connecting_mode and Input.is_action_just_released("click"):
 		release_connection_mode()
-
+	
+	# Only run expensive update if certain conditions are met.
+	if !Input.is_action_pressed("click") or MainCamera.pan_mode:
+		return
+			
 	update()
+	
 
 
 func _on_Button_button_down() -> void:

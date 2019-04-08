@@ -26,8 +26,9 @@ func on_item_selected(ID : int) -> void:
 			# Spellcheck
 			owner.get_node("FrontWindows/SpellCheckWindow").popup_centered()
 		1:
-			# Import
-			pass
+			# Import (merge)
+			# Imports all new blocks from the specified file
+			Editor.open_file(Editor.OPEN_FILE_BEHAVIOUR.append_new_ids)
 		
 		2:
 			# Autosaves

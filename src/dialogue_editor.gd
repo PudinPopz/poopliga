@@ -433,8 +433,20 @@ func _on_New_pressed():
 		confirm_create_new.connect("confirmed",self,"reset")
 	confirm_create_new.popup_centered()
 
+enum OPEN_FILE_BEHAVIOUR {
+	new_file, 
+	append_new_ids	
+}
+
+var open_file_behaviour : int = OPEN_FILE_BEHAVIOUR.new_file
 
 func _on_Open_pressed():
+	open_file_behaviour = OPEN_FILE_BEHAVIOUR.new_file
+	open_file()
+
+
+func open_file(behaviour := OPEN_FILE_BEHAVIOUR.new_file):
+	open_file_behaviour = behaviour
 	# Clear modifier keys to prevent them from sticking after file dialog freeze
 	clear_modifier_keys() 
 	# Use Windows file I/O if on windows
@@ -466,22 +478,24 @@ func _on_OpenFileWindow_file_selected(path):
 	show_dimmer("Loading file...")
 	var previous_bus_mute : bool = AudioServer.is_bus_mute(0)
 	AudioServer.set_bus_mute(0, true)
-	current_folder = get_folder_from_path(path)
-	current_file = get_filename_from_path(path)
+	if open_file_behaviour == OPEN_FILE_BEHAVIOUR.new_file:
+		current_folder = get_folder_from_path(path)
+		current_file = get_filename_from_path(path)
 	var window = get_node("FrontWindows/OpenFileWindow")
 	var file = File.new()
 	file.open(path, File.READ)
 	var json = file.get_as_text()
 
 	# Kill all existing blocks to make room for new file
-	reset(false) # DO NOT CREATE A NEW META BLOCK - Let it happen when loaded
+	if open_file_behaviour == OPEN_FILE_BEHAVIOUR.new_file:
+		reset(false) # DO NOT CREATE A NEW META BLOCK - Let it happen when loaded
 
 	# Wait for next frame to ensure reset worked properly
 	yield(get_tree().create_timer(0.000),"timeout")
 
 	var start_time = OS.get_ticks_msec()
 	# Load blocks from json whilst obtaining the amount of blocks as a return value
-	var amount_of_blocks = load_blocks_from_json(json)
+	var amount_of_blocks : int = load_blocks_from_json(json)
 	var end_time = OS.get_ticks_msec()
 	var message = "Loaded " + str(amount_of_blocks) +  " blocks in " + str(end_time - start_time) + "ms."
 
@@ -490,8 +504,10 @@ func _on_OpenFileWindow_file_selected(path):
 
 	AudioServer.set_bus_mute(0, previous_bus_mute)
 	close_dimmer()
+	open_file_behaviour = OPEN_FILE_BEHAVIOUR.new_file
 
 func _on_OpenFileWindow_popup_hide():
+	open_file_behaviour = OPEN_FILE_BEHAVIOUR.new_file
 	MainCamera.freeze = false
 
 var DB = DialogueBlock.instance()
@@ -508,13 +524,22 @@ func load_blocks_from_json(json) -> int: # Returns number of blocks
 
 	# Add meta block (must be first block to avoid bugs)
 	var meta_key = "__META__*****"
-	add_block_from_key(dict, meta_key)
+	if open_file_behaviour == OPEN_FILE_BEHAVIOUR.new_file:
+		add_block_from_key(dict, meta_key)
 	# Loop through individual blocks
 	var number_of_blocks : int = 0
-	for key in dict.keys():
-		if key != meta_key: # Ignore if meta block (has already been added)
-			add_block_from_key(dict, key)
-			number_of_blocks += 1
+	if open_file_behaviour == OPEN_FILE_BEHAVIOUR.new_file:
+		for key in dict.keys():
+			if key != meta_key: # Ignore if meta block (has already been added)
+				add_block_from_key(dict, key)
+				number_of_blocks += 1
+	
+	# If importing new blocks from file, only add blocks that don't already exist
+	elif open_file_behaviour == OPEN_FILE_BEHAVIOUR.append_new_ids:
+		for key in dict.keys():
+			if key != meta_key and !blocks.has_node(key): # Ignore if meta block (has already been added)
+				add_block_from_key(dict, key)
+				number_of_blocks += 1
 
 	is_still_loading = false
 
