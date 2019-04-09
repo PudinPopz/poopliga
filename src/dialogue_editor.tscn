@@ -1245,7 +1245,6 @@ margin_bottom = -16.2443
 text = "Found 0 matches."
 
 [node name="SpellCheckWindow" type="WindowDialog" parent="FrontWindows"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

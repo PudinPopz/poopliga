@@ -28,6 +28,9 @@ func _ready():
 	item_list.select(0)
 	_on_ItemList_item_selected(0)
 	
+	for i in range(item_list.get_item_count()):
+		item_list.set_item_tooltip_enabled(i, false)
+	
 	# Get default general editor settings
 	default_general_settings = get_general_settings()
 	
