@@ -4,6 +4,9 @@ onready var item_list = $ItemList
 
 onready var scroll_speed_slider = get_node("General/ScrollSpeedSlider")
 onready var zoom_speed_slider = get_node("General/ZoomSpeedSlider")
+
+var default_general_settings : Dictionary = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	visible = false
@@ -17,15 +20,21 @@ func _ready():
 	$General/EnableVSync.connect("toggled", self, "_on_VSync_toggled")
 	$General/MuteSound.connect("toggled", self, "_on_MuteSound_toggled")
 	$General/MoveBlocksAsChain.connect("toggled", self, "_on_MoveBlocksAsChain_toggled")
+	
+	$General/DefaultSettingsButtonHolder/DefaultSettingsButton.connect("pressed", self, "apply_default_general_settings")
 
 	connect("visibility_changed", self, "on_visibility_changed")
-
+	
 	item_list.select(0)
 	_on_ItemList_item_selected(0)
-
+	
+	# Get default general editor settings
+	default_general_settings = get_general_settings()
+	
 	# Wait for dialogue editor before loading settings just in case
 	yield(get_tree().create_timer(0.0),"timeout")
 	load_editor_settings()
+	
 
 
 
@@ -49,11 +58,15 @@ func load_editor_settings():
 	if Editor.editor_settings.has("spellcheck_ignored_words"):
 		$Spellcheck/IgnoredWords.text = Editor.editor_settings["spellcheck_ignored_words"]
 	update_spellcheck_settings()
+	load_general_settings()
+
 
 func on_visibility_changed():
 	if !visible:
 		update_spellcheck_settings()
+		update_general_settings()
 		save_options_to_file()
+		
 
 
 # Move between different settings tabs
@@ -65,6 +78,60 @@ func _on_ItemList_item_selected(index: int) -> void:
 			item.visible = false
 
 	get_node(item_name).visible = true
+
+func update_general_settings():
+	var general_dict : Dictionary = get_general_settings()
+	Editor.editor_settings["general"] = general_dict
+
+func get_general_settings() -> Dictionary:
+	var general_dict : Dictionary = {}
+	for item in $General.get_children():
+		var value = null
+		if item is Slider:
+			value = item.value
+		elif item is OptionButton:
+			value = item.selected
+		elif item is CheckBox:
+			value = item.pressed
+		elif item is TextEdit or item is LineEdit:
+			value = item.text
+		else:
+			continue
+		
+		general_dict[item.name] = value
+	return general_dict
+
+func load_general_settings():
+	if !Editor.editor_settings.has("general"):
+		return
+	
+	for item_name in Editor.editor_settings["general"].keys():
+		var item = $General.get_node(item_name)
+		var value = Editor.editor_settings["general"][item_name]
+		if item is Slider:
+			item.value = value
+		elif item is OptionButton:
+			item.selected = value
+		elif item is CheckBox:
+			item.pressed = value
+		elif item is TextEdit or item is LineEdit:
+			item.text = value
+		else:
+			continue
+	
+	# TODO: Update the general settings system so that this spaghetti is removed.
+	_on_scroll_speed_changed(Editor.editor_settings["general"]["ScrollSpeedSlider"])
+	_on_zoom_speed_changed(Editor.editor_settings["general"]["ZoomSpeedSlider"])
+	_on_BGSelect_selected(Editor.editor_settings["general"]["EditorBackgroundSelect"])
+	_on_LowProcessorMode_toggled(Editor.editor_settings["general"]["LowProcessorMode"])
+	_on_DisableAnimations_toggled(Editor.editor_settings["general"]["DisableAnimations"])
+	_on_VSync_toggled(Editor.editor_settings["general"]["EnableVSync"])
+	_on_MuteSound_toggled(Editor.editor_settings["general"]["MuteSound"])
+	_on_MoveBlocksAsChain_toggled(Editor.editor_settings["general"]["MoveBlocksAsChain"])
+
+func apply_default_general_settings():
+	Editor.editor_settings["general"] = default_general_settings
+	load_general_settings()
 
 func update_spellcheck_settings():
 	update_ignored_words()
