@@ -61,12 +61,12 @@
     <Compile Include="src\csharp\SpellCheck.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\csharp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Hunspellx64.dll" />
     <None Include="Hunspellx86.dll" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\csharp\Main.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

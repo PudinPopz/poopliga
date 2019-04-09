@@ -5,6 +5,7 @@ var is_working : bool = false
 # Avoid static typing here to prevent bugs in non-mono builds
 var WinFileDialog = preload("res://src/csharp/FileDialog.cs")
 var SpellCheck = preload("res://src/csharp/SpellCheck.cs")
+var Main = preload("res://src/csharp/Main.cs")
 
 func _ready() -> void:
 	# Test script here

@@ -7,4 +7,8 @@ func _ready() -> void:
 	is_mono_build = CSharp.is_working
 	if is_mono_build and OS.get_name() == "Windows":
 		use_os_file_io = true
+		
+func _input(event):
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
 

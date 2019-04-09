@@ -248,6 +248,9 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		autosave(true)
 		$FrontWindows/OptionsWindow.save_options_to_file()
+		if CSharp.is_working:
+			CSharp.Main.Exit()
+		get_tree().quit()
 		
 
 # Fix for weird rendering bug after tab out	(CAN BE SLOW)
@@ -611,6 +614,7 @@ func reset(create_new_meta_block := true):
 		if is_instance_valid(current_meta_block):
 			current_meta_block.name = "___INVALID_META_BLOCK_______@@@"
 		current_meta_block = spawn_block(DB.NODE_TYPE.meta_block)
+		
 		emit_signal("new_file")
 
 	update_inspector(true)
