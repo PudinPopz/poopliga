@@ -27,8 +27,11 @@ func _input(event: InputEvent) -> void:
 
 func on_visibility_changed():
 	if visible:
+		MainCamera.freeze = true
 		yield(get_tree().create_timer(0), "timeout")
 		search_line_edit.grab_focus()
+	else:
+		MainCamera.freeze = false
 
 func on_replace_checkbox_toggled(button_pressed):
 	replace_line_edit.editable = button_pressed

@@ -38,9 +38,6 @@ func _ready():
 	yield(get_tree().create_timer(0.0),"timeout")
 	load_editor_settings()
 	
-
-
-
 func _on_Options_pressed():
 	popup_centered()
 
@@ -71,6 +68,9 @@ func on_visibility_changed():
 		update_general_settings()
 		save_options_to_file()
 		
+		MainCamera.freeze = false
+	else:
+		MainCamera.freeze = true
 
 
 # Move between different settings tabs
@@ -186,5 +186,3 @@ func _on_MuteSound_toggled(button_pressed: bool) -> void:
 
 func _on_MoveBlocksAsChain_toggled(button_pressed: bool) -> void:
 	Editor.editor_settings["move_blocks_as_chain"] = button_pressed
-
-

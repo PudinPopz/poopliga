@@ -27,6 +27,9 @@ func _ready() -> void:
 func on_visibility_changed():
 	if visible:
 		on_check_pressed()
+		MainCamera.freeze = true
+	else:
+		MainCamera.freeze = false
 
 func on_check_pressed():
 	var blocks : Array = Editor.blocks.get_children()

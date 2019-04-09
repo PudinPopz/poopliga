@@ -141,14 +141,14 @@ scancode = 83
 [sub_resource type="ShortCut" id=24]
 shortcut = SubResource( 23 )
 
-[sub_resource type="InputEventKey" id=38]
+[sub_resource type="InputEventKey" id=25]
 shift = true
 control = true
 command = true
 scancode = 83
 
 [sub_resource type="ShortCut" id=26]
-shortcut = SubResource( 38 )
+shortcut = SubResource( 25 )
 
 [sub_resource type="InputEventKey" id=27]
 control = true
@@ -158,24 +158,24 @@ scancode = 70
 [sub_resource type="ShortCut" id=28]
 shortcut = SubResource( 27 )
 
-[sub_resource type="DynamicFont" id=30]
+[sub_resource type="DynamicFont" id=29]
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="InputEventKey" id=31]
+[sub_resource type="InputEventKey" id=30]
 control = true
 command = true
 scancode = 72
 
-[sub_resource type="ShortCut" id=32]
-shortcut = SubResource( 31 )
+[sub_resource type="ShortCut" id=31]
+shortcut = SubResource( 30 )
+
+[sub_resource type="StyleBoxEmpty" id=32]
 
 [sub_resource type="StyleBoxEmpty" id=33]
 
-[sub_resource type="StyleBoxEmpty" id=34]
-
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=34]
 step = 0.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("FrontWindows/BlackShade:modulate")
@@ -202,7 +202,7 @@ tracks/1/keys = {
 "values": [ false, false ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=35]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("InspectorLayer/Inspector:modulate")
@@ -217,7 +217,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.0470588 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=36]
 step = 0.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("FrontWindows/BlackShade:modulate")
@@ -592,10 +592,10 @@ rect_clip_content = true
 [node name="RichTextLabel" type="RichTextLabel" parent="FrontWindows/GenericPopupMessage/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 17.0
+margin_left = 12.0
 margin_top = 13.0
-margin_right = -18.0
-margin_bottom = -47.0
+margin_right = -12.0
+margin_bottom = -3.0
 focus_mode = 2
 bbcode_enabled = true
 selection_enabled = true
@@ -1485,7 +1485,7 @@ margin_top = 36.0
 margin_right = 108.0
 margin_bottom = 86.0
 custom_styles/panel = ExtResource( 29 )
-custom_fonts/font = SubResource( 30 )
+custom_fonts/font = SubResource( 29 )
 items = [ "Spellcheck", null, 0, false, false, 0, 0, null, "", false, "Import (merge)", null, 0, false, false, 1, 0, null, "", false, "Autosaves", null, 0, false, false, -1, 0, null, "", false ]
 
 [node name="Help" type="Button" parent="FrontUILayer/LeftHBoxContainer"]
@@ -1496,7 +1496,7 @@ hint_tooltip = "Opens the help menu."
 focus_mode = 0
 custom_fonts/font = ExtResource( 17 )
 enabled_focus_mode = 0
-shortcut = SubResource( 32 )
+shortcut = SubResource( 31 )
 text = "Help"
 flat = true
 
@@ -1562,8 +1562,8 @@ margin_left = -345.0
 margin_top = -281.5
 margin_right = 345.0
 margin_bottom = 281.5
-custom_styles/focus = SubResource( 33 )
-custom_styles/normal = SubResource( 34 )
+custom_styles/focus = SubResource( 32 )
+custom_styles/normal = SubResource( 33 )
 custom_fonts/font = ExtResource( 32 )
 custom_colors/caret_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -1605,9 +1605,9 @@ margin_bottom = 39.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "UnblackenScreen"
-anims/BlackenScreen = SubResource( 35 )
-anims/InspectorOpen = SubResource( 36 )
-anims/UnblackenScreen = SubResource( 37 )
+anims/BlackenScreen = SubResource( 34 )
+anims/InspectorOpen = SubResource( 35 )
+anims/UnblackenScreen = SubResource( 36 )
 
 [node name="Node" type="Node" parent="."]
 

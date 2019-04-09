@@ -432,6 +432,10 @@ func _on_New_pressed():
 		confirm_create_new.dialog_text = "Create a new empty file? \nAny unsaved progress will be lost :("
 		get_node("FrontWindows").add_child(confirm_create_new)
 		confirm_create_new.connect("confirmed",self,"reset")
+
+		confirm_create_new.connect("popup_hide",self,"_on_popup_hide")
+	
+	MainCamera.freeze = true
 	confirm_create_new.popup_centered()
 
 enum OPEN_FILE_BEHAVIOUR {
@@ -607,6 +611,7 @@ func reset(create_new_meta_block := true):
 		if is_instance_valid(current_meta_block):
 			current_meta_block.name = "___INVALID_META_BLOCK_______@@@"
 		current_meta_block = spawn_block(DB.NODE_TYPE.meta_block)
+		emit_signal("new_file")
 
 	update_inspector(true)
 	get_inspector().visible = false
@@ -747,6 +752,8 @@ func popup_message(text : String, title : String = "", use_richtextlabel := fals
 		popup.dialog_text = ""
 
 	popup.popup_centered()
+	MainCamera.freeze = true
+	popup.connect("popup_hide", self, "_on_popup_hide")
 
 func show_dimmer(text : String):
 	push_message("")
