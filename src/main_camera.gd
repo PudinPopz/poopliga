@@ -99,7 +99,7 @@ func _input(event):
 			update_pan()
 
 	#yep these are some long ass conditionals
-	if Input.is_action_just_pressed("middle_click") or \
+	if Input.is_action_pressed("middle_click") or \
 	(is_modifier_down(MODIFIER.alt) and Input.is_action_pressed("click")) or \
 	ignore_mouse and Input.is_action_pressed("middle_click"):
 		if event is InputEventMouseMotion:
@@ -116,8 +116,6 @@ func _input(event):
 	(is_modifier_down(MODIFIER.alt) and Input.is_action_just_released("click"))):
 		mouse_delta = Vector2(0,0)
 		pan_mode = false
-
-
 
 	# Zoom
 	# Mouse wheel with ctrl or alt to zoom
@@ -148,6 +146,7 @@ func _input(event):
 			emit_signal("scrolled")
 			_on_moved()
 
+	
 
 	if Input.is_action_just_pressed("refresh"):
 		update_rendered(true, -1)

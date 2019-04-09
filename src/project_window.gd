@@ -16,6 +16,7 @@ func _ready():
 	Editor.connect("new_file", self, "reset_fields_to_current_values")
 	Editor.connect("spellcheck_ignore_list_updated", self, "reset_fields_to_current_values")
 
+	connect("visibility_changed", self, "on_visibility_changed")
 	$Panel.connect("visibility_changed", self, "on_visibility_changed")
 
 func _on_Project_pressed():
@@ -62,7 +63,7 @@ func set_project_setting(pref : String, value):
 	Editor.current_meta_block.project_settings[pref] = value
 
 func on_visibility_changed():
-	if visible:
+	if $Panel.visible:
 		MainCamera.freeze = true
 	else:
 		MainCamera.freeze = false

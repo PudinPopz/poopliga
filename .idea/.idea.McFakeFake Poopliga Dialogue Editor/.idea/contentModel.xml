@@ -18,6 +18,7 @@
       <e p="src" t="Include">
         <e p="csharp" t="Include">
           <e p="FileDialog.cs" t="Include" />
+          <e p="Main.cs" t="Include" />
           <e p="SpellCheck.cs" t="Include" />
         </e>
       </e>
