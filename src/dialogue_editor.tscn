@@ -742,7 +742,6 @@ context_menu_enabled = false
 caret_blink = true
 
 [node name="OptionsWindow" type="WindowDialog" parent="FrontWindows"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1246,6 +1245,7 @@ margin_bottom = -16.2443
 text = "Found 0 matches."
 
 [node name="SpellCheckWindow" type="WindowDialog" parent="FrontWindows"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1266,7 +1266,7 @@ anchor_bottom = 1.0
 margin_left = 12.0
 margin_top = 12.0
 margin_right = -13.0
-margin_bottom = -50.0
+margin_bottom = -74.0
 theme = ExtResource( 8 )
 custom_styles/bg = ExtResource( 21 )
 allow_reselect = true
@@ -1295,6 +1295,19 @@ margin_top = -35.0
 margin_right = 172.429
 margin_bottom = -12.0
 text = "Found 0 errors."
+
+[node name="SuggestionLabel" type="RichTextLabel" parent="FrontWindows/SpellCheckWindow"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = -66.0
+margin_right = -12.0
+margin_bottom = -40.0
+focus_mode = 2
+text = "Suggestions: "
+scroll_active = false
+selection_enabled = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FrontWindows/SpellCheckWindow"]
 anchor_left = 1.0

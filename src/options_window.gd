@@ -47,6 +47,7 @@ func _on_Options_toggled(button_pressed):
 func save_options_to_file():
 	# Ensure things are updated
 	update_spellcheck_settings()
+	update_general_settings()
 	var dict_string : String = JSON.print(Editor.editor_settings, "  ")
 	var path : String = "user://editor_settings.json"
 	var file = File.new()

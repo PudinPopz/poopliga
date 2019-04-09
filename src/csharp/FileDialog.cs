@@ -5,10 +5,6 @@ using System.Windows.Forms;
 
 public class FileDialog : Node
 {
-    public override void _Ready()
-    {
-    }
-
     [STAThread]
     public static string OpenFileDialog()
     {

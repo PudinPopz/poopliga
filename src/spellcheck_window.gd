@@ -21,7 +21,9 @@ func _ready() -> void:
 	
 	ignore_word_button.connect("pressed", self, "on_word_ignored")
 	ignore_block_button.connect("pressed", self, "on_block_ignored")
-
+	
+	CSharp.SpellCheck.GetInstance().connect("SuggestionComplete", self, "on_suggestion_complete")
+	
 func on_visibility_changed():
 	if visible:
 		on_check_pressed()
@@ -39,7 +41,8 @@ func on_check_pressed():
 		error_string = '"' + error.Word +'" at '
 		error_string += error.Block.id + " : " + str(error.Index)
 		item_list.add_item(error_string)
-
+		item_list.set_item_tooltip_enabled(item_list.get_item_count() - 1, false)
+	
 
 	# Update error count label
 	var error_count : int = len(error_arr)
@@ -51,13 +54,33 @@ func on_check_pressed():
 		_:
 			error_count_label.text = str(error_count) + " errors found."
 
+	$SuggestionLabel.text = ""
 
 func on_item_selected(index : int):
 	item_index = index
+	
+	var word : String = error_arr[index].Word
+	
 	var block : DialogueBlock = error_arr[index].Block
 	MainCamera.lerp_time = 0
 	MainCamera.lerp_camera_pos(block.rect_position)
 	Editor.set_selected_block(block)
+	
+	$SuggestionLabel.text = "Calculating suggestions..."
+	CSharp.SpellCheck.RunSuggestionThread(word)
+
+func on_suggestion_complete():
+	var suggestions = CSharp.SpellCheck.GetCurrentSuggestions()
+	var output_text : String = ""
+	output_text += "Suggestions: "
+	for i in range(suggestions.size()):
+		output_text += suggestions[i]
+		if i < suggestions.size() - 1:
+			output_text += ", "
+	$SuggestionLabel.text = output_text
+
+func get_suggestions_arr(word : String):
+	return CSharp.SpellCheck.GetSuggestions(word)
 
 func on_word_ignored():
 	if item_index < 0:
